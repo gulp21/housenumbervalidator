@@ -1,0 +1,11 @@
+Validates house numbers and findes dupes in OpenStreetMap files
+
+Usage: (see housenumbervalidator.php for details)
+
+* php
+php housenumbervalidator.php
+
+* cpp
+qmake
+make
+./housenumbervalidator
