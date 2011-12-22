@@ -3,15 +3,21 @@
 <head>
 	<title>housenumbervalidator</title>
 </head>
-<body style="height:99%">
+<body style="height:99%;overflow:hidden;">
 	<div style="height:100%" id="mapdiv"></div>
 	<iframe style="display:none" id="josmframe" src="about:blank"></iframe>
 	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+	<script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 	<script>
 		map = new OpenLayers.Map("mapdiv");
-		map.addLayer(new OpenLayers.Layer.OSM());
 		
-		var pois = new OpenLayers.Layer.Text( "My Points",
+		var mapnikMap = new OpenLayers.Layer.OSM.Mapnik("Mapnik",
+		{
+			transitionEffect: 'resize'
+		});
+		map.addLayer(mapnikMap);
+		
+		var pois = new OpenLayers.Layer.Text( "Dupes",
 				{ location:"./dupes.txt",
 				projection: map.displayProjection
 				});
@@ -27,7 +33,10 @@
 		map.setCenter (lonLat, zoom);
 		
 		function report() {
-			document.getElementById('reportdiv').style.display='block';
+			if(document.getElementById('reportdiv').style.display=='block')
+				document.getElementById('reportdiv').style.display='none';
+			else
+				document.getElementById('reportdiv').style.display='block';
 		}
 	</script>
 	<div style="position:absolute;bottom:18px;left:10px;z-index:1000;opacity:.8;background:white">

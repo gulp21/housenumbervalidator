@@ -42,7 +42,7 @@ QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="inpu
 bool bIgnoreFixme=true;
 int lines=55366689, lineCount=0, dupeCount=0;
 
-QList<housenumber> qlHousenumbers, qlDupes, qlNodes;
+QList<housenumber> qlHousenumbers, /*qlDupes,*/ qlNodes;
 
 bool bFindDupe(housenumber &hnr);
 bool isComplete(housenumber hnr);
@@ -147,7 +147,7 @@ int main(int argc, const char* argv[]){
 			if(line.contains("lon"))
 				hnr.lon=line.split("lon")[1].split(QRegExp("[\"']"))[1].toDouble();
 			
-			if(line.contains("/>")) { // no children
+			if(line.contains("/>") && !hnr.isWay) { // no children
 				qlNodes.append(hnr);
 			}
 
@@ -158,7 +158,7 @@ int main(int argc, const char* argv[]){
 				if(isComplete(hnr)) {
 					if(bFindDupe(hnr)) {
 						qDebug() << "Dupe found!";
-						if(lines!=-1) {
+						if(lines>0) {
 							qDebug() << 100.0*lineCount/lines << "%";
 						}
 						duplicatesStream << qsGenerateOutput(hnr);
@@ -193,7 +193,7 @@ int main(int argc, const char* argv[]){
 			} else if(line.contains("addr:housename") && hnr.name=="") {
 				hnr.name=line.split(QRegExp("[\"']"))[3];
 			}
-		//later on, the duplicate house number check will ignore POIs without name (or operator) and those with different shop/amenity/tourism tag
+		// later on, the duplicate house number check will ignore POIs without name (or operator) and those with different shop/amenity/tourism tag
 		} else if( line.contains("k=\"shop\"") || line.contains("k=\"amenity\"") || line.contains("k='shop'") or line.contains("k='amenity'") or line.contains("k='tourism'") || line.contains("k='tourism'") ) {
 			hnr.shop=line.split(QRegExp("[\"']"))[3];
 		} else if( ( line.contains("k=\"name\"") || line.contains("k='name'") || line.contains("k=\"operator\"") || line.contains("k='operator'") ) && hnr.name=="") {
@@ -208,6 +208,10 @@ int main(int argc, const char* argv[]){
 		}
 		
 		lineCount++;
+		
+		if(lineCount%100000==0 && lines>0) {
+			qDebug() << 100.0*lineCount/lines << "%";
+		}
 		
 	} //while(!in.atEnd())
 	
