@@ -105,7 +105,6 @@
     <tag k='wheelchair' v='yes' />
   </node>
   <node id='745379135' timestamp='2011-02-24T19:39:54Z' uid='141931' user='Sharlin' visible='true' version='2' changeset='7384620' lat='51.200411' lon='6.688263'>
-    <tag k='FIXME' v='shop=Kosmetik' />
     <tag k='addr:city' v='Neuss' />
     <tag k='addr:country' v='DE' />
     <tag k='addr:housenumber' v='35-37' />
