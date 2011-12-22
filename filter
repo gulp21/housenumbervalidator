@@ -1,0 +1,24 @@
+#!/bin/bash
+osmosis="osmosis"
+
+echo ------------------
+start=`date +%H:%M:%S`
+echo `date +%H:%M:%S` creating $1.hnr.osm
+echo ------------------
+
+$osmosis \
+	--rx $1 \
+	--tf reject-relations \
+	--tf reject-ways \
+	--tf accept-nodes addr:housenumber=* outPipe.0=nodes \
+	\
+	--rx $1 \
+	--tf accept-ways addr:housenumber=* \
+	--used-node outPipe.0=ways \
+	\
+	--merge inPipe.0=nodes inPipe.1=ways \
+	--wx $1.hnr.osm
+
+echo ------------------
+echo  $start-`date +%H:%M:%S` test-merge finished
+echo ------------------

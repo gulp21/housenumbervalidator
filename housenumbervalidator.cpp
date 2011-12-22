@@ -33,13 +33,14 @@ struct housenumber;
 struct housenumber {
 	double lat, lon;
 	int id;
-	bool fixme, isWay, dupeIsWay;
+	bool ignore, isWay;
 	QString name, shop, number, street, postcode, city, country;
 	housenumber* dupe;
 };
 
-QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.hnr.osm";
+QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.osm";
 bool bIgnoreFixme=true;
+int lines=55366689, lineCount=0, dupeCount=0;
 
 QList<housenumber> qlHousenumbers, qlDupes, qlNodes;
 
@@ -88,17 +89,13 @@ int main(int argc, const char* argv[]){
 		}
 	}
 	
-	if(!filename.endsWith(".hnr.osm")) {
-		qDebug("The filename should end with .hnr.osm\nPlease do NOT try to load LARGE files!\nUse ./filer to create a .hnr.osm file which contains only housenumbers.");
-		return -9;
-	}
-	
 	//open input file
 	QFile file(filename);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		qDebug() << "couldn't open" << filename;
 		return(2);
 	}
+	QTextStream in(&file);
 	
 	QFile duplicatesFile("dupes.txt");
 	duplicatesFile.remove();
@@ -108,111 +105,117 @@ int main(int argc, const char* argv[]){
 		return(3);
 	}
 	QTextStream duplicatesStream(&duplicatesFile);
+	duplicatesStream << "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
 	
-	QDomDocument doc("osm");
+	housenumber hnr;
 	
-	bool namespaceProcessing=false; QString errorMsg; int errorLine, errorColumn;
-	if(!doc.setContent(&file, namespaceProcessing, &errorMsg, &errorLine, &errorColumn )){
-		file.close();
-		qDebug() << "[W] Problem reading file" << file.fileName();
-		qDebug() << "     Line" << errorLine << "Column" << errorColumn << errorMsg;
-		return -2;
-	}
-	file.close();
-	
-	QDomElement docElem = doc.documentElement();
-	if(docElem.tagName()!="osm") {
-		qDebug() << "[W] " << file.fileName() << "is no osm-file";
-		qDebug() << "     docElem.tagName is" << docElem.tagName();
-		return -3;
-	}
-	
-	for(int l=0; l<2; l++) {
+	// loop through all lines
+	while(!in.atEnd()) {
+		QString line = in.readLine();
 		
-		QDomNodeList dnlNodes=docElem.elementsByTagName(l==0 ? "node" : "way");
-		
-		if(dnlNodes.length()==0) {
-			qDebug() << "No nodes?";
-		}
-		
-		for(unsigned int i=0; i<dnlNodes.length(); i++) {
+		//if there is a new way/node
+		if(line.contains("<way") || line.contains("<node")) {
+			// reset
+			hnr.city="";
+			hnr.country="";
+			hnr.dupe=NULL;
+			hnr.id=0;
+			hnr.ignore=false;
+			hnr.isWay=false;
+			hnr.lat=0;
+			hnr.lon=0;
+			hnr.name="";
+			hnr.number="";
+			hnr.postcode="";
+			hnr.shop="";
+			hnr.street="";
 			
-			QDomNode n=dnlNodes.at(i).firstChild();
-			
-			housenumber hnr;
-			hnr.id=dnlNodes.at(i).toElement().attribute("id","0").toInt();
-			hnr.fixme=false;
-			if(l==0) {
-				hnr.lat=dnlNodes.at(i).toElement().attribute("lat","0").toDouble();
-				hnr.lon=dnlNodes.at(i).toElement().attribute("lon","0").toDouble();
-				if(n.isNull()) qlNodes.append(hnr);
-				hnr.isWay=false;
-			} else {
-				hnr.lat=-1;
+			QString id=line;
+			// NOTE: QRegExp seems to be extremly slow, so we don't use .* here
+			id.replace("\n", "");			//remove newline
+			if(!line.contains("<way"))
+				id.replace(QRegExp("<node id=[\"']"), "");	//remove unneeded information
+			else {
+				id.replace(QRegExp("<way id=[\"']"), "");
 				hnr.isWay=true;
 			}
+			hnr.id=id.split(QRegExp("[\"']"))[0].toInt();
 			
-			while(!n.isNull()) {
-				
-				QDomElement e=n.toElement(); // try to convert the node to an element
-				
-				if(!e.isNull()) {
-					
-					if(e.tagName()=="tag") {
-						if(e.attribute("k",qsAssumeCountry)=="addr:country") {
-							hnr.country=e.attribute("v","");
-						} else if(e.attribute("k",qsAssumeCity)=="addr:city") {
-							hnr.city=e.attribute("v","");
-						} else if(e.attribute("k",qsAssumePostcode)=="addr:postcode") {
-							hnr.postcode=e.attribute("v","");
-						} else if(e.attribute("k","")=="addr:street") {
-							hnr.street=e.attribute("v","");
-						} else if(e.attribute("k","")=="addr:housenumber") {
-							hnr.number=e.attribute("v","");
-						} else if(e.attribute("k","")=="shop"
-						          || e.attribute("k","")=="amenity") {
-							hnr.shop=e.attribute("v",hnr.shop);
-						} else if(e.attribute("k","")=="name"
-						          || e.attribute("k","")=="addr:housename") {
-							hnr.name=e.attribute("v",hnr.name);
-						} else if(e.attribute("k","").toLower()=="fixme") {
-							hnr.fixme=true;
+			if(line.contains("lat"))
+				hnr.lat=line.split("lat")[1].split(QRegExp("[\"']"))[1].toDouble();
+			
+			if(line.contains("lon"))
+				hnr.lon=line.split("lon")[1].split(QRegExp("[\"']"))[1].toDouble();
+			
+			if(line.contains("/>")) { // no children
+				qlNodes.append(hnr);
+			}
+
+		// if there is the end of the way/node
+		} else if( (line.contains("</way") || line.contains("</node")) ) {
+			
+			if(!hnr.ignore) {
+				if(isComplete(hnr)) {
+					if(bFindDupe(hnr)) {
+						qDebug() << "Dupe found!";
+						if(lines!=-1) {
+							qDebug() << 100.0*lineCount/lines << "%";
 						}
-					} else if(e.tagName()=="nd" && hnr.lat==-1) {
-						vGetLatLonForWay(hnr, e.attribute("ref","0").toInt());
+						duplicatesStream << qsGenerateOutput(hnr);
+						dupeCount++;
+					} else {
+						qlHousenumbers.append(hnr);
 					}
-					
-				} // if(!e.isNull())
-				
-				n=n.nextSibling();
-				
-			} // while(!n.isNull())
-			
-			if(isComplete(hnr)) {
-				if(bFindDupe(hnr)) {
-					qDebug() << 100*i/dnlNodes.length() << "- Dupe found!";
-					qlDupes.append(hnr);
 				} else {
-					qlHousenumbers.append(hnr);
+					if(line.contains("</node")) {
+						qlNodes.append(hnr);
+					}
+					//qDebug() << "There is something wrong with this element";
+					//qDebug() << hnr.lat << hnr.lon << hnr.id << hnr.country << hnr.city << hnr.street << hnr.number << hnr.ignore;
 				}
-			} else {
-				//qDebug() << "There is something wrong with this element";
-				//qDebug() << hnr.lat << hnr.lon << hnr.id << hnr.country << hnr.city << hnr.street << hnr.number << hnr.fixme;
 			}
 			
-		} // for(dnlNodes)
-	} // for(nodes/ways)
+		} else if(line.contains("k=\"addr:") || line.contains("k='addr:")) {
+			if(line.contains("addr:country")) {
+				hnr.country=line.split(QRegExp("[\"']"))[3];
+			} else if(line.contains("addr:city")){
+				hnr.city=line.split(QRegExp("[\"']"))[3];
+			} else if(line.contains("addr:postcode")){
+				hnr.postcode=line.split(QRegExp("[\"']"))[3];
+			} else if(line.contains("addr:street")){
+				hnr.street=line.split(QRegExp("[\"']"))[3];
+			//we use a given housename when there is no housenumber
+			} else if( (line.contains("addr:housenumber")) || ((line.contains("addr:housename") && hnr.name=="")) ){
+				hnr.number=line.split(QRegExp("[\"']"))[3];
+			//interpolation lines should be ignored
+			} else if(line.contains("addr:interpolation")){
+				hnr.ignore=true;
+			} else if(line.contains("addr:housename") && hnr.name=="") {
+				hnr.name=line.split(QRegExp("[\"']"))[3];
+			}
+		//later on, the duplicate house number check will ignore POIs without name (or operator) and those with different shop/amenity/tourism tag
+		} else if( line.contains("k=\"shop\"") || line.contains("k=\"amenity\"") || line.contains("k='shop'") or line.contains("k='amenity'") or line.contains("k='tourism'") || line.contains("k='tourism'") ) {
+			hnr.shop=line.split(QRegExp("[\"']"))[3];
+		} else if( ( line.contains("k=\"name\"") || line.contains("k='name'") || line.contains("k=\"operator\"") || line.contains("k='operator'") ) && hnr.name=="") {
+			hnr.name=line.split(QRegExp("[\"']"))[3];
+		// ignore ways/nodes with fixme/note
+		} else if( (line.contains("k=\"fixme\"", Qt::CaseInsensitive) || line.contains("k='fixme'", Qt::CaseInsensitive)) && bIgnoreFixme) {
+			hnr.ignore=true;
+		}
+		else if(line.contains("<nd") && hnr.lat==0) {
+			QString ref=line.split(QRegExp("[\"']"))[1];
+			vGetLatLonForWay(hnr, ref.toInt());
+		}
+		
+		lineCount++;
+		
+	} //while(!in.atEnd())
 	
-	duplicatesStream << "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
-	for(int i=0; i<qlDupes.length(); i++) {
-		qDebug() << qsGenerateOutput(qlDupes[i]);
-		duplicatesStream << qsGenerateOutput(qlDupes[i]);
-	}
 	
 	duplicatesFile.close();
 	
 	qDebug() << "finished after" <<  now.elapsed()/1000 << "seconds";
-	qDebug() << qlHousenumbers.length() << "housenumbers," << qlDupes.length() << "dupes";
+	qDebug() << qlHousenumbers.length() << "housenumbers," << dupeCount << "dupes";
 }
 
 bool bFindDupe(housenumber &hnr) {
@@ -229,18 +232,18 @@ bool bFindDupe(housenumber &hnr) {
 }
 
 bool isComplete(housenumber hnr) {
-	if(hnr.id==0 || hnr.lat==0 || hnr.lon==0 || hnr.country=="" || hnr.city=="" || hnr.postcode=="" || hnr.number=="" || (hnr.fixme==true && bIgnoreFixme) ) return false;
+	if(hnr.id==0 || hnr.lat==0 || hnr.lon==0 || hnr.country=="" || hnr.city=="" || hnr.postcode=="" || hnr.street=="" || hnr.number=="" || hnr.ignore) return false;
 	return true;
 }
 
 QString qsGenerateOutput(housenumber hnr) {
-	QString link=QString("<a href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
+	QString link=QString("<a target=\"_blank\" href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a target=\"josmframe\" href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
 	                .arg(hnr.isWay ? "way" : "node")
 	                .arg(hnr.id)
 	                .arg(hnr.lat-0.000001,0,'f',7).arg(hnr.lat+0.000001,0,'f',7)
 	                .arg(hnr.lon-0.000001,0,'f',7).arg(hnr.lon+0.000001,0,'f',7);
 	
-	QString dupeLink=QString("<a href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
+	QString dupeLink=QString("<a target=\"_blank\" href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a target=\"josmframe\" href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
 	                .arg(hnr.dupe->isWay ? "way" : "node")
 	                .arg(hnr.dupe->id)
 	                .arg(hnr.dupe->lat-0.000001,0,'f',7).arg(hnr.dupe->lat+0.000001,0,'f',7)
