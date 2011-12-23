@@ -6,6 +6,7 @@
 <body style="height:99%;overflow:hidden;">
 	<div style="height:100%" id="mapdiv"></div>
 	<iframe style="display:none" id="josmframe" src="about:blank"></iframe>
+	<iframe style="display:none;position:absolute;top:50px;z-index:2000;border:none;background:white;" id="reportframe" src="about:blank"></iframe>
 	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 	<script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 	<script>
@@ -45,10 +46,13 @@
 			map.setCenter (lonLat, zoom);
 		
 		function report() {
-			if(document.getElementById('reportdiv').style.display=='block')
+			if(document.getElementById('reportdiv').style.display=='block') {
 				document.getElementById('reportdiv').style.display='none';
-			else
+				document.getElementById('reportframe').style.display='none';
+			} else {
 				document.getElementById('reportdiv').style.display='block';
+				document.getElementById('reportframe').style.display='block';
+			}
 		}
 	</script>
 	<div style="position:absolute;bottom:18px;left:10px;z-index:1000;opacity:.8;background:white">
@@ -56,7 +60,7 @@
 	</div>
 	<div id="reportdiv" style="display:none;position:absolute;top:5px;left:5px;z-index:2000;background:white;">
 	Bitte geben Sie die ID ein:
-	<form action="report.php" method="get" target="_blank">
+	<form action="report.php" method="get" target="reportframe">
 	<input type="text" size="17" name="id"/>
 	<input type="checkbox" name="way" value="true"/>Das ist ein Weg
 	<input type="submit" value="Absenden"/>
