@@ -6,8 +6,13 @@ if (!$out) {
     print("Err");
     exit;
 }
-fputs($out,$_GET["id"]."\t".$_GET["way"]."\n");
-print("Vielen Dank! Nach der n&auml;chsten Aktualisierung wird dieser Weg/Knoten nicht mehr angezeigt.");
+if($_GET["way"]==="true") {
+	fputs($out,"way".$_GET["id"]."\"\n");
+	print("Vielen Dank! Nach der n&auml;chsten Aktualisierung wird dieser Weg nicht mehr angezeigt.");
+} else {
+	fputs($out,"node".$_GET["id"]."\"\n");
+	print("Vielen Dank! Nach der n&auml;chsten Aktualisierung wird dieser Knoten nicht mehr angezeigt.");
+}
 fclose($out);
 ?>
 </body>
