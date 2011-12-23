@@ -28,6 +28,10 @@
 
 using namespace std;
 
+struct binTree;
+
+typedef binTree* pBinTree;
+
 struct housenumber;
 
 struct housenumber {
@@ -35,19 +39,34 @@ struct housenumber {
 	int id;
 	bool ignore, isWay;
 	QString name, shop, number, street, postcode, city, country;
-	housenumber* dupe;
+	pBinTree dupe;
+};
+
+struct binTree {
+	pBinTree left;
+	pBinTree right;
+	double lat, lon;
+	int id;
+	bool ignore, isWay;
+	QString address;
+	pBinTree dupe;
 };
 
 QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.osm";
 bool bIgnoreFixme=true;
 int lines=55366689, lineCount=0, dupeCount=0;
 
-QList<housenumber> qlHousenumbers, /*qlDupes,*/ qlNodes;
+QTextStream duplicatesStream;
 
-bool bFindDupe(housenumber &hnr);
+pBinTree treeHousenumbers, treeNodes;
+
 bool isComplete(housenumber hnr);
-QString qsGenerateOutput(housenumber hnr);
-void vGetLatLonForWay(housenumber &hnr, int ref);
+QString qsGenerateOutput(pBinTree hnr);
+void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree);
+void insert(pBinTree &element, pBinTree &root);
+void housenumberToBinTree(housenumber hnr, pBinTree &node);
+void nodeToBinTree(housenumber hnr, pBinTree &node);
+void inorder(pBinTree &root);
 
 int main(int argc, const char* argv[]){ 
 	QTime now;
@@ -89,6 +108,9 @@ int main(int argc, const char* argv[]){
 		}
 	}
 	
+	treeHousenumbers=NULL;
+	treeNodes=NULL;
+	
 	//open input file
 	QFile file(filename);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -104,7 +126,7 @@ int main(int argc, const char* argv[]){
 		file.close();
 		return(3);
 	}
-	QTextStream duplicatesStream(&duplicatesFile);
+	duplicatesStream.setDevice(&duplicatesFile);
 	duplicatesStream << "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
 	
 	housenumber hnr;
@@ -148,7 +170,10 @@ int main(int argc, const char* argv[]){
 				hnr.lon=line.split("lon")[1].split(QRegExp("[\"']"))[1].toDouble();
 			
 			if(line.contains("/>") && !hnr.isWay) { // no children
-				qlNodes.append(hnr);
+				pBinTree pHnr;
+				pHnr = new binTree;
+				nodeToBinTree(hnr, pHnr);
+				insert(pHnr, treeNodes);
 			}
 
 		// if there is the end of the way/node
@@ -156,19 +181,16 @@ int main(int argc, const char* argv[]){
 			
 			if(!hnr.ignore) {
 				if(isComplete(hnr)) {
-					if(bFindDupe(hnr)) {
-						qDebug() << "Dupe found!";
-						if(lines>0) {
-							qDebug() << 100.0*lineCount/lines << "%";
-						}
-						duplicatesStream << qsGenerateOutput(hnr);
-						dupeCount++;
-					} else {
-						qlHousenumbers.append(hnr);
-					}
+					pBinTree pHnr;
+					pHnr = new binTree;
+					housenumberToBinTree(hnr, pHnr);
+					insert(pHnr, treeHousenumbers);
 				} else {
 					if(line.contains("</node")) {
-						qlNodes.append(hnr);
+						pBinTree pHnr;
+						pHnr = new binTree;
+						nodeToBinTree(hnr, pHnr);
+						insert(pHnr, treeNodes);
 					}
 					//qDebug() << "There is something wrong with this element";
 					//qDebug() << hnr.lat << hnr.lon << hnr.id << hnr.country << hnr.city << hnr.street << hnr.number << hnr.ignore;
@@ -204,7 +226,7 @@ int main(int argc, const char* argv[]){
 		}
 		else if(line.contains("<nd") && hnr.lat==0) {
 			QString ref=line.split(QRegExp("[\"']"))[1];
-			vGetLatLonForWay(hnr, ref.toInt());
+			vGetLatLonForWay(hnr.lat, hnr.lon, ref, treeNodes);
 		}
 		
 		lineCount++;
@@ -219,20 +241,7 @@ int main(int argc, const char* argv[]){
 	duplicatesFile.close();
 	
 	qDebug() << "finished after" <<  now.elapsed()/1000 << "seconds";
-	qDebug() << qlHousenumbers.length() << "housenumbers," << dupeCount << "dupes";
-}
-
-bool bFindDupe(housenumber &hnr) {
-	for(int i=0; i<qlHousenumbers.count(); i++) {
-		if(qlHousenumbers[i].number==hnr.number && qlHousenumbers[i].street==hnr.street &&
-		   qlHousenumbers[i].city==hnr.city && qlHousenumbers[i].postcode==hnr.postcode &&
-		   qlHousenumbers[i].name==hnr.name &&
-		   qlHousenumbers[i].country==hnr.country && qlHousenumbers[i].shop==hnr.shop) {
-			hnr.dupe=&qlHousenumbers[i];
-			return true;
-		}
-	}
-	return false;
+	qDebug() <</* qlHousenumbers.length() <<*/ "housenumbers," << dupeCount << "dupes";
 }
 
 bool isComplete(housenumber hnr) {
@@ -240,30 +249,88 @@ bool isComplete(housenumber hnr) {
 	return true;
 }
 
-QString qsGenerateOutput(housenumber hnr) {
+QString qsGenerateOutput(pBinTree hnr) {
 	QString link=QString("<a target=\"_blank\" href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a target=\"josmframe\" href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
-	                .arg(hnr.isWay ? "way" : "node")
-	                .arg(hnr.id)
-	                .arg(hnr.lat-0.000001,0,'f',7).arg(hnr.lat+0.000001,0,'f',7)
-	                .arg(hnr.lon-0.000001,0,'f',7).arg(hnr.lon+0.000001,0,'f',7);
+	                .arg(hnr->isWay ? "way" : "node")
+	                .arg(hnr->id)
+	                .arg(hnr->lat-0.000001,0,'f',7).arg(hnr->lat+0.000001,0,'f',7)
+	                .arg(hnr->lon-0.000001,0,'f',7).arg(hnr->lon+0.000001,0,'f',7);
 	
 	QString dupeLink=QString("<a target=\"_blank\" href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a target=\"josmframe\" href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
-	                .arg(hnr.dupe->isWay ? "way" : "node")
-	                .arg(hnr.dupe->id)
-	                .arg(hnr.dupe->lat-0.000001,0,'f',7).arg(hnr.dupe->lat+0.000001,0,'f',7)
-	                .arg(hnr.dupe->lon-0.000001,0,'f',7).arg(hnr.dupe->lon+0.000001,0,'f',7);
+	                .arg(hnr->dupe->isWay ? "way" : "node")
+	                .arg(hnr->dupe->id)
+	                .arg(hnr->dupe->lat-0.000001,0,'f',7).arg(hnr->dupe->lat+0.000001,0,'f',7)
+	                .arg(hnr->dupe->lon-0.000001,0,'f',7).arg(hnr->dupe->lon+0.000001,0,'f',7);
 	
 	return QString("%1\t%2\tDupe\t%3 %4 %5 %6 %7 %8 is dupe of %9 \tpin.png\t16,16\t-8,-8\n")
-	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
-	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street)
-	                .arg(hnr.number).arg(dupeLink);
+	                .arg(hnr->lat,0,'f',8).arg(hnr->lon,0,'f',8).arg(link)
+	                .arg(hnr->address).arg(dupeLink);
 }
 
-void vGetLatLonForWay(housenumber &hnr, int ref) {
-	for(int i=0; i<qlNodes.count(); i++) {
-		if(qlNodes[i].id==ref) {
-			hnr.lat=qlNodes[i].lat;
-			hnr.lon=qlNodes[i].lon;
+void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree) {
+	if(tree==NULL) {
+		qDebug() << "This should not happen :(" << ref;
+	} else {
+		if(ref < tree->address) {
+			vGetLatLonForWay(lat, lon, ref, tree->left);
+		} else if(ref > tree->address) {
+			vGetLatLonForWay(lat, lon, ref, tree->right);
+		} else {
+			lat=tree->lat;
+			lon=tree->lon;
 		}
 	}
+}
+
+void inorder(pBinTree &tree) {
+	if(tree!=NULL) {
+		inorder(tree->left);
+		qDebug() << " " << tree->address;
+		inorder(tree->right);
+	}
+}
+
+void insert(pBinTree &element, pBinTree &tree) {
+	if(tree==NULL) {
+		tree=element;
+		//inorder(treeHousenumbers);
+		//qDebug() << "--end";
+	} else {
+		//if(treeHousenumbers!=NULL) qDebug() << (element.address < root->address) << (element.address > root->address) << (element.address == root->address) << element.address << root->address << treeHousenumbers->address;
+		if(element->address < tree->address) {
+			insert(element, tree->left);
+		} else if(element->address > tree->address) {
+			insert(element, tree->right);
+		} else {
+			qDebug() << "Dupe found!";
+			if(lines>0) {
+				qDebug() << 100.0*lineCount/lines << "%";
+			}
+			element->dupe=tree;
+			duplicatesStream << qsGenerateOutput(element);
+			dupeCount++;
+		}
+	}
+}
+
+void housenumberToBinTree(housenumber hnr, pBinTree &node) {
+	node->address=QString("%1 %2 %3 %4 %5 %6 %7")
+	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street)
+	                .arg(hnr.number).arg(hnr.name).arg(hnr.shop);
+	node->dupe=hnr.dupe;
+	node->id=hnr.id;
+	node->isWay=hnr.isWay;
+	node->lat=hnr.lat;
+	node->lon=hnr.lon;
+	node->left=NULL;
+	node->right=NULL;
+}
+
+void nodeToBinTree(housenumber hnr, pBinTree &node) {
+	node->address=QString("%1").arg(hnr.id);
+	node->id=hnr.id;
+	node->lat=hnr.lat;
+	node->lon=hnr.lon;
+	node->left=NULL;
+	node->right=NULL;
 }
