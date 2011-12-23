@@ -226,10 +226,12 @@ int main(int argc, const char* argv[]){
 		}
 		else if(line.contains("<nd") && hnr.lat==0) {
 			QString ref=line.split(QRegExp("[\"']"))[1];
+			ref=ref.right(1)+ref;
 			vGetLatLonForWay(hnr.lat, hnr.lon, ref, treeNodes);
 		}
 		
 		lineCount++;
+		if(lineCount%10000==0) qDebug() << lineCount <<  now.elapsed()/1000 << "seconds";
 		
 		if(lineCount%100000==0 && lines>0) {
 			qDebug() << 100.0*lineCount/lines << "%";
@@ -328,6 +330,7 @@ void housenumberToBinTree(housenumber hnr, pBinTree &node) {
 
 void nodeToBinTree(housenumber hnr, pBinTree &node) {
 	node->address=QString("%1").arg(hnr.id);
+	node->address=node->address.right(1)+node->address; // the ids are sorted, but a binary tree does not want to get the input sorted
 	node->id=hnr.id;
 	node->lat=hnr.lat;
 	node->lon=hnr.lon;
