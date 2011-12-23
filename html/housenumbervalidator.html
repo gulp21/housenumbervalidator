@@ -9,7 +9,18 @@
 	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 	<script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 	<script>
-		map = new OpenLayers.Map("mapdiv");
+		//map = new OpenLayers.Map("mapdiv");
+		
+		
+		map = new OpenLayers.Map("mapdiv",
+		{
+			controls: [
+				new OpenLayers.Control.Navigation(),
+				new OpenLayers.Control.PanZoomBar(),
+				new OpenLayers.Control.LayerSwitcher({'ascending':false}),
+				new OpenLayers.Control.Permalink()
+			]
+                });
 		
 		var mapnikMap = new OpenLayers.Layer.OSM.Mapnik("Mapnik",
 		{
@@ -30,7 +41,8 @@
 				map.getProjectionObject() // to Spherical Mercator Projection
 			);
 		var zoom=9;
-		map.setCenter (lonLat, zoom);
+		if (!map.getCenter())
+			map.setCenter (lonLat, zoom);
 		
 		function report() {
 			if(document.getElementById('reportdiv').style.display=='block')
@@ -40,7 +52,7 @@
 		}
 	</script>
 	<div style="position:absolute;bottom:18px;left:10px;z-index:1000;opacity:.8;background:white">
-	Last Update: 22/12/2011 &mdash; <a href="https://github.com/gulp21" target="_blank">Source</a> &mdash; <a href="http://forum.openstreetmap.org/viewtopic.php?id=12669" target="_blank">Forum</a> &mdash; <a href="http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator" target="_blank">Wiki</a> &mdash; <a onclick="report();" style="color:red;font-weight:bold;">Fehlarlarm melden</a>
+	Last Update: 22/12/2011 &mdash; <a href="https://github.com/gulp21" target="_blank">Source</a> &mdash; <a href="http://forum.openstreetmap.org/viewtopic.php?id=12669" target="_blank">Forum</a> &mdash; <a href="http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator" target="_blank">Wiki</a> &mdash; <a onclick="report();" style="color:red;font-weight:bold;">Fehlarlarm melden</a> &mdash; &copy; <a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA</a>
 	</div>
 	<div id="reportdiv" style="display:none;position:absolute;top:5px;left:5px;z-index:2000;background:white;">
 	Bitte geben Sie die ID ein:
