@@ -2,6 +2,11 @@
 <html style="height:99%">
 <head>
 	<title>housenumbervalidator</title>
+	<style type="text/css">
+		[id^="OL_Icon_"] {
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body style="height:99%;overflow:hidden;">
 	<div style="height:100%" id="mapdiv"></div>
@@ -10,9 +15,6 @@
 	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 	<script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 	<script>
-		//map = new OpenLayers.Map("mapdiv");
-		
-		
 		map = new OpenLayers.Map("mapdiv",
 		{
 			controls: [
@@ -29,11 +31,17 @@
 		});
 		map.addLayer(mapnikMap);
 		
-		var pois = new OpenLayers.Layer.Text( "Dupes",
-				{ location:"./dupes.txt",
+		var ways = new OpenLayers.Layer.Text( "Dupes Ways",
+				{ location:"./dupes_ways.txt",
 				projection: map.displayProjection
 				});
-		map.addLayer(pois);
+		map.addLayer(ways);
+		
+		var nodes = new OpenLayers.Layer.Text( "Dupes Nodes",
+				{ location:"./dupes_nodes.txt",
+				projection: map.displayProjection
+				});
+		map.addLayer(nodes);
 		
 		//Set start centrepoint and zoom    
 		var lonLat = new OpenLayers.LonLat(7.749,51.522)
@@ -55,8 +63,14 @@
 			}
 		}
 	</script>
-	<div style="position:absolute;bottom:18px;left:10px;z-index:1000;opacity:.8;background:white">
-	Last Update: 22/12/2011 &mdash; <a href="https://github.com/gulp21" target="_blank">Source</a> &mdash; <a href="http://forum.openstreetmap.org/viewtopic.php?id=12669" target="_blank">Forum</a> &mdash; <a href="http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator" target="_blank">Wiki</a> &mdash; <a onclick="report();" style="color:red;font-weight:bold;">Fehlarlarm melden</a> &mdash; &copy; <a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA</a>
+	<div style="position:absolute;bottom:18px;left:10px;z-index:1000;opacity:.8;background:white;">
+	Last Update: <span style="font-weight:bold;">22/12/2011</span> (17012912 housenumbers, 2180 dupes [NRW only]) &mdash;
+	<span style="color:red;">Nodes</span>, <span style="color:blue;">Ways</span> &mdash;
+	<a href="https://github.com/gulp21" target="_blank">Source</a> &mdash;
+	<a href="http://forum.openstreetmap.org/viewtopic.php?id=12669" target="_blank">Forum</a> &mdash;
+	<a href="http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator" target="_blank">Wiki</a> &mdash;
+	<a onclick="report();" style="color:red;font-weight:bold;">Fehlarlarm melden</a> &mdash;
+	&copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA</a>
 	</div>
 	<div id="reportdiv" style="display:none;position:absolute;top:5px;left:5px;z-index:2000;background:white;">
 	Bitte geben Sie die ID ein:

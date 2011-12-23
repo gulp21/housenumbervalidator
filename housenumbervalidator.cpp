@@ -54,7 +54,7 @@ struct binTree {
 
 QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.osm";
 bool bIgnoreFixme=true;
-int lines=55366689, lineCount=0, dupeCount=0;
+int lines=55366689, lineCount=0, dupeCount=0, hnrCount=0;
 
 QTextStream duplicatesStream;
 
@@ -175,7 +175,7 @@ int main(int argc, const char* argv[]){
 				nodeToBinTree(hnr, pHnr);
 				insert(pHnr, treeNodes);
 			}
-
+		
 		// if there is the end of the way/node
 		} else if( (line.contains("</way") || line.contains("</node")) ) {
 			
@@ -185,6 +185,10 @@ int main(int argc, const char* argv[]){
 					pHnr = new binTree;
 					housenumberToBinTree(hnr, pHnr);
 					insert(pHnr, treeHousenumbers);
+					pBinTree pHnr2;
+					pHnr2 = new binTree;
+					nodeToBinTree(hnr2, pHnr);
+					insert(pHnr2, treeNodes);
 				} else {
 					if(line.contains("</node")) {
 						pBinTree pHnr;
@@ -194,6 +198,13 @@ int main(int argc, const char* argv[]){
 					}
 					//qDebug() << "There is something wrong with this element";
 					//qDebug() << hnr.lat << hnr.lon << hnr.id << hnr.country << hnr.city << hnr.street << hnr.number << hnr.ignore;
+				}
+			} else {
+				if(line.contains("</node")) {
+					pBinTree pHnr;
+					pHnr = new binTree;
+					nodeToBinTree(hnr, pHnr);
+					insert(pHnr, treeNodes);
 				}
 			}
 			
@@ -243,7 +254,7 @@ int main(int argc, const char* argv[]){
 	duplicatesFile.close();
 	
 	qDebug() << "finished after" <<  now.elapsed()/1000 << "seconds";
-	qDebug() <</* qlHousenumbers.length() <<*/ "housenumbers," << dupeCount << "dupes";
+	qDebug() << hnrCount+dupeCount << "housenumbers," << dupeCount << "dupes";
 }
 
 bool isComplete(housenumber hnr) {
@@ -264,7 +275,7 @@ QString qsGenerateOutput(pBinTree hnr) {
 	                .arg(hnr->dupe->lat-0.000001,0,'f',7).arg(hnr->dupe->lat+0.000001,0,'f',7)
 	                .arg(hnr->dupe->lon-0.000001,0,'f',7).arg(hnr->dupe->lon+0.000001,0,'f',7);
 	
-	return QString("%1\t%2\tDupe\t%3 %4 %5 %6 %7 %8 is dupe of %9 \tpin.png\t16,16\t-8,-8\n")
+	return QString("%1\t%2\tDupe\t%3 %4 is dupe of %5 \tpin.png\t16,16\t-8,-8\n")
 	                .arg(hnr->lat,0,'f',8).arg(hnr->lon,0,'f',8).arg(link)
 	                .arg(hnr->address).arg(dupeLink);
 }
@@ -295,6 +306,7 @@ void inorder(pBinTree &tree) {
 void insert(pBinTree &element, pBinTree &tree) {
 	if(tree==NULL) {
 		tree=element;
+		hnrCount++;
 		//inorder(treeHousenumbers);
 		//qDebug() << "--end";
 	} else {
