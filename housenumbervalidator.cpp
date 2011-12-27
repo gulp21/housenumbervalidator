@@ -168,6 +168,7 @@ int main(int argc, const char* argv[]){
 	housenumber hnr;
 	
 	if(lines>0) qDebug() << "NOTE: You have to set the 'lines' variable by hand in order to get sensible progress information";
+	qDebug() << "NOTE: If the osm-file is big, you should filter it by executing './filter input.osm'.";
 	
 	// loop through all lines
 	while(!in.atEnd()) {
@@ -256,14 +257,17 @@ int main(int argc, const char* argv[]){
 			} else if(line.contains("addr:housename") && hnr.name=="") {
 				hnr.name=line.split(QRegExp("[\"']"))[3];
 			}
-		// later on, the duplicate house number check will ignore POIs without name (or operator) and those with different shop/amenity/tourism tag
-		} else if( line.contains("k=\"shop\"") || line.contains("k='shop'") || line.contains("k=\"amenity\"") || line.contains("k='amenity'") || line.contains("k='tourism'") || line.contains("k=\"tourism\"") || line.contains("k='power'") || line.contains("k=\"power\"") ) {
+		// later on, the duplicate house number check will ignore POIs with different shop/amenity/tourism tag
+		} else if( line.contains("k=\"shop\"") || line.contains("k='shop'") ||
+		           line.contains("k=\"amenity\"") || line.contains("k='amenity'") ||
+		           line.contains("k='tourism'") || line.contains("k=\"tourism\"") ) {
 			hnr.shop=line.split(QRegExp("[\"']"))[3];
 		} else if( ( line.contains("k=\"name\"") || line.contains("k='name'") || line.contains("k=\"operator\"") || line.contains("k='operator'") ) && hnr.name=="") {
 			hnr.name=line.split(QRegExp("[\"']"))[3];
 		// ignore ways/nodes with fixme/note
 		} else if( ( (line.contains("k=\"fixme\"", Qt::CaseInsensitive) || line.contains("k='fixme'", Qt::CaseInsensitive)) && bIgnoreFixme ) ||
-		           ( (line.contains("k=\"note\"", Qt::CaseInsensitive) || line.contains("k='note'", Qt::CaseInsensitive)) && bIgnoreNote )
+		           ( (line.contains("k=\"note\"", Qt::CaseInsensitive) || line.contains("k='note'", Qt::CaseInsensitive)) && bIgnoreNote ) ||
+		           (line.contains("power") && line.contains("sub_station")) 
 		) {
 			hnr.ignore=true;
 		}
@@ -308,7 +312,7 @@ bool isComplete(housenumber &hnr) {
 		brokenCount++;
 	}
 	
-	if(bCheckStreetSuffix && (hnr.street.endsWith("str") || hnr.street.endsWith("str.")) ) {
+	if(bCheckStreetSuffix && (hnr.street.endsWith("str") || hnr.street.contains("str.")) ) {
 		brokenStream << qsGenerateBrokenOutput(hnr, "street");
 		brokenCount++;
 	}
