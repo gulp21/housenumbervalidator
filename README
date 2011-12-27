@@ -13,3 +13,4 @@ Useful commands
 ===============
 cat dupes.txt | grep -v way | sed -e "s/pin.png/pin_red.png/g" > dupes_nodes.txt
 cat dupes.txt | grep way | sed -e "s/pin.png/pin_blue.png/g" > dupes_ways.txt
+cat incomplete.txt | head -n 2001 > incompl.txt
