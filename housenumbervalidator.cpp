@@ -53,7 +53,7 @@ struct binTree {
 };
 
 QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.osm";
-bool bIgnoreFixme=true, bIgnoreCityHint=false, bCheckPostcodeNumber=false, bCheckStreetSuffix=false;
+bool bIgnoreFixme=true, bIgnoreNote=true, bIgnoreCityHint=false, bCheckPostcodeNumber=false, bCheckStreetSuffix=false;
 int lines=9200594, lineCount=0, dupeCount=0, hnrCount=0, incompleteCount=0, brokenCount=0;
 
 QTextStream duplicatesStream, incompleteStream, brokenStream;
@@ -88,6 +88,7 @@ int main(int argc, const char* argv[]){
 			qDebug() << "  -css    --check-street-suffix   When addr:street ends with 'str' or 'str.', save entry in broken.txt";
 			qDebug() << "  -iih    --ignore-city-hint      Objects which hava a addr:city tag (and no other addr:* tag) are not considered to be a house number, and thus are not listed as incomplete";
 			qDebug() << "  -nif,   --not-ignore-fixme      do output ways/nodes which have a fixme tag";
+			qDebug() << "  -nin,   --not-ignore-note       do output ways/nodes which have a note tag";
 			qDebug() << "  -h      --help                  Print this help";
 			
 			return 0;
@@ -97,6 +98,7 @@ int main(int argc, const char* argv[]){
 		
 		for(int i=2; i<argc; i++){
 			if(QString(argv[i])=="-nif" || QString(argv[i])=="--not-ignore-fixme") bIgnoreFixme=false;
+			else if(QString(argv[i])=="-nin" || QString(argv[i])=="--not-ignore-note") bIgnoreNote=false;
 			/*else if(QString(argv[i])=="-in" or QString(argv[i])=="--ignore-note") ignorenote=TRUE;
 			else if(QString(argv[i])=="-npc" or QString(argv[i])=="--no-postcode-count") nopostcodecount=TRUE;
 			else if(QString(argv[i])=="-ich" or QString(argv[i])=="--ignore-country-hint") ignorecountryhint=TRUE;*/
@@ -260,7 +262,9 @@ int main(int argc, const char* argv[]){
 		} else if( ( line.contains("k=\"name\"") || line.contains("k='name'") || line.contains("k=\"operator\"") || line.contains("k='operator'") ) && hnr.name=="") {
 			hnr.name=line.split(QRegExp("[\"']"))[3];
 		// ignore ways/nodes with fixme/note
-		} else if( (line.contains("k=\"fixme\"", Qt::CaseInsensitive) || line.contains("k='fixme'", Qt::CaseInsensitive)) && bIgnoreFixme) {
+		} else if( ( (line.contains("k=\"fixme\"", Qt::CaseInsensitive) || line.contains("k='fixme'", Qt::CaseInsensitive)) && bIgnoreFixme ) ||
+		           ( (line.contains("k=\"note\"", Qt::CaseInsensitive) || line.contains("k='note'", Qt::CaseInsensitive)) && bIgnoreNote )
+		) {
 			hnr.ignore=true;
 		}
 		else if(line.contains("<nd") && hnr.nodeId=="") {
