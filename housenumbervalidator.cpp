@@ -53,16 +53,19 @@ struct binTree {
 };
 
 QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.osm";
-bool bIgnoreFixme=true, bIgnoreNote=true, bIgnoreCityHint=false;
-int lines=9200594, lineCount=0, dupeCount=0, hnrCount=0, incompleteCount=0;
+bool bIgnoreFixme=true, bIgnoreNote=true, bIgnoreCityHint=false, bCheckPostcodeNumber=false, bCheckStreetSuffix=false;
+int lines=9200594, lineCount=0, dupeCount=0, hnrCount=0, incompleteCount=0, brokenCount=0;
 
-QTextStream duplicatesStream, incompleteStream;
+QTextStream duplicatesStream, incompleteStream, brokenStream;
 
 pBinTree treeHousenumbers, treeNodes;
 
 bool isComplete(housenumber &hnr);
 QString qsGenerateDupeOutput(pBinTree hnr);
-QString qsGenerateIncompleteOutput(housenumber hnr);
+QString qsGenerateIncompleteOutput(housenumber hnr, int i);
+QString qsGenerateBrokenOutput(housenumber hnr, QString error);
+QString qsGenerateLink(housenumber hnr);
+QString qsGenerateLink(pBinTree hnr);
 void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree);
 void insert(pBinTree &element, pBinTree &root);
 void insertNode(housenumber hnr);
@@ -78,13 +81,15 @@ int main(int argc, const char* argv[]){
 		if(QString(argv[1])=="--help" || QString(argv[1])=="-h") {
 			qDebug() << "Usage: ./housenumbervalidator [FILENAME.hnr.osm [OPTIONS]]\n";
 			qDebug() << "Options:";
-			qDebug() << "  -ac=XX  --assume-country=XX   When a housenumber does not have a addr:country value, it is set to XX";
+			qDebug() << "  -ac=XX  --assume-country=XX     When a housenumber does not have a addr:country value, it is set to XX";
 			qDebug() << "  -ai=XX  --assume-city=XX";
 			qDebug() << "  -ap=XX  --assume-postcode=XX";
-			qDebug() << "  -iih    --ignore-city-hint    Objects which hava a addr:city tag (and no other addr:* tag) are not considered to be a house number, and thus are not listed as incomplete";
-			qDebug() << "  -nif,   --not-ignore-fixme    do output ways/nodes which have a fixme tag";
-			qDebug() << "  -nin,   --not-ignore-note    do output ways/nodes which have a note tag";
-			qDebug() << "  -h      --help                Print this help";
+			qDebug() << "  -cpn    --check-postcode-number When addr:postcode is not a number, save entry in broken.txt";
+			qDebug() << "  -css    --check-street-suffix   When addr:street ends with 'str' or 'str.', save entry in broken.txt";
+			qDebug() << "  -iih    --ignore-city-hint      Objects which hava a addr:city tag (and no other addr:* tag) are not considered to be a house number, and thus are not listed as incomplete";
+			qDebug() << "  -nif,   --not-ignore-fixme      do output ways/nodes which have a fixme tag";
+			qDebug() << "  -nin,   --not-ignore-note       do output ways/nodes which have a note tag";
+			qDebug() << "  -h      --help                  Print this help";
 			
 			return 0;
 		}
@@ -106,6 +111,8 @@ int main(int argc, const char* argv[]){
 			else if(QString(argv[i]).contains("-ap=") || QString(argv[i]).contains("--assume-postcode=")) qsAssumePostcode=QString(argv[i]).split("=")[1];
 // 			else if(QString(argv[i]).contains("-wo=")) dupesperosm=QString(argv[i]).mid(4).toInt();
 // 			else if(QString(argv[i]).contains("--write-osm=")) dupesperosm=QString(argv[i]).mid(12).toInt();
+			else if(QString(argv[i]).contains("--check-postcode-number") || QString(argv[i]).contains("-cpn")) bCheckPostcodeNumber=true;
+			else if(QString(argv[i]).contains("--check-street-suffix") || QString(argv[i]).contains("-css")) bCheckStreetSuffix=true;
 			else {
 				qDebug() <<  "unknown option " << argv[i];
 				return(1);
@@ -147,9 +154,21 @@ int main(int argc, const char* argv[]){
 	incompleteStream.setCodec("UTF-8");
 	incompleteStream << "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
 	
+	QFile brokenFile("broken.txt");
+	brokenFile.remove();
+	if (!brokenFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+		qDebug() << "couldn't open broken.txt";
+		file.close();
+		return(3);
+	}
+	brokenStream.setDevice(&brokenFile);
+	brokenStream.setCodec("UTF-8");
+	brokenStream << "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
+	
 	housenumber hnr;
 	
 	if(lines>0) qDebug() << "NOTE: You have to set the 'lines' variable by hand in order to get sensible progress information";
+	qDebug() << "NOTE: If the osm-file is big, you should filter it by executing './filter input.osm'.";
 	
 	// loop through all lines
 	while(!in.atEnd()) {
@@ -238,14 +257,17 @@ int main(int argc, const char* argv[]){
 			} else if(line.contains("addr:housename") && hnr.name=="") {
 				hnr.name=line.split(QRegExp("[\"']"))[3];
 			}
-		// later on, the duplicate house number check will ignore POIs without name (or operator) and those with different shop/amenity/tourism tag
-		} else if( line.contains("k=\"shop\"") || line.contains("k=\"amenity\"") || line.contains("k='shop'") or line.contains("k='amenity'") or line.contains("k='tourism'") || line.contains("k='tourism'") ) {
+		// later on, the duplicate house number check will ignore POIs with different shop/amenity/tourism tag
+		} else if( line.contains("k=\"shop\"") || line.contains("k='shop'") ||
+		           line.contains("k=\"amenity\"") || line.contains("k='amenity'") ||
+		           line.contains("k='tourism'") || line.contains("k=\"tourism\"") ) {
 			hnr.shop=line.split(QRegExp("[\"']"))[3];
 		} else if( ( line.contains("k=\"name\"") || line.contains("k='name'") || line.contains("k=\"operator\"") || line.contains("k='operator'") ) && hnr.name=="") {
 			hnr.name=line.split(QRegExp("[\"']"))[3];
 		// ignore ways/nodes with fixme/note
 		} else if( ( (line.contains("k=\"fixme\"", Qt::CaseInsensitive) || line.contains("k='fixme'", Qt::CaseInsensitive)) && bIgnoreFixme ) ||
-		           ( (line.contains("k=\"note\"", Qt::CaseInsensitive) || line.contains("k='note'", Qt::CaseInsensitive)) && bIgnoreNote )
+		           ( (line.contains("k=\"note\"", Qt::CaseInsensitive) || line.contains("k='note'", Qt::CaseInsensitive)) && bIgnoreNote ) ||
+		           (line.contains("power") && line.contains("sub_station")) 
 		) {
 			hnr.ignore=true;
 		}
@@ -266,9 +288,10 @@ int main(int argc, const char* argv[]){
 	
 	duplicatesFile.close();
 	incompleteFile.close();
+	brokenFile.close();
 	
 	qDebug() << "finished after" <<  now.elapsed()/1000 << "seconds";
-	qDebug() << hnrCount+dupeCount << "housenumbers," << dupeCount << "dupes," << incompleteCount << "incomplete";
+	qDebug() << hnrCount+dupeCount << "housenumbers," << dupeCount << "dupes," << incompleteCount << "incomplete," << brokenCount << "broken";
 }
 
 bool isComplete(housenumber &hnr) {
@@ -284,8 +307,26 @@ bool isComplete(housenumber &hnr) {
 	
 	if(hnr.lat==0 || hnr.lon==0) return false;
 	
-	if(hnr.country=="" || hnr.city=="" || hnr.postcode=="" || hnr.street=="" || hnr.number=="") {
-		incompleteStream << qsGenerateIncompleteOutput(hnr);
+	if(bCheckPostcodeNumber && hnr.postcode!="" && hnr.postcode!=QString("%1").arg(hnr.postcode.toInt())) {
+		brokenStream << qsGenerateBrokenOutput(hnr, "postcode");
+		brokenCount++;
+	}
+	
+	if(bCheckStreetSuffix && (hnr.street.endsWith("str") || hnr.street.contains("str.")) ) {
+		brokenStream << qsGenerateBrokenOutput(hnr, "street");
+		brokenCount++;
+	}
+	
+	int missingCount=0;
+	
+	if(hnr.country=="") missingCount++;
+	if(hnr.city=="") missingCount++;
+	if(hnr.postcode=="") missingCount++;
+	if(hnr.street=="") missingCount++;
+	if(hnr.number=="") missingCount++;
+	
+	if(missingCount>0) {
+		incompleteStream << qsGenerateIncompleteOutput(hnr, missingCount);
 		incompleteCount++;
 		
 		if(hnr.country=="") hnr.country=qsAssumeCountry;
@@ -301,33 +342,46 @@ bool isComplete(housenumber &hnr) {
 }
 
 QString qsGenerateDupeOutput(pBinTree hnr) {
-	QString link=QString("<a target=\"_blank\" href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a target=\"josmframe\" href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
-	                .arg(hnr->isWay ? "way" : "node")
-	                .arg(hnr->id)
-	                .arg(hnr->lat-0.000001,0,'f',7).arg(hnr->lat+0.000001,0,'f',7)
-	                .arg(hnr->lon-0.000001,0,'f',7).arg(hnr->lon+0.000001,0,'f',7);
+	QString link=qsGenerateLink(hnr);
 	
-	QString dupeLink=QString("<a target=\"_blank\" href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a target=\"josmframe\" href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
-	                .arg(hnr->dupe->isWay ? "way" : "node")
-	                .arg(hnr->dupe->id)
-	                .arg(hnr->dupe->lat-0.000001,0,'f',7).arg(hnr->dupe->lat+0.000001,0,'f',7)
-	                .arg(hnr->dupe->lon-0.000001,0,'f',7).arg(hnr->dupe->lon+0.000001,0,'f',7);
+	QString dupeLink=qsGenerateLink(hnr->dupe);
 	
 	return QString("%1\t%2\tDupe\t%3 %4 is dupe of %5\tpin.png\t16,16\t-8,-8\n")
 	                .arg(hnr->lat,0,'f',8).arg(hnr->lon,0,'f',8).arg(link)
 	                .arg(hnr->address).arg(dupeLink);
 }
 
-QString qsGenerateIncompleteOutput(housenumber hnr) {
-	QString link=QString("<a target=\"_blank\" href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a target=\"josmframe\" href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
+QString qsGenerateIncompleteOutput(housenumber hnr, int i) {
+	QString link=qsGenerateLink(hnr);
+	
+	return QString("%1\t%2\tIncomplete\t%3 %4 %5 %6 %7 %8 is missing %9 pieces of address information\tpin.png\t16,16\t-8,-8\n")
+	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
+	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number)
+	                .arg(i);
+}
+
+QString qsGenerateBrokenOutput(housenumber hnr, QString error) {
+	QString link=qsGenerateLink(hnr);
+	
+	return QString("%1\t%2\tBroken\t%3 %4 %5 %6 %7 %8 has problematic %9\tpin.png\t16,16\t-8,-8\n")
+	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
+	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number)
+	                .arg(error);
+}
+
+QString qsGenerateLink(housenumber hnr) {
+	return QString("<a target=\"_blank\" href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a target=\"josmframe\" href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
 	                .arg(hnr.isWay ? "way" : "node")
 	                .arg(hnr.id)
 	                .arg(hnr.lat-0.000001,0,'f',7).arg(hnr.lat+0.000001,0,'f',7)
 	                .arg(hnr.lon-0.000001,0,'f',7).arg(hnr.lon+0.000001,0,'f',7);
-	
-	return QString("%1\t%2\tIncomplete\t%3 %4 %5 %6 %7 %8 is missing some address information\tpin.png\t16,16\t-8,-8\n")
-	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
-	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
+}
+QString qsGenerateLink(pBinTree hnr) {
+	return QString("<a target=\"_blank\" href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a target=\"josmframe\" href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
+	                .arg(hnr->isWay ? "way" : "node")
+	                .arg(hnr->id)
+	                .arg(hnr->lat-0.000001,0,'f',7).arg(hnr->lat+0.000001,0,'f',7)
+	                .arg(hnr->lon-0.000001,0,'f',7).arg(hnr->lon+0.000001,0,'f',7);
 }
 
 void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree) {
