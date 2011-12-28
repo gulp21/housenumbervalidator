@@ -11,8 +11,8 @@ make
 
 Useful commands
 ===============
-cat dupes.txt | grep -v way | sed -e "s/pin.png/pin_red.png/g" > dupes_nodes.txt
-cat dupes.txt | grep way | sed -e "s/pin.png/pin_blue.png/g" > dupes_ways.txt
-cat incomplete.txt | grep -v "missing 1" | grep -v "missing 2" | grep -v "missing 3" | head -n 2001 | sed -e "s/pin.png/pin_circle.png/g" > incompl.txt
+cat dupes.txt | grep -v way | sed "s/pin.png/pin_red.png/g" > dupes_nodes.txt
+cat dupes.txt | grep -E "way|iconSize" | sed "s/pin.png/pin_blue.png/g" > dupes_ways.txt
+cat incomplete.txt | grep -v "missing 1" | grep -v "missing 2" | grep -v "missing 3" | head -n 2001 | sed "s/pin.png/pin_circle.png/g" > incompl.txt
 cat broken.txt | grep -E "(c postcode)|iconSize" | sed "s/pin.png/pin_circle_blue.png/g" > broken_postcode.txt
-cat broken.txt | grep -E "(c street)|iconSize" | sed -e "s/pin.png/pin_circle_red.png/g" > broken_street.txt
+cat broken.txt | grep -E "(c street)|iconSize" | sed "s/pin.png/pin_circle_red.png/g" > broken_street.txt

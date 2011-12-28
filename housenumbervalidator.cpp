@@ -63,7 +63,8 @@ pBinTree treeHousenumbers, treeNodes;
 bool isComplete(housenumber &hnr);
 QString qsGenerateDupeOutput(pBinTree hnr);
 QString qsGenerateIncompleteOutput(housenumber hnr, int i);
-QString qsGenerateBrokenOutput(housenumber hnr, QString error);
+QString qsGenerateBrokenStreetOutput(housenumber hnr);
+QString qsGenerateBrokenPostcodeOutput(housenumber hnr);
 QString qsGenerateLink(housenumber hnr);
 QString qsGenerateLink(pBinTree hnr);
 void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree);
@@ -308,12 +309,12 @@ bool isComplete(housenumber &hnr) {
 	if(hnr.lat==0 || hnr.lon==0) return false;
 	
 	if(bCheckPostcodeNumber && hnr.postcode!="" && hnr.postcode!=QString("%1").arg(hnr.postcode.toInt())) {
-		brokenStream << qsGenerateBrokenOutput(hnr, "postcode");
+		brokenStream << qsGenerateBrokenPostcodeOutput(hnr);
 		brokenCount++;
 	}
 	
 	if(bCheckStreetSuffix && (hnr.street.endsWith("str") || hnr.street.contains("str.")) ) {
-		brokenStream << qsGenerateBrokenOutput(hnr, "street");
+		brokenStream << qsGenerateBrokenStreetOutput(hnr);
 		brokenCount++;
 	}
 	
@@ -360,13 +361,20 @@ QString qsGenerateIncompleteOutput(housenumber hnr, int i) {
 	                .arg(i);
 }
 
-QString qsGenerateBrokenOutput(housenumber hnr, QString error) {
+QString qsGenerateBrokenStreetOutput(housenumber hnr) {
 	QString link=qsGenerateLink(hnr);
 	
-	return QString("%1\t%2\tBroken\t%3 %4 %5 %6 %7 %8 has problematic %9\tpin.png\t16,16\t-8,-8\n")
+	return QString("%1\t%2\tBroken\t%3 %4 %5 %6 <b>%7</b> %8 has problematic street\tpin.png\t16,16\t-8,-8\n")
 	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
-	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number)
-	                .arg(error);
+	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
+}
+
+QString qsGenerateBrokenPostcodeOutput(housenumber hnr) {
+	QString link=qsGenerateLink(hnr);
+	
+	return QString("%1\t%2\tBroken\t%3 %4 %5 <b>%6</b> %7 %8 has problematic postcode\tpin.png\t16,16\t-8,-8\n")
+	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
+	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
 }
 
 QString qsGenerateLink(housenumber hnr) {
