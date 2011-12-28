@@ -169,7 +169,7 @@ int main(int argc, const char* argv[]){
 	housenumber hnr;
 	
 	if(lines>0) qDebug() << "NOTE: You have to set the 'lines' variable by hand in order to get sensible progress information";
-	qDebug() << "NOTE: If the osm-file is big, you should filter it by executing './filter input.osm'.";
+	if(!filename.endsWith(".hnr.osm")) qDebug() << "NOTE: If the osm-file is big, you should filter it by executing './filter input.osm'.";
 	
 	// loop through all lines
 	while(!in.atEnd()) {
