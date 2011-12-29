@@ -28,11 +28,11 @@
 		}
 		
 		[id^="OL_Icon_"], #footer {
-			-moz-transition-duration: .2s;
-			-webkit-transition-duration: .2s;
-			-ms-transition-duration: .2s;
-			-o-transition-duration: .2s;
-			transition-duration: .2s;
+			-moz-transition: opacity .2s ease-in .1s;
+			-webkit-transition: opacity .2s ease-in .1s;
+			-ms-transition: opacity .2s ease-in .1s;
+			-o-transition: opacity .2s ease-in .1s;
+			transition: opacity .2s ease-in .1s;
 		}
 		
 		/*[id="OpenLayers.Map_6_OpenLayers_Container"] > div:nth-child(4) > [id^="OL_Icon_"] {
@@ -153,7 +153,7 @@
 	<a href="https://github.com/gulp21" target="_blank">Source</a> &dash;
 	<a href="http://forum.openstreetmap.org/viewtopic.php?id=12669" target="_blank">Forum</a> &dash;
 	<span style="font-weight:bold;"><a href="http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator" target="_blank">Hilfe (Wiki)</a></span> &dash;
-	Kontakt: <a href="http://forum.openstreetmap.org/misc.php?email=5688" target="_blank">&uuml;ber Forum</a>,
+	Kontakt: <a href="http://www.openstreetmap.org/message/new/gulp21" target="_blank">&uuml;ber OSM</a>,
 	<a href="#" onclick="alert(unescape('support[dot]gulp21 (%E4t) googlemail[dot]com'));">E-Post</a> &dash;
 	<a href="#" onclick="report();" style="color:red;font-weight:bold;">Fehlarlarm melden</a> &dash;
 	&copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC&#8209;BY&#8209;SA</a>
@@ -165,6 +165,7 @@
 	<input type="checkbox" name="way" value="true"/>Das ist ein Weg (blaues Quadrat)
 	<input type="submit" value="Absenden"/>
 	</form>
+	<small>Bitte diese Funktion nicht verwenden, wenn der Fehler zwischenzeitlich korrigiert wurde!</small>
 	</div>
 </body>
 </html>
