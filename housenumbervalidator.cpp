@@ -1,5 +1,5 @@
 /*
-	v111221
+	v111228
 	
 	Copyright (C) 2011 Markus Brenneis
 	
@@ -91,7 +91,7 @@ int main(int argc, const char* argv[]){
 			qDebug() << "  -nif,   --not-ignore-fixme      do output ways/nodes which have a fixme tag";
 			qDebug() << "  -nin,   --not-ignore-note       do output ways/nodes which have a note tag";
 			qDebug() << "  -h      --help                  Print this help";
-			
+			qDebug() << "\ncompiled on" << __DATE__;
 			return 0;
 		}
 		
