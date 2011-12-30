@@ -54,7 +54,7 @@ struct binTree {
 
 QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.osm";
 bool bIgnoreFixme=true, bIgnoreNote=true, bIgnoreCityHint=false, bCheckPostcodeNumber=false, bCheckStreetSuffix=false;
-int lines=9200594, lineCount=0, dupeCount=0, hnrCount=0, incompleteCount=0, brokenCount=0;
+int lines=9200594, lineCount=0, dupeCount=0, hnrCount=0, incompleteCount=0, brokenCount=0, iCheckPostcodeChars=-1;
 
 QTextStream duplicatesStream, incompleteStream, brokenStream;
 
@@ -82,15 +82,16 @@ int main(int argc, const char* argv[]){
 		if(QString(argv[1])=="--help" || QString(argv[1])=="-h") {
 			qDebug() << "Usage: ./housenumbervalidator [FILENAME.hnr.osm [OPTIONS]]\n";
 			qDebug() << "Options:";
-			qDebug() << "  -ac=XX  --assume-country=XX     When a housenumber does not have a addr:country value, it is set to XX";
+			qDebug() << "  -ac=XX  --assume-country=XX       When a housenumber does not have a addr:country value, it is set to XX";
 			qDebug() << "  -ai=XX  --assume-city=XX";
 			qDebug() << "  -ap=XX  --assume-postcode=XX";
-			qDebug() << "  -cpn    --check-postcode-number When addr:postcode is not a number, save entry in broken.txt";
-			qDebug() << "  -css    --check-street-suffix   When addr:street ends with 'str' or 'str.', save entry in broken.txt";
-			qDebug() << "  -iih    --ignore-city-hint      Objects which hava a addr:city tag (and no other addr:* tag) are not considered to be a house number, and thus are not listed as incomplete";
-			qDebug() << "  -nif,   --not-ignore-fixme      do output ways/nodes which have a fixme tag";
-			qDebug() << "  -nin,   --not-ignore-note       do output ways/nodes which have a note tag";
-			qDebug() << "  -h      --help                  Print this help";
+			qDebug() << "  -cpn    --check-postcode-number   When addr:postcode is not a number, save entry in broken.txt";
+			qDebug() << "  -cpc=X  --check-postcode-chars=X  When addr:postcode does not have X characters, save entry in broken.txt";
+			qDebug() << "  -css    --check-street-suffix     When addr:street ends with 'str' or 'str.', save entry in broken.txt";
+			qDebug() << "  -iih    --ignore-city-hint        Objects which hava a addr:city tag (and no other addr:* tag) are not considered to be a house number, and thus are not listed as incomplete";
+			qDebug() << "  -nif,   --not-ignore-fixme        do output ways/nodes which have a fixme tag";
+			qDebug() << "  -nin,   --not-ignore-note         do output ways/nodes which have a note tag";
+			qDebug() << "  -h      --help                    Print this help";
 			qDebug() << "\ncompiled on" << __DATE__;
 			return 0;
 		}
@@ -113,6 +114,7 @@ int main(int argc, const char* argv[]){
 // 			else if(QString(argv[i]).contains("-wo=")) dupesperosm=QString(argv[i]).mid(4).toInt();
 // 			else if(QString(argv[i]).contains("--write-osm=")) dupesperosm=QString(argv[i]).mid(12).toInt();
 			else if(QString(argv[i]).contains("--check-postcode-number") || QString(argv[i]).contains("-cpn")) bCheckPostcodeNumber=true;
+			else if(QString(argv[i]).contains("--check-postcode-chars=") || QString(argv[i]).contains("-cpc=")) iCheckPostcodeChars=QString(argv[i]).split("=")[1].toInt();
 			else if(QString(argv[i]).contains("--check-street-suffix") || QString(argv[i]).contains("-css")) bCheckStreetSuffix=true;
 			else {
 				qDebug() <<  "unknown option " << argv[i];
@@ -308,9 +310,14 @@ bool isComplete(housenumber &hnr) {
 	
 	if(hnr.lat==0 || hnr.lon==0) return false;
 	
-	if(bCheckPostcodeNumber && hnr.postcode!="" && hnr.postcode!=QString("%1").arg(hnr.postcode.toInt())) {
-		brokenStream << qsGenerateBrokenPostcodeOutput(hnr);
-		brokenCount++;
+	if(hnr.postcode!="") {
+		if(bCheckPostcodeNumber && hnr.postcode!=QString("%1").arg(hnr.postcode.toInt())) {
+			brokenStream << qsGenerateBrokenPostcodeOutput(hnr);
+			brokenCount++;
+		} else if(iCheckPostcodeChars>-1 && hnr.postcode.length()!=iCheckPostcodeChars) {
+			brokenStream << qsGenerateBrokenPostcodeOutput(hnr);
+			brokenCount++;
+		}
 	}
 	
 	if(bCheckStreetSuffix && (hnr.street.endsWith("str") || hnr.street.contains("str.")) ) {

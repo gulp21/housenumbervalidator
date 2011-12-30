@@ -2,9 +2,13 @@
 <body>
 <?
 $out = fopen("reports.txt", "a");
-if (!$out) {
+if(!$out) {
     print("Err");
     exit;
+}
+if(!is_numeric($_GET["id"])) {
+	print("Bitte die ID aus dem Popup in das Textfeld eingeben.");
+	exit;
 }
 if($_GET["way"]==="true") {
 	fputs($out,"way".$_GET["id"]."\"\n");

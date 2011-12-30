@@ -27,6 +27,14 @@
 			background: white;
 		}
 		
+		#reportframe {
+			position: absolute;
+			top: 60px;
+			z-index: 2000;
+			border: none;
+			background: white;
+		}
+		
 		[id^="OL_Icon_"], #footer {
 			-moz-transition: opacity .2s ease-in .1s;
 			-webkit-transition: opacity .2s ease-in .1s;
@@ -70,8 +78,8 @@
 	<![endif]-->
 	
 	<div style="height:100%" id="mapdiv"></div>
-	<iframe style="display:none" id="josmframe" src="about:blank"></iframe>
-	<iframe style="display:none;position:absolute;top:50px;z-index:2000;border:none;background:white;" id="reportframe" src="about:blank"></iframe>
+	<iframe style="display:none;" id="josmframe" src="about:blank"></iframe>
+	<iframe style="display:none;" id="reportframe" src="about:blank"></iframe>
 	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 	<script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 	<script>
@@ -145,7 +153,7 @@
 		}
 	</script>
 	<div id="footer">
-	Last Update: <span style="font-weight:bold;">29/12/11</span> (545754 [+728] housenumbers, 2563 [-45] dupes, 150909 [+169] incomplete [2000 shown], 308 [-113] broken [NRW only, compared with 28/12/11]) 
+	Last Update: <span style="font-weight:bold;">30/12/11</span> (545980 [+226] housenumbers, 2557 [-6] dupes, 150953 [+44] incomplete [2000 shown], 348 <!--[-113] -->broken [NRW only, compared with 29/12/11]) 
 	<br/>
 	Dupes: <img src="pin_red.png" alt="red square"/> Nodes, <img src="pin_blue.png" alt="blue square"/> Ways &dash;
 	Problematic: <img src="pin_circle.png" alt="black circle"/> Incomplete, <img src="pin_circle_red.png" alt="red circle"/> Street, <img src="pin_circle_blue.png" alt="blue circle"/> Postcode (enable layer with +-button)
@@ -155,7 +163,7 @@
 	<span style="font-weight:bold;"><a href="http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator" target="_blank">Hilfe (Wiki)</a></span> &dash;
 	Kontakt: <a href="http://www.openstreetmap.org/message/new/gulp21" target="_blank">&uuml;ber OSM</a>,
 	<a href="#" onclick="alert(unescape('support[dot]gulp21 (%E4t) googlemail[dot]com'));">E-Post</a> &dash;
-	<a href="#" onclick="report();" style="color:red;font-weight:bold;">Fehlarlarm melden</a> &dash;
+	<a href="#" onclick="report();" style="color:red;font-weight:bold;">Fehlalarm melden</a> &dash;
 	&copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC&#8209;BY&#8209;SA</a>
 	</div>
 	<div id="reportdiv">
