@@ -22,3 +22,4 @@ $osmosis \
 echo ------------------
 echo  $start-`date +%H:%M:%S` test-merge finished
 echo ------------------
+exit 0
