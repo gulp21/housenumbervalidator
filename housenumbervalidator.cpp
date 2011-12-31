@@ -270,10 +270,10 @@ int main(int argc, const char* argv[]){
 		// ignore ways/nodes with fixme/note
 		} else if( ( (line.contains("k=\"fixme\"", Qt::CaseInsensitive) || line.contains("k='fixme'", Qt::CaseInsensitive)) && bIgnoreFixme ) ||
 		           ( (line.contains("k=\"note\"", Qt::CaseInsensitive) || line.contains("k='note'", Qt::CaseInsensitive)) && bIgnoreNote ) ||
-		           (line.contains("power") && line.contains("sub_station") ||
+		           (line.contains("power") && line.contains("sub_station")) ||
 		           (line.contains("street_lamp"))
-			) 
-		) {
+			)
+		{
 			hnr.ignore=true;
 		}
 		else if(line.contains("<nd") && hnr.nodeId=="") {

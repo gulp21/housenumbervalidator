@@ -104,6 +104,12 @@
     <tag k='shop' v='clothes' />
     <tag k='wheelchair' v='yes' />
   </node>
+  <node id='745379551' action='modify' timestamp='2010-11-21T05:55:58Z' uid='290680' user='wheelmap_visitor' visible='true' version='2' changeset='6419849' lat='51.2004496' lon='6.6881861'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:postcode' v='41460' />
+    <tag k='addr:street' v='Niederstraße' />
+    <tag k='highway' v='street_lamp' />
+  </node>
   <node id='745379135' timestamp='2011-02-24T19:39:54Z' uid='141931' user='Sharlin' visible='true' version='2' changeset='7384620' lat='51.200411' lon='6.688263'>
     <tag k='addr:city' v='Neuss' />
     <tag k='addr:country' v='DE' />
