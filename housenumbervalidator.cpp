@@ -324,7 +324,8 @@ bool isComplete(housenumber &hnr) {
 		}
 	}
 	
-	if(bCheckStreetSuffix && (hnr.street.endsWith("str") || hnr.street.contains("str.")) ) {
+	if( ( bCheckStreetSuffix && (hnr.street.endsWith("str") || hnr.street.contains("str.") || hnr.street.endsWith("Str") || hnr.street.contains("Str.")) )
+           || ( hnr.street.length()>0 && !hnr.street[0].isUpper() ) ) {
 		brokenStream << qsGenerateBrokenStreetOutput(hnr);
 		brokenCount++;
 	}
@@ -334,7 +335,7 @@ bool isComplete(housenumber &hnr) {
 		brokenCount++;
 	}
 	
-	if(hnr.city!="" && hnr.city==QString("%1").arg(hnr.city.toInt())) {
+	if(hnr.city.length()>0 && (hnr.city==QString("%1").arg(hnr.city.toInt()) || !hnr.city[0].isUpper()) ) {
 		brokenStream << qsGenerateBrokenCityOutput(hnr);
 		brokenCount++;
 	}
