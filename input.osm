@@ -145,6 +145,13 @@
     <tag k='addr:street' v='Niederstr.' />
     <tag k='addr:postcode' v='D-12345' />
   </node>
+  <node id='745379290' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005876' lon='6.6880544'>
+    <tag k='addr:city' v='123' />
+    <tag k='addr:country' v='D' />
+    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:street' v='Niederstraße' />
+    <tag k='addr:postcode' v='12345' />
+  </node>
   <node id='745377200' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005876' lon='6.6880544'>
     <tag k='addr:city' v='Neuss' />
     <tag k='addr:country' v='DE' />
