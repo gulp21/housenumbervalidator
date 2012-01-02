@@ -118,7 +118,7 @@
 		map.addLayer(incomplete);
 		incomplete.setVisibility(false);
 		
-		var brpostcode = new OpenLayers.Layer.Text( "Broken Postcode",
+		var brpostcode = new OpenLayers.Layer.Text( "Broken Country/City/Postcode",
 				{ location:"./broken_postcode.txt",
 				projection: map.displayProjection
 				});
@@ -153,10 +153,10 @@
 		}
 	</script>
 	<div id="footer">
-	Last Update: <span style="font-weight:bold;">01/01/12</span> (546142 [+159] housenumbers, 2478 [-28] dupes, 150825 [-25] incomplete [2000 shown], 349 [+2] broken [NRW only, compared with 31/12/11]) 
+	Last Update: <span style="font-weight:bold;">02/01/12</span> (546323 [+181] housenumbers, 2433 [-28] dupes, 150576 [-25] incomplete [2000 shown], 351 <!--[+2] -->broken [NRW only, compared with 01/01/12]) 
 	<br/>
 	Dupes: <img src="pin_red.png" alt="red square"/> Nodes, <img src="pin_blue.png" alt="blue square"/> Ways &dash;
-	Problematic: <img src="pin_circle.png" alt="black circle"/> Incomplete, <img src="pin_circle_red.png" alt="red circle"/> Street, <img src="pin_circle_blue.png" alt="blue circle"/> Postcode (enable layer with +-button)
+	Problematic: <img src="pin_circle.png" alt="black circle"/> Incomplete, <img src="pin_circle_red.png" alt="red circle"/> Street, <img src="pin_circle_blue.png" alt="blue circle"/> Country/City/Postcode (enable layer with +-button)
 	<br/>
 	<a href="https://github.com/gulp21" target="_blank">Source</a> &dash;
 	<a href="http://forum.openstreetmap.org/viewtopic.php?id=12669" target="_blank">Forum</a> &dash;

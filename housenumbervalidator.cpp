@@ -76,10 +76,10 @@ void housenumberToBinTree(housenumber hnr, pBinTree &node);
 void nodeToBinTree(housenumber hnr, pBinTree &node);
 void inorder(pBinTree &root);
 
-int main(int argc, const char* argv[]){ 
+int main(int argc, const char* argv[]) {
 	QTime now;
 	now.start();
-        
+	
 	if(argc>1) {
 		if(QString(argv[1])=="--help" || QString(argv[1])=="-h") {
 			qDebug() << "Usage: ./housenumbervalidator [FILENAME.hnr.osm [OPTIONS]]\n";
@@ -335,7 +335,7 @@ bool isComplete(housenumber &hnr) {
 		brokenCount++;
 	}
 	
-	if(hnr.city.length()>0 && (hnr.city==QString("%1").arg(hnr.city.toInt()) || !hnr.city[0].isUpper()) ) {
+	if(hnr.city.length()>0 && !hnr.city[0].isUpper()) {
 		brokenStream << qsGenerateBrokenCityOutput(hnr);
 		brokenCount++;
 	}
@@ -386,7 +386,7 @@ QString qsGenerateIncompleteOutput(housenumber hnr, int i) {
 QString qsGenerateBrokenStreetOutput(housenumber hnr) {
 	QString link=qsGenerateLink(hnr);
 	
-	return QString("%1\t%2\tBroken\t%3 %4 %5 %6 <b>%7</b> %8 has problematic street\tpin.png\t16,16\t-8,-8\n")
+	return QString("%1\t%2\tBroken\t%3 %4 %5 %6 <b>%7</b> %8 has problematic <b>street</b>\tpin.png\t16,16\t-8,-8\n")
 	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
 }
@@ -394,7 +394,7 @@ QString qsGenerateBrokenStreetOutput(housenumber hnr) {
 QString qsGenerateBrokenPostcodeOutput(housenumber hnr) {
 	QString link=qsGenerateLink(hnr);
 	
-	return QString("%1\t%2\tBroken\t%3 %4 %5 <b>%6</b> %7 %8 has problematic postcode\tpin.png\t16,16\t-8,-8\n")
+	return QString("%1\t%2\tBroken\t%3 %4 %5 <b>%6</b> %7 %8 has problematic <b>postcode</b>\tpin.png\t16,16\t-8,-8\n")
 	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
 }
@@ -402,7 +402,7 @@ QString qsGenerateBrokenPostcodeOutput(housenumber hnr) {
 QString qsGenerateBrokenCountryOutput(housenumber hnr) {
 	QString link=qsGenerateLink(hnr);
 	
-	return QString("%1\t%2\tBroken\t%3 <b>%4</b> %5 %6 %7 %8 has problematic country\tpin.png\t16,16\t-8,-8\n")
+	return QString("%1\t%2\tBroken\t%3 <b>%4</b> %5 %6 %7 %8 has problematic <b>country</b>\tpin.png\t16,16\t-8,-8\n")
 	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
 }
@@ -410,7 +410,7 @@ QString qsGenerateBrokenCountryOutput(housenumber hnr) {
 QString qsGenerateBrokenCityOutput(housenumber hnr) {
 	QString link=qsGenerateLink(hnr);
 	
-	return QString("%1\t%2\tBroken\t%3 %4 <b>%5</b> %6 %7 %8 has problematic city\tpin.png\t16,16\t-8,-8\n")
+	return QString("%1\t%2\tBroken\t%3 %4 <b>%5</b> %6 %7 %8 has problematic <b>city</b>\tpin.png\t16,16\t-8,-8\n")
 	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
 }

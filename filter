@@ -6,7 +6,24 @@ start=`date +%H:%M:%S`
 echo `date +%H:%M:%S` creating $1.hnr.osm
 echo ------------------
 
-$osmosis \
+case $1 in
+     *.pbf) echo pbf-file
+     $osmosis \
+	--read-pbf $1 \
+	--tf reject-relations \
+	--tf reject-ways \
+	--tf accept-nodes addr:housenumber=* outPipe.0=nodes \
+	\
+	--read-pbf $1 \
+	--tf accept-ways addr:housenumber=* \
+	--used-node outPipe.0=ways \
+	\
+	--merge inPipe.0=nodes inPipe.1=ways \
+	--wx $1.hnr.osm
+	if [ ! $? -eq 0 ]; then
+		exit 1
+	fi;;
+     *) $osmosis \
 	--rx $1 \
 	--tf reject-relations \
 	--tf reject-ways \
@@ -18,6 +35,10 @@ $osmosis \
 	\
 	--merge inPipe.0=nodes inPipe.1=ways \
 	--wx $1.hnr.osm
+	if [ ! $? -eq 0 ]; then
+		exit 1
+	fi;;
+esac
 
 echo ------------------
 echo  $start-`date +%H:%M:%S` test-merge finished

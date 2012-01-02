@@ -1,37 +1,42 @@
 #!/bin/bash 
 rm nordrhein-westfalen.*
-wget http://download.geofabrik.de/osm/europe/germany/nordrhein-westfalen.osm.bz2
+wget http://download.geofabrik.de/osm/europe/germany/nordrhein-westfalen.osm.pbf
 if [ ! $? -eq 0 ]; then
 	echo download problem
 	exit 1;
 fi
-echo unpacking...
-pbzip2 -d nordrhein-westfalen.osm.bz2
-if [ ! $? -eq 0 ]; then
-	echo pbzip2 problem, trying bzip2 instead...
-	bzip2 -d nordrhein-westfalen.osm.bz2
-	if [ ! $? -eq 0 ]; then
-		echo bzip2 problem
-		exit 2;
-	fi
-fi
-./filter nordrhein-westfalen.osm
+# echo unpacking...
+# pbzip2 -d nordrhein-westfalen.osm.bz2
+# if [ ! $? -eq 0 ]; then
+# 	echo pbzip2 problem, trying bzip2 instead...
+# 	bzip2 -d nordrhein-westfalen.osm.bz2
+# 	if [ ! $? -eq 0 ]; then
+# 		echo bzip2 problem
+# 		exit 2;
+# 	fi
+# fi
+./filter nordrhein-westfalen.osm.pbf
 if [ ! $? -eq 0 ]; then
 	echo filter problem
 	exit 3;
 fi
-./housenumbervalidator nordrhein-westfalen.osm.hnr.osm -ac=DE -cpn -css -iih -cpc=5
+./housenumbervalidator nordrhein-westfalen.osm.pbf.hnr.osm -ac=DE -cpn -css -iih -cpc=5
 if [ ! $? -eq 0 ]; then
 	echo housenumbervalidator problem
 	exit 4;
 fi
+mv html/reports.txt html/reports.txt~
+wget http://gulp21.bplaced.net/osm/reports.txt
+mv reports.txt html/reports.txt
+echo `cat html/reports.txt | wc -l` exceptions [$((`cat html/reports.txt | wc -l`-`cat html/reports.txt~ | wc -l`))]
 grep -v " NL " broken.txt > brok
+echo $((`cat broken.txt | wc -l`-`cat brok | wc -l`)) NL lines removed
 mv brok broken.txt
 grep dupes.txt -v --file=html/reports.txt | grep -v way | sed "s/pin.png/pin_red.png/g" > dupes_nodes.txt
 grep dupes.txt -v --file=html/reports.txt | grep -E "way|iconSize" | sed "s/pin.png/pin_blue.png/g" > dupes_ways.txt
 grep incomplete.txt -v --file=html/reports.txt | grep -v "missing 1" | grep -v "missing 2" | grep -v "missing 3" | head -n 2001 | sed "s/pin.png/pin_circle.png/g" > incompl.txt
 mv incomplete.txt incomplete.txt~
 mv incompl.txt incomplete.txt
-grep broken.txt -v --file=html/reports.txt | grep -E "(c postcode)|iconSize" | sed "s/pin.png/pin_circle_blue.png/g" > broken_postcode.txt
+grep broken.txt -v --file=html/reports.txt | grep -v "c street" | sed "s/pin.png/pin_circle_blue.png/g" > broken_postcode.txt
 grep broken.txt -v --file=html/reports.txt | grep -E "(c street)|iconSize" | sed "s/pin.png/pin_circle_red.png/g" > broken_street.txt
 echo Finished!
