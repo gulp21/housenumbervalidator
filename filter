@@ -41,6 +41,6 @@ case $1 in
 esac
 
 echo ------------------
-echo  $start-`date +%H:%M:%S` test-merge finished
+echo  $start-`date +%H:%M:%S` filter finished
 echo ------------------
 exit 0

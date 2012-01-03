@@ -37,6 +37,6 @@ grep dupes.txt -v --file=html/reports.txt | grep -E "way|iconSize" | sed "s/pin.
 grep incomplete.txt -v --file=html/reports.txt | grep -v "missing 1" | grep -v "missing 2" | grep -v "missing 3" | head -n 2001 | sed "s/pin.png/pin_circle.png/g" > incompl.txt
 mv incomplete.txt incomplete.txt~
 mv incompl.txt incomplete.txt
-grep broken.txt -v --file=html/reports.txt | grep -v "c street" | sed "s/pin.png/pin_circle_blue.png/g" > broken_postcode.txt
-grep broken.txt -v --file=html/reports.txt | grep -E "(c street)|iconSize" | sed "s/pin.png/pin_circle_red.png/g" > broken_street.txt
+grep broken.txt -v --file=html/reports.txt | grep -v "<b>street" | sed "s/pin.png/pin_circle_blue.png/g" > broken_postcode.txt
+grep broken.txt -v --file=html/reports.txt | grep -E "<b>street|iconSize" | sed "s/pin.png/pin_circle_red.png/g" > broken_street.txt
 echo Finished!
