@@ -38,5 +38,13 @@ grep incomplete.txt -v --file=html/reports.txt | grep -v "missing 1" | grep -v "
 mv incomplete.txt incomplete.txt~
 mv incompl.txt incomplete.txt
 grep broken.txt -v --file=html/reports.txt | grep -v "<b>street" | sed "s/pin.png/pin_circle_blue.png/g" > broken_postcode.txt
-grep broken.txt -v --file=html/reports.txt | grep -E "<b>street|iconSize" | sed "s/pin.png/pin_circle_red.png/g" > broken_street.txt
+grep broken.txt -v --file=html/reports.txt | grep -E "<b>street|iconSize" | grep -v -E "b>v[ao][nm]" | sed "s/pin.png/pin_circle_red.png/g" > broken_street.txt
 echo Finished!
+# ftp -n gulp21.bplaced.net << EOF
+# user gulp21 $pw
+# bin
+# lcd /tmp
+# cd osm
+# put test
+# bye
+# EOF
