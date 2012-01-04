@@ -369,9 +369,11 @@ QString qsGenerateDupeOutput(pBinTree hnr) {
 	
 	QString dupeLink=qsGenerateLink(hnr->dupe);
 	
-	return QString("%1\t%2\tDupe\t%3 %4 is dupe of %5\tpin.png\t16,16\t-8,-8\n")
+	QString showLink=QString("[<a href=\"#\" onclick=\"showPosition(%1,%2)\">show</a>]").arg(hnr->dupe->lat).arg(hnr->dupe->lon);
+	
+	return QString("%1\t%2\tDupe\t%3 %4 is dupe of %5 %6\tpin.png\t16,16\t-8,-8\n")
 	                .arg(hnr->lat,0,'f',8).arg(hnr->lon,0,'f',8).arg(link)
-	                .arg(hnr->address).arg(dupeLink);
+	                .arg(hnr->address).arg(dupeLink).arg(showLink);
 }
 
 QString qsGenerateIncompleteOutput(housenumber hnr, int i) {

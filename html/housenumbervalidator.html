@@ -132,6 +132,9 @@
 		map.addLayer(brstreet);
 		brstreet.setVisibility(false);
 		
+			var markers = new OpenLayers.Layer.Markers( "Markers", {projection: map.displayProjection} );
+			map.addLayer(markers);
+		
 		//Set start centrepoint and zoom    
 		var lonLat = new OpenLayers.LonLat(7.749,51.522)
 			.transform(
@@ -141,6 +144,20 @@
 		var zoom=9;
 		if (!map.getCenter())
 			map.setCenter (lonLat, zoom);
+		
+		function showPosition(lat, lon) {
+			var size = new OpenLayers.Size(16,16);
+			var offset = new OpenLayers.Pixel(0,0);
+			var icon = new OpenLayers.Icon('pin.png',size,offset);
+			var lonLat = new OpenLayers.LonLat(lon,lat)
+			.transform(
+				new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+				map.getProjectionObject() // to Spherical Mercator Projection
+			);
+			marker = new OpenLayers.Marker(lonLat,icon);
+			marker.events.register('mousedown', marker, function(evt) { this.destroy(); });
+			markers.addMarker(marker);
+		}
 		
 		function report() {
 			if(document.getElementById('reportdiv').style.display=='block') {
