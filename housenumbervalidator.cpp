@@ -330,7 +330,7 @@ bool isComplete(housenumber &hnr) {
 		brokenCount++;
 	}
 	
-	if(hnr.country!="" && (hnr.country.length()!=2 /*|| hnr.country.toUpper()!=hnr.country*/) ) {
+	if(hnr.country!="" && (hnr.country.length()!=2 || !hnr.country[0].isLetter() || !hnr.country[1].isLetter() /*|| hnr.country.toUpper()!=hnr.country*/) ) {
 		brokenStream << qsGenerateBrokenCountryOutput(hnr);
 		brokenCount++;
 	}
