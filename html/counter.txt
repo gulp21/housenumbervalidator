@@ -1,0 +1,22 @@
+79.194.247.118 Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0) Gecko/20100101 Firefox/8.0
+149.172.192.161 Mozilla/5.0 (Windows NT 5.1; rv:8.0) Gecko/20100101 Firefox/8.0
+149.172.192.161 Mozilla/5.0 (Windows NT 5.1; rv:8.0) Gecko/20100101 Firefox/8.0
+91.53.222.62 Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0) Gecko/20100101 Firefox/8.0
+92.225.60.163 Mozilla/5.0 (X11; Linux x86_64; rv:8.0) Gecko/20100101 Firefox/8.0 Iceweasel/8.0
+79.230.178.90 Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1
+149.172.192.161 Mozilla/5.0 (Windows NT 5.1; rv:8.0) Gecko/20100101 Firefox/8.0
+217.93.147.147 Mozilla/5.0 (Windows NT 5.1; rv:5.0.1) Gecko/20100101 Firefox/5.0.1
+149.172.192.161 Mozilla/5.0 (Windows NT 5.1; rv:8.0) Gecko/20100101 Firefox/8.0
+178.201.143.117 Opera/9.80 (X11; Linux x86_64; U; de) Presto/2.10.229 Version/11.60
+178.201.143.117 Opera/9.80 (X11; Linux x86_64; U; de) Presto/2.10.229 Version/11.60
+178.4.153.147 Opera/9.80 (X11; Linux x86_64; U; de) Presto/2.9.168 Version/11.51
+178.4.153.147 Opera/9.80 (X11; Linux x86_64; U; de) Presto/2.9.168 Version/11.51
+178.4.153.147 Opera/9.80 (X11; Linux x86_64; U; de) Presto/2.9.168 Version/11.51
+79.223.9.53 Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7
+79.194.245.158 Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0) Gecko/20100101 Firefox/8.0
+93.215.94.130 Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0
+93.215.94.130 Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0
+134.130.125.83 Opera/9.80 (Windows NT 6.1; U; Edition Next; de) Presto/2.10.238 Version/12.00
+84.157.208.10 Mozilla/5.0 (Windows NT 5.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1
+217.86.204.237 Mozilla/5.0 (X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1
+80.132.143.172 Mozilla/5.0 (Windows NT 6.0; rv:9.0.1) Gecko/20100101 Firefox/9.0.1
