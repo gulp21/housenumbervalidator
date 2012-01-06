@@ -41,3 +41,19 @@ DNT149.61		120105:23	Mozilla/5.0 (Windows NT 5.1; rv:8.0) Gecko/20100101 Firefox
 79.196.105.89	hnrv	120106:02	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7
 DNT62..58	hnrv	120106:09	Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1
 178.201.143.117	hnrv	120106:11	Opera/9.80 (X11; Linux x86_64; U; de) Presto/2.10.229 Version/11.60
+217.81.32.173	hnrv	120106:11	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:9.0.1) Gecko/20100101 Firefox/9.0.1
+91.66.156.223	hnrv	120106:12	Mozilla/5.0 (Windows NT 5.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1
+78.49.165.238	hnrv	120106:12	Mozilla/5.0 (X11; U; Linux i686; de; rv:1.9.2.17) Gecko/20110422 Ubuntu/8.04 (hardy) Firefox/3.6.17
+78.49.165.238	hnrv	120106:12	Mozilla/5.0 (X11; U; Linux i686; de; rv:1.9.2.17) Gecko/20110422 Ubuntu/8.04 (hardy) Firefox/3.6.17
+84.52.64.117	hnrv	120106:12	Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7
+80.171.98.95	hnrv	120106:12	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7
+DNT93..02	hnrv	120106:12	Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0
+DNT93..02	hnrv	120106:12	Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0
+72.30.161.236	ghp	120106:13	Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)
+93.193.51.14	hnrv	120106:13	Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3
+72.30.161.236	hnrv	120106:15	Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)
+95.118.221.90	hnrv	120106:15	Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7
+62.156.9.41	ghp	120106:16	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7
+62.156.9.41	ghp_de	120106:16	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7
+66.249.66.139	hnrv	120106:16	Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+66.249.66.146	hnrv	120106:16	Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
