@@ -104,38 +104,73 @@
 		});
 		map.addLayer(mapnikMap);
 		
-		var ways = new OpenLayers.Layer.Text( "Dupes Ways",
+		var ways = new OpenLayers.Layer.Text( "NW: Dupes Ways",
 				{ location:"./dupes_ways.txt",
 				projection: map.displayProjection
 				});
 		map.addLayer(ways);
 		
-		var nodes = new OpenLayers.Layer.Text( "Dupes Nodes",
+		var nodes = new OpenLayers.Layer.Text( "NW: Dupes Nodes",
 				{ location:"./dupes_nodes.txt",
 				projection: map.displayProjection
 				});
 		map.addLayer(nodes);
 		
-		var incomplete = new OpenLayers.Layer.Text( "Incomplete",
+		var incomplete = new OpenLayers.Layer.Text( "NW: Incomplete",
 				{ location:"./incomplete.txt",
 				projection: map.displayProjection
 				});
 		map.addLayer(incomplete);
 		incomplete.setVisibility(false);
 		
-		var brpostcode = new OpenLayers.Layer.Text( "Broken Country/City/Postcode",
+		var brpostcode = new OpenLayers.Layer.Text( "NW: Broken Country/City/Postcode",
 				{ location:"./broken_postcode.txt",
 				projection: map.displayProjection
 				});
 		map.addLayer(brpostcode);
 		brpostcode.setVisibility(false);
 		
-		var brstreet = new OpenLayers.Layer.Text( "Broken Street",
+		var brstreet = new OpenLayers.Layer.Text( "NW: Broken Street",
 				{ location:"./broken_street.txt",
 				projection: map.displayProjection
 				});
 		map.addLayer(brstreet);
 		brstreet.setVisibility(false);
+		
+		var hhways = new OpenLayers.Layer.Text( "HH: Dupes Ways",
+				{ location:"hamburg/dupes_ways.txt",
+				projection: map.displayProjection
+				});
+		map.addLayer(hhways);
+		hhways.setVisibility(false);
+		
+		var hhnodes = new OpenLayers.Layer.Text( "HH: Dupes Nodes",
+				{ location:"hamburg/dupes_nodes.txt",
+				projection: map.displayProjection
+				});
+		map.addLayer(hhnodes);
+		hhnodes.setVisibility(false);
+		
+		var hhincomplete = new OpenLayers.Layer.Text( "HH: Incomplete",
+				{ location:"hamburg/incomplete.txt",
+				projection: map.displayProjection
+				});
+		map.addLayer(hhincomplete);
+		hhincomplete.setVisibility(false);
+		
+		var hhbrpostcode = new OpenLayers.Layer.Text( "HH: Broken Country/City/Postcode",
+				{ location:"hamburg/broken_postcode.txt",
+				projection: map.displayProjection
+				});
+		map.addLayer(hhbrpostcode);
+		hhbrpostcode.setVisibility(false);
+		
+		var hhbrstreet = new OpenLayers.Layer.Text( "HH: Broken Street",
+				{ location:"hamburg/broken_street.txt",
+				projection: map.displayProjection
+				});
+		map.addLayer(hhbrstreet);
+		hhbrstreet.setVisibility(false);
 		
 		var markers = new OpenLayers.Layer.Markers( "Markers", {projection: map.displayProjection} );
 		map.addLayer(markers);
@@ -176,7 +211,8 @@
 		}
 	</script>
 	<div id="footer">
-	Last Update: <span style="font-weight:bold;">04/01/12</span> (546847 [+258] housenumbers, 2419 [-1] dupes, 149719 [-920] incomplete [2000 shown], 582 <!--[+2] -->broken [NRW only, compared with 03/01/12]) 
+	Last Update: NRW: <span style="font-weight:bold;">05/01/12</span> (547066 [+219] housenumbers, 2329 [&minus;90] dupes, 149747 [+28] incomplete [2000 shown], 542 [&minus;40] broken [compared with 04/01/12])
+	<br/>Hamburg (enable layer with +-button): <span style="font-weight:bold;">06/01/12</span> (72806 <!--[+219]--> housenumbers, 499 <!--[&minus;90]--> dupes, 25491 <!--[+28]--> incomplete [2000 shown], 13 <!--[&minus;40]--> broken<!-- [compared with 05/01/12]-->)
 	<br/>
 	Dupes: <img src="pin_red.png" alt="red square"/> Nodes, <img src="pin_blue.png" alt="blue square"/> Ways &dash;
 	Problematic: <img src="pin_circle.png" alt="black circle"/> Incomplete, <img src="pin_circle_red.png" alt="red circle"/> Street, <img src="pin_circle_blue.png" alt="blue circle"/> Country/City/Postcode (enable layer with +-button)
