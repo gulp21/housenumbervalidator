@@ -1,0 +1,1 @@
+/home/markus/Dokumente/GitHub/housenumbervalidator/broken_postcode.txt

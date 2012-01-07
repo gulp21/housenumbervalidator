@@ -57,3 +57,18 @@ DNT93..02	hnrv	120106:12	Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Fi
 62.156.9.41	ghp_de	120106:16	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7
 66.249.66.139	hnrv	120106:16	Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
 66.249.66.146	hnrv	120106:16	Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+79.194.232.22	hnrv	120106:20	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0) Gecko/20100101 Firefox/8.0
+67.195.115.151	ghp	120106:20	Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)
+178.201.143.117	hnrv	120106:22	Opera/9.80 (X11; Linux x86_64; U; de) Presto/2.10.229 Version/11.60
+188.108.106.36	hnrv	120106:22	Mozilla/5.0 (Windows; U; Windows NT 6.1; de; rv:1.9.2.16) Gecko/20110319 Firefox/3.6.16
+188.108.106.36	hnrv	120106:23	Mozilla/5.0 (Windows; U; Windows NT 6.1; de; rv:1.9.2.16) Gecko/20110319 Firefox/3.6.16
+DNT93..02	hnrv	120107:00	Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0
+72.30.161.236	ghp	120107:06	Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)
+88.73.45.44	hnrv	120107:08	Mozilla/5.0 (X11; Linux x86_64; rv:8.0) Gecko/20100101 Firefox/8.0 Iceweasel/8.0
+83.64.140.82	hnrv	120107:09	Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.15 (KHTML, like Gecko) Chrome/18.0.998.1 Safari/535.15
+79.194.253.250	hnrv	120107:11	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0) Gecko/20100101 Firefox/8.0
+DNT92..81	hnrv	120107:12	Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1
+DNT92..81	hnrv	120107:12	Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1
+178.200.219.189	hnrv	120107:14	Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:8.0) Gecko/20100101 Firefox/8.0
+77.176.54.63	hnrv	120107:14	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1
+176.0.199.197	hnrv	120107:16	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7

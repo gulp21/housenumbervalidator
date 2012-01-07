@@ -40,6 +40,11 @@ mv incompl.txt incomplete.txt
 grep broken.txt -v --file=html/reports.txt | grep -v "<b>street" | sed "s/pin.png/pin_circle_blue.png/g" > broken_postcode.txt
 grep broken.txt -v --file=html/reports.txt | grep -E "<b>street|iconSize" | grep -v -E "b>v[ao][nm]" | sed "s/pin.png/pin_circle_red.png/g" > broken_street.txt
 cat incomplete.txt | wc -l
+mv dupes_nodes.txt nrw/
+mv dupes_ways.txt nrw/
+mv incomplete.txt nrw/
+mv broken_postcode.txt nrw/
+mv broken_street.txt nrw/
 echo Finished!
 # ftp -n gulp21.bplaced.net << EOF
 # user gulp21 $pw
