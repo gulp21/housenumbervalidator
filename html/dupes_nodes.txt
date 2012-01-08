@@ -1,1 +1,1 @@
-/home/markus/Dokumente/GitHub/housenumbervalidator/dupes_nodes.txt
+/home/markus/Dokumente/GitHub/housenumbervalidator/nrw/dupes_nodes.txt

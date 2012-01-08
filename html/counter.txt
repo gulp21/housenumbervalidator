@@ -72,3 +72,8 @@ DNT92..81	hnrv	120107:12	Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 F
 178.200.219.189	hnrv	120107:14	Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:8.0) Gecko/20100101 Firefox/8.0
 77.176.54.63	hnrv	120107:14	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1
 176.0.199.197	hnrv	120107:16	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7
+62.143.8.182	hnrv	120107:17	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.2 (KHTML, like Gecko) Ubuntu/11.10 Chromium/15.0.874.106 Chrome/15.0.874.106 Safari/535.2
+213.39.192.212	hnrv	120107:18	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)
+DNT217.36	hnrv	120107:18	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0a2) Gecko/20120106 Firefox/11.0a2
+DNT195.22	hnrv	120107:18	Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:8.0) Gecko/20100101 Firefox/8.0
+80.239.242.158	hnrv	120107:18	Opera/9.80 (Windows NT 6.1; U; de) Presto/2.10.229 Version/11.60
