@@ -1,2 +1,0 @@
-lat	lon	title	description	icon	iconSize	iconOffset
-53.45839480	10.21568530	Broken	<a target="_blank" href="http://www.openstreetmap.org/browse/way/83293028">83293028</a> (<a target="josmframe" href="http://localhost:8111/load_and_zoom?left=10.2156843&right=10.2156863&top=53.4583958&bottom=53.4583938&select=way83293028">JOSM</a>) DE Hamburg 21039 <b>curslacker deich</b> 267 has problematic <b>street</b>	pin_circle_red.png	16,16	-8,-8
