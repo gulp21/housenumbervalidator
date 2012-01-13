@@ -147,7 +147,7 @@ int main(int argc, const char* argv[]) {
 	}
 	duplicatesStream.setDevice(&duplicatesFile);
 	duplicatesStream.setCodec("UTF-8");
-	duplicatesStream << "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
+	duplicatesStream << "lat\tlon\tid\ttype\tname\tcountry\tcity\tpostcode\tstreet\tnumber\tdupe_id\tdupe_lat\tdupe_lon\n";
 	
 	QFile incompleteFile("incomplete.txt");
 	incompleteFile.remove();
@@ -372,15 +372,20 @@ bool isComplete(housenumber &hnr) {
 }
 
 QString qsGenerateDupeOutput(pBinTree hnr) {
-	QString link=qsGenerateLink(hnr);
+	//QString link=qsGenerateLink(hnr);
 	
-	QString dupeLink=qsGenerateLink(hnr->dupe);
+	//QString dupeLink=qsGenerateLink(hnr->dupe);
 	
-	QString showLink=QString("[<a href=\"#\" onclick=\"showPosition(%1,%2)\">show</a>]").arg(hnr->dupe->lat).arg(hnr->dupe->lon);
+	//QString showLink=QString("[<a href=\"#\" onclick=\"showPosition(%1,%2)\">show</a>]").arg(hnr->dupe->lat).arg(hnr->dupe->lon);
+	QStringList address=hnr->address.split("||");
 	
-	return QString("%1\t%2\tDupe\t%3 %4 is dupe of %5 %6\tpin.png\t16,16\t-8,-8\n")
-	                .arg(hnr->lat,0,'f',8).arg(hnr->lon,0,'f',8).arg(link)
-	                .arg(hnr->address).arg(dupeLink).arg(showLink);
+	qDebug() << hnr->address;
+	
+	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\n")
+	                .arg(hnr->lat,0,'f',8).arg(hnr->lon,0,'f',8).arg(hnr->id)
+	                .arg(hnr->isWay?1:0).arg(address[5]).arg(address[6])
+	                .arg(address[0]).arg(address[1]).arg(address[2]).arg(address[3]).arg(address[4])
+	                .arg(hnr->dupe->id).arg(hnr->dupe->isWay?1:0).arg(hnr->dupe->lat).arg(hnr->dupe->lon);
 }
 
 QString qsGenerateIncompleteOutput(housenumber hnr, int i) {
@@ -501,7 +506,7 @@ void insertNode(housenumber hnr) {
 }
 
 void housenumberToBinTree(housenumber hnr, pBinTree &node) {
-	node->address=QString("%1 %2 %3 %4 %5 %6 %7")
+	node->address=QString("%1||%2||%3||%4||%5||%6||%7")
 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street)
 	                .arg(hnr.number).arg(hnr.name).arg(hnr.shop);
 	node->dupe=hnr.dupe;
