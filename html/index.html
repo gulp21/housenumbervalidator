@@ -71,6 +71,24 @@
 		[id*="popup"] {
 			opacity: .95 !important;
 		}
+		
+		[id*="popup"], [id*="contenDiv"] {
+			width: 300px !important;
+		}
+		
+		h2 {
+			margin: 0px;
+			font-size: large;
+			margin-bottom: -10px;
+		}
+		
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+		
+		table {
+			 border-spacing: 0px;
+		}
 	</style>
 </head>
 <body style="height:99%;overflow:hidden;">
@@ -84,10 +102,11 @@
 	<div style="height:100%" id="mapdiv"></div>
 	<iframe style="display:none;" id="josmframe" src="about:blank"></iframe>
 	<iframe style="display:none;" id="reportframe" src="about:blank"></iframe>
-	<iframe style="display:none;" id="counterframe" src="counter.php?id=hnrv"></iframe>
+<!-- 	<iframe style="display:none;" id="counterframe" src="counter.php?id=hnrv"></iframe> -->
 	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 	<script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 	<script>
+	//http://forum.openstreetmap.org/viewtopic.php?id=14630
 		map = new OpenLayers.Map("mapdiv",
 		{
 			controls: [
@@ -103,74 +122,13 @@
 			transitionEffect: 'resize'
 		});
 		map.addLayer(mapnikMap);
-		
-		var ways = new OpenLayers.Layer.Text( "NW: Dupes Ways",
-				{ location:"./dupes_ways.txt",
-				projection: map.displayProjection
-				});
-		map.addLayer(ways);
-		
-		var nodes = new OpenLayers.Layer.Text( "NW: Dupes Nodes",
-				{ location:"./dupes_nodes.txt",
-				projection: map.displayProjection
-				});
-		map.addLayer(nodes);
-		
-		var incomplete = new OpenLayers.Layer.Text( "NW: Incomplete",
-				{ location:"./incomplete.txt",
-				projection: map.displayProjection
-				});
-		map.addLayer(incomplete);
-		incomplete.setVisibility(false);
-		
-		var brpostcode = new OpenLayers.Layer.Text( "NW: Broken Country/City/Postcode",
-				{ location:"./broken_postcode.txt",
-				projection: map.displayProjection
-				});
-		map.addLayer(brpostcode);
-		brpostcode.setVisibility(false);
-		
-		var brstreet = new OpenLayers.Layer.Text( "NW: Broken Street",
-				{ location:"./broken_street.txt",
-				projection: map.displayProjection
-				});
-		map.addLayer(brstreet);
-		brstreet.setVisibility(false);
-		
-		var hhways = new OpenLayers.Layer.Text( "HH: Dupes Ways",
-				{ location:"hamburg/dupes_ways.txt",
-				projection: map.displayProjection
-				});
-		map.addLayer(hhways);
-		hhways.setVisibility(false);
-		
-		var hhnodes = new OpenLayers.Layer.Text( "HH: Dupes Nodes",
-				{ location:"hamburg/dupes_nodes.txt",
-				projection: map.displayProjection
-				});
-		map.addLayer(hhnodes);
-		hhnodes.setVisibility(false);
-		
-		var hhincomplete = new OpenLayers.Layer.Text( "HH: Incomplete",
-				{ location:"hamburg/incomplete.txt",
-				projection: map.displayProjection
-				});
-		map.addLayer(hhincomplete);
-		hhincomplete.setVisibility(false);
-		
-		var hhbrpostcode = new OpenLayers.Layer.Text( "HH: Broken Country/City/Postcode",
-				{ location:"hamburg/broken_postcode.txt",
-				projection: map.displayProjection
-				});
-		map.addLayer(hhbrpostcode);
-		hhbrpostcode.setVisibility(false);
-		
-		var hhbrstreet = new OpenLayers.Layer.Text( "HH: Broken Street",
-				{ location:"hamburg/broken_street.txt",
-				projection: map.displayProjection
-				});
-		map.addLayer(hhbrstreet);
-		hhbrstreet.setVisibility(false);
+
+		var dupes = new OpenLayers.Layer.Text( "Dupes",
+		{
+			location:"./get_dupes.php",
+			projection: map.displayProjection
+		});
+		map.addLayer(dupes);
 		
 		var markers = new OpenLayers.Layer.Markers( "Markers", {projection: map.displayProjection} );
 		map.addLayer(markers);
