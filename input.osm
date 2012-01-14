@@ -186,6 +186,19 @@
     <tag k='addr:street' v='Niederstraße' />
     <tag k='building' v='yes' />
   </way>
+  <way id='11118' action='modify' visible='true'>
+    <nd ref='-36' />
+    <nd ref='-37' />
+    <nd ref='-39' />
+    <nd ref='-41' />
+    <nd ref='-36' />
+    <tag k='addr:city' v='NeussOK!' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='20' />
+    <tag k='addr:postcode' v='01460' />
+    <tag k='addr:street' v='Niederstraße' />
+    <tag k='building' v='yes' />
+  </way>
   <way id='22696880' timestamp='2011-11-11T13:22:05Z' uid='42429' user='FK270673' visible='true' version='11' changeset='9796305'>
     <nd ref='191022138' />
     <nd ref='598497421' />

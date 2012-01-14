@@ -4,9 +4,9 @@
 	<title>housenumbervalidator</title>
 	<style type="text/css">
 		
-		[id^="OL_Icon_"] {
+		[id^="OL_Icon_"], [id^="OpenLayers.Geometry.Point"] {
 			cursor: pointer;
-			opacity: .75;
+			opacity: .75 !important;
 		}
 		
 		#footer {
@@ -35,7 +35,7 @@
 			background: white;
 		}
 		
-		[id^="OL_Icon_"], #footer {
+		[id^="OL_Icon_"], [id^="OpenLayers.Geometry.Point"], #footer {
 			-moz-transition: opacity .2s ease-in .1s;
 			-webkit-transition: opacity .2s ease-in .1s;
 			-ms-transition: opacity .2s ease-in .1s;
@@ -47,15 +47,15 @@
 			opacity: .4;
 		}*/
 		
-		[id^="OL_Icon_"]:hover {
-			opacity: 1;
+		[id^="OL_Icon_"]:hover, [id^="OpenLayers.Geometry.Point"]:hover {
+			opacity: 1 !important;
 		}
 		
 		#footer:hover {
 			opacity: .9;
 		}
 		
-		[id^="OL_Icon_"]:hover, #footer:hover {
+		[id^="OL_Icon_"]:hover, [id^="OpenLayers.Geometry.Point"]:hover, #footer:hover {
 			-moz-transition: opacity .4s ease-in .1s;
 			-webkit-transition: opacity .4s ease-in .1s;
 			-ms-transition: opacity .4s ease-in .1s;
@@ -68,18 +68,13 @@
 			max-width: 10px;
 		}
 		
-		[id*="popup"] {
+		[id*="popup"], #featurePopup {
 			opacity: .95 !important;
-		}
-		
-		[id*="popup"], [id*="contenDiv"] {
-			width: 300px !important;
 		}
 		
 		h2 {
 			margin: 0px;
 			font-size: large;
-			margin-bottom: -10px;
 		}
 		
 		tr:nth-child(even) {
@@ -87,7 +82,11 @@
 		}
 		
 		table {
-			 border-spacing: 0px;
+			border-spacing: 0px;
+		}
+		
+		.broken {
+			color: red;
 		}
 	</style>
 </head>
@@ -102,11 +101,10 @@
 	<div style="height:100%" id="mapdiv"></div>
 	<iframe style="display:none;" id="josmframe" src="about:blank"></iframe>
 	<iframe style="display:none;" id="reportframe" src="about:blank"></iframe>
-<!-- 	<iframe style="display:none;" id="counterframe" src="counter.php?id=hnrv"></iframe> -->
+	<iframe style="display:none;" id="counterframe" src="../counter.php?id=hnrv"></iframe>
 	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 	<script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 	<script>
-	//http://forum.openstreetmap.org/viewtopic.php?id=14630
 		map = new OpenLayers.Map("mapdiv",
 		{
 			controls: [
@@ -123,25 +121,86 @@
 		});
 		map.addLayer(mapnikMap);
 
-		var dupes = new OpenLayers.Layer.Text( "Dupes",
-		{
-			location:"./get_dupes.php",
-			projection: map.displayProjection
+		var dupes = new OpenLayers.Layer.Vector("Dupes", {
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+			protocol: new OpenLayers.Protocol.HTTP({
+				url: "./get_dupes.php",
+				format: new OpenLayers.Format.Text()
+			})
 		});
 		map.addLayer(dupes);
+		
+		
+		var probl = new OpenLayers.Layer.Vector("Problematic", {
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+			protocol: new OpenLayers.Protocol.HTTP({
+				url: "./get_problematic.php",
+				format: new OpenLayers.Format.Text()
+			})
+		});
+		map.addLayer(probl);
+
+		// Interaction; not needed for initial display.
+		selectControl = new OpenLayers.Control.SelectFeature([dupes,probl]);
+		map.addControl(selectControl);
+		selectControl.activate();
+		dupes.events.on({
+			'featureselected': onFeatureSelect,
+			'featureunselected': onFeatureUnselect
+		});
+		probl.events.on({
+			'featureselected': onFeatureSelect,
+			'featureunselected': onFeatureUnselect
+		});
 		
 		var markers = new OpenLayers.Layer.Markers( "Markers", {projection: map.displayProjection} );
 		map.addLayer(markers);
 		
 		//Set start centrepoint and zoom    
-		var lonLat = new OpenLayers.LonLat(7.749,51.522)
+		var lonLat = new OpenLayers.LonLat(9.1,51.32)
 			.transform(
 				new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
 				map.getProjectionObject() // to Spherical Mercator Projection
 			);
-		var zoom=9;
+		var zoom=6;
 		if (!map.getCenter())
 			map.setCenter (lonLat, zoom);
+		
+		
+		// Needed only for interaction, not for the display.
+		function onPopupClose(evt) {
+			// 'this' is the popup.
+			var feature = this.feature;
+			if (feature.layer) { // The feature is not destroyed
+			selectControl.unselect(feature);
+			} else { // After "moveend" or "refresh" events on POIs layer all 
+				//     features have been destroyed by the Strategy.BBOX
+			this.destroy();
+			}
+		}
+		
+		function onFeatureSelect(evt) {
+			feature = evt.feature;
+			popup = new OpenLayers.Popup.FramedCloud("featurePopup",
+						feature.geometry.getBounds().getCenterLonLat(),
+						new OpenLayers.Size(100,100),
+						"<h2>"+feature.attributes.title + "</h2>" +
+						feature.attributes.description,
+						null, true, onPopupClose);
+			feature.popup = popup;
+			popup.feature = feature;
+			map.addPopup(popup, true);
+		}
+		
+		function onFeatureUnselect(evt) {
+			feature = evt.feature;
+			if (feature.popup) {
+			popup.feature = null;
+			map.removePopup(feature.popup);
+			feature.popup.destroy();
+			feature.popup = null;
+			}
+		}
 		
 		function showPosition(lat, lon) {
 			var size = new OpenLayers.Size(16,16);
@@ -169,11 +228,12 @@
 		}
 	</script>
 	<div id="footer">
-	Last Update: NRW: <span style="font-weight:bold;">13/01/12</span> (550537 [+268] housenumbers, 2233 [+2] dupes, 150549 [+155] incomplete [2000 shown], 410 [+3] broken [compared with 12/01/12])
-	<br/>Hamburg (enable layer with +-button): <span style="font-weight:bold;">13/01/12</span> (73549 [+21] housenumbers, 500 [&plusmn;0] dupes, 25786 [+18] incomplete [2000 shown], 5 [&minus;1] broken [compared with 12/01/12])
+	Letzte Aktualisierung: <span style="font-weight:bold;">14/01/12</span> (2268736 <!--[+268]--> Hausnummern, 16473 <!--[+2]--> Duplikate, 1970 <!--[+3]--> problematisch<!-- [compared with 14/01/12]-->)
+	<br/>
+	<span style="font-weight:bold">Maximal 1800 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span>
 	<br/>
 	Dupes: <img src="pin_red.png" alt="red square"/> Nodes, <img src="pin_blue.png" alt="blue square"/> Ways &dash;
-	Problematic: <img src="pin_circle.png" alt="black circle"/> Incomplete, <img src="pin_circle_red.png" alt="red circle"/> Street, <img src="pin_circle_blue.png" alt="blue circle"/> Country/City/Postcode (enable layer with +-button)
+	Problematic:<!-- <img src="pin_circle.png" alt="black circle"/> Incomplete,--> <img src="pin_circle_red.png" alt="red circle"/> Street, <img src="pin_circle_blue.png" alt="blue circle"/> Country/City/Postcode (enable layer with +-button)
 	<br/>
 	<a href="https://github.com/gulp21" target="_blank">Source</a> &dash;
 	<a href="http://forum.openstreetmap.org/viewtopic.php?id=12669" target="_blank">Forum</a> &dash;

@@ -1,7 +1,7 @@
 /*
-	v111228
+	v120114
 	
-	Copyright (C) 2011 Markus Brenneis
+	Copyright (C) 2012 Markus Brenneis
 	
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
 #include <QDebug>
 #include <QDomDocument>
 #include <QFile>
-#include <QList>
 #include <QString>
 #include <QStringList>
 #include <QTime>
@@ -52,24 +51,28 @@ struct binTree {
 	pBinTree dupe;
 };
 
+enum enBrokenKey {
+	country=1,
+	city=2,
+	postcode=4,
+	street=8,
+	number=16
+};
+
 QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.osm";
-bool bIgnoreFixme=true, bIgnoreNote=true, bIgnoreCityHint=false, bCheckPostcodeNumber=false, bCheckStreetSuffix=false;
+bool bIgnoreFixme=true, bIgnoreNote=true, bIgnoreCityHint=false, bCheckPostcodeNumber=false, bCheckStreetSuffix=false, bLog=false;
 int lines=9200594, lineCount=0, dupeCount=0, hnrCount=0, incompleteCount=0, brokenCount=0, iCheckPostcodeChars=-1;
 
-QTextStream duplicatesStream, incompleteStream, brokenStream;
+QTextStream duplicatesStream, incompleteStream, brokenStream, logStream;
 
 pBinTree treeHousenumbers, treeNodes;
 
 bool isComplete(housenumber &hnr);
 QString qsGenerateDupeOutput(pBinTree hnr);
 QString qsGenerateIncompleteOutput(housenumber hnr, int i);
-QString qsGenerateBrokenStreetOutput(housenumber hnr);
-QString qsGenerateBrokenPostcodeOutput(housenumber hnr);
-QString qsGenerateBrokenCountryOutput(housenumber hnr);
-QString qsGenerateBrokenCityOutput(housenumber hnr);
-QString qsGenerateBrokenHnrOutput(housenumber hnr);
-QString qsGenerateLink(housenumber hnr);
-QString qsGenerateLink(pBinTree hnr);
+QString qsGenerateBrokenOutput(housenumber hnr, int keys);
+// QString qsGenerateLink(housenumber hnr);
+// QString qsGenerateLink(pBinTree hnr);
 void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree);
 void insert(pBinTree &element, pBinTree &root);
 void insertNode(housenumber hnr);
@@ -92,6 +95,8 @@ int main(int argc, const char* argv[]) {
 			qDebug() << "  -cpc=X  --check-postcode-chars=X  When addr:postcode does not have X characters, save entry in broken.txt";
 			qDebug() << "  -css    --check-street-suffix     When addr:street ends with 'str' or 'str.', save entry in broken.txt";
 			qDebug() << "  -iih    --ignore-city-hint        Objects which hava a addr:city tag (and no other addr:* tag) are not considered to be a house number, and thus are not listed as incomplete";
+			qDebug() << "  -l      --log                     Create a log file";
+			qDebug() << "  -l=N    --lines=N                 Set lines variable (for sensible progress information";
 			qDebug() << "  -nif,   --not-ignore-fixme        do output ways/nodes which have a fixme tag";
 			qDebug() << "  -nin,   --not-ignore-note         do output ways/nodes which have a note tag";
 			qDebug() << "  -h      --help                    Print this help";
@@ -119,6 +124,8 @@ int main(int argc, const char* argv[]) {
 			else if(QString(argv[i]).contains("--check-postcode-number") || QString(argv[i]).contains("-cpn")) bCheckPostcodeNumber=true;
 			else if(QString(argv[i]).contains("--check-postcode-chars=") || QString(argv[i]).contains("-cpc=")) iCheckPostcodeChars=QString(argv[i]).split("=")[1].toInt();
 			else if(QString(argv[i]).contains("--check-street-suffix") || QString(argv[i]).contains("-css")) bCheckStreetSuffix=true;
+			else if(QString(argv[i])=="--log" || QString(argv[i])=="-l") bLog=true;
+			else if(QString(argv[i]).contains("-l=") || QString(argv[i]).contains("--lines=")) lines=QString(argv[i]).split("=")[1].toInt();
 			else {
 				qDebug() <<  "unknown option " << argv[i];
 				return(1);
@@ -147,7 +154,7 @@ int main(int argc, const char* argv[]) {
 	}
 	duplicatesStream.setDevice(&duplicatesFile);
 	duplicatesStream.setCodec("UTF-8");
-	duplicatesStream << "lat\tlon\tid\ttype\tname\tcountry\tcity\tpostcode\tstreet\tnumber\tdupe_id\tdupe_lat\tdupe_lon\n";
+	duplicatesStream << "lat\tlon\tid\ttype\tname\tcountry\tcity\tpostcode\tstreet\tnumber\tdupe_id\tdupe_type\tdupe_lat\tdupe_lon\n";
 	
 	QFile incompleteFile("incomplete.txt");
 	incompleteFile.remove();
@@ -169,11 +176,11 @@ int main(int argc, const char* argv[]) {
 	}
 	brokenStream.setDevice(&brokenFile);
 	brokenStream.setCodec("UTF-8");
-	brokenStream << "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
+	brokenStream << "lat\tlon\tid\ttype\tbroken\tname\tcountry\tcity\tpostcode\tstreet\tnumber\n";
 	
 	housenumber hnr;
 	
-	if(lines>0) qDebug() << "NOTE: You have to set the 'lines' variable by hand in order to get sensible progress information";
+	if(lines==9200594) qDebug() << "NOTE: You have to set the 'lines' variable by hand in order to get sensible progress information";
 	if(!filename.endsWith(".hnr.osm")) qDebug() << "NOTE: If the osm-file is big, you should filter it by executing './filter input.osm'.";
 	
 	// loop through all lines
@@ -228,10 +235,12 @@ int main(int argc, const char* argv[]) {
 				pHnr = new binTree;
 				housenumberToBinTree(hnr, pHnr);
 				insert(pHnr, treeHousenumbers);
-				pBinTree pHnr2;
-				pHnr2 = new binTree;
-				nodeToBinTree(hnr, pHnr2);
-				insert(pHnr2, treeNodes);
+				if(!pHnr->isWay) {
+					pBinTree pHnr2;
+					pHnr2 = new binTree;
+					nodeToBinTree(hnr, pHnr2);
+					insert(pHnr2, treeNodes);
+				}
 			} else {
 				if(line.contains("</node")) {
 					insertNode(hnr);
@@ -300,6 +309,20 @@ int main(int argc, const char* argv[]) {
 	
 	qDebug() << "finished after" <<  now.elapsed()/1000 << "seconds";
 	qDebug() << hnrCount+dupeCount << "housenumbers," << dupeCount << "dupes," << incompleteCount << "incomplete," << brokenCount << "broken";
+	
+	QFile logFile("log.txt");
+	logFile.remove();
+	if (!logFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+		qDebug() << "couldn't open log.txt";
+		file.close();
+		return(-2);
+	}
+	logStream.setDevice(&logFile);
+	logStream.setCodec("UTF-8");
+	logStream << "finished after " <<  now.elapsed()/1000 << " seconds" << endl;
+	logStream << hnrCount+dupeCount << " housenumbers, " << dupeCount << " dupes, " << incompleteCount << " incomplete, " << brokenCount << " broken" << endl;
+	
+	return 0;
 }
 
 bool isComplete(housenumber &hnr) {
@@ -315,35 +338,36 @@ bool isComplete(housenumber &hnr) {
 	
 	if(hnr.lat==0 || hnr.lon==0) return false;
 	
+	int broken=0;
+	
 	if(hnr.postcode!="") {
-		if(bCheckPostcodeNumber && hnr.postcode!=QString("%1").arg(hnr.postcode.toInt())) {
-			brokenStream << qsGenerateBrokenPostcodeOutput(hnr);
-			brokenCount++;
+		if(bCheckPostcodeNumber && hnr.postcode!=QString("%1").arg(hnr.postcode.toInt()) && hnr.postcode!=QString("0%1").arg(hnr.postcode.toInt()) ) {
+			broken|=postcode;
 		} else if(iCheckPostcodeChars>-1 && hnr.postcode.length()!=iCheckPostcodeChars) {
-			brokenStream << qsGenerateBrokenPostcodeOutput(hnr);
-			brokenCount++;
+			broken|=postcode;
 		}
 	}
 	
 	if( ( bCheckStreetSuffix && (hnr.street.endsWith("str") || hnr.street.contains("str.") || hnr.street.endsWith("Str") || hnr.street.contains("Str.")) )
            || ( hnr.street.length()>0 && !hnr.street[0].isUpper() ) ) {
-		brokenStream << qsGenerateBrokenStreetOutput(hnr);
-		brokenCount++;
+		broken|=street;
 	}
 	
 	if(hnr.country!="" && (hnr.country.length()!=2 || !hnr.country[0].isLetter() || !hnr.country[1].isLetter() /*|| hnr.country.toUpper()!=hnr.country*/) ) {
-		brokenStream << qsGenerateBrokenCountryOutput(hnr);
-		brokenCount++;
+		broken|=country;
 	}
 	
 	if( hnr.city.length()>0 && ( !hnr.city[0].isUpper() || hnr.city.contains("traße") ||
 	   hnr.city.endsWith("str") || hnr.city.contains("str.") || hnr.city.endsWith("Str") || hnr.city.contains("Str.") ) ) {
-		brokenStream << qsGenerateBrokenCityOutput(hnr);
-		brokenCount++;
+		broken|=city;
 	}
 	
 	if( hnr.number.length()>0 && (hnr.number.contains("traße") || hnr.number.endsWith("str") || hnr.number.contains("str.") || hnr.number.endsWith("Str") || hnr.number.contains("Str.")) ) {
-		brokenStream << qsGenerateBrokenHnrOutput(hnr);
+		broken|=number;
+	}
+	
+	if(broken!=0) {
+		brokenStream << qsGenerateBrokenOutput(hnr, broken);
 		brokenCount++;
 	}
 	
@@ -356,7 +380,7 @@ bool isComplete(housenumber &hnr) {
 	if(hnr.number=="") missingCount++;
 	
 	if(missingCount>0) {
-		incompleteStream << qsGenerateIncompleteOutput(hnr, missingCount);
+		//incompleteStream << qsGenerateIncompleteOutput(hnr, missingCount); TODO paramter
 		incompleteCount++;
 		
 		if(hnr.country=="") hnr.country=qsAssumeCountry;
@@ -372,16 +396,9 @@ bool isComplete(housenumber &hnr) {
 }
 
 QString qsGenerateDupeOutput(pBinTree hnr) {
-	//QString link=qsGenerateLink(hnr);
-	
-	//QString dupeLink=qsGenerateLink(hnr->dupe);
-	
-	//QString showLink=QString("[<a href=\"#\" onclick=\"showPosition(%1,%2)\">show</a>]").arg(hnr->dupe->lat).arg(hnr->dupe->lon);
 	QStringList address=hnr->address.split("||");
 	
-	qDebug() << hnr->address;
-	
-	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\n")
+	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\n")
 	                .arg(hnr->lat,0,'f',8).arg(hnr->lon,0,'f',8).arg(hnr->id)
 	                .arg(hnr->isWay?1:0).arg(address[5]).arg(address[6])
 	                .arg(address[0]).arg(address[1]).arg(address[2]).arg(address[3]).arg(address[4])
@@ -389,67 +406,21 @@ QString qsGenerateDupeOutput(pBinTree hnr) {
 }
 
 QString qsGenerateIncompleteOutput(housenumber hnr, int i) {
-	QString link=qsGenerateLink(hnr);
+	//QString link=qsGenerateLink(hnr);
+	//QString link="";
 	
-	return QString("%1\t%2\tIncomplete\t%3 %4 %5 %6 %7 %8 is missing %9 pieces of address information\tpin.png\t16,16\t-8,-8\n")
-	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
-	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number)
-	                .arg(i);
+	//return QString("%1\t%2\tIncomplete\t%3 %4 %5 %6 %7 %8 is missing %9 pieces of address information\tpin.png\t16,16\t-8,-8\n")
+// 	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
+// 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number)
+// 	                .arg(i);
+	return "NULL";
 }
 
-QString qsGenerateBrokenStreetOutput(housenumber hnr) {
-	QString link=qsGenerateLink(hnr);
-	
-	return QString("%1\t%2\tBroken\t%3 %4 %5 %6 <b>%7</b> %8 has problematic <b>street</b>\tpin.png\t16,16\t-8,-8\n")
-	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
+QString qsGenerateBrokenOutput(housenumber hnr, int keys) {
+	return QString("%1\t%2\t%3\t%4\t%5\t%6 %7\t%8\t%9\t%10\t%11\t%12\n")
+	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(hnr.id)
+	                .arg(hnr.isWay?1:0).arg(keys).arg(hnr.name).arg(hnr.shop)
 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
-}
-
-QString qsGenerateBrokenPostcodeOutput(housenumber hnr) {
-	QString link=qsGenerateLink(hnr);
-	
-	return QString("%1\t%2\tBroken\t%3 %4 %5 <b>%6</b> %7 %8 has problematic <b>postcode</b>\tpin.png\t16,16\t-8,-8\n")
-	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
-	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
-}
-
-QString qsGenerateBrokenCountryOutput(housenumber hnr) {
-	QString link=qsGenerateLink(hnr);
-	
-	return QString("%1\t%2\tBroken\t%3 <b>%4</b> %5 %6 %7 %8 has problematic <b>country</b>\tpin.png\t16,16\t-8,-8\n")
-	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
-	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
-}
-
-QString qsGenerateBrokenCityOutput(housenumber hnr) {
-	QString link=qsGenerateLink(hnr);
-	
-	return QString("%1\t%2\tBroken\t%3 %4 <b>%5</b> %6 %7 %8 has problematic <b>city</b>\tpin.png\t16,16\t-8,-8\n")
-	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
-	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
-}
-
-QString qsGenerateBrokenHnrOutput(housenumber hnr) {
-	QString link=qsGenerateLink(hnr);
-	
-	return QString("%1\t%2\tBroken\t%3 %4 %5 %6 %7 <b>%8</b> has problematic <b>house number</b>\tpin.png\t16,16\t-8,-8\n")
-	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
-	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
-}
-
-QString qsGenerateLink(housenumber hnr) {
-	return QString("<a target=\"_blank\" href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a target=\"josmframe\" href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
-	                .arg(hnr.isWay ? "way" : "node")
-	                .arg(hnr.id)
-	                .arg(hnr.lat-0.000001,0,'f',7).arg(hnr.lat+0.000001,0,'f',7)
-	                .arg(hnr.lon-0.000001,0,'f',7).arg(hnr.lon+0.000001,0,'f',7);
-}
-QString qsGenerateLink(pBinTree hnr) {
-	return QString("<a target=\"_blank\" href=\"http://www.openstreetmap.org/browse/%1/%2\">%2</a> (<a target=\"josmframe\" href=\"http://localhost:8111/load_and_zoom?left=%5&right=%6&top=%4&bottom=%3&select=%1%2\">JOSM</a>)")
-	                .arg(hnr->isWay ? "way" : "node")
-	                .arg(hnr->id)
-	                .arg(hnr->lat-0.000001,0,'f',7).arg(hnr->lat+0.000001,0,'f',7)
-	                .arg(hnr->lon-0.000001,0,'f',7).arg(hnr->lon+0.000001,0,'f',7);
 }
 
 void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree) {

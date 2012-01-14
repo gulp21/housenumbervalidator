@@ -1,7 +1,18 @@
 <?php
 	include("connect.php");
 	
-	$dupes=mysql_query('SELECT * FROM dupes LIMIT 10');
+	header("Content-Type: text; charset=UTF-8");
+	
+	if($_GET['bbox']) {
+		$bbox=explode(",",$_GET['bbox']);
+	} else {
+		$bbox[0]=0;
+		$bbox[1]=50;
+		$bbox[2]=0;
+		$bbox[3]=50;
+	}
+	
+	$dupes=mysql_query("SELECT * FROM dupes WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] LIMIT 800") or die ("MySQL-Error: ".mysql_error());
 	
 	echo "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
 	
@@ -10,13 +21,12 @@
 		$table="<table>";
 		
 		if(trim($dupe['name'])!="") $table.="<tr><td>Name</td><td>".$dupe['name']."</td></tr>";
-		$table.=
-			"<tr><td>addr:country</td><td>".$dupe['country']."</td></tr>"
-			."<tr><td>addr:city</td><td>".$dupe['city']."</td></tr>"
-			."<tr><td>addr:postcode</td><td>".$dupe['postcode']."</td></tr>"
-			."<tr><td>addr:street</td><td>".$dupe['street']."</td></tr>"
-			."<tr><td>addr:number</td><td>".$dupe['number']."</td></tr>"
-			."</table>";
+		if($dupe['country']!="") $table.="<tr><td>addr:country</td><td>".$dupe['country']."</td></tr>";
+		if($dupe['city']!="") $table.="<tr><td>addr:city</td><td>".$dupe['city']."</td></tr>";
+		if($dupe['postcode']!="") $table.="<tr><td>addr:postcode</td><td>".$dupe['postcode']."</td></tr>";
+		if($dupe['street']!="") $table.="<tr><td>addr:street</td><td>".$dupe['street']."</td></tr>";
+		if($dupe['number']!="") $table.="<tr><td>addr:housenumber</td><td>".$dupe['number']."</td></tr>";
+		$table.="</table>";
 		
 		if($dupe['type']==1) {
 			$type="way";
@@ -32,9 +42,9 @@
 			$type_dupe="node";
 		}
 		
-		$link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type.'/'.$dupe['id'].'">'.$dupe['id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_and_zoom?left='.($dupe['lat']-0.000001).'&right='.($dupe['lat']+0.000001).'&top='.($dupe['lon']-0.000001).'&bottom='.($dupe['lon']+0.000001).'&select='.$type.$dupe['id'].'">JOSM</a>)';
+		$link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type.'/'.$dupe['id'].'">'.$dupe['id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_and_zoom?left='.($dupe['lon']-0.0001).'&right='.($dupe['lon']+0.0001).'&top='.($dupe['lat']+0.0001).'&bottom='.($dupe['lat']-0.0001).'&select='.$type.$dupe['id'].'">JOSM</a>)';
 		
-		$dupe_link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type_dupe.'/'.$dupe['dupe_id'].'">'.$dupe['dupe_id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_and_zoom?left='.($dupe['dupe_lat']-0.000001).'&right='.($dupe['dupe_lat']+0.000001).'&top='.($dupe['dupe_lon']-0.000001).'&bottom='.($dupe['dupe_lon']+0.000001).'&select='.$type_dupe.$dupe['dupe_id'].'">JOSM</a>) [<a href="#" onclick="showPosition('.$dupe['dupe_lat'].','.$dupe['dupe_lon'].')">show</a>]';
+		$dupe_link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type_dupe.'/'.$dupe['dupe_id'].'">'.$dupe['dupe_id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_and_zoom?left='.($dupe['dupe_lon']-0.0001).'&right='.($dupe['dupe_lon']+0.0001).'&top='.($dupe['dupe_lat']+0.0001).'&bottom='.($dupe['dupe_lat']-0.0001).'&select='.$type_dupe.$dupe['dupe_id'].'">JOSM</a>) [<a href="#" onclick="showPosition('.$dupe['dupe_lat'].','.$dupe['dupe_lon'].')">show</a>]';
 		
 		echo
 			$dupe['lat']."\t"

@@ -1,14 +1,14 @@
 <html>
 <body>
 <?
-if($_GET["way"]==="true") {
-	$str="\n"."way".trim($_GET["id"])."\"";
+if($_GET["way"]=="true") {
+	$str="\n\t".trim($_GET["id"])."\t1";
 } else {
-	$str="\n"."node".trim($_GET["id"])."\"";
+	$str="\n\t".trim($_GET["id"])."\t0";
 }
 $file = file_get_contents("reports.txt");
 if(strpos($file, $str)) {
-	print("Vielen Dank! Nach der n&auml;chsten Aktualisierung wird dieser Weg nicht mehr angezeigt. (Der Fehlalarm wurde bereits gemeldet.)");
+	print("Vielen Dank! Nach der n&auml;chsten Aktualisierung wird dieser Fehler nicht mehr angezeigt. (Der Fehlalarm wurde bereits gemeldet.)");
 	exit;
 }
 $out = fopen("reports.txt", "a");
