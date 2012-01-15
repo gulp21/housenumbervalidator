@@ -134,6 +134,27 @@
     <tag k='addr:housenumber' v='21' />
     <tag k='addr:street' v='caputt Str.' />
   </node>
+  <node id='949379193' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005576' lon='6.6880044'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:postcode' v='12345' />
+    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:street' v='11er Straße' />
+  </node>
+  <node id='549379193' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005576' lon='6.6880044'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:postcode' v='12345' />
+    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:street' v='11. Straße' />
+  </node>
+  <node id='549345693' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005576' lon='6.6880044'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:postcode' v='12345' />
+    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:street' v='11. Str.' />
+  </node>
   <node id='745379195' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005546' lon='6.6880024'>
     <tag k='addr:city' v='Neuss' />
     <tag k='name' v='only city hint' />

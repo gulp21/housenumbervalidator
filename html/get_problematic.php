@@ -7,8 +7,8 @@
 		$bbox=explode(",",$_GET['bbox']);
 	} else {
 		$bbox[0]=0;
-		$bbox[1]=50;
-		$bbox[2]=0;
+		$bbox[1]=0;
+		$bbox[2]=50;
 		$bbox[3]=50;
 	}
 	
