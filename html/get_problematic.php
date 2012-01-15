@@ -1,7 +1,9 @@
 <?php
 	include("connect.php");
 	
-	header("Content-Type: text; charset=UTF-8");
+	header("Content-Type: text/csv; charset=UTF-8");
+	
+	mysql_set_charset("utf8");
 	
 	if($_GET['bbox']) {
 		$bbox=explode(",",$_GET['bbox']);
