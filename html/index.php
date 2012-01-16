@@ -77,7 +77,7 @@
 			font-size: large;
 		}
 		
-		tr:nth-child(even) {
+		tr:nth-child(odd) {
 			background-color: #f2f2f2;
 		}
 		
@@ -228,7 +228,47 @@
 		}
 	</script>
 	<div id="footer">
-	Letzte Aktualisierung: <span style="font-weight:bold;">14/01/12</span> (2268736 <!--[+268]--> Hausnummern, 16473 <!--[+2]--> Duplikate, 1970 <!--[+3]--> problematisch<!-- [compared with 14/01/12]-->)
+	Letzte Aktualisierung: 
+	<?php
+	include("connect.php");
+	
+	$stats=mysql_query("SELECT * FROM `stats` ORDER BY date DESC LIMIT 2");
+	
+	$i=0;
+	while($stat=mysql_fetch_assoc($stats)) {
+		if($i==0) {
+			$i=1;
+			$date_current=$stat['date'];
+			$hnr_current=$stat['housenumbers'];
+			$dupes_current=$stat['dupes'];
+			$probl_current=$stat['problematic'];
+			$hide=$stat['hide'];
+		} else {
+			$date_old=$stat['date'];
+			$hnr_diff=$hnr_current-$stat['housenumbers'];
+			if($hnr_diff==0) $hnr_diff="&plusmn;0";
+			else if($hnr_diff>0) $hnr_diff="+".$hnr_diff;
+			else $hnr_diff="&minus;".$hnr_diff*-1;
+			$dupes_diff=$dupes_current-$stat['dupes'];
+			if($dupes_diff==0) $dupes_diff="&plusmn;0";
+			else if($dupes_diff>0) $dupes_diff="+".$dupes_diff;
+			else $dupes_diff="&minus;".$dupes_diff*-1;
+			$probl_diff=$probl_current-$stat['problematic'];
+			if($probl_diff==0) $probl_diff="&plusmn;0";
+			else if($probl_diff>0) $probl_diff="+".$probl_diff;
+			else $probl_diff="&minus;".$probl_diff*-1;
+			if(($hide|1)==$hide) $hnr_diff="";
+			else $hnr_diff=" [".$hnr_diff."]";
+			if(($hide|2)==$hide) $dupes_diff="";
+			else $dupes_diff=" [".$dupes_diff."]";
+			if(($hide|4)==$hide) $probl_diff="";
+			else $probl_diff=" [".$probl_diff."]";
+			if($hide==7) $date_old="";
+			else $date_old=" [verglichen mit $date_old]";
+		}
+	}
+	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current $hnr_diff Hausnummern, $dupes_current $dupes_diff Duplikate, $probl_current $probl_diff problematisch$date_old)";
+	?>
 	<br/>
 	<span style="font-weight:bold">Maximal 1800 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span>
 	<br/>

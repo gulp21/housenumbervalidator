@@ -1,1 +1,0 @@
-/home/markus/Dokumente/GitHub/housenumbervalidator/nrw/broken_street.txt
