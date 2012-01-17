@@ -7,6 +7,10 @@
 	
 	if($_GET['bbox']) {
 		$bbox=explode(",",$_GET['bbox']);
+		settype($bbox[0], "float");
+		settype($bbox[1], "float");
+		settype($bbox[2], "float");
+		settype($bbox[3], "float");
 	} else {
 		$bbox[0]=0;
 		$bbox[1]=0;
