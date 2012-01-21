@@ -101,7 +101,10 @@
 	<div style="height:100%" id="mapdiv"></div>
 	<iframe style="display:none;" id="josmframe" src="about:blank"></iframe>
 	<iframe style="display:none;" id="reportframe" src="about:blank"></iframe>
-	<iframe style="display:none;" id="counterframe" src="../counter.php?id=hnrv"></iframe>
+<!-- 	<iframe style="display:none;" id="counterframe" src="../counter.php?id=hnrv"></iframe> -->
+	<script type="text/javascript">
+		document.write("<iframe style=\"display:none;\" id=\"counterframe\" src=\"../counter.php?id=hnrv&ref="  + document.referrer + "\"></iframe>");
+	</script>
 	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 	<script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 	<script>

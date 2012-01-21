@@ -11,8 +11,18 @@ function ip() {
 	}
 }
 
+function referer() {
+	if(isset($_SERVER['HTTP_DNT']) && $_SERVER['HTTP_DNT']==1) {
+		return "DNT";
+	} else if(isset($_GET["ref"])) {
+		return $_GET["ref"];
+	} else {
+		return "NULL";
+	}
+}
+
 $out = fopen("counter.txt", "a");
 $timestamp = date("ymd:H",time());
-fputs($out,ip()."\t".$_GET["id"]."\t".$timestamp."\t".$_SERVER['HTTP_USER_AGENT']."\n");
+fputs($out,ip()."\t".$_GET["id"]."\t".$timestamp."\t".$_SERVER['HTTP_USER_AGENT']."\t".referer()."\n");
 fclose($out);
 ?>
