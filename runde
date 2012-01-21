@@ -1,0 +1,133 @@
+#!/bin/bash
+
+if [ ! $# -eq 1 ]; then
+	echo Usage: ./runde option
+	echo ""
+	echo Options:
+	echo " 1: run for BB, NI, BY"
+	echo " 2: run for HB, SL, MV, SH, ST, SN, BW"
+	echo " 3: run for NW, HE, RP, TH, HH"
+	echo " c: combine all results"
+	exit -1;
+fi
+
+function run {
+	echo ------------------
+	echo run for $1
+	echo ------------------
+	
+	ac=""
+	if [ $# -eq 2 ]; then
+		ac="-ac="$2
+	fi
+	
+	mkdir $1
+	cd $1
+	
+	mv index.html index.html~
+	
+	wget http://download.geofabrik.de/osm/europe/germany/ -O index.html
+	d=`cat index.html | grep $1.osm.pbf | sed -e "s/\`date +%Y\`.*//g" | sed -e "s/.*>//g" | grep -v \`date +%d\` | wc -l`
+	cdate=`stat -c %y dupes.txt | awk '{ printf $1 "\n"}'`
+	
+	if [ $cdate == `date +%Y-%m-%d` ]; then
+		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
+		echo Already run? Aborting $1...
+		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
+	elif [ ! $d  == 0 ]; then
+		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
+		echo $1.osm.pbf seems to be too old. Aborting $1...
+		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
+	else
+		rm $1.*
+		cp ../filter .
+		cp ../housenumbervalidator .
+		wget http://download.geofabrik.de/osm/europe/germany/$1.osm.pbf
+		if [ ! $? -eq 0 ]; then
+			echo download problem
+			exit 1;
+		fi
+		./filter $1.osm.pbf
+		if [ ! $? -eq 0 ]; then
+			echo filter problem
+			exit 3;
+		fi
+		./housenumbervalidator $1.osm.pbf.hnr.osm -l -l=`wc -l $1.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=DE -cpn -css -iih -cpc=5 $ac
+		if [ ! $? -eq 0 ]; then
+			echo housenumbervalidator problem $1
+			exit 4;
+		fi
+	# 	grep incomplete.txt -v --file=html/reports.txt | grep -v "missing 1" | grep -v "missing 2" | grep -v "missing 3" | head -n 2001 | sed "s/pin.png/pin_circle.png/g" > incompl.txt
+	# 	mv incomplete.txt incomplete.txt~
+	# 	mv incompl.txt incomplete.txt
+	# 	cat incomplete.txt | wc -l
+		echo ------------------
+		echo Finished $1!
+		echo ------------------
+	fi
+	
+	cd ..
+}
+
+function getreports {
+	mv html/reports.txt html/reports.txt~
+	wget http://gulp21.bplaced.net/osm/housenumbervalidator/reports.txt
+	mv reports.txt html/reports.txt
+	echo `cat html/reports.txt | wc -l` exceptions [$((`cat html/reports.txt | wc -l`-`cat html/reports.txt~ | wc -l`))]
+}
+
+function lands1 {
+	run brandenburg && run niedersachsen && run bayern && echo finished lands1
+}
+
+function lands2 {
+	run bremen bremen && run saarland && run berlin berlin && run mecklenburg-vorpommern && run schleswig-holstein && run sachsen-anhalt && run sachsen && run baden-wuerttemberg && echo finished lands2
+}
+
+function lands3 {
+	run nordrhein-westfalen && run hessen && run rheinland-pfalz && run thueringen && run hamburg hamburg && echo finished lands3
+}
+
+function combine {
+	mkdir de
+	cd de
+	
+	rm dupes.txt
+	rm broken.txt
+	rm log.txt
+	
+	for land in "baden-wuerttemberg" "bayern" "berlin" "brandenburg" "bremen" "hamburg" "hessen" "nordrhein-westfalen" "mecklenburg-vorpommern" "niedersachsen" "rheinland-pfalz" "saarland" "sachsen" "sachsen-anhalt" "schleswig-holstein" "thueringen"
+	do
+		echo $land...
+		tail ../$land/dupes.txt -n +2 >> dupes.txt
+		tail ../$land/broken.txt -n +2 >> broken.txt
+		echo $land >> log.txt
+		cat ../$land/log.txt >> log.txt
+		echo "" >> log.txt
+	done
+	
+	grep -v -P "\tNL\t|\tBE\t|\tDK\t|\tFR\t|\tLU\t|\tNL\t|\tCH\t|\tAT\t|\tPL\t|\tCZ\t" broken.txt | grep -v --file=../html/reports.txt > brok
+	echo $((`cat broken.txt | wc -l`-`cat brok | wc -l`)) foreign lines removed
+	mv brok broken.txt
+	
+	grep dupes.txt -v --file=../html/reports.txt > dupes
+	mv dupes dupes.txt
+	
+	echo Dupes:
+	wc -l dupes.txt
+	echo Broken:
+	wc -l broken.txt
+}
+
+if [ $1 == "c" ]; then
+	getreports
+	combine
+elif [ $1 -eq 1 ]; then
+	lands1
+elif [ $1 -eq 2 ]; then
+	lands2
+elif [ $1 -eq 3 ]; then
+	lands3
+else
+	echo What does $1 mean?
+fi
