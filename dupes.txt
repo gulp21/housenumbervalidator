@@ -1,3 +1,2 @@
-lat	lon	id	type	name	country	city	postcode	street	number	dupe_id	dupe_type	dupe_lat	dupe_lon
-51.20044960	6.68818610	745379051	0	twiceShop clothes	DE	Neuss	41460	Niederstraße	23-31	-10	0	51.2005	6.68817
-51.20057932	6.68784731	-38	1	 	DE	Neuss	41460	Niederstraße	20	1103439448	0	51.2007	6.68819
+4.13713960	1.19342910	260646465	0	 	DE	Heilbronn	74080	Bachstraße	2	260454118	0	4.1373	9.19357
+4.00710970	1.43098310	276777985	0	 	DE	Karlsruhe	76131	Haizingerstraße	2	276777983	0	4.0074	8.42941

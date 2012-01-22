@@ -18,6 +18,18 @@
 			background: white;
 		}
 		
+		@media (max-width: 500px) {
+			#footer {
+				font-size: 11px;
+			}
+		}
+		
+		@media (max-width: 300px) {
+			#footer {
+				font-size: 8px;
+			}
+		}
+		
 		#reportdiv {
 			display: none;
 			position: absolute;
@@ -105,13 +117,15 @@
 	<script type="text/javascript">
 		document.write("<iframe style=\"display:none;\" id=\"counterframe\" src=\"../counter.php?id=hnrv&ref="  + document.referrer + "\"></iframe>");
 	</script>
-	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-	<script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
+	<script src="OpenLayers.js"></script>
+	<script src="OpenStreetMap.js"></script>
 	<script>
+		// parts taken from openlayers.org/dev/examples
+		
 		map = new OpenLayers.Map("mapdiv",
 		{
 			controls: [
-				new OpenLayers.Control.Navigation(),
+				new OpenLayers.Control.Navigation({documentDrag: true/*, dragPanOptions: {enableKinetic: true}*/}),
 				new OpenLayers.Control.PanZoomBar(),
 				new OpenLayers.Control.LayerSwitcher({'ascending':false}),
 				new OpenLayers.Control.Permalink()
@@ -273,7 +287,7 @@
 	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current $hnr_diff Hausnummern, $dupes_current $dupes_diff Duplikate, $probl_current $probl_diff problematisch$date_old)";
 	?>
 	<br/>
-	<span style="font-weight:bold">Maximal 1800 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span>
+	<span style="font-weight:bold">Maximal 1800 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span> &dash; <a href="stat.php" target="_blank">Statistik</a>
 	<br/>
 	Dupes: <img src="pin_red.png" alt="red square"/> Nodes, <img src="pin_blue.png" alt="blue square"/> Ways &dash;
 	Problematic:<!-- <img src="pin_circle.png" alt="black circle"/> Incomplete,--> <img src="pin_circle_red.png" alt="red circle"/> Street, <img src="pin_circle_blue.png" alt="blue circle"/> Country/City/Postcode (enable layer with +-button)

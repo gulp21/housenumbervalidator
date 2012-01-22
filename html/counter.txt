@@ -358,3 +358,14 @@ DNT62..40	hnrv	120121:12	Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 F
 217.5.149.114	hnrv	120121:13	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	http://gulp21.bplaced.net/osm/housenumbervalidator/
 DNT79..23	hnrv	120121:13	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	DNT
 DNT79..23	hnrv	120121:14	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.52.7 (KHTML, like Gecko) Version/5.1.2 Safari/534.52.7	DNT
+78.34.158.139	hnrv	120121:18	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	http://forum.openstreetmap.org/viewtopic.php?id=15080
+84.149.93.79	hnrv	120121:18	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	
+DNT93..13	hnrv	120121:19	Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0	DNT
+62.143.213.156	hnrv	120121:20	Opera/9.80 (Windows NT 5.1; U; de) Presto/2.10.229 Version/11.60	
+DNT88..93	bp_noun	120121:21	Mozilla/5.0 (Windows; U; Windows NT 6.1; de; rv:1.9.2.8) Gecko/20100722 Firefox/3.6.8	DNT
+DNT79..11	hnrv	120122:00	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0.1) Gecko/20100101 Firefox/8.0.1	NULL
+208.80.194.27	bp_i	120122:04	Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; SIMBAR={CCA5C301-FB9C-4bbc-BD2E-52BD6B668BAD}; FunWebProducts; .NET CLR 1.1.4322)	NULL
+212.185.208.4	hnrv	120122:06	Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	http://forum.openstreetmap.org/viewtopic.php?id=15080
+DNT91...3	hnrv	120122:06	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1 Iceweasel/9.0.1	NULL
+84.149.46.66	hnrv	120122:07	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NULL
+78.35.64.242	hnrv	120122:10	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	http://forum.openstreetmap.org/viewtopic.php?id=15080

@@ -47,12 +47,12 @@ function run {
 			echo download problem
 			exit 1;
 		fi
-		./filter $1.osm.pbf
+		nice -n 19 ./filter $1.osm.pbf
 		if [ ! $? -eq 0 ]; then
 			echo filter problem
 			exit 3;
 		fi
-		./housenumbervalidator $1.osm.pbf.hnr.osm -l -l=`wc -l $1.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=DE -cpn -css -iih -cpc=5 $ac
+		nice -n 19 ./housenumbervalidator $1.osm.pbf.hnr.osm -l -l=`wc -l $1.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=DE -cpn -css -iih -cpc=5 $ac
 		if [ ! $? -eq 0 ]; then
 			echo housenumbervalidator problem $1
 			exit 4;

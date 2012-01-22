@@ -12,12 +12,14 @@ function ip() {
 }
 
 function referer() {
-	if(isset($_SERVER['HTTP_DNT']) && $_SERVER['HTTP_DNT']==1) {
-		return "DNT";
-	} else if(isset($_GET["ref"])) {
-		return $_GET["ref"];
-	} else {
+	if(!isset($_GET["ref"])) {
 		return "NULL";
+	} else if($_GET["ref"]=="") {
+		return "NONE";
+	} else if(isset($_SERVER['HTTP_DNT']) && $_SERVER['HTTP_DNT']==1) {
+		return "DNT";
+	} else  {
+		return $_GET["ref"];
 	}
 }
 

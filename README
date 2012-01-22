@@ -11,4 +11,4 @@ make
 
 Useful commands
 ===============
-cat counter.txt | grep hnrv | uniq > /tmp/counter
+cat counter.txt | grep -P "hnrv\t" | uniq > /tmp/counter
