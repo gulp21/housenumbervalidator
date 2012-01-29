@@ -369,3 +369,68 @@ DNT79..11	hnrv	120122:00	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0.1) Gecko/201
 DNT91...3	hnrv	120122:06	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1 Iceweasel/9.0.1	NULL
 84.149.46.66	hnrv	120122:07	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NULL
 78.35.64.242	hnrv	120122:10	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	http://forum.openstreetmap.org/viewtopic.php?id=15080
+84.149.46.66	hnrv	120122:12	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NONE
+DNT79..20	hnrv	120122:13	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0.1) Gecko/20100101 Firefox/8.0.1	NONE
+78.34.146.131	hnrv	120122:13	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	http://forum.openstreetmap.org/viewtopic.php?id=15080
+78.34.146.131	hnrv	120122:13	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	http://forum.openstreetmap.org/viewtopic.php?id=15080
+84.149.46.66	hnrv	120122:16	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NONE
+84.149.46.66	hnrv	120122:16	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NONE
+DNT62..40	hnrv	120122:17	Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	NONE
+80.187.57.131	hnrv	120122:19	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	NONE
+80.187.57.131	hnrv	120122:19	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	http://gulp21.bplaced.net/osm/housenumbervalidator/
+80.187.57.131	hnrv	120122:19	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	http://gulp21.bplaced.net/osm/housenumbervalidator/
+DNT79..20	hnrv	120122:19	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0.1) Gecko/20100101 Firefox/8.0.1	NONE
+84.149.94.168	hnrv	120123:09	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NONE
+91.53.228.178	hnrv	120123:09	Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	NONE
+DNT91..14	hnrv	120123:09	Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	NONE
+84.149.94.168	hnrv	120123:16	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NONE
+DNT91..38	hnrv	120123:16	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1 Iceweasel/9.0.1	NONE
+DNT93..39	hnrv	120123:17	Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0	NONE
+84.149.94.168	hnrv	120123:17	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NONE
+84.149.94.168	hnrv	120123:19	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NONE
+208.80.194.32	bp_i	120123:20	Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; SIMBAR={25AD90F1-08DA-4afe-92AE-284FE4F1C927})	NULL
+84.149.90.190	hnrv	120124:08	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NONE
+DNT79..30	hnrv	120124:13	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0.1) Gecko/20100101 Firefox/8.0.1	NONE
+DNT91..28	hnrv	120124:15	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1 Iceweasel/9.0.1	NONE
+DNT79..13	hnrv	120124:16	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0.1) Gecko/20100101 Firefox/8.0.1	NONE
+84.149.90.190	hnrv	120124:17	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NONE
+188.99.169.59	hnrv	120124:22	Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	NONE
+217.232.28.50	hnrv	120125:00	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.5; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator
+217.232.28.50	hnrv	120125:02	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.5; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	http://gulp21.bplaced.net/osm/housenumbervalidator/
+64.142.86.132	bp_noun	120125:04	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	NULL
+84.149.77.140	hnrv	120125:06	Mozilla/5.0 (compatible; Konqueror/4.5; Linux) KHTML/4.5.5 (like Gecko) SUSE	NONE
+46.21.144.176	bp_noun	120125:09	Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)	NULL
+DNT217.19	hnrv	120125:14	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1 Iceweasel/9.0.1	NONE
+129.27.161.147	hnrv	120125:15	Opera/9.80 (X11; Linux x86_64; U; de) Presto/2.10.229 Version/11.60	http://gulp21.bplaced.net/osm/housenumbervalidator.html?zoom=10
+DNT93..63	hnrv	120125:15	Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0	NONE
+217.232.69.198	hnrv	120126:04	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.5; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	NONE
+DNT98..67	bp_noun	120126:08	Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0	NULL
+DNT91..63	hnrv	120126:15	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1 Iceweasel/9.0.1	NONE
+DNT93..27	hnrv	120126:15	Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0	DNT
+DNT93..98	hnrv	120126:17	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	DNT
+89.0.92.72	hnrv	120126:18	Mozilla/5.0 (X11; Linux i686; en; rv:2.0) Gecko/20100101 Firefox/4.0 Opera 12.00	NONE
+89.0.92.72	hnrv	120126:18	Mozilla/5.0 (X11; Linux i686; en; rv:2.0) Gecko/20100101 Firefox/4.0 Opera 12.00	NONE
+62.143.8.182	ghp_de	120126:19	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Ubuntu/11.10 Chromium/16.0.912.75 Chrome/16.0.912.75 Safari/535.7	NULL
+62.143.8.182	ghp	120126:19	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Ubuntu/11.10 Chromium/16.0.912.75 Chrome/16.0.912.75 Safari/535.7	NULL
+62.143.8.182	hnrv	120126:19	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Ubuntu/11.10 Chromium/16.0.912.75 Chrome/16.0.912.75 Safari/535.7	http://gulp21.github.com/index_de.html
+62.143.8.182	dart	120126:19	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Ubuntu/11.10 Chromium/16.0.912.75 Chrome/16.0.912.75 Safari/535.7	NULL
+62.143.8.182	dart_de	120126:19	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Ubuntu/11.10 Chromium/16.0.912.75 Chrome/16.0.912.75 Safari/535.7	NULL
+DNT80..38	hnrv	120126:21	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	DNT
+66.249.66.206	hnrv	120127:01	Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)	NONE
+94.100.189.220	ghp	120127:06	Mozilla/5.0 (Windows; U; Windows NT 6.1; ru; rv:1.9.2.4) Gecko/20100611 Firefox/3.6.4 (.NET CLR 3.5.30729)	NULL
+80.123.151.10	bp_add_i	120127:08	Mozilla/5.0 (Windows NT 5.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	NULL
+213.153.32.50	bp_add_i	120127:12	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)	NULL
+78.130.194.194	bp_add_sup	120127:12	Mozilla/5.0 (Windows; U; Windows NT 5.1; bg; rv:1.8.1.20) Gecko/20081217 Firefox/2.0.0.20	NULL
+DNT93..28	hnrv	120127:14	Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0	DNT
+DNT91..14	hnrv	120127:15	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1 Iceweasel/9.0.1	NONE
+DNT93..28	hnrv	120127:19	Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0	DNT
+74.125.16.154	bp_add_i	120127:23	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.51 (KHTML, like Gecko; Google Web Preview) Chrome/12.0.742 Safari/534.51	NULL
+208.80.194.28	bp_i	120128:05	Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.2; .NET CLR 1.1.4322; .NET CLR 2.0.50727; InfoPath.2)	NULL
+DNT91..14	hnrv	120128:06	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1 Iceweasel/9.0.1	NONE
+DNT93..28	hnrv	120128:10	Mozilla/5.0 (Windows NT 6.1; rv:10.0) Gecko/20100101 Firefox/10.0	DNT
+DNT86..08	bp_noun	120128:14	Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	NULL
+66.249.72.129	hnrv	120128:15	Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)	http://gulp21.bplaced.net/osm/housenumbervalidator.html
+DNT85..50	bp_noun	120128:18	Mozilla/5.0 (X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	NULL
+DNT85..50	bp_noun	120128:18	Mozilla/5.0 (X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1	NULL
+DNT79..19	hnrv	120128:21	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0.1) Gecko/20100101 Firefox/8.0.1	NONE
+DNT91..64	hnrv	120129:07	Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1 Iceweasel/9.0.1	NONE
