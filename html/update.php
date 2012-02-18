@@ -36,4 +36,30 @@
 		unlink("/users/gulp21/www/osm/housenumbervalidator/update/broken.txt");
 		echo "removed broken.txt<br/>";
 	}
+	
+	$i=0;
+	$date="";
+	$housenumbers=0;
+	$dupes=0;
+	$broken=0;
+	$file=file("/users/gulp21/www/osm/housenumbervalidator/update/stats.txt") or die("ABORTED");
+	foreach ($file as $line) {
+		$l=explode("\t",$line);
+		if($i==0) {
+			echo $l[3];
+			$l=explode(".",$l[3]);
+			$date=sprintf("%04d-%02d-%02d", $l[2], $l[1], $l[0]); 
+		} else if($i==2) {
+			$housenumbers=$l[0];
+			$dupes=$l[2];
+			$broken=$l[6];
+			$i=-1;
+			$c="insert into `stats` values ('$date', $housenumbers, $dupes, $broken, 0)";
+			echo "$c<br/>";
+			mysql_query($c) or die(mysql_error());
+		}
+		$i++;
+	}
+	unlink("/users/gulp21/www/osm/housenumbervalidator/update/stats.txt");
+	echo "removed stats.txt<br/>";
 ?>
