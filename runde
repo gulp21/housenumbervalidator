@@ -35,9 +35,9 @@ function run {
 		echo Already run? Aborting $1...
 		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
 	elif [ ! $d  == 0 ]; then
-		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
+		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\---
 		echo $1.osm.pbf seems to be too old. Aborting $1...
-		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
+		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\---
 	else
 		rm $1.*
 		cp ../filter .
@@ -73,19 +73,23 @@ function getreports {
 	mv html/reports.txt html/reports.txt~
 	wget http://gulp21.bplaced.net/osm/housenumbervalidator/reports.txt
 	mv reports.txt html/reports.txt
+	cp html/reports.txt de/
 	echo `cat html/reports.txt | wc -l` exceptions [$((`cat html/reports.txt | wc -l`-`cat html/reports.txt~ | wc -l`))]
 }
 
 function lands1 {
-	run brandenburg && run niedersachsen && run bayern && echo finished lands1
+	d1=`date`
+	run brandenburg && run niedersachsen && run bayern && run rheinland-pfalz && run thueringen && run hamburg hamburg && echo finished lands1 $d1 - `date`
 }
 
 function lands2 {
-	run bremen bremen && run saarland && run berlin berlin && run mecklenburg-vorpommern && run schleswig-holstein && run sachsen-anhalt && run sachsen && run baden-wuerttemberg && echo finished lands2
+	d2=`date`
+	run bremen bremen && run saarland && run berlin berlin && run mecklenburg-vorpommern && run schleswig-holstein && run sachsen-anhalt && run sachsen && run baden-wuerttemberg && echo finished lands2 $d2 - `date`
 }
 
 function lands3 {
-	run nordrhein-westfalen && run hessen && run rheinland-pfalz && run thueringen && run hamburg hamburg && echo finished lands3
+	d3=`date`
+	run nordrhein-westfalen && run hessen && echo finished lands3 $d3 - `date`
 }
 
 function combine {

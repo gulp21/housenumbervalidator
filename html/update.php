@@ -1,4 +1,4 @@
-<?php
+<?php /* TODO write a stat.txt file + read it; counter->db; removeme.php */
 	include("../connect.php");
 	
 	mysql_set_charset("utf8");

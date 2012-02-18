@@ -34,7 +34,7 @@
 	var WIDTH=400;
 	var HEIGHT=400;
 	var labels=["housenumbers", "dupes", "problematic"];
-	var factors=["", .00004, .04, .01, 1, .1, 1];
+	var factors=["", .00004, .04, .01, 1, .08, .8];
 	var colors=["", "black", "grey", "black", "grey", "black", "grey"];
 	var values=[
 		<?php
