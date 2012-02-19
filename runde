@@ -4,9 +4,9 @@ if [ ! $# -eq 1 ]; then
 	echo Usage: ./runde option
 	echo ""
 	echo Options:
-	echo " 1: run for BB, NI, BY"
+	echo " 1: run for BB, NI, BY, RP, TH, HH"
 	echo " 2: run for HB, SL, MV, SH, ST, SN, BW"
-	echo " 3: run for NW, HE, RP, TH, HH"
+	echo " 3: run for NW, HE"
 	echo " c: combine all results"
 	exit -1;
 fi
