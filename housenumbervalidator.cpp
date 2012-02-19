@@ -1,5 +1,5 @@
 /*
-	v120114
+	v120219
 	
 	Copyright (C) 2012 Markus Brenneis
 	
@@ -15,6 +15,8 @@
 	
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	
+	TODO: use osm-convert for converting ways to nodes and remove memory consuming storage of lat/lon for each node
 */
 
 #include <iostream>

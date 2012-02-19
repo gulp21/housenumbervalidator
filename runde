@@ -110,7 +110,7 @@ function combine {
 		echo "" >> log.txt
 	done
 	
-	grep -v -P "\tNL\t|\tBE\t|\tDK\t|\tFR\t|\tLU\t|\tNL\t|\tCH\t|\tAT\t|\tPL\t|\tCZ\t" broken.txt | grep -v --file=../html/reports.txt > brok
+	grep -v -P "\tBE\t|\tDK\t|\tFR\t|\tLU\t|\tNL\t|\tCH\t|\tAT\t|\tPL\t|\tCZ\t" broken.txt | grep -v --file=../html/reports.txt > brok
 	echo $((`cat broken.txt | wc -l`-`cat brok | wc -l`)) foreign lines removed
 	mv brok broken.txt
 	
@@ -121,6 +121,10 @@ function combine {
 	wc -l dupes.txt
 	echo Broken:
 	wc -l broken.txt
+	
+	echo Merging with austria...
+	cat ../austria/dupes.txt >> dupes.txt
+	cat ../austria/broken.txt >> broken.txt
 }
 
 if [ $1 == "c" ]; then
