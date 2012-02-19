@@ -16,9 +16,9 @@ function run {
 	echo run for $1
 	echo ------------------
 	
-	ac=""
+	ai="" # assume city
 	if [ $# -eq 2 ]; then
-		ac="-ac="$2
+		ai="-ai="$2
 	fi
 	
 	mkdir $1
@@ -52,7 +52,7 @@ function run {
 			echo filter problem
 			exit 3;
 		fi
-		nice -n 19 ./housenumbervalidator $1.osm.pbf.hnr.osm -l -l=`wc -l $1.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=DE -cpn -css -iih -cpc=5 $ac
+		nice -n 19 ./housenumbervalidator $1.osm.pbf.hnr.osm -l -l=`wc -l $1.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=DE -cpn -css -iih -cpc=5 $ai
 		if [ ! $? -eq 0 ]; then
 			echo housenumbervalidator problem $1
 			exit 4;

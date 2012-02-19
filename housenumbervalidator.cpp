@@ -341,7 +341,7 @@ bool isComplete(housenumber &hnr) {
 	int broken=0;
 	
 	if(hnr.postcode!="") {
-		if(bCheckPostcodeNumber && hnr.postcode!=QString("%1").arg(hnr.postcode.toInt()) && hnr.postcode!=QString("0%1").arg(hnr.postcode.toInt()) ) {
+		if(bCheckPostcodeNumber && ( (hnr.postcode!=QString("%1").arg(hnr.postcode.toInt()) && hnr.postcode!=QString("0%1").arg(hnr.postcode.toInt()) ) || hnr.postcode.toInt()<=0) ) {
 			broken|=postcode;
 		} else if(iCheckPostcodeChars>-1 && hnr.postcode.length()!=iCheckPostcodeChars) {
 			broken|=postcode;

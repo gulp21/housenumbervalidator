@@ -28,6 +28,13 @@
     <tag k='phone' v='+49-2131-2914040' />
     <tag k='shop' v='test' />
   </node>
+  <node id='-67' action='modify' timestamp='2010-05-22T12:59:40Z' visible='true' lat='56.20055075238106' lon='6.688047170261663'>
+    <tag k='addr:city' v='NeussNULL' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:postcode' v='-1230' />
+    <tag k='addr:street' v='Niederstraße' />
+  </node>
   <node id='133300308' timestamp='2011-01-14T16:58:03Z' uid='194703' user='gulp21' visible='true' version='11' changeset='6968988' lat='51.1993569' lon='6.6902208'>
     <tag k='highway' v='traffic_signals' />
   </node>
