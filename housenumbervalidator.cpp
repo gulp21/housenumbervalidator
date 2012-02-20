@@ -351,7 +351,7 @@ bool isComplete(housenumber &hnr) {
 	}
 	
 	if( ( bCheckStreetSuffix && (hnr.street.endsWith("str") || hnr.street.contains("str.") || hnr.street.endsWith("Str") || hnr.street.contains("Str.")) )
-           || ( hnr.street.length()>0 && !hnr.street[0].isUpper() && !hnr.street.contains(QRegExp("[0-9](\\.|e)")) ) ) {
+           || ( hnr.street.length()>0 && !hnr.street[0].isUpper() && !hnr.street.contains(QRegExp("[0-9](\\.|e)")) && !hnr.street.startsWith("an") && !hnr.street.startsWith("am") && !hnr.street.startsWith("van") && !hnr.street.startsWith("von") ) ) {
 		broken|=street;
 	}
 	

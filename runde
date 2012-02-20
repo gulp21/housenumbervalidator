@@ -8,6 +8,7 @@ if [ ! $# -eq 1 ]; then
 	echo " 2: run for HB, SL, MV, SH, ST, SN, BW"
 	echo " 3: run for NW, HE"
 	echo " c: combine all results"
+	echo " d: delete pbf and osm files"
 	exit -1;
 fi
 
@@ -100,11 +101,13 @@ function combine {
 	rm broken.txt
 	rm log.txt
 	
-	for land in "baden-wuerttemberg" "bayern" "berlin" "brandenburg" "bremen" "hamburg" "hessen" "nordrhein-westfalen" "mecklenburg-vorpommern" "niedersachsen" "rheinland-pfalz" "saarland" "sachsen" "sachsen-anhalt" "schleswig-holstein" "thueringen"
+	for land in "baden-wuerttemberg" "bayern" "berlin" "brandenburg" "bremen" "hamburg" "hessen" "nordrhein-westfalen" "mecklenburg-vorpommern" "niedersachsen" "rheinland-pfalz" "saarland" "sachsen" "sachsen-anhalt" "schleswig-holstein" "thueringen" "austria"
 	do
 		echo $land...
-		tail ../$land/dupes.txt -n +2 >> dupes.txt
-		tail ../$land/broken.txt -n +2 >> broken.txt
+		if [ ! $land == "austria" ]; then
+			tail ../$land/dupes.txt -n +2 >> dupes.txt
+			tail ../$land/broken.txt -n +2 >> broken.txt
+		fi
 		echo $land >> log.txt
 		cat ../$land/log.txt >> log.txt
 		echo "" >> log.txt
@@ -123,13 +126,25 @@ function combine {
 	wc -l broken.txt
 	
 	echo Merging with austria...
-	cat ../austria/dupes.txt >> dupes.txt
-	cat ../austria/broken.txt >> broken.txt
+	tail ../austria/dupes.txt -n +2 >> dupes.txt
+	tail ../austria/broken.txt -n +2 >> broken.txt
+}
+
+function delete {
+	for land in "baden-wuerttemberg" "bayern" "berlin" "brandenburg" "bremen" "hamburg" "hessen" "nordrhein-westfalen" "mecklenburg-vorpommern" "niedersachsen" "rheinland-pfalz" "saarland" "sachsen" "sachsen-anhalt" "schleswig-holstein" "thueringen" "austria"
+	do
+		echo rm $land/$land.osm.pbf
+		rm $land/$land.osm.pbf
+		echo rm $land/$land.osm.pbf.hnr.osm
+		rm $land/$land.osm.pbf.hnr.osm
+	done
 }
 
 if [ $1 == "c" ]; then
 	getreports
 	combine
+elif [ $1 == "d" ]; then
+	delete
 elif [ $1 -eq 1 ]; then
 	lands1
 elif [ $1 -eq 2 ]; then
