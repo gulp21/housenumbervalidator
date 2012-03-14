@@ -12,33 +12,33 @@ function run {
 	
 	wget http://download.geofabrik.de/osm/europe/ -O index.html
 	d=`cat index.html | grep austria.osm.pbf | sed -e "s/\`date +%Y\`.*//g" | sed -e "s/.*>//g" | grep -v \`date +%d\` | wc -l`
-	cdate=`stat -c %y dupes.txt | awk '{ printf austria "\n"}'`
+	cdate=`stat -c %y dupes.txt | awk '{ printf $1 "\n"}'`
 	
 	if [ $cdate == `date +%Y-%m-%d` ]; then
-		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
+		echo $(tput setaf 3)\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
 		echo Already run? Aborting austria...
-		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
+		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!$(tput sgr0)
 	elif [ ! $d  == 0 ]; then
-		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\---
+		echo $(tput setaf 1)\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
 		echo austria.osm.pbf seems to be too old. Aborting austria...
-		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\---
+		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!$(tput sgr0)
 	else
 		rm austria.*
 		cp ../filter .
 		cp ../housenumbervalidator .
 		wget http://download.geofabrik.de/osm/europe/austria.osm.pbf
 		if [ ! $? -eq 0 ]; then
-			echo download problem
+			echo $(tput bold)$(tput setaf 1)download problem$(tput sgr0)
 			exit 1;
 		fi
 		nice -n 19 ./filter austria.osm.pbf
 		if [ ! $? -eq 0 ]; then
-			echo filter problem
+			echo $(tput bold)$(tput setaf 1)filter problem$(tput sgr0)
 			exit 3;
 		fi
 		nice -n 19 ./housenumbervalidator austria.osm.pbf.hnr.osm -l -l=`wc -l austria.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=AT -cpn -css -iih -cpc=4
 		if [ ! $? -eq 0 ]; then
-			echo housenumbervalidator problem austria
+			echo $(tput bold)$(tput setaf 1)housenumbervalidator problem austria$(tput sgr0)
 			exit 4;
 		fi
 		
@@ -54,9 +54,9 @@ function run {
 		echo Broken:
 		wc -l broken.txt
 		
-		echo ------------------
+		echo $(tput setaf 2)------------------
 		echo Finished austria!
-		echo ------------------
+		echo ------------------$(tput sgr0)
 	fi
 	
 	cd ..

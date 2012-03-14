@@ -46,7 +46,6 @@
 	foreach ($file as $line) {
 		$l=explode("\t",$line);
 		if($i==0) {
-			echo $l[3];
 			$l=explode(".",$l[3]);
 			$date=sprintf("%04d-%02d-%02d", $l[2], $l[1], $l[0]); 
 		} else if($i==2) {

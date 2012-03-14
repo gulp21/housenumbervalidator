@@ -32,39 +32,39 @@ function run {
 	cdate=`stat -c %y dupes.txt | awk '{ printf $1 "\n"}'`
 	
 	if [ $cdate == `date +%Y-%m-%d` ]; then
-		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
+		echo $(tput setaf 3)\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
 		echo Already run? Aborting $1...
-		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
+		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!$(tput sgr0)
 	elif [ ! $d  == 0 ]; then
-		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\---
+		echo $(tput setaf 1)\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!
 		echo $1.osm.pbf seems to be too old. Aborting $1...
-		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\---
+		echo \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!$(tput sgr0)
 	else
 		rm $1.*
 		cp ../filter .
 		cp ../housenumbervalidator .
 		wget http://download.geofabrik.de/osm/europe/germany/$1.osm.pbf
 		if [ ! $? -eq 0 ]; then
-			echo download problem
+			echo $(tput bold)$(tput setaf 1)download problem$(tput sgr0)
 			exit 1;
 		fi
 		nice -n 19 ./filter $1.osm.pbf
 		if [ ! $? -eq 0 ]; then
-			echo filter problem
+			echo $(tput bold)$(tput setaf 1)filter problem$(tput sgr0)
 			exit 3;
 		fi
 		nice -n 19 ./housenumbervalidator $1.osm.pbf.hnr.osm -l -l=`wc -l $1.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=DE -cpn -css -iih -cpc=5 $ai
 		if [ ! $? -eq 0 ]; then
-			echo housenumbervalidator problem $1
+			echo $(tput bold)$(tput setaf 1)housenumbervalidator problem $1 $(tput sgr0)
 			exit 4;
 		fi
 	# 	grep incomplete.txt -v --file=html/reports.txt | grep -v "missing 1" | grep -v "missing 2" | grep -v "missing 3" | head -n 2001 | sed "s/pin.png/pin_circle.png/g" > incompl.txt
 	# 	mv incomplete.txt incomplete.txt~
 	# 	mv incompl.txt incomplete.txt
 	# 	cat incomplete.txt | wc -l
-		echo ------------------
+		echo $(tput setaf 2)------------------
 		echo Finished $1!
-		echo ------------------
+		echo ------------------$(tput sgr0)
 	fi
 	
 	cd ..

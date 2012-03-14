@@ -76,25 +76,25 @@
 		?>
 	];
 	var ua=[
-		["Firefox",183],
-		["Chrome",22],
-		["Konqueror",30],
-		["Opera",18],
-		["Bot",14],
-		["IE",7],
-		["Mobile",4],
-		["Safari",2]
+		["Firefox",384],
+		["Chrome",61],
+		["Konqueror",32],
+		["Opera",38],
+		["Bot",18],
+		["IE",11],
+		["Mobile",7],
+		["Safari",4]
 	];
 	var uacolors=["tomato","forestgreen","royalblue","maroon","silver","dodgerblue","yellowgreen","lightgray"];
 	var os=[
-		["Windows",143],
-		["Linux",106],
-		["MacOSX",13],
-		["Mobile",4],
-		["Bot",14]
+		["Windows",287],
+		["Linux",212],
+		["MacOSX",31],
+		["Mobile",7],
+		["Bot",18]
 	];
 	var oscolors=["royalblue","goldenrod","dimgray","yellowgreen","silver"];
-	var lastUpdate="2012-01-29";
+	var lastUpdate="2012-02-29";
 	
 	var STEP=WIDTH/values.length;
 	STEP*=.95;
@@ -216,5 +216,14 @@
 	
 	draw();
 	</script>
+	
+	<div>
+		<a href="http://gulp21.bplaced.net/osm/housenumbervalidator/">Zum housenumbervalidator</a>
+	</div>
+	<hr/>
+	<div>
+		<a href="http://gulp21.github.com/qeodart_de.html">QeoDart &dash; ein freies Geographie-Lernspiel</a> <br/>
+		<a href="http://languagetool.org/de/">LanguageTool &dash; eine freie Stil- und Grammatikpr&uuml;fung f&uuml;r LibreOffice/OpenOffice.org</a>
+	</div>
 </body>
 </html>

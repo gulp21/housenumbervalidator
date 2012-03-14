@@ -30,6 +30,12 @@
 			}
 		}
 		
+		@media (max-width: 1000px) {
+			.ad {
+				visibility: hidden;
+			}
+		}
+		
 		#reportdiv {
 			display: none;
 			position: absolute;
@@ -100,6 +106,29 @@
 		.broken {
 			color: red;
 		}
+		
+		.ad {
+			position: absolute;
+			right: 10px;
+			bottom: 45px;
+			z-index: 999;
+			white-space:nowrap;
+			width: 250px;
+			text-decoration: none;
+			color: black;
+			opacity: .7;
+		}
+		
+		.ad:hover {
+			opacity: 1;
+		}
+		
+		.ad > img {
+			max-height: 48px;
+			width: auto;
+			float: left;
+			margin: 5px;
+		}
 	</style>
 </head>
 <body style="height:99%;overflow:hidden;">
@@ -119,7 +148,7 @@
 	</script>
 	<script src="OpenLayers.js"></script>
 	<script src="OpenStreetMap.js"></script>
-	<script>
+	<script type="text/javascript">
 		// parts taken from openlayers.org/dev/examples
 		
 		map = new OpenLayers.Map("mapdiv",
@@ -301,7 +330,26 @@
 	<a href="#" onclick="report();" style="color:red;font-weight:bold;">Fehlalarm melden</a> &dash;
 	&copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC&#8209;BY&#8209;SA</a>
 	</div>
+	<a href="http://gulp21.github.com/qeodart_de.html" target="_blank" class="ad" id="ad1" style="background-color: rgba(256,168,88,.9);display:none">
+		<img src="qeodart.png" alt="QeoDart Icon"/>
+		<b>QeoDart</b><br/>
+		das freie Geographie-Lernspiel<br/>
+		f&uuml;r Linux &amp; Windows
+	</a>
+	<a href="http://languagetool.org/de" target="_blank" class="ad" id="ad2" style="background-color: rgba(152,184,240,.9);display:none;width:270px;">
+		<img src="LanguageToolBig.png" alt="LT Icon"/>
+		<b>LanguageTool</b><br/>
+		freie Grammatik- und Stilpr&uuml;fung<br/>
+		f&uuml;r LibreOffice und OpenOffice.org
+	</a>
+	<script type="text/javascript">
+		if(Math.random()>.5)
+			document.getElementById("ad1").style.display='block';
+		else
+			document.getElementById("ad2").style.display='block';
+	</script>
 	<div id="reportdiv">
+	Nutzen Sie diese Funktion, wenn die doppelten Hausnummern tats&auml;chlich so in der Realit&auml;t existieren.<br/>
 	Bitte geben Sie die ID ein:
 	<form action="report.php" method="get" target="reportframe">
 	<input type="text" size="17" name="id"/>
