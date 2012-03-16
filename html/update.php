@@ -9,6 +9,7 @@
 	foreach($file as $line) {
 		if(isset($line)) {
 			$columns=explode("\t", $line);
+			for($i=0;$i<14;$i++) $columns[$i]=mysql_real_escape_string($columns[$i]);
 			mysql_query("insert into dupes values ($columns[0], $columns[1], $columns[2], $columns[3], '$columns[4]', '$columns[5]', '$columns[6]', '$columns[7]', '$columns[8]', '$columns[9]', '$columns[10]', '$columns[11]', '$columns[12]', '".trim($columns[13])."')")
 			or die(mysql_error());
 			$i++;
@@ -26,6 +27,7 @@
 	foreach($file as $line) {
 		if(isset($line)) {
 			$columns=explode("\t", $line);
+			for($i=0;$i<14;$i++) $columns[$i]=mysql_real_escape_string($columns[$i]);
 			mysql_query("insert into `problematic` values ($columns[0], $columns[1], $columns[2], $columns[3], $columns[4], '$columns[5]', '$columns[6]', '$columns[7]', '$columns[8]', '$columns[9]', '".trim($columns[10])."')")
 			or die(mysql_error());
 			$i++;
@@ -61,4 +63,6 @@
 	}
 	unlink("/users/gulp21/www/osm/housenumbervalidator/update/stats.txt");
 	echo "removed stats.txt<br/>";
+	
+	include("mail.php");
 ?>

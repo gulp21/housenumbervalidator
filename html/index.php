@@ -36,7 +36,7 @@
 			}
 		}
 		
-		#reportdiv {
+		#reportdiv, #oneperdaydiv {
 			display: none;
 			position: absolute;
 			top: 5px;
@@ -47,7 +47,7 @@
 		
 		#reportframe {
 			position: absolute;
-			top: 60px;
+			top: 175px;
 			z-index: 2000;
 			border: none;
 			background: white;
@@ -272,7 +272,18 @@
 				document.getElementById('reportframe').style.display='block';
 			}
 		}
+		
+		function oneperday() {
+			if(document.getElementById('oneperdaydiv').style.display=='block') {
+				document.getElementById('oneperdaydiv').style.display='none';
+				document.getElementById('reportframe').style.display='none';
+			} else {
+				document.getElementById('oneperdaydiv').style.display='block';
+				document.getElementById('reportframe').style.display='block';
+			}
+		}
 	</script>
+	
 	<div id="footer">
 	Letzte Aktualisierung: 
 	<?php
@@ -313,13 +324,17 @@
 			else $date_old=" [verglichen mit $date_old]";
 		}
 	}
-	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current $hnr_diff Hausnummern, $dupes_current $dupes_diff Duplikate, $probl_current $probl_diff problematisch$date_old)";
+// 	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current $hnr_diff Hausnummern, $dupes_current $dupes_diff Duplikate, $probl_current $probl_diff problematisch$date_old)";
+	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current Hausnummern, $dupes_current Duplikate, $probl_current problematisch)";
 	?>
+	&dash; <a href="stat.php" target="_blank">mehr Statistiken</a>
 	<br/>
-	<span style="font-weight:bold">Maximal 1800 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span> &dash; <a href="stat.php" target="_blank">Statistik</a>
+	<span style="font-weight:bold">Maximal 1800 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span>
 	<br/>
-	Dupes: <img src="pin_red.png" alt="red square"/> Nodes, <img src="pin_blue.png" alt="blue square"/> Ways &dash;
-	Problematic:<!-- <img src="pin_circle.png" alt="black circle"/> Incomplete,--> <img src="pin_circle_red.png" alt="red circle"/> Street, <img src="pin_circle_blue.png" alt="blue circle"/> Country/City/Postcode (enable layer with +-button)
+	Duplikate: <img src="pin_red.png" alt="red square"/> Nodes, <img src="pin_blue.png" alt="blue square"/> Ways &dash;
+	Problematisch: <img src="pin_circle_red.png" alt="red circle"/> Stra&szlig;e, <img src="pin_circle_blue.png" alt="blue circle"/> Anderes &dash;
+	<a href="#" onclick="report();" style="color:red;font-weight:bold;">Fehlalarm melden</a> &dash;
+	<a href="#" onclick="oneperday();" style="color:green;font-weight:bold;">Ein korrigierter Fehler am Tag</a>
 	<br/>
 	<a href="https://github.com/gulp21" target="_blank">Source</a> &dash;
 	<a href="http://forum.openstreetmap.org/viewtopic.php?id=12669" target="_blank">Forum</a> &dash;
@@ -327,7 +342,6 @@
 	<a href="http://gulp21.github.com/" target="_blank">mehr&hellip;</a> &dash;
 	Kontakt: <a href="http://www.openstreetmap.org/message/new/gulp21" target="_blank">&uuml;ber OSM</a>,
 	<a href="#" onclick="alert(unescape('support[dot]gulp21 (%E4t) googlemail[dot]com'));">E-Post</a> &dash;
-	<a href="#" onclick="report();" style="color:red;font-weight:bold;">Fehlalarm melden</a> &dash;
 	&copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC&#8209;BY&#8209;SA</a>
 	</div>
 	<a href="http://gulp21.github.com/qeodart_de.html" target="_blank" class="ad" id="ad1" style="background-color: rgba(256,168,88,.9);display:none">
@@ -349,14 +363,26 @@
 			document.getElementById("ad2").style.display='block';
 	</script>
 	<div id="reportdiv">
-	Nutzen Sie diese Funktion, wenn die doppelten Hausnummern tats&auml;chlich so in der Realit&auml;t existieren.<br/>
-	Bitte geben Sie die ID ein:
-	<form action="report.php" method="get" target="reportframe">
-	<input type="text" size="17" name="id"/>
-	<input type="checkbox" name="way" value="true"/>Das ist ein Weg (blaues Quadrat)
-	<input type="submit" value="Absenden"/>
-	</form>
-	<small>Bitte diese Funktion nicht verwenden, wenn der Fehler zwischenzeitlich korrigiert wurde!</small>
+		Nutzen Sie diese Funktion, wenn die doppelten Hausnummern tats&auml;chlich so in der Realit&auml;t existieren.<br/>
+		Bitte geben Sie die ID ein:
+		<form action="report.php" method="get" target="reportframe">
+		<input type="text" size="17" name="id"/>
+		<input type="checkbox" name="way" value="true"/>Das ist ein Weg (blaues Quadrat)
+		<input type="submit" value="Absenden"/>
+		</form>
+		<small>Bitte diese Funktion nicht verwenden, wenn der Fehler zwischenzeitlich korrigiert wurde!</small>
+	</div>
+	<div id="oneperdaydiv">
+		<b>Sie wollen zur Verbesserung der Daten beitragen?</b><br/>
+		Wenn Sie sich hier registrieren, werden Sie (fast) t&auml;glich<br/>
+		eine E-Mail mit einem Link zu einem Fehler bekommen, den Sie korrigieren k&ouml;nnen.<br/>
+		<small>Wenn Sie sich abmelden wollen, tragen Sie Ihre E-Mailadresse in das Textfeld ein<br/>
+		und klicken Sie auf &quot;Anmelden&quot;, ohne die Checkbox vorher aktiviert zu haben.</small>
+		<form action="register.php" method="get" target="reportframe">
+		<input type="text" size="17" name="mail"/>
+		<input type="checkbox" name="register" value="true"/>Ich m&ouml;chte mich anmelden. Die angegebene E-Mail-Adresse geh&ouml;rt mir.<br/>Die E-Mail-Adresse wird nur zum Versand der E-Mails (max. 1/d) verwendet.<br/>
+		<input type="submit" value="Anmelden"/>
+		</form>
 	</div>
 </body>
 </html>
