@@ -7,7 +7,7 @@ mysql_set_charset("utf8");
 
 $mail=mysql_real_escape_string($_GET["mail"]);
 
-if(strpos($mail, "@")<1 || strpos($mail, ".") < 2) die("Anfrage NICHT erfolgreich ausgef&uuml;hrt (ERR50).");
+if(!preg_match('/.+\@.+\..+/i',$mail)) die("Anfrage NICHT erfolgreich ausgef&uuml;hrt (ERR50).");
 
 if($_GET["register"]=="true") {
 	
@@ -19,9 +19,12 @@ if($_GET["register"]=="true") {
 	
 } else {
 	
-	mysql_query("DELETE FROM mails WHERE mail=\"$mail\"") or die("Anfrage NICHT erfolgreich ausgef&uuml;hrt (ERR0D).");
+	$d=mysql_query("DELETE FROM mails WHERE mail=\"$mail\"") or die("Anfrage NICHT erfolgreich ausgef&uuml;hrt (ERR0D).");
 	
-	echo "An $mail werden keine E-Mails mehr geschickt werden.";
+	if(mysql_affected_rows()>0)
+		echo "An $mail werden keine E-Mails mehr geschickt werden.";
+	else
+		echo "Anfrage NICHT erfolgreich ausgef&uuml;hrt (ERR1D).";
 	
 }
 

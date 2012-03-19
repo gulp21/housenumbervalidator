@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html style="height:99%">
+<html style="height: 99%; font-family: 'Times New Roman', serif;">
 <head>
 	<title>housenumbervalidator</title>
 	<style type="text/css">
@@ -16,6 +16,13 @@
 			z-index: 1000;
 			opacity: .7;
 			background: white;
+			font-size: 16px;
+		}
+		
+		@media (max-width: 800px) {
+			#footer {
+				font-size: 14px;
+			}
 		}
 		
 		@media (max-width: 500px) {
@@ -30,7 +37,7 @@
 			}
 		}
 		
-		@media (max-width: 1000px) {
+		@media (max-width: 900px) {
 			.ad {
 				visibility: hidden;
 			}

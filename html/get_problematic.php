@@ -37,11 +37,11 @@
 		if(($brok['broken']|4)==$brok['broken']) $style=' class="broken" '; else $style='';
 		if($brok['postcode']!="") $table.="<tr$style><td>addr:postcode</td><td>".$brok['postcode']."</td></tr>";
 		
-		if(($brok['broken']|8)==$brok['broken']) $style=' class="broken" ' ;else $style='';
+		if(($brok['broken']|8)==$brok['broken']) $style=' class="broken" '; else $style='';
 		if($brok['street']!="") $table.="<tr$style><td>addr:street</td><td>".$brok['street']."</td></tr>";
 		
 		if(($brok['broken']|16)==$brok['broken']) $style=' class="broken" '; else $style='';
-		if($brok['number']!="") $table.="<tr$style><td>addr:housenumber</td><td>".$brok['number']."</td></tr>";
+		if($brok['number']!="") $table.="<tr$style><td>addr:housenumber</td><td>".trim($brok['number'])."</td></tr>";
 		
 		$table.="</table>";
 		

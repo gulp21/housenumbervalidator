@@ -9,7 +9,7 @@
 	foreach($file as $line) {
 		if(isset($line)) {
 			$columns=explode("\t", $line);
-			for($i=0;$i<14;$i++) $columns[$i]=mysql_real_escape_string($columns[$i]);
+			for($j=0;$j<14;$j++) $columns[$j]=mysql_real_escape_string($columns[$j]);
 			mysql_query("insert into dupes values ($columns[0], $columns[1], $columns[2], $columns[3], '$columns[4]', '$columns[5]', '$columns[6]', '$columns[7]', '$columns[8]', '$columns[9]', '$columns[10]', '$columns[11]', '$columns[12]', '".trim($columns[13])."')")
 			or die(mysql_error());
 			$i++;
@@ -27,7 +27,7 @@
 	foreach($file as $line) {
 		if(isset($line)) {
 			$columns=explode("\t", $line);
-			for($i=0;$i<14;$i++) $columns[$i]=mysql_real_escape_string($columns[$i]);
+			for($j=0;$j<11;$j++) $columns[$j]=mysql_real_escape_string($columns[$j]);
 			mysql_query("insert into `problematic` values ($columns[0], $columns[1], $columns[2], $columns[3], $columns[4], '$columns[5]', '$columns[6]', '$columns[7]', '$columns[8]', '$columns[9]', '".trim($columns[10])."')")
 			or die(mysql_error());
 			$i++;

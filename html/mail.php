@@ -9,7 +9,7 @@
 	
 	echo $subscribers." subscribers<br/>";
 	
-	$probs=mysql_query("SELECT * FROM problematic WHERE `broken` BETWEEN \"1\" AND \"7\"") or die ("MySQL-Error: ".mysql_error());
+	$probs=mysql_query("SELECT * FROM problematic WHERE `broken` BETWEEN '1' AND '7' OR `street` REGEXP '.*str\.? ?[0-9].*' OR `street` REGEXP '\<.*'") or die ("MySQL-Error: ".mysql_error());
 	
 	echo "Found ".mysql_num_rows($probs)." Ps<br/>";
 	
@@ -115,6 +115,11 @@
 	
 	while($mail=mysql_fetch_assoc($mails)) {
 		mail($mail['mail'], "Ein korrigierter Fehler am Tag", "Wie wär's heute mit diesem kleinen Fehler:\n\n".$problems[$i]."Und wenn noch etwas Zeit ist:\n".$duplicates[$i]."--\nBei Problemen oder Fragen oder wenn Sie sich abmelden wollen, besuchen Sie bitte http://gulp21.bplaced.net/osm/housenumbervalidator und nutzen Sie die angegebenen Kontaktmöglichkeiten oder den Link \"Ein korrigierter Fehler am Tag\" zum Abmelden.", "Content-Type: text/plain; charset=\"utf-8\"\nFrom: housenumbervalidator <support.gulp21@googlemail.com>");
+		
+		$problems[$i]=explode("\n",$problems[$i]);
+		$duplicates[$i]=explode("\n",$duplicates[$i]);
+		
+		echo "<br/>".$mail['mail']."<br/>".$problems[$i][1]."<br/>".$duplicates[$i][1]."<br/><br/>";
 		
 		$i--;
 	}
