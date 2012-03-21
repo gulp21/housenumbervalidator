@@ -15,8 +15,6 @@
 	
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-	
-	TODO: use osm-convert for converting ways to nodes and remove memory consuming storage of lat/lon for each node
 */
 
 #include <iostream>
@@ -37,7 +35,7 @@ struct housenumber;
 
 struct housenumber {
 	double lat, lon;
-	int id;
+	qint64 id;
 	bool ignore, isWay, isHnr;
 	QString name, shop, number, street, postcode, city, country, nodeId;
 	pBinTree dupe;
@@ -47,7 +45,7 @@ struct binTree {
 	pBinTree left;
 	pBinTree right;
 	double lat, lon;
-	int id;
+	qint64 id;
 	bool ignore, isWay;
 	QString address;
 	pBinTree dupe;
@@ -67,17 +65,15 @@ int lines=9200594, lineCount=0, dupeCount=0, hnrCount=0, incompleteCount=0, brok
 
 QTextStream duplicatesStream, incompleteStream, brokenStream, logStream;
 
-pBinTree treeHousenumbers, treeNodes;
+pBinTree treeHousenumbers;
 
 bool isComplete(housenumber &hnr);
 QString qsGenerateDupeOutput(pBinTree hnr);
-QString qsGenerateIncompleteOutput(housenumber hnr, int i);
+// QString qsGenerateIncompleteOutput(housenumber hnr, int i);
 QString qsGenerateBrokenOutput(housenumber hnr, int keys);
-// QString qsGenerateLink(housenumber hnr);
-// QString qsGenerateLink(pBinTree hnr);
-void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree);
+// void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree);
 void insert(pBinTree &element, pBinTree &root);
-void insertNode(housenumber hnr);
+// void insertNode(housenumber hnr);
 void housenumberToBinTree(housenumber hnr, pBinTree &node);
 void nodeToBinTree(housenumber hnr, pBinTree &node);
 void inorder(pBinTree &root);
@@ -136,7 +132,7 @@ int main(int argc, const char* argv[]) {
 	}
 	
 	treeHousenumbers=NULL;
-	treeNodes=NULL;
+// 	treeNodes=NULL;
 	
 	//open input file
 	QFile file(filename);
@@ -183,14 +179,14 @@ int main(int argc, const char* argv[]) {
 	housenumber hnr;
 	
 	if(lines==9200594) qDebug() << "NOTE: You have to set the 'lines' variable by hand in order to get sensible progress information";
-	if(!filename.endsWith(".hnr.osm")) qDebug() << "NOTE: If the osm-file is big, you should filter it by executing './filter input.osm'.";
+	if(!filename.endsWith(".hnr.osm")) qDebug() << "NOTE: Version 0.3+ supports nodes only, you should execute './filter input.osm' first.";
 	
 	// loop through all lines
 	while(!in.atEnd()) {
 		QString line = in.readLine();
 		
-		//if there is a new way/node
-		if(line.contains("<way") || line.contains("<node")) {
+		//if there is a new node
+		if(line.contains("<node")) {
 			// reset
 			hnr.city="";
 			hnr.country="";
@@ -211,13 +207,12 @@ int main(int argc, const char* argv[]) {
 			QString id=line;
 			// NOTE: QRegExp seems to be extremly slow, so we don't use .* here
 			id.replace("\n", "");			//remove newline
-			if(!line.contains("<way"))
-				id.replace(QRegExp("<node id=[\"']"), "");	//remove unneeded information
-			else {
-				id.replace(QRegExp("<way id=[\"']"), "");
+			hnr.id=id.split(QRegExp("[\"']"))[1].toLongLong();
+			
+			if(hnr.id>999999999999900) {
 				hnr.isWay=true;
+				hnr.id-=1000000000000000;
 			}
-			hnr.id=id.split(QRegExp("[\"']"))[0].toInt();
 			
 			if(line.contains("lat"))
 				hnr.lat=line.split("lat")[1].split(QRegExp("[\"']"))[1].toDouble();
@@ -225,28 +220,30 @@ int main(int argc, const char* argv[]) {
 			if(line.contains("lon"))
 				hnr.lon=line.split("lon")[1].split(QRegExp("[\"']"))[1].toDouble();
 			
-			if(line.contains("/>") && !hnr.isWay) { // no children
-				insertNode(hnr);
-			}
+// 			if(line.contains("/>") && !hnr.isWay) { // no children
+// 				insertNode(hnr);
+// 			}
 		
-		// if there is the end of the way/node
-		} else if( (line.contains("</way") || line.contains("</node")) ) {
+		// if there is the end of the node
+		} else if(line.contains("</node")) {
+			
+			qDebug() << hnr.lat << hnr.lon << hnr.id << hnr.country << hnr.postcode << hnr.city << hnr.street << hnr.number << hnr.ignore << hnr.isHnr;
 			
 			if(isComplete(hnr)) {
 				pBinTree pHnr;
 				pHnr = new binTree;
 				housenumberToBinTree(hnr, pHnr);
 				insert(pHnr, treeHousenumbers);
-				if(!pHnr->isWay) {
-					pBinTree pHnr2;
-					pHnr2 = new binTree;
-					nodeToBinTree(hnr, pHnr2);
-					insert(pHnr2, treeNodes);
-				}
+// 				if(!pHnr->isWay) {
+// 					pBinTree pHnr2;
+// 					pHnr2 = new binTree;
+// 					nodeToBinTree(hnr, pHnr2);
+// 					insert(pHnr2, treeNodes);
+// 				}
 			} else {
-				if(line.contains("</node")) {
-					insertNode(hnr);
-				}
+// 				if(line.contains("</node")) {
+// 					insertNode(hnr);
+// 				}
 				//qDebug() << "There is something wrong with this element";
 				//qDebug() << hnr.lat << hnr.lon << hnr.id << hnr.country << hnr.city << hnr.street << hnr.number << hnr.ignore;
 			} // if(isComplete)
@@ -281,7 +278,7 @@ int main(int argc, const char* argv[]) {
 			hnr.shop=line.split(QRegExp("[\"']"))[3];
 		} else if( ( line.contains("k=\"name\"") || line.contains("k='name'") || line.contains("k=\"operator\"") || line.contains("k='operator'") ) && hnr.name=="") {
 			hnr.name=line.split(QRegExp("[\"']"))[3];
-		// ignore ways/nodes with fixme/note
+		// ignore nodes with fixme/note
 		} else if( ( (line.contains("k=\"fixme\"", Qt::CaseInsensitive) || line.contains("k='fixme'", Qt::CaseInsensitive)) && bIgnoreFixme ) ||
 		           ( (line.contains("k=\"note\"", Qt::CaseInsensitive) || line.contains("k='note'", Qt::CaseInsensitive)) && bIgnoreNote ) ||
 		           (line.contains("power") && line.contains("sub_station")) ||
@@ -290,10 +287,10 @@ int main(int argc, const char* argv[]) {
 		{
 			hnr.ignore=true;
 		}
-		else if(line.contains("<nd") && hnr.nodeId=="") {
-			QString ref=line.split(QRegExp("[\"']"))[1];
-			hnr.nodeId=ref.right(1)+ref;
-		}
+// 		else if(line.contains("<nd") && hnr.nodeId=="") {
+// 			QString ref=line.split(QRegExp("[\"']"))[1];
+// 			hnr.nodeId=ref.right(1)+ref;
+// 		}
 		
 		lineCount++;
 		if(lineCount%10000==0) qDebug() << lineCount <<  now.elapsed()/1000 << "seconds";
@@ -334,9 +331,9 @@ bool isComplete(housenumber &hnr) {
 	
 	if(hnr.ignore) return false;
 	
-	if(hnr.isWay) {
-		vGetLatLonForWay(hnr.lat, hnr.lon, hnr.nodeId, treeNodes);
-	}
+// 	if(hnr.isWay) {
+// 		vGetLatLonForWay(hnr.lat, hnr.lon, hnr.nodeId, treeNodes);
+// 	}
 	
 	if(hnr.lat==0 || hnr.lon==0) return false;
 	
@@ -407,16 +404,16 @@ QString qsGenerateDupeOutput(pBinTree hnr) {
 	                .arg(hnr->dupe->id).arg(hnr->dupe->isWay?1:0).arg(hnr->dupe->lat).arg(hnr->dupe->lon);
 }
 
-QString qsGenerateIncompleteOutput(housenumber hnr, int i) {
-	//QString link=qsGenerateLink(hnr);
-	//QString link="";
-	
-	//return QString("%1\t%2\tIncomplete\t%3 %4 %5 %6 %7 %8 is missing %9 pieces of address information\tpin.png\t16,16\t-8,-8\n")
-// 	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
-// 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number)
-// 	                .arg(i);
-	return "NULL";
-}
+// QString qsGenerateIncompleteOutput(housenumber hnr, int i) {
+// 	//QString link=qsGenerateLink(hnr);
+// 	//QString link="";
+// 	
+// 	//return QString("%1\t%2\tIncomplete\t%3 %4 %5 %6 %7 %8 is missing %9 pieces of address information\tpin.png\t16,16\t-8,-8\n")
+// // 	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
+// // 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number)
+// // 	                .arg(i);
+// 	return "NULL";
+// }
 
 QString qsGenerateBrokenOutput(housenumber hnr, int keys) {
 	return QString("%1\t%2\t%3\t%4\t%5\t%6 %7\t%8\t%9\t%10\t%11\t%12\n")
@@ -425,20 +422,20 @@ QString qsGenerateBrokenOutput(housenumber hnr, int keys) {
 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
 }
 
-void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree) {
-	if(tree==NULL) {
-		qDebug() << "This should not happen :(" << ref;
-	} else {
-		if(ref < tree->address) {
-			vGetLatLonForWay(lat, lon, ref, tree->left);
-		} else if(ref > tree->address) {
-			vGetLatLonForWay(lat, lon, ref, tree->right);
-		} else {
-			lat=tree->lat;
-			lon=tree->lon;
-		}
-	}
-}
+// void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree) {
+// 	if(tree==NULL) {
+// 		qDebug() << "This should not happen :(" << ref;
+// 	} else {
+// 		if(ref < tree->address) {
+// 			vGetLatLonForWay(lat, lon, ref, tree->left);
+// 		} else if(ref > tree->address) {
+// 			vGetLatLonForWay(lat, lon, ref, tree->right);
+// 		} else {
+// 			lat=tree->lat;
+// 			lon=tree->lon;
+// 		}
+// 	}
+// }
 
 void inorder(pBinTree &tree) {
 	if(tree!=NULL) {
@@ -471,12 +468,12 @@ void insert(pBinTree &element, pBinTree &tree) {
 	}
 }
 
-void insertNode(housenumber hnr) {
-	pBinTree pHnr;
-	pHnr = new binTree;
-	nodeToBinTree(hnr, pHnr);
-	insert(pHnr, treeNodes);
-}
+// void insertNode(housenumber hnr) {
+// 	pBinTree pHnr;
+// 	pHnr = new binTree;
+// 	nodeToBinTree(hnr, pHnr);
+// 	insert(pHnr, treeNodes);
+// }
 
 void housenumberToBinTree(housenumber hnr, pBinTree &node) {
 	node->address=QString("%1||%2||%3||%4||%5||%6||%7")
