@@ -227,8 +227,6 @@ int main(int argc, const char* argv[]) {
 		// if there is the end of the node
 		} else if(line.contains("</node")) {
 			
-			qDebug() << hnr.lat << hnr.lon << hnr.id << hnr.country << hnr.postcode << hnr.city << hnr.street << hnr.number << hnr.ignore << hnr.isHnr;
-			
 			if(isComplete(hnr)) {
 				pBinTree pHnr;
 				pHnr = new binTree;
