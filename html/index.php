@@ -52,7 +52,7 @@
 			background: white;
 		}
 		
-		#reportframe {
+		#reportframe {/* TODO replace by js alert*/
 			position: absolute;
 			top: 175px;
 			z-index: 2000;

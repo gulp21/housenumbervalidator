@@ -137,6 +137,8 @@ function delete {
 		rm $land/$land.osm.pbf
 		echo rm $land/$land.osm.pbf.hnr.osm
 		rm $land/$land.osm.pbf.hnr.osm
+# 		echo rm $land/dupes.txt
+# 		rm $land/dupes.txt
 	done
 }
 
