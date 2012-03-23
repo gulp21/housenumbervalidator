@@ -1,5 +1,5 @@
 /*
-	v120219
+	v0.4-120323
 	
 	Copyright (C) 2012 Markus Brenneis
 	
@@ -35,7 +35,7 @@ struct housenumber;
 
 struct housenumber {
 	double lat, lon;
-	qint64 id;
+	int id;
 	bool ignore, isWay, isHnr;
 	QString name, shop, number, street, postcode, city, country, nodeId;
 	pBinTree dupe;
@@ -45,7 +45,7 @@ struct binTree {
 	pBinTree left;
 	pBinTree right;
 	double lat, lon;
-	qint64 id;
+	int id;
 	bool ignore, isWay;
 	QString address;
 	pBinTree dupe;
@@ -207,11 +207,13 @@ int main(int argc, const char* argv[]) {
 			QString id=line;
 			// NOTE: QRegExp seems to be extremly slow, so we don't use .* here
 			id.replace("\n", "");			//remove newline
-			hnr.id=id.split(QRegExp("[\"']"))[1].toLongLong();
+			qint64 id64=id.split(QRegExp("[\"']"))[1].toLongLong();
 			
-			if(hnr.id>999999999999900) {
+			if(id64>999999999999900) {
 				hnr.isWay=true;
-				hnr.id-=1000000000000000;
+				hnr.id=id64-1000000000000000;
+			} else {
+				hnr.id=id64;
 			}
 			
 			if(line.contains("lat"))
