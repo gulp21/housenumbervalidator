@@ -59,7 +59,7 @@
 			$pin="pin_circle_blue.png";
 		}
 		
-		$link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type.'/'.$brok['id'].'">'.$brok['id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_object?objects='.$t.$brok['id'].'&select='.$type.$brok['id'].'">JOSM</a>)';
+		$link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type.'/'.$brok['id'].'">'.$brok['id'].'</a> <a target="josmframe" href="http://localhost:8111/load_object?objects='.$t.$brok['id'].'&select='.$type.$brok['id'].'"><img src="josm.png" alt="JOSM"/></a> <a target="_blank" href="http://www.openstreetmap.org/edit?zoom=18&'.$type.'='.$brok['id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a>';
 		
 		echo
 			$brok['lat']."\t"

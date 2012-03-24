@@ -40,7 +40,7 @@
 		if(($prob['broken']|16)==$prob['broken']) $style='*'; else $style='';
 		if($prob['number']!="") $table.=$style."addr:number\t".$prob['number'].$style."\n";
 		
-		if($brok['type']==1) {
+		if($prob['type']==1) {
 			$type="way";
 			$t="w";
 		} else {
@@ -48,7 +48,7 @@
 			$t="n";
 		}
 		
-		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$prob['id']."\nJOSM: http://localhost:8111/load_object?objects=".$t.$brok['id']."&select=".$type.$prob['id'];
+		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$prob['id']."\nJOSM: http://localhost:8111/load_object?objects=".$t.$prob['id']."&select=".$type.$prob['id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$prob['id']."&editor=potlatch2";
 		
 		$problems[$i]=
 			"Problematisch\n"
@@ -106,9 +106,9 @@
 			$t_d="n";
 		}
 		
-		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$dupe['id']."\nJOSM: http://localhost:8111/load_object?objects='.$t.$dupe['id'].'&select=".$type.$dupe['id'];
+		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$dupe['id']."\nJOSM: http://localhost:8111/load_object?objects=".$t.$dupe['id']."&select=".$type.$dupe['id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$dupe['id']."&editor=potlatch2";
 		
-		$link.="\nOSM: http://www.openstreetmap.org/browse/".$type_dupe."/".$dupe['dupe_id']."\nJOSM: http://localhost:8111/load_object?objects='.$t_d.$dupe['dupe_id'].'&select=".$type_dupe.$dupe['dupe_id'];
+		$link.="\nOSM: http://www.openstreetmap.org/browse/".$type_dupe."/".$dupe['dupe_id']."\nJOSM: http://localhost:8111/load_object?objects=".$t_d.$dupe['dupe_id']."&select=".$type_dupe.$dupe['dupe_id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type_dupe."=".$dupe['dupe_id']."&editor=potlatch2";
 		
 		$duplicates[$i]=
 			"Duplikat\n"

@@ -52,9 +52,9 @@
 			$t_d="n";
 		}
 		
-		$link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type.'/'.$dupe['id'].'">'.$dupe['id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_object?objects='.$t.$dupe['id'].'&select='.$type.$dupe['id'].'">JOSM</a>)';
+		$link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type.'/'.$dupe['id'].'">'.$dupe['id'].'</a> <a target="josmframe" href="http://localhost:8111/load_object?objects='.$t.$dupe['id'].'&select='.$type.$dupe['id'].'"><img src="josm.png" alt="JOSM"/></a> <a target="_blank" href="http://www.openstreetmap.org/edit?zoom=18&'.$type.'='.$dupe['id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a>';
 		
-		$dupe_link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type_dupe.'/'.$dupe['dupe_id'].'">'.$dupe['dupe_id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_object?objects='.$t_d.$dupe['dupe_id'].'&select='.$type_dupe.$dupe['dupe_id'].'">JOSM</a>) [<a href="#" onclick="showPosition('.$dupe['dupe_lat'].','.$dupe['dupe_lon'].')">show</a>]';
+		$dupe_link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type_dupe.'/'.$dupe['dupe_id'].'">'.$dupe['dupe_id'].'</a> <a target="josmframe" href="http://localhost:8111/load_object?objects='.$t_d.$dupe['dupe_id'].'&select='.$type_dupe.$dupe['dupe_id'].'"><img src="josm.png" alt="JOSM"/></a> <a target="_blank" href="http://www.openstreetmap.org/edit?zoom=18&'.$type_dupe.'='.$dupe['dupe_id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a> [<a href="#" onclick="showPosition('.$dupe['dupe_lat'].','.$dupe['dupe_lon'].')">show</a>]';
 		
 		echo
 			$dupe['lat']."\t"

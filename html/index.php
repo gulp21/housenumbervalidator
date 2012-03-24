@@ -147,7 +147,7 @@
 	<![endif]-->
 	
 	<div style="height:100%" id="mapdiv"></div>
-	<iframe style="display:none;" id="josmframe" src="about:blank"></iframe>
+	<iframe style="display:none;" id="josmframe" src="about:blank" name="josmframe"></iframe>
 	<iframe style="display:none;" id="reportframe" src="about:blank"></iframe>
 <!-- 	<iframe style="display:none;" id="counterframe" src="../counter.php?id=hnrv"></iframe> -->
 	<script type="text/javascript">
