@@ -178,8 +178,8 @@ int main(int argc, const char* argv[]) {
 	
 	housenumber hnr;
 	
-	if(lines==9200594) qDebug() << "NOTE: You have to set the 'lines' variable by hand in order to get sensible progress information";
-	if(!filename.endsWith(".hnr.osm")) qDebug() << "NOTE: Version 0.3+ supports nodes only, you should execute './filter input.osm' first.";
+// 	if(lines==9200594) qDebug() << "NOTE: You have to set the 'lines=N' options by hand in order to get sensible progress information";
+	if(!filename.endsWith(".hnr.osm")) qDebug() << "NOTE: Version 0.4+ supports nodes only, you should execute ' ./filter" << filename << "' first.";
 	
 	// loop through all lines
 	while(!in.atEnd()) {

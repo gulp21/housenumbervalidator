@@ -80,7 +80,7 @@ function getreports {
 
 function lands1 {
 	d1=`date`
-	run brandenburg && run niedersachsen && run bayern && run rheinland-pfalz && run thueringen && run hamburg hamburg && echo finished lands1 $d1 - `date`
+	run brandenburg && run niedersachsen && run bayern && run rheinland-pfalz && run thueringen && echo finished lands1 $d1 - `date`
 }
 
 function lands2 {
@@ -90,7 +90,7 @@ function lands2 {
 
 function lands3 {
 	d3=`date`
-	run nordrhein-westfalen && run hessen && echo finished lands3 $d3 - `date`
+	run nordrhein-westfalen && run hessen && run hamburg hamburg && echo finished lands3 $d3 - `date`
 }
 
 function combine {

@@ -47,8 +47,10 @@
 		
 		if($brok['type']==1) {
 			$type="way";
+			$t="w";
 		} else {
 			$type="node";
+			$t="n";
 		}
 		
 		if(($brok['broken']|8)==$brok['broken']) {
@@ -57,12 +59,12 @@
 			$pin="pin_circle_blue.png";
 		}
 		
-		$link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type.'/'.$brok['id'].'">'.$brok['id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_and_zoom?left='.($brok['lon']-0.0001).'&right='.($brok['lon']+0.0001).'&top='.($brok['lat']+0.0001).'&bottom='.($brok['lat']-0.0001).'&select='.$type.$brok['id'].'">JOSM</a>)';
+		$link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type.'/'.$brok['id'].'">'.$brok['id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_object?objects='.$t.$brok['id'].'&select='.$type.$brok['id'].'">JOSM</a>)';
 		
 		echo
 			$brok['lat']."\t"
 			.$brok['lon']."\t"
-			."Problematic\t"
+			."Problematisch\t"
 			."<div>".$link."<br/>".$table."\t"
 			.$pin."\t"
 			."16,16"."\t"

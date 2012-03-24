@@ -36,27 +36,31 @@
 		
 		if($dupe['type']==1) {
 			$type="way";
+			$t="w";
 			$pin="pin_blue.png";
 		} else {
 			$type="node";
+			$t="n";
 			$pin="pin_red.png";
 		}
 		
 		if($dupe['dupe_type']==1) {
 			$type_dupe="way";
+			$t_d="w";
 		} else {
 			$type_dupe="node";
+			$t_d="n";
 		}
 		
-		$link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type.'/'.$dupe['id'].'">'.$dupe['id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_and_zoom?left='.($dupe['lon']-0.0001).'&right='.($dupe['lon']+0.0001).'&top='.($dupe['lat']+0.0001).'&bottom='.($dupe['lat']-0.0001).'&select='.$type.$dupe['id'].'">JOSM</a>)';
+		$link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type.'/'.$dupe['id'].'">'.$dupe['id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_object?objects='.$t.$dupe['id'].'&select='.$type.$dupe['id'].'">JOSM</a>)';
 		
-		$dupe_link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type_dupe.'/'.$dupe['dupe_id'].'">'.$dupe['dupe_id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_and_zoom?left='.($dupe['dupe_lon']-0.0001).'&right='.($dupe['dupe_lon']+0.0001).'&top='.($dupe['dupe_lat']+0.0001).'&bottom='.($dupe['dupe_lat']-0.0001).'&select='.$type_dupe.$dupe['dupe_id'].'">JOSM</a>) [<a href="#" onclick="showPosition('.$dupe['dupe_lat'].','.$dupe['dupe_lon'].')">show</a>]';
+		$dupe_link='<a target="_blank" href="http://www.openstreetmap.org/browse/'.$type_dupe.'/'.$dupe['dupe_id'].'">'.$dupe['dupe_id'].'</a> (<a target="josmframe" href="http://localhost:8111/load_object?objects='.$t_d.$dupe['dupe_id'].'&select='.$type_dupe.$dupe['dupe_id'].'">JOSM</a>) [<a href="#" onclick="showPosition('.$dupe['dupe_lat'].','.$dupe['dupe_lon'].')">show</a>]';
 		
 		echo
 			$dupe['lat']."\t"
 			.$dupe['lon']."\t"
-			."Dupe\t"
-			."<div>".$link." is dupe of<br/>".$dupe_link."<br/>".$table."</div>\t"
+			."Duplikat\t"
+			."<div>".$link." ist Duplikat von<br/>".$dupe_link."<br/>".$table."</div>\t"
 			.$pin."\t"
 			."16,16"."\t"
 			."-8,-8\n";
