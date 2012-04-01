@@ -380,7 +380,7 @@
 		<small>Bitte diese Funktion nicht verwenden, wenn der Fehler zwischenzeitlich korrigiert wurde!</small>
 	</div>
 	<div id="oneperdaydiv">
-		<b>Sie wollen zur Verbesserung der Daten beitragen?</b><br/>
+		<b>Sie wollen regelm&auml;&szlig;ig zur Verbesserung der Daten beitragen?</b><br/>
 		Wenn Sie sich hier registrieren, werden Sie (fast) t&auml;glich<br/>
 		eine E-Mail mit einem Link zu einem Fehler bekommen, den Sie korrigieren k&ouml;nnen.<br/>
 		<small>Wenn Sie sich abmelden wollen, tragen Sie Ihre E-Mailadresse in das Textfeld ein<br/>
