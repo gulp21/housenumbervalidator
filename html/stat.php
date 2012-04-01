@@ -14,7 +14,7 @@
 	<![endif]-->
 	
 	<script type="text/javascript">
-		document.write("<iframe style=\"display:none;\" id=\"counterframe\" src=\"../counter.php?id=hnrv_stat&ref="  + document.referrer + "\"></iframe>");
+		document.write("<iframe style=\"display:none;\" id=\"counterframe\" src=\"../counter.php?id=hnrv_stat&ref="  + document.referrer.replace(/\&/g,"%26") + "\"></iframe>");
 	</script>
 	
 	<canvas id="canvas" width="1250" height="800">
