@@ -151,7 +151,7 @@
 	<iframe style="display:none;" id="reportframe" src="about:blank"></iframe>
 <!-- 	<iframe style="display:none;" id="counterframe" src="../counter.php?id=hnrv"></iframe> -->
 	<script type="text/javascript">
-		document.write("<iframe style=\"display:none;\" id=\"counterframe\" src=\"../counter.php?id=hnrv&ref="  + document.referrer + "\"></iframe>");
+		document.write("<iframe style=\"display:none;\" id=\"counterframe\" src=\"../counter.php?id=hnrv&ref="  + document.referrer.replace(/\&/g,"%26") + "\"></iframe>");
 	</script>
 	<script src="OpenLayers.js"></script>
 	<script src="OpenStreetMap.js"></script>
