@@ -11,4 +11,4 @@ make
 
 Useful commands
 ===============
-cat counter.txt | grep -P "hnrv\t" | awk -F "\t" '{print $1,"\t",$2,"\t",$3,"\t",$4}' | uniq > /tmp/counter
+cat counter.txt | grep -P "hnrv\t" | awk -F "\t" '{print $1,"\t",$2,"\t",$3,"\t",$4}'| sort -k3,3 -k1,1 | uniq > /tmp/counter

@@ -76,25 +76,25 @@
 		?>
 	];
 	var ua=[
-		["Firefox",384],
-		["Chrome",61],
-		["Konqueror",32],
-		["Opera",38],
-		["Bot",18],
-		["IE",11],
-		["Mobile",7],
-		["Safari",4]
+		["Firefox",611],
+		["Chrome",94],
+		["Konqueror",34],
+		["Opera",86],
+		["Bot",19],
+		["IE",22],
+		["Mobile",11],
+		["Safari",7]
 	];
 	var uacolors=["tomato","forestgreen","royalblue","maroon","silver","dodgerblue","yellowgreen","lightgray"];
 	var os=[
-		["Windows",287],
-		["Linux",212],
-		["MacOSX",31],
-		["Mobile",7],
-		["Bot",18]
+		["Windows",415],
+		["Linux",384],
+		["MacOSX",56],
+		["Mobile",11],
+		["Bot",19]
 	];
 	var oscolors=["royalblue","goldenrod","dimgray","yellowgreen","silver"];
-	var lastUpdate="2012-02-29";
+	var lastUpdate="2012-04-02";
 	
 	var STEP=WIDTH/values.length;
 	STEP*=.95;
