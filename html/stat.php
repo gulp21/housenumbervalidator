@@ -1,8 +1,32 @@
 <!DOCTYPE HTML>
-<html>
+<html style="font-family: 'Times New Roman', serif;">
 <head>
 	<title>housenumbervalidator &dash; statistic</title>
 	<style type="text/css">
+		[id^="chart"] {
+			height: 300px;
+		}
+		
+		.ad {
+			opacity: .7;
+			min-height: 42px;
+			display: block;
+			text-decoration: none;
+			color: black;
+			clear:left;
+			border-radius: 5px;
+		}
+		
+		.ad:hover {
+			opacity: 1;
+		}
+		
+		.ad img {
+			max-height: 32px;
+			width: auto;
+			float: left;
+			margin: 5px;
+		}
 	</style>
 </head>
 <body>
@@ -17,213 +41,490 @@
 		document.write("<iframe style=\"display:none;\" id=\"counterframe\" src=\"../counter.php?id=hnrv_stat&ref="  + document.referrer.replace(/\&/g,"%26") + "\"></iframe>");
 	</script>
 	
-	<canvas id="canvas" width="1250" height="800">
-	Ihr Browser unterst&uuml;tzt kein HTML5 Canvas. Bitte aktualisieren Sie Ihren Browser, verwenden Sie einen anderen kostenlosen Browser, z.B. <a href="http://www.mozilla.org/firefox/" target="_blank">Mozilla Firefox</a> oder <a href="http://www.google.com/chrome/" target="_blank">Google Chrome</a>, oder installieren Sie ein anderes Betriebssystem, z.B. das freie <a href="http://ubuntuusers.de" target="_blank">Ubuntu</a>.</p>
-	</canvas>
-	</div>
+	<a href="http://gulp21.bplaced.net/osm/housenumbervalidator/" class="ad" id="ad0" style="background-color:rgba(184,240,168,.9);min-height:0px;padding:5px;margin-bottom:5px;">
+		<b>Zum housenumbervalidator</b>
+	</a>
+	<a href="http://gulp21.github.com/qeodart_de.html" target="_blank" class="ad" id="ad1" style="background-color: rgba(256,168,88,.9);">
+		<img src="qeodart.png" alt="QeoDart Icon"/>
+		<b>QeoDart</b><br/>
+		das freie Geographie-Lernspiel f&uuml;r Linux &amp; Windows
+	</a>
+	<div id="chart1div"></div>
+	<div id="chart2div"></div>
+	<div id="chart3div"></div>
+	<a href="http://languagetool.org/de" target="_blank" class="ad" id="ad2" style="background-color: rgba(152,184,240,.9);">
+		<img src="LanguageToolBig.png" alt="LT Icon"/>
+		<b>LanguageTool</b><br/>
+		freie Grammatik- und Stilpr&uuml;fung f&uuml;r LibreOffice und OpenOffice.org
+	</a>
+	<div id="piechart1div" style="float:left;width:510px;"></div>
+	<div id="piechart2div" style="float:left;width:560px;"></div>
+	<a href="http://shop.highsoft.com/highcharts.html" target="_blank" class="ad" id="ad3" style="background-color: rgba(200,200,200,.9);">
+		<img src="by-nc.eu.png" alt="CC-by-nc"/>
+		<b>Highcharts JS</b><br/>
+		Highcharts JS kann f&uuml;r nicht kommerzielle Zwecke frei unter der CC-by-nc-Lizenz verwendet werden.
+	</a>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	
+	<script src="highcharts.src.js"></script>
 	
 	<script type="text/javascript">
 	
-	// parts taken from http://html5.litten.com/graphing-data-in-the-html5-canvas-element-part-i/
+	$(function () {
+		var chart1, chart2, chart3, piechart1, piechart2;
+		$(document).ready(function() {
+			chart1 = new Highcharts.Chart({
+				chart: {
+					renderTo: 'chart1div',
+					zoomType: 'xy',
+					alignTicks: false,
+				},
+				title: {
+					text: 'house numbers'
+				},
+				xAxis: {
+					type: 'datetime',
+					dateTimeLabelFormats: {
+						day: '%e. %b %y',
+						month: '%e. %b %y',
+						year: '%b'
+					}
+				},
+				yAxis: [{ // Primary yAxis
+					labels: {
+						formatter: function() {
+							return this.value;
+						},
+						style: {
+							color: '#000000'
+						}
+					},
+					title: {
+						text: 'house numbers',
+						style: {
+							color: '#000000'
+						}
+					},
+					max: 3000000,
+					min: -3000000
+				}, { // Secondary yAxis
+					title: {
+						text: 'difference',
+						style: {
+							color: '#888888'
+						}
+					},
+					labels: {
+						formatter: function() {
+							return this.value;
+						},
+						style: {
+							color: '#888888'
+						}
+					},
+					opposite: true,
+					gridLineWidth: 0,
+					max: 7000,
+					min: -7000
+				}],
+				legend: {
+					enabled: false
+				},
+				tooltip: {
+					formatter: function() {
+					return Highcharts.dateFormat('%e. %b %y', this.x) +': '+ this.y;
+					}
+				},
+				series: [{
+					name: 'difference',
+					color: '#888888',
+					type: 'column',
+					yAxis: 1,
+					data: [
+					<?php
+						include("connect.php");
+						$last=-1;
+						$name="housenumbers";
+						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						while($entry=mysql_fetch_assoc($entries)) {
+							$current=$entry["$name"];
+							$date=$entry['date'];
+							$date=explode("-",$entry['date']);
+							echo '[';
+							echo "Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
+							if($last==-1) echo '0,'; else echo ($current-$last);
+							echo '],';
+							$last=$current;
+						}
+					?>
+					]
+				}, {
+					name: 'housenumbers',
+					color: '#000000',
+					type: 'spline',
+					data: [
+					<?php
+						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						while($entry=mysql_fetch_assoc($entries)) {
+							$date=$entry['date'];
+							$date=explode("-",$entry['date']);
+							echo '[';
+							echo "Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
+							echo $entry["$name"];
+							echo '],';
+						}
+					?>
+					]
+				}]
+			});
+			chart2 = new Highcharts.Chart({
+				chart: {
+					renderTo: 'chart2div',
+					zoomType: 'xy',
+					alignTicks: false,
+				},
+				title: {
+					text: 'dupes'
+				},
+				xAxis: {
+					type: 'datetime',
+					dateTimeLabelFormats: {
+						day: '%e. %b %y',
+						month: '%e. %b %y',
+						year: '%b'
+					}
+				},
+				yAxis: [{ // Primary yAxis
+					labels: {
+						formatter: function() {
+							return this.value;
+						},
+						style: {
+							color: '#000000'
+						}
+					},
+					title: {
+						text: 'dupes',
+						style: {
+							color: '#000000'
+						}
+					},
+					max: 20000,
+					min: -20000
+				}, { // Secondary yAxis
+					title: {
+						text: 'difference',
+						style: {
+							color: '#888888'
+						}
+					},
+					labels: {
+						formatter: function() {
+							return this.value;
+						},
+						style: {
+							color: '#888888'
+						}
+					},
+					opposite: true,
+					max: 400,
+					min: -400
+				}],
+				legend: {
+					enabled: false
+				},
+				tooltip: {
+					formatter: function() {
+					return Highcharts.dateFormat('%e. %b %y', this.x) +': '+ this.y;
+					}
+				},
+				series: [{
+					name: 'difference',
+					color: '#888888',
+					type: 'column',
+					yAxis: 1,
+					data: [
+					<?php
+						$last=-1;
+						$name="dupes";
+						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						while($entry=mysql_fetch_assoc($entries)) {
+							$current=$entry["$name"];
+							$date=$entry['date'];
+							$date=explode("-",$entry['date']);
+							echo '[';
+							echo "Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
+							if($last==-1) echo '0,'; else echo ($current-$last);
+							echo '],';
+							$last=$current;
+						}
+					?>
+					]
+				}, {
+					name: 'dupes',
+					color: '#000000',
+					type: 'spline',
+					data: [
+					<?php
+						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						while($entry=mysql_fetch_assoc($entries)) {
+							$date=$entry['date'];
+							$date=explode("-",$entry['date']);
+							echo '[';
+							echo "Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
+							echo $entry["$name"];
+							echo '],';
+						}
+					?>
+					]
+				}]
+			});
+			chart3 = new Highcharts.Chart({
+				chart: {
+					renderTo: 'chart3div',
+					zoomType: 'xy',
+					alignTicks: false,
+				},
+				title: {
+					text: 'problematic'
+				},
+				xAxis: {
+					type: 'datetime',
+					dateTimeLabelFormats: {
+						day: '%e. %b %y',
+						month: '%e. %b %y',
+						year: '%b'
+					}
+				},
+				yAxis: [{ // Primary yAxis
+					labels: {
+						formatter: function() {
+							return this.value;
+						},
+						style: {
+							color: '#000000'
+						}
+					},
+					title: {
+						text: 'problematic',
+						style: {
+							color: '#000000'
+						}
+					},
+					max: 2200,
+					min: -2200
+				}, { // Secondary yAxis
+					title: {
+						text: 'difference',
+						style: {
+							color: '#888888'
+						}
+					},
+					labels: {
+						formatter: function() {
+							return this.value;
+						},
+						style: {
+							color: '#888888'
+						}
+					},
+					opposite: true,
+					gridLineWidth: 0,
+					max: 120,
+					min: -120
+					
+				}],
+				legend: {
+					enabled: false
+				},
+				tooltip: {
+					formatter: function() {
+					return Highcharts.dateFormat('%e. %b %y', this.x) +': '+ this.y;
+					}
+				},
+				series: [{
+					name: 'difference',
+					color: '#888888',
+					type: 'column',
+					yAxis: 1,
+					data: [
+					<?php
+						$last=-1;
+						$name="problematic";
+						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						while($entry=mysql_fetch_assoc($entries)) {
+							$current=$entry["$name"];
+							$date=$entry['date'];
+							$date=explode("-",$entry['date']);
+							echo '[';
+							echo "Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
+							if($last==-1) echo '0,'; else echo ($current-$last);
+							echo '],';
+							$last=$current;
+						}
+					?>
+					]
+				}, {
+					name: 'problematic',
+					color: '#000000',
+					type: 'spline',
+					data: [
+					<?php
+						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						while($entry=mysql_fetch_assoc($entries)) {
+							$date=$entry['date'];
+							$date=explode("-",$entry['date']);
+							echo '[';
+							echo "Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
+							echo $entry["$name"];
+							echo '],';
+						}
+					?>
+					]
+				}]
+			});
+			piechart1 = new Highcharts.Chart({
+				chart: {
+					renderTo: 'piechart1div',
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false
+				},
+				title: {
+					text: 'browsers'
+				},
+				tooltip: {
+					formatter: function() {
+					return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
+					}
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: true,
+							color: '#000000',
+							connectorColor: '#000000',
+							formatter: function() {
+							return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
+							}
+						}
+					}
+				},
+				series: [{
+					type: 'pie',
+					name: 'browsers',
+					data: [
+						{
+							name: 'Firefox',
+							y: 611,
+							color: 'tomato',
+						},
+						{
+							name: 'Chrome',
+							y: 94,
+							color: 'forestgreen',
+						},
+						{
+							name: 'Opera',
+							y: 86,
+							color: 'maroon',
+						},
+						{
+							name: 'Konqueror',
+							y: 34,
+							color: 'royalblue',
+						},
+						{
+							name: 'Bot',
+							y: 19,
+							color: 'silver',
+						},
+						{
+							name: 'IE',
+							y: 22,
+							color: 'dodgerblue',
+						},
+						{
+							name: 'Mobile',
+							y: 11,
+							color: 'yellowgreen',
+						},
+						{
+							name: 'Safari',
+							y: 7,
+							color: 'lightgray',
+						},
+					]
+				}]
+			});
+			piechart2 = new Highcharts.Chart({
+				chart: {
+					renderTo: 'piechart2div',
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false
+				},
+				title: {
+					text: 'os'
+				},
+				tooltip: {
+					formatter: function() {
+					return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
+					}
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: true,
+							color: '#000000',
+							connectorColor: '#000000',
+							formatter: function() {
+							return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
+							}
+						}
+					}
+				},
+				series: [{
+					type: 'pie',
+					name: 'os',
+					data: [
+						{
+							name: 'Windows',
+							y: 415,
+							color: 'royalblue',
+						},
+						{
+							name: 'Linux',
+							y: 384,
+							color: 'goldenrod',
+						},
+						{
+							name: 'MaxOSX',
+							y: 56,
+							color: 'dimgray',
+						},
+						{
+							name: 'Mobile',
+							y: 11,
+							color: 'yellowgreen',
+						},
+						{
+							name: 'Bot',
+							y: 19,
+							color: 'silver',
+						},
+					]
+				}]
+			});
+		});
+	});
 	
-	var canvas;
-	var ctx;
-	var j;
-	var x=0;
-	var y=105;
-	var WIDTH=400;
-	var HEIGHT=400;
-	var labels=["housenumbers", "dupes", "problematic"];
-	var factors=["", .00004, .04, .01, 1, .08, .8];
-	var colors=["", "black", "grey", "black", "grey", "black", "grey"];
-	var values=[
-		<?php
-			include("connect.php");
-			
-			$last[0]=-1;
-			$last[1]=-1;
-			$last[2]=-1;
-			
-			$entries=mysql_query("SELECT * FROM stats") or die ("MySQL-Error: ".mysql_error());
-			
-			while($entry=mysql_fetch_assoc($entries)) {
-				$current[0]=$entry['housenumbers'];
-				$current[1]=$entry['dupes'];
-				$current[2]=$entry['problematic'];
-				echo '["';
-				if($last[0]==-1) {
-					echo $entry['date'].'",';
-					echo $current[0].',';
-					echo '0,';
-					echo $current[1].',';
-					echo '0,';
-					echo $current[2].',';
-					echo '0,';
-				} else {
-					echo $entry['date'].'",';
-					echo $current[0].',';
-					echo ($current[0]-$last[0]).',';
-					echo $current[1].',';
-					echo ($current[1]-$last[1]).',';
-					echo $current[2].',';
-					echo ($current[2]-$last[2]).',';
-				}
-				echo '],';
-				$last[0]=$current[0];
-				$last[1]=$current[1];
-				$last[2]=$current[2];
-			}
-		?>
-	];
-	var ua=[
-		["Firefox",611],
-		["Chrome",94],
-		["Konqueror",34],
-		["Opera",86],
-		["Bot",19],
-		["IE",22],
-		["Mobile",11],
-		["Safari",7]
-	];
-	var uacolors=["tomato","forestgreen","royalblue","maroon","silver","dodgerblue","yellowgreen","lightgray"];
-	var os=[
-		["Windows",415],
-		["Linux",384],
-		["MacOSX",56],
-		["Mobile",11],
-		["Bot",19]
-	];
-	var oscolors=["royalblue","goldenrod","dimgray","yellowgreen","silver"];
-	var lastUpdate="2012-04-02";
-	
-	var STEP=WIDTH/values.length;
-	STEP*=.95;
-	
-	function drawaxes(i) {
-		ctx.strokeStyle=colors[i*2+1];
-		/* y axis along the left edge of the canvas*/
-		ctx.beginPath();
-		ctx.moveTo(WIDTH*i,0);
-		ctx.lineTo(WIDTH*i,HEIGHT-i*50);
-		ctx.stroke();
-		/* 2nd y axis along the right edge of the canvas*/
-		ctx.strokeStyle=colors[i*2+2];
-		ctx.beginPath();
-		ctx.moveTo(WIDTH*(i+1),0);
-		ctx.lineTo(WIDTH*(i+1),HEIGHT);
-		ctx.stroke();
-		/* x axis along the middle of the canvas*/
-		ctx.strokeStyle=colors[i*2+1];
-		ctx.moveTo(WIDTH*i,HEIGHT/2);
-		ctx.lineTo(WIDTH*(i+1),HEIGHT/2);
-		ctx.stroke();
-	}
-	
-	function addlabels(i) {
-		ctx.font="10pt Arial";
-		ctx.textBaseline="middle";
-		/* y axis labels */
-		ctx.fillStyle=colors[i*2+1];
-		ctx.textAlign="left";
-		ctx.fillText(labels[i], WIDTH*i+5, 15); 
-		ctx.fillText("0", WIDTH*i+5, HEIGHT/2);
-		ctx.fillText(HEIGHT/4/factors[i*2+1], WIDTH*i+5, HEIGHT/4);
-		ctx.fillText(HEIGHT/2/factors[i*2+1], WIDTH*i+5, 5);
-		ctx.fillText(-HEIGHT/4/factors[i*2+1], WIDTH*i+5, HEIGHT/4*3);
-		ctx.fillText(-HEIGHT/2/factors[i*2+1], WIDTH*i+5, HEIGHT-5);
-		/* 2nd y axis labels */
-		ctx.fillStyle=colors[i*2+2];
-		ctx.textAlign="right";
-		ctx.fillText(labels[i]+" difference", WIDTH*(i+1)-5, 15); 
-		ctx.fillText("0", WIDTH*(i+1)-5, HEIGHT/2);
-		ctx.fillText(HEIGHT/4/factors[i*2+2], WIDTH*(i+1)-5, HEIGHT/4);
-		ctx.fillText(HEIGHT/2/factors[i*2+2], WIDTH*(i+1)-5, 5);
-		ctx.fillText(-HEIGHT/4/factors[i*2+2], WIDTH*(i+1)-5, HEIGHT/4*3);
-		ctx.fillText(-HEIGHT/2/factors[i*2+2], WIDTH*(i+1)-5, HEIGHT-5);
-		/* x axis labels */
-		ctx.fillStyle=colors[i*2+1];
-		ctx.textAlign="center";
-		for(var j=1; j<values.length; j+=Math.floor(values.length/3)) {
-			ctx.fillText(values[j][0], j*STEP+i*WIDTH, HEIGHT/2+8);
-		}
-	}
-	
-	function sum(a) {
-		var c=0;
-		for(var i=0; i<a.length; i++) {
-			c+=a[i][1];
-		}
-		return c;
-	}
-	
-	function clear() {
-		ctx.clearRect(0, 0, WIDTH*3, HEIGHT*2);
-	}
-	
-	function init() {
-		canvas=document.getElementById("canvas");
-		ctx=canvas.getContext("2d");
-	}
-	
-	function plotdata(k) {
-		var i=k*2+1
-		ctx.strokeStyle=colors[i];
-		ctx.beginPath();
-		ctx.moveTo(0+WIDTH*k,HEIGHT/2-(values[0][i])*factors[i]);
-		for(var j=1; j<values.length; j++) {
-			ctx.lineTo(j*STEP+WIDTH*k,HEIGHT/2-(values[j][i])*factors[i]);
-			ctx.stroke();
-		}
-		ctx.strokeStyle=colors[i+1];
-		for(var j=1; j<values.length; j++) {
-			ctx.rect(((j)*STEP+WIDTH*k)-STEP*.25, HEIGHT/2, STEP/2, -(values[j][i+1])*factors[i+1]);
-			ctx.stroke();
-		}
-	}
-	
-	function piechart(a,c,x) {
-		var lastEnd=(Math.PI/180)*-90;
-		var mySum=sum(a);
-		
-		ctx.textAlign="left";
-		for(var i=0; i<a.length; i++) {
-			ctx.fillStyle=c[i];
-			ctx.beginPath();
-			ctx.moveTo(x,HEIGHT*1.5);
-			ctx.arc(x,HEIGHT*1.5,150,lastEnd,lastEnd+
-			(Math.PI*2*(a[i][1]/mySum)),false);
-			ctx.lineTo(x,HEIGHT*1.5);
-			ctx.fill();
-			lastEnd+=Math.PI*2*(a[i][1]/mySum);
-			ctx.fillText(a[i][0] + " " + Math.round(a[i][1]/mySum*100) + " %", x-250, HEIGHT+60+i*15); 
-		}
-		ctx.fillStyle="black";
-		ctx.fillText(lastUpdate, 0, HEIGHT*2-60); 
-	}
-	
-	function draw() {
-		init();
-		clear();
-		for(var i=0; i<3; i++) {
-			drawaxes(i);
-			addlabels(i);
-			plotdata(i);
-		}
-		
-		piechart(ua, uacolors, WIDTH*.5+50);
-		piechart(os, oscolors, WIDTH*1.5+50);
-	}
-	
-	draw();
 	</script>
 	
-	<div>
-		<a href="http://gulp21.bplaced.net/osm/housenumbervalidator/">Zum housenumbervalidator</a>
-	</div>
-	<hr/>
-	<div>
-		<a href="http://gulp21.github.com/qeodart_de.html">QeoDart &dash; ein freies Geographie-Lernspiel</a> <br/>
-		<a href="http://languagetool.org/de/">LanguageTool &dash; eine freie Stil- und Grammatikpr&uuml;fung f&uuml;r LibreOffice/OpenOffice.org</a>
-	</div>
 </body>
 </html>
