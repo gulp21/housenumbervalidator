@@ -4,9 +4,104 @@
 	<title>housenumbervalidator</title>
 	<style type="text/css">
 		
+		[id^="OpenLayers.Control.Attribution"] {
+			top: 0px;
+			right: 0px;
+			max-height: 20px;
+		}
+		
 		[id^="OL_Icon_"], [id^="OpenLayers.Geometry.Point"] {
 			cursor: pointer;
 			opacity: .75 !important;
+		}
+		
+		[id^="OpenLayers.Layer.Markers"] img {
+			-webkit-animation: shrink .7s;
+			-moz-animation: shrink .7s;
+			-o-animation: shrink .7s;
+			-ms-animation: shrink .7s;
+			animation: shrink .7s;
+		}
+		
+		@-webkit-keyframes shrink {
+			from {
+				width: 1000px;
+				height: 1000px;
+				margin-top: -500px;
+				margin-left: -500px;
+				opacity: .5;
+			}
+			to {
+				width: 16px;
+				height: 16px;
+				margin-top: 0px;
+				margin-left: 0px;
+				opacity: .75;
+			}
+		}
+		@-moz-keyframes shrink {
+			from {
+				width: 1000px;
+				height: 1000px;
+				margin-top: -500px;
+				margin-left: -500px;
+				opacity: .5;
+			}
+			to {
+				width: 16px;
+				height: 16px;
+				margin-top: 0px;
+				margin-left: 0px;
+				opacity: .75;
+			}
+		}
+		@-o-keyframes shrink {
+			from {
+				width: 1000px;
+				height: 1000px;
+				margin-top: -500px;
+				margin-left: -500px;
+				opacity: .5;
+			}
+			to {
+				width: 16px;
+				height: 16px;
+				margin-top: 0px;
+				margin-left: 0px;
+				opacity: .75;
+			}
+		}
+		@-ms-keyframes shrink {
+			from {
+				width: 1000px;
+				height: 1000px;
+				margin-top: -500px;
+				margin-left: -500px;
+				opacity: .5;
+			}
+			to {
+				width: 16px;
+				height: 16px;
+				margin-top: 0px;
+				margin-left: 0px;
+				opacity: .75;
+			}
+		}
+		@keyframes shrink {
+			from {
+				width: 1000px;
+				height: 1000px;
+				margin-top: -500px;
+				margin-left: -500px;
+				opacity: .5;
+			}
+			to {
+				width: 16px;
+				height: 16px;
+				margin-top: 0px;
+				margin-left: 0px;
+				opacity: .75;
+			}
 		}
 		
 		#footer {
@@ -136,20 +231,25 @@
 			float: left;
 			margin: 5px;
 		}
+		
+		a img {
+			border: none;
+		}
 	</style>
 </head>
 <body style="height:99%;overflow:hidden;">
 	
 	<!--[if lt IE 8]>
-	<p style="color:red;font-size:20px;max-width:80%">Ihr Browser ist alt, unsicher und langsam!</p>
-	<p style="font-size:20px;max-width:80%">Sie benutzen eine sehr alte Version des Internet Explorers, welche unsicher und langsam ist und nicht in der Lage ist, diese und andere Webseiten richtig darzustellen.<br/>
+	<p style="color:red;font-size:20px;max-width:80%">Ihr Browser ist sehr alt, unsicher und langsam!</p>
+	<![endif]-->
+	<!--[if lt IE 9]>
+	<p style="font-size:20px;max-width:80%">Sie benutzen eine alte Version des Internet Explorers langsam ist und nicht in der Lage ist, diese und andere Webseiten richtig darzustellen.<br/>
 	Laden Sie sich <a href="http://www.microsoft.com/windows/internet-explorer/" target="_blank">die aktuelle Version des Internet Explorers</a> kostenlos herunter, benutzen Sie einen anderen kostenlosen Browser, z.B. <a href="http://www.mozilla.org/firefox/" target="_blank">Mozilla Firefox</a> oder <a href="http://www.google.com/chrome/" target="_blank">Google Chrome</a> oder installieren Sie ein anderes Betriebssystem, z.B. das freie <a href="http://ubuntuusers.de" target="_blank">Ubuntu</a>.</p>
 	<![endif]-->
 	
 	<div style="height:100%" id="mapdiv"></div>
 	<iframe style="display:none;" id="josmframe" src="about:blank" name="josmframe"></iframe>
 	<iframe style="display:none;" id="reportframe" src="about:blank"></iframe>
-<!-- 	<iframe style="display:none;" id="counterframe" src="../counter.php?id=hnrv"></iframe> -->
 	<script type="text/javascript">
 		document.write("<iframe style=\"display:none;\" id=\"counterframe\" src=\"../counter.php?id=hnrv&ref="  + document.referrer.replace(/\&/g,"%26") + "\"></iframe>");
 	</script>
@@ -164,16 +264,26 @@
 				new OpenLayers.Control.Navigation({documentDrag: true/*, dragPanOptions: {enableKinetic: true}*/}),
 				new OpenLayers.Control.PanZoomBar(),
 				new OpenLayers.Control.LayerSwitcher({'ascending':false}),
-				new OpenLayers.Control.Permalink()
+				new OpenLayers.Control.Permalink(),
+				new OpenLayers.Control.Attribution()
 			]
-                });
+		});
 		
 		var mapnikMap = new OpenLayers.Layer.OSM.Mapnik("Mapnik",
 		{
-			transitionEffect: 'resize'
+			transitionEffect: 'resize',
+			attribution: ''
 		});
 		map.addLayer(mapnikMap);
-
+		
+		var mapquestMap = new OpenLayers.Layer.OSM("MapQuest", "http://otile1.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.png", 
+		{
+			transitionEffect: 'resize',
+			numZoomLevels: 19,
+			attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
+		});
+		map.addLayer(mapquestMap);
+		
 		var dupes = new OpenLayers.Layer.Vector("Dupes", {
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
 			protocol: new OpenLayers.Protocol.HTTP({
@@ -255,6 +365,8 @@
 			}
 		}
 		
+		var marker = null;
+		
 		function showPosition(lat, lon) {
 			var size = new OpenLayers.Size(16,16);
 			var offset = new OpenLayers.Pixel(-8,-8);
@@ -264,6 +376,10 @@
 				new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
 				map.getProjectionObject() // to Spherical Mercator Projection
 			);
+			if(marker != null) {
+				markers.removeMarker(marker);
+				marker.destroy();
+			}
 			marker = new OpenLayers.Marker(lonLat,icon);
 			marker.events.register('mousedown', marker, function(evt) { markers.removeMarker(this); this.destroy(); });
 			markers.addMarker(marker);

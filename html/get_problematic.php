@@ -53,7 +53,7 @@
 			$t="n";
 		}
 		
-		if(($brok['broken']|8)==$brok['broken']) {
+		if(8==$brok['broken']) {
 			$pin="pin_circle_red.png";
 		} else {
 			$pin="pin_circle_blue.png";

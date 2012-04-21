@@ -361,7 +361,7 @@ bool isComplete(housenumber &hnr) {
 		broken|=city;
 	}
 	
-	if( hnr.number.length()>0 && (hnr.number.contains("traße") || hnr.number.endsWith("str") || hnr.number.contains("str.") || hnr.number.endsWith("Str") || hnr.number.contains("Str.")) ) {
+	if( hnr.number.length()>0 && ( hnr.number.contains("traße") || hnr.number.endsWith("str") || hnr.number.contains("str.") || hnr.number.endsWith("Str") || hnr.number.contains("Str.") || hnr.number.contains(QRegExp("[0-9]+[Aa-Zz]?,? [0-9]+[Aa-Zz]?")) /*|| hnr.number.contains("<") || hnr.number.contains("fix", Qt::CaseInsensitive) || hnr.number.contains("unkn", Qt::CaseInsensitive)*/ ) ) {
 		broken|=number;
 	}
 	
@@ -401,7 +401,7 @@ QString qsGenerateDupeOutput(pBinTree hnr) {
 	                .arg(hnr->lat,0,'f',8).arg(hnr->lon,0,'f',8).arg(hnr->id)
 	                .arg(hnr->isWay?1:0).arg(address[5]).arg(address[6])
 	                .arg(address[0]).arg(address[1]).arg(address[2]).arg(address[3]).arg(address[4])
-	                .arg(hnr->dupe->id).arg(hnr->dupe->isWay?1:0).arg(hnr->dupe->lat).arg(hnr->dupe->lon);
+	                .arg(hnr->dupe->id).arg(hnr->dupe->isWay?1:0).arg(hnr->dupe->lat,0,'f',8).arg(hnr->dupe->lon,0,'f',8);
 }
 
 // QString qsGenerateIncompleteOutput(housenumber hnr, int i) {
@@ -421,21 +421,6 @@ QString qsGenerateBrokenOutput(housenumber hnr, int keys) {
 	                .arg(hnr.isWay?1:0).arg(keys).arg(hnr.name).arg(hnr.shop)
 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
 }
-
-// void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree) {
-// 	if(tree==NULL) {
-// 		qDebug() << "This should not happen :(" << ref;
-// 	} else {
-// 		if(ref < tree->address) {
-// 			vGetLatLonForWay(lat, lon, ref, tree->left);
-// 		} else if(ref > tree->address) {
-// 			vGetLatLonForWay(lat, lon, ref, tree->right);
-// 		} else {
-// 			lat=tree->lat;
-// 			lon=tree->lon;
-// 		}
-// 	}
-// }
 
 void inorder(pBinTree &tree) {
 	if(tree!=NULL) {

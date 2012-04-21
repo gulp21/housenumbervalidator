@@ -13,7 +13,7 @@
 			display: block;
 			text-decoration: none;
 			color: black;
-			clear:left;
+			clear: left;
 			border-radius: 5px;
 		}
 		
@@ -27,13 +27,19 @@
 			float: left;
 			margin: 5px;
 		}
+		
+		a img {
+			border: none;
+		}
 	</style>
 </head>
 <body>
 	
 	<!--[if lt IE 8]>
-	<p style="color:red;font-size:20px;max-width:80%">Ihr Browser ist alt, unsicher und langsam!</p>
-	<p style="font-size:20px;max-width:80%">Sie benutzen eine sehr alte Version des Internet Explorers, welche unsicher und langsam ist und nicht in der Lage ist, diese und andere Webseiten richtig darzustellen.<br/>
+	<p style="color:red;font-size:20px;max-width:80%">Ihr Browser ist sehr alt, unsicher und langsam!</p>
+	<![endif]-->
+	<!--[if lt IE 9]>
+	<p style="font-size:20px;max-width:80%">Sie benutzen eine alte Version des Internet Explorers langsam ist und nicht in der Lage ist, diese und andere Webseiten richtig darzustellen.<br/>
 	Laden Sie sich <a href="http://www.microsoft.com/windows/internet-explorer/" target="_blank">die aktuelle Version des Internet Explorers</a> kostenlos herunter, benutzen Sie einen anderen kostenlosen Browser, z.B. <a href="http://www.mozilla.org/firefox/" target="_blank">Mozilla Firefox</a> oder <a href="http://www.google.com/chrome/" target="_blank">Google Chrome</a> oder installieren Sie ein anderes Betriebssystem, z.B. das freie <a href="http://ubuntuusers.de" target="_blank">Ubuntu</a>.</p>
 	<![endif]-->
 	
@@ -73,6 +79,7 @@
 	
 	$(function () {
 		var chart1, chart2, chart3, piechart1, piechart2;
+		var lastUpdate='4. Jan 12 \u2013 2. Apr 12';
 		$(document).ready(function() {
 			chart1 = new Highcharts.Chart({
 				chart: {
@@ -83,10 +90,14 @@
 				title: {
 					text: 'house numbers'
 				},
+				subtitle: {
+					text: 'missing data are linearly interpolated'
+				},
 				xAxis: {
 					type: 'datetime',
 					dateTimeLabelFormats: {
 						day: '%e. %b %y',
+						week: '%e. %b %y',
 						month: '%e. %b %y',
 						year: '%b'
 					}
@@ -187,10 +198,14 @@
 				title: {
 					text: 'dupes'
 				},
+				subtitle: {
+					text: 'missing data are linearly interpolated'
+				},
 				xAxis: {
 					type: 'datetime',
 					dateTimeLabelFormats: {
 						day: '%e. %b %y',
+						week: '%e. %b %y',
 						month: '%e. %b %y',
 						year: '%b'
 					}
@@ -289,10 +304,14 @@
 				title: {
 					text: 'problematic'
 				},
+				subtitle: {
+					text: 'missing data are linearly interpolated'
+				},
 				xAxis: {
 					type: 'datetime',
 					dateTimeLabelFormats: {
 						day: '%e. %b %y',
+						week: '%e. %b %y',
 						month: '%e. %b %y',
 						year: '%b'
 					}
@@ -394,6 +413,9 @@
 				title: {
 					text: 'browsers'
 				},
+				subtitle: {
+					text: lastUpdate
+				},
 				tooltip: {
 					formatter: function() {
 					return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
@@ -470,6 +492,9 @@
 				title: {
 					text: 'os'
 				},
+				subtitle: {
+					text: lastUpdate
+				},
 				tooltip: {
 					formatter: function() {
 					return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
@@ -504,7 +529,7 @@
 							color: 'goldenrod',
 						},
 						{
-							name: 'MaxOSX',
+							name: 'MacOSX',
 							y: 56,
 							color: 'dimgray',
 						},
