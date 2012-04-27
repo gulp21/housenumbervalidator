@@ -361,7 +361,7 @@ bool isComplete(housenumber &hnr) {
 		broken|=city;
 	}
 	
-	if( hnr.number.length()>0 && ( hnr.number.contains("traße") || hnr.number.endsWith("str") || hnr.number.contains("str.") || hnr.number.endsWith("Str") || hnr.number.contains("Str.") || hnr.number.contains(QRegExp("[0-9]+[Aa-Zz]?,? [0-9]+[Aa-Zz]?")) /*|| hnr.number.contains("<") || hnr.number.contains("fix", Qt::CaseInsensitive) || hnr.number.contains("unkn", Qt::CaseInsensitive)*/ ) ) {
+	if( hnr.number.length()>0 && ( hnr.number.contains("traße") || hnr.number.endsWith("str") || hnr.number.contains("str.") || hnr.number.endsWith("Str") || hnr.number.contains("Str.") /*|| hnr.number.contains(QRegExp("[0-9]+[Aa-Zz]?,? [0-9]+[Aa-Zz]?")) || hnr.number.contains("<") || hnr.number.contains("fix", Qt::CaseInsensitive) || hnr.number.contains("unkn", Qt::CaseInsensitive)*/ ) ) {
 		broken|=number;
 	}
 	

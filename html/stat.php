@@ -79,7 +79,7 @@
 	
 	$(function () {
 		var chart1, chart2, chart3, piechart1, piechart2;
-		var lastUpdate='4. Jan 12 \u2013 2. Apr 12';
+		var lastUpdate='4. Jan 12 \u2013 21. Apr 12';
 		$(document).ready(function() {
 			chart1 = new Highcharts.Chart({
 				chart: {
@@ -441,43 +441,43 @@
 					data: [
 						{
 							name: 'Firefox',
-							y: 611,
+							y: 741,
 							color: 'tomato',
 						},
 						{
-							name: 'Chrome',
-							y: 94,
-							color: 'forestgreen',
-						},
-						{
 							name: 'Opera',
-							y: 86,
+							y: 134,
 							color: 'maroon',
 						},
 						{
+							name: 'Chrome',
+							y: 117,
+							color: 'forestgreen',
+						},
+						{
+							name: 'IE',
+							y: 38,
+							color: 'dodgerblue',
+						},
+						{
 							name: 'Konqueror',
-							y: 34,
+							y: 35,
 							color: 'royalblue',
 						},
 						{
 							name: 'Bot',
-							y: 19,
+							y: 21,
 							color: 'silver',
 						},
 						{
-							name: 'IE',
-							y: 22,
-							color: 'dodgerblue',
+							name: 'Safari',
+							y: 14,
+							color: 'lightgray',
 						},
 						{
 							name: 'Mobile',
-							y: 11,
+							y: 12,
 							color: 'yellowgreen',
-						},
-						{
-							name: 'Safari',
-							y: 7,
-							color: 'lightgray',
 						},
 					]
 				}]
@@ -519,29 +519,29 @@
 					name: 'os',
 					data: [
 						{
-							name: 'Windows',
-							y: 415,
-							color: 'royalblue',
-						},
-						{
 							name: 'Linux',
-							y: 384,
+							y: 527,
 							color: 'goldenrod',
 						},
 						{
+							name: 'Windows',
+							y: 491,
+							color: 'royalblue',
+						},
+						{
 							name: 'MacOSX',
-							y: 56,
+							y: 62,
 							color: 'dimgray',
 						},
 						{
-							name: 'Mobile',
-							y: 11,
-							color: 'yellowgreen',
+							name: 'Bot',
+							y: 21,
+							color: 'silver',
 						},
 						{
-							name: 'Bot',
-							y: 19,
-							color: 'silver',
+							name: 'Mobile',
+							y: 12,
+							color: 'yellowgreen',
 						},
 					]
 				}]

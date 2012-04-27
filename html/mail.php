@@ -13,7 +13,7 @@
 	
 	echo "Found ".mysql_num_rows($probs)." Ps<br/>";
 	
-	$i=-rand(0,mysql_num_rows($probs)-$subscribers);
+	$i=-rand(0,mysql_num_rows($probs)-$subscribers*10);
 	
 	echo "i ".$i."<br/>";
 	
@@ -56,14 +56,14 @@
 			.$table
 			."\n";
 		
-		if($i==$subscribers) break;
+		if($i==$subscribers*10) break;
 	}
 	
 	$dupes=mysql_query("SELECT * FROM dupes") or die ("MySQL-Error: ".mysql_error());
 	
 	echo "Found ".mysql_num_rows($dupes)." Ds<br/>";
 	
-	$i=-rand(0,mysql_num_rows($dupes)-$subscribers);
+	$i=-rand(0,mysql_num_rows($dupes)-$subscribers*10);
 	
 	echo "i ".$i."<br/>";
 	
@@ -116,7 +116,7 @@
 			.$table
 			."\n\n";
 		
-		if($i==$subscribers) break;
+		if($i==$subscribers*10) break;
 	}
 	
 	while($mail=mysql_fetch_assoc($mails)) {
@@ -127,7 +127,7 @@
 		
 		echo "<br/>".$mail['mail']."<br/>".$problems[$i][1]."<br/>".$duplicates[$i][1]."<br/><br/>";
 		
-		$i--;
+		$i-=10;
 	}
 	
 ?>

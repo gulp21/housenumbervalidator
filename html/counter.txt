@@ -1549,8 +1549,6 @@ DNT92..47	hnrv_stat	120403:18	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) G
 89.98.162.40	bp_dart_m	120403:21	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NULL
 87.157.51.84	hnrv	120403:23	Mozilla/5.0 (OS/2; Warp 4.5; rv:10.0) Gecko/20100101 Firefox/10.0	NONE
 66.249.66.4	dart	120404:02	Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_1 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8B117 Safari/6531.22.7 (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)	NONE
-DNT62..57	hnrv	120404:08	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
-DNT62..57	me	120404:08	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0	NULL
 134.61.11.207	hnrv	120404:12	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
 134.61.11.207	hnrv	120404:12	Mozilla/5.0 (X11; Linux i686; rv:10.0.2) Gecko/20100101 Firefox/10.0.2	NONE
 DNT217.24	hnrv	120404:16	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
@@ -1595,12 +1593,6 @@ DNT178.96	hnrv	120406:17	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:11.0) G
 91.205.96.13	bp_dart_a	120406:18	Mozilla/5.0 (compatible; WBSearchBot/1.1; +http://www.warebay.com/bot.html)	NULL
 91.205.96.13	bp_add_sup	120406:18	Mozilla/5.0 (compatible; WBSearchBot/1.1; +http://www.warebay.com/bot.html)	NULL
 91.205.96.13	bp_dart_m	120406:18	Mozilla/5.0 (compatible; WBSearchBot/1.1; +http://www.warebay.com/bot.html)	NULL
-62.143.94.57	bp_dart_m	120406:20	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.11 (KHTML, like Gecko) Ubuntu/11.10 Chromium/17.0.963.79 Chrome/17.0.963.79 Safari/535.11	NULL
-62.143.94.57	bp_dart_m	120406:20	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.11 (KHTML, like Gecko) Ubuntu/11.10 Chromium/17.0.963.79 Chrome/17.0.963.79 Safari/535.11	NULL
-62.143.94.57	bp_dart_a	120406:20	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.11 (KHTML, like Gecko) Ubuntu/11.10 Chromium/17.0.963.79 Chrome/17.0.963.79 Safari/535.11	NULL
-62.143.94.57	ghp	120406:20	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.11 (KHTML, like Gecko) Ubuntu/11.10 Chromium/17.0.963.79 Chrome/17.0.963.79 Safari/535.11	http://gulp21.bplaced.net/dart/alpha.htm
-62.143.94.57	ghp_de	120406:20	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.11 (KHTML, like Gecko) Ubuntu/11.10 Chromium/17.0.963.79 Chrome/17.0.963.79 Safari/535.11	http://gulp21.github.com/
-62.143.94.57	me	120406:20	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.11 (KHTML, like Gecko) Ubuntu/11.10 Chromium/17.0.963.79 Chrome/17.0.963.79 Safari/535.11	NULL
 80.187.43.158	hnrv	120406:21	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)	NONE
 DNT94..89	hnrv	120406:22	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
 68.58.143.183	bp_noun	120406:23	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	NULL
@@ -1654,9 +1646,6 @@ DNT178.68	hnrv	120411:22	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/
 DNT188.17	hnrv	120412:10	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
 134.61.11.207	hnrv	120412:12	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
 134.61.11.207	hnrv	120412:12	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
-62.143.94.57	me	120412:13	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NULL
-62.143.94.57	hnrv	120412:13	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
-62.143.94.57	hnrv_stat	120412:13	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/
 DNT217.85	hnrv	120412:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
 217.243.166.218	hnrv	120412:15	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
 217.243.166.218	hnrv_stat	120412:15	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://gulp21.bplaced.net/osm/housenumbervalidator/
@@ -1674,25 +1663,7 @@ DNT188.17	hnrv	120412:20	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/
 84.190.206.167	ghp_de	120412:21	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://gulp21.github.com/
 87.165.151.230	hnrv	120412:22	Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.151 Safari/535.19	NONE
 87.165.151.230	hnrv_stat	120412:22	Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.151 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=16
-62.143.94.57	hnrv	120413:06	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
-62.143.94.57	hnrv_stat	120413:06	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/
-62.143.94.57	me	120413:07	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NULL
 DNT178.39	hnrv	120413:08	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
-62.143.94.57	dart_de	120413:09	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
-62.143.94.57	hnrv	120413:10	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
-62.143.94.57	hnrv	120413:10	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/
-62.143.94.57	hnrv_stat	120413:10	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-62.143.94.57	hnrv_stat	120413:10	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-62.143.94.57	hnrv	120413:10	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/stat.php
-62.143.94.57	hnrv_stat	120413:10	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
-62.143.94.57	hnrv	120413:10	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/stat.php
-62.143.94.57	hnrv_stat	120413:10	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
-62.143.94.57	dart_de	120413:10	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/stat.php
-62.143.94.57	hnrv_stat	120413:10	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-62.143.94.57	hnrv_stat	120413:10	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-62.143.94.57	hnrv_stat	120413:11	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-62.143.94.57	hnrv_stat	120413:11	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-62.143.94.57	hnrv_stat	120413:11	Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)	NONE
 134.61.11.207	hnrv	120413:12	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
 195.37.205.30	hnrv	120413:12	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GLL HM; GLL HM-Dez55; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 2.0.50727; GLL HM; GLL HM-Dez51; GLL HM-Dez55)	http://wiki.openstreetmap.org/wiki/Qualitätssicherung
 DNT62..27	hnrv	120413:12	Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
@@ -1719,18 +1690,8 @@ DNT188.20	hnrv	120415:02	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:11.0) G
 66.249.71.74	bp_i	120415:03	Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_1 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8B117 Safari/6531.22.7 (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)	NULL
 DNT91..10	hnrv	120415:07	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
 87.165.141.73	hnrv	120415:10	Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	NONE
-109.90.53.213	hnrv_stat	120415:11	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-109.90.53.213	me	120415:11	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NULL
-109.90.53.213	hnrv_stat	120415:11	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
 DNT93..28	hnrv	120415:11	Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
-109.90.53.213	hnrv_stat	120415:11	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-109.90.53.213	hnrv_stat	120415:11	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
 DNT193.20	hnrv	120415:11	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
-109.90.53.213	hnrv_stat	120415:11	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-109.90.53.213	hnrv_stat	120415:11	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-109.90.53.213	hnrv_stat	120415:11	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-109.90.53.213	hnrv	120415:12	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-109.90.53.213	hnrv	120415:12	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
 DNT188.33	hnrv	120415:15	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
 DNT79..47	hnrv	120415:15	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
 DNT178.29	hnrv	120415:16	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
@@ -1769,9 +1730,6 @@ DNT178.42	hnrv	120416:11	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/
 134.61.11.207	hnrv_stat	120416:14	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
 DNT178.42	hnrv	120416:15	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
 DNT91..94	hnrv	120416:17	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
-37.24.36.162	hnrv_stat	120416:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-37.24.36.162	me	120416:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NULL
-37.24.36.162	hnrv_stat	120416:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
 DNT178.29	hnrv	120416:20	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
 DNT178.42	hnrv	120416:21	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
 88.128.26.28	hnrv	120416:22	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)	NONE
@@ -1791,8 +1749,6 @@ DNT92..06	hnrv	120417:13	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/
 92.72.142.131	hnrv	120417:16	Mozilla/5.0 (Windows NT 5.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2	http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator
 DNT217.99	hnrv	120417:17	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
 134.61.11.207	hnrv_stat	120417:17	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
-88.152.248.53	hnrv_stat	120417:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-88.152.248.53	me	120417:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NULL
 134.61.11.207	hnrv	120417:18	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
 134.61.11.207	hnrv_stat	120417:18	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=12&lat=6582643.67573&lon=681920.37811&layers=BTTTT
 134.61.11.207	hnrv	120417:19	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
@@ -1842,8 +1798,6 @@ DNT217.34	hnrv	120418:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/201001
 87.157.34.179	hnrv	120418:16	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) konqueror/4.7.4 Safari/534.34	NONE
 87.157.34.179	hnrv	120418:16	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) konqueror/4.7.4 Safari/534.34	NONE
 DNT92..06	hnrv	120418:16	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
-88.152.250.110	me	120418:16	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NULL
-88.152.250.110	hnrv_stat	120418:16	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
 134.61.11.207	hnrv_stat	120418:16	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
 87.157.34.179	hnrv	120418:17	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) konqueror/4.7.4 Safari/534.34	NONE
 87.157.34.179	hnrv	120418:17	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) konqueror/4.7.4 Safari/534.34	NONE
@@ -1910,9 +1864,6 @@ DNT93..66	hnrv	120419:17	Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Fi
 134.61.11.207	hnrv_stat	120419:18	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
 134.61.11.207	hnrv_stat	120419:18	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
 188.110.120.238	hnrv	120419:18	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/
-62.143.138.74	me	120419:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NULL
-62.143.138.74	hnrv_stat	120419:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
-62.143.138.74	hnrv	120419:19	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
 80.239.242.206	hnrv_stat	120419:19	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
 80.239.242.206	hnrv_stat	120419:23	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
 80.239.242.206	hnrv	120419:23	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	http://gulp21.bplaced.net/osm/housenumbervalidator/stat.php
@@ -1953,35 +1904,11 @@ DNT62..30	hnrv_stat	120420:16	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko
 134.61.11.207	hnrv_stat	120420:16	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
 134.61.11.207	hnrv_stat	120420:17	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
 134.61.11.207	hnrv_stat	120420:17	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
-62.143.6.211	me	120420:17	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NULL
 134.61.11.207	hnrv_stat	120420:17	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
-62.143.6.211	hnrv	120420:17	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/
-62.143.6.211	hnrv	120420:17	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
-62.143.6.211	hnrv	120420:17	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
 212.41.222.129	hnrv	120420:17	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	http://www.openstreetmap.org/browse/changesets?bbox=8.1146,46.9698,8.5829,47.1786
-62.143.6.211	hnrv	120420:17	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
-62.143.6.211	hnrv	120420:17	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
-62.143.6.211	hnrv	120420:17	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	NONE
-62.143.6.211	hnrv	120420:17	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=13&lat=6656804.31376&lon=744522.30426&layers=BTTTT
-62.143.6.211	hnrv	120420:17	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=13&lat=6656804.31376&lon=744522.30426&layers=BTTTT
-62.143.6.211	hnrv	120420:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=17&lat=6701118.08374&lon=781957.93602&layers=BTTTT
-62.143.6.211	hnrv	120420:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=18&lat=7084901.23674&lon=1104155.53647&layers=BTTTT
-62.143.6.211	hnrv	120420:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=18&lat=7084901.23674&lon=1104155.53647&layers=BTTTT
-62.143.6.211	hnrv	120420:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=18&lat=7084901.23674&lon=1104155.53647&layers=0BTTTT
-62.143.6.211	hnrv_stat	120420:18	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.142 Chrome/18.0.1025.142 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6661240.05005&lon=736324.43298&layers=BTTTT
 DNT91..52	hnrv	120420:18	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
 80.239.242.207	hnrv_stat	120420:19	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
-62.143.6.211	me	120420:19	Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)	NULL
-62.143.6.211	hnrv	120420:19	Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)	NONE
-62.143.6.211	hnrv	120420:19	Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)	NONE
-62.143.6.211	hnrv	120420:20	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.2; Trident/5.0)	NONE
-62.143.6.211	hnrv	120420:20	Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)	NONE
-62.143.6.211	hnrv	120420:20	Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)	NONE
-62.143.6.211	hnrv	120420:20	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.2; Trident/4.0; .NET4.0E; .NET4.0C; Media Center PC 6.0)	NONE
-62.143.6.211	hnrv	120420:20	Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; .NET4.0E; .NET4.0C; Media Center PC 6.0)	NONE
 93.104.170.22	hnrv	120420:20	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=10.893781,48.38891,10.903082,48.392394
-DNT62..11	me	120420:20	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NULL
-DNT62..11	hnrv	120420:20	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
 178.25.216.176	hnrv	120420:20	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.0.3705; .NET CLR 1.1.4322; Media Center PC 4.0; InfoPath.3)	http://www.openstreetmap.org/browse/changesets?bbox=10.4474,51.2809,10.5365,51.3094
 DNT93..25	hnrv	120420:21	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
 82.113.121.74	hnrv_stat	120420:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
@@ -2002,3 +1929,5 @@ DNT91..58	hnrv	120421:06	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/201001
 94.216.63.87	hnrv	120421:09	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/
 94.216.63.87	hnrv	120421:09	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=13&lat=6090503.86918&lon=1299569.78508&layers=B0TTTT
 94.216.63.87	hnrv	120421:10	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6091402.00426&lon=1299330.91937&layers=B0TTTT
+94.216.63.87    hnrv    120421:11       Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0       NONE
+94.216.63.87    hnrv    120421:11       Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0       NONE
