@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html style="font-family: 'Times New Roman', serif;">
 <head>
+	<meta charset="UTF-8" />
 	<title>housenumbervalidator &dash; statistic</title>
 	<style type="text/css">
 		[id^="chart"] {
@@ -53,7 +54,7 @@
 	<a href="http://gulp21.github.com/qeodart_de.html" target="_blank" class="ad" id="ad1" style="background-color: rgba(256,168,88,.9);">
 		<img src="qeodart.png" alt="QeoDart Icon"/>
 		<b>QeoDart</b><br/>
-		das freie Geographie-Lernspiel f&uuml;r Linux &amp; Windows
+		das freie Geographie-Lernspiel für Linux &amp; Windows
 	</a>
 	<div id="chart1div"></div>
 	<div id="chart2div"></div>
@@ -61,14 +62,15 @@
 	<a href="http://languagetool.org/de" target="_blank" class="ad" id="ad2" style="background-color: rgba(152,184,240,.9);">
 		<img src="LanguageToolBig.png" alt="LT Icon"/>
 		<b>LanguageTool</b><br/>
-		freie Grammatik- und Stilpr&uuml;fung f&uuml;r LibreOffice und OpenOffice.org
+		freie Grammatik- und Stilprüfung für LibreOffice und OpenOffice.org
 	</a>
 	<div id="piechart1div" style="float:left;width:510px;"></div>
 	<div id="piechart2div" style="float:left;width:560px;"></div>
+	<div id="chart4div" style="clear:left;"></div>
 	<a href="http://shop.highsoft.com/highcharts.html" target="_blank" class="ad" id="ad3" style="background-color: rgba(200,200,200,.9);">
 		<img src="by-nc.eu.png" alt="CC-by-nc"/>
 		<b>Highcharts JS</b><br/>
-		Highcharts JS kann f&uuml;r nicht kommerzielle Zwecke frei unter der CC-by-nc-Lizenz verwendet werden.
+		Highcharts JS kann für nicht kommerzielle Zwecke frei unter der CC-by-nc-Lizenz verwendet werden.
 	</a>
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
@@ -78,8 +80,21 @@
 	<script type="text/javascript">
 	
 	$(function () {
-		var chart1, chart2, chart3, piechart1, piechart2;
-		var lastUpdate='4. Jan 12 \u2013 21. Apr 12';
+		var chart1, chart2, chart3, piechart1, piechart2, chart4;
+		var lastUpdate='4. Jan 12 \u2013 1. May 12';
+		function formatter(t) {
+			annotation="";
+			if(t.x==Date.UTC(2012,1,20)) annotation="<br/><b>Algorithmusänderung<b>";
+			else if(t.x==Date.UTC(2012,1,21)) annotation="<br/><b>Algorithmusänderung<b>";
+			else if(t.x==Date.UTC(2012,2,14)) annotation="<br/><b>xybot<b>";
+			else if(t.x==Date.UTC(2012,2,24)) annotation="<br/><b>Algorithmusänderung<b>";
+			else if(t.x==Date.UTC(2012,3,2)) annotation="<br/><b>Datenbank read-only<b>";
+			else if(t.x==Date.UTC(2012,3,3)) annotation="<br/><b>Datenbank read-only<b>";
+			else if(t.x==Date.UTC(2012,3,4)) annotation="<br/><b>Datenbank read-only<b>";
+			else if(t.x==Date.UTC(2012,3,29)) annotation="<br/><b>Katasterimport Kreis Viersen<b>";
+			else if(t.x==Date.UTC(2012,3,30)) annotation="<br/><b>Katasterimport Kreis Viersen<b>";
+			return Highcharts.dateFormat('%e. %b %y', t.x) + ': ' + t.y + annotation;
+		};
 		$(document).ready(function() {
 			chart1 = new Highcharts.Chart({
 				chart: {
@@ -144,7 +159,7 @@
 				},
 				tooltip: {
 					formatter: function() {
-					return Highcharts.dateFormat('%e. %b %y', this.x) +': '+ this.y;
+						return formatter(this);
 					}
 				},
 				series: [{
@@ -167,6 +182,19 @@
 							if($last==-1) echo '0,'; else echo ($current-$last);
 							echo '],';
 							$last=$current;
+							
+// 							$current=$entry["$name"];
+// 							$date=$entry['date'];
+// 							$date=explode("-",$entry['date']);
+// 							echo $entry['date']." ".$current-$last." ".$current." ".$last." € ";
+// 							if($last!=-1) {
+// 								echo '{';
+// 								echo "x: Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
+// 								echo "y: ".$current-$last.",";
+// 								if(($entry["hide"]|1)==$entry["hide"]) echo "color: 'rgba(0,0,0,.5)'";
+// 								echo '},';
+// 							}
+// 							$last=$current;
 						}
 					?>
 					]
@@ -251,7 +279,7 @@
 				},
 				tooltip: {
 					formatter: function() {
-					return Highcharts.dateFormat('%e. %b %y', this.x) +': '+ this.y;
+						return formatter(this);
 					}
 				},
 				series: [{
@@ -359,7 +387,7 @@
 				},
 				tooltip: {
 					formatter: function() {
-					return Highcharts.dateFormat('%e. %b %y', this.x) +': '+ this.y;
+						return formatter(this);
 					}
 				},
 				series: [{
@@ -441,22 +469,22 @@
 					data: [
 						{
 							name: 'Firefox',
-							y: 741,
+							y: 918,
 							color: 'tomato',
 						},
 						{
 							name: 'Opera',
-							y: 134,
+							y: 166,
 							color: 'maroon',
 						},
 						{
 							name: 'Chrome',
-							y: 117,
+							y: 146,
 							color: 'forestgreen',
 						},
 						{
 							name: 'IE',
-							y: 38,
+							y: 58,
 							color: 'dodgerblue',
 						},
 						{
@@ -476,7 +504,7 @@
 						},
 						{
 							name: 'Mobile',
-							y: 12,
+							y: 14,
 							color: 'yellowgreen',
 						},
 					]
@@ -519,18 +547,18 @@
 					name: 'os',
 					data: [
 						{
-							name: 'Linux',
-							y: 527,
-							color: 'goldenrod',
-						},
-						{
 							name: 'Windows',
-							y: 491,
+							y: 649,
 							color: 'royalblue',
 						},
 						{
+							name: 'Linux',
+							y: 619,
+							color: 'goldenrod',
+						},
+						{
 							name: 'MacOSX',
-							y: 62,
+							y: 70,
 							color: 'dimgray',
 						},
 						{
@@ -540,9 +568,79 @@
 						},
 						{
 							name: 'Mobile',
-							y: 12,
+							y: 14,
 							color: 'yellowgreen',
 						},
+					]
+				}]
+			});
+			chart4 = new Highcharts.Chart({
+				chart: {
+					renderTo: 'chart4div',
+					zoomType: 'xy',
+					alignTicks: false,
+				},
+				title: {
+					text: 'unique visits per day'
+				},
+				xAxis: {
+					type: 'datetime',
+					dateTimeLabelFormats: {
+						day: '%e. %b %y',
+						week: '%e. %b %y',
+						month: '%e. %b %y',
+						year: '%b'
+					}
+				},
+				yAxis: [{ // Primary yAxis
+					labels: {
+						formatter: function() {
+							return this.value;
+						},
+						style: {
+							color: '#000000'
+						}
+					},
+					title: {
+						text: 'visits',
+						style: {
+							color: '#000000'
+						}
+					},
+					max: 30,
+					min: 0
+				}],
+				legend: {
+					enabled: false
+				},
+				tooltip: {
+					formatter: function() {
+						d='2';
+						if(Highcharts.dateFormat('%e', this.x)=="1") d='21';
+						else if(Highcharts.dateFormat('%e', this.x)=="20") d='11';
+						return d + '. \u2013 ' + Highcharts.dateFormat('%e. %b %y', this.x) + ': ' + this.y;
+					},
+				},
+				series: [{
+					name: 'visits',
+					color: '#000000',
+					type: 'spline',
+					yAxis: 0,
+					data: [
+					[Date.UTC(2012,0,10),15.5],
+					[Date.UTC(2012,0,20),9.9],
+					[Date.UTC(2012,1,1),8],
+					[Date.UTC(2012,1,10),5.1],
+					[Date.UTC(2012,1,20),6.7],
+					[Date.UTC(2012,2,1),14.8],
+					[Date.UTC(2012,2,10),5.6],
+					[Date.UTC(2012,2,20),12.1],
+					[Date.UTC(2012,3,1),13.3],
+					[Date.UTC(2012,3,10),7.7],
+					[Date.UTC(2012,3,20),13.8],
+					[Date.UTC(2012,4,1),25.1],
+// 					[Date.UTC(2012,4,10),0,],
+// 					[Date.UTC(2012,4,20),0,],
 					]
 				}]
 			});

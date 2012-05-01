@@ -1931,3 +1931,436 @@ DNT91..58	hnrv	120421:06	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/201001
 94.216.63.87	hnrv	120421:10	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6091402.00426&lon=1299330.91937&layers=B0TTTT
 94.216.63.87    hnrv    120421:11       Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0       NONE
 94.216.63.87    hnrv    120421:11       Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0       NONE
+94.216.63.87	hnrv	120421:12	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6091402.00426&lon=1299330.91937&layers=B0TTTT
+94.216.63.87	hnrv	120421:12	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT178.29	hnrv	120421:12	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT178.29	hnrv_stat	120421:12	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+DNT188.33	hnrv	120421:13	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+DNT188.33	hnrv	120421:13	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+84.137.193.166	hnrv	120421:13	Mozilla/5.0 (Windows NT 6.0) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	NONE
+84.137.193.166	hnrv	120421:13	Mozilla/5.0 (Windows NT 6.0) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/
+DNT188.33	hnrv	120421:13	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+87.148.95.222	hnrv	120421:13	Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT188.33	hnrv	120421:13	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+79.220.133.124	hnrv	120421:14	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB6.5; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 2.0.50727)	http://www.openstreetmap.org/browse/changesets?bbox=8.521274,50.181611,8.525657,50.183431
+79.220.133.124	hnrv	120421:14	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB6.5; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 2.0.50727)	NONE
+79.220.133.124	hnrv	120421:14	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB6.5; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 2.0.50727)	NONE
+91.39.48.55	hnrv	120421:14	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.163 Safari/535.19	http://www.openstreetmap.org/browse/changeset/11372448
+DNT178.06	hnrv	120421:14	Mozilla/5.0 (Windows NT 6.0; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+92.195.41.73	hnrv	120421:15	Opera/9.80 (Windows NT 6.1; WOW64; U; de) Presto/2.10.229 Version/11.62	http://www.openstreetmap.org/browse/changesets?bbox=12.91117,50.85249,12.92382,50.85657
+DNT93..44	hnrv	120421:15	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+DNT188.35	hnrv	120421:15	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+62.158.119.13	hnrv	120421:16	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.163 Safari/535.19	http://www.openstreetmap.org/browse/changesets?bbox=12.47736,51.11327,12.52246,51.13506
+62.158.119.13	hnrv_stat	120421:16	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.163 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/
+DNT178.72	hnrv	120421:16	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+188.110.120.238	hnrv	120421:18	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	http://www.openstreetmap.org/browse/changesets?bbox=8.52258,49.50437,8.55464,49.51693&page=1
+79.210.55.174	hnrv	120421:18	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=10.87986,49.89387,10.89236,49.89767
+79.203.92.213	hnrv	120421:20	Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=11.442977,48.241901,11.452279,48.245102
+79.239.242.159	hnrv	120421:20	Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; BRI/2; Tablet PC 2.0; AskTB5.6)	http://www.openstreetmap.org/browse/changesets?bbox=8.5007,48.3361,8.5627,48.368
+188.110.120.238	hnrv	120421:23	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	http://www.openstreetmap.org/browse/changesets?bbox=8.52258,49.50437,8.55464,49.51693&page=1
+88.128.69.250	hnrv	120421:23	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)	NONE
+88.128.69.250	hnrv	120421:23	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)	NONE
+DNT62..85	hnrv	120422:00	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT62..85	hnrv	120422:00	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT62..85	hnrv	120422:00	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT62..85	hnrv	120422:00	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+80.239.242.95	hnrv_stat	120422:00	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+DNT62..85	hnrv	120422:00	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+80.239.242.95	hnrv	120422:00	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+80.239.242.95	hnrv	120422:00	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+82.113.98.106	hnrv	120422:00	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+DNT217.09	hnrv	120422:06	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
+92.75.38.203	hnrv	120422:08	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:09	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	ghp_de	120422:09	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.github.com/
+92.75.38.203	hnrv	120422:09	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator
+92.75.38.203	hnrv_stat	120422:09	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/
+84.145.243.1	hnrv	120422:09	Opera/9.80 (Windows NT 6.1; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	http://www.openstreetmap.org/browse/changesets?bbox=11.1711,47.58877,11.20634,47.61091
+DNT217.09	hnrv	120422:09	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
+DNT217.09	hnrv	120422:09	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
+DNT217.09	hnrv	120422:09	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
+84.177.23.240	hnrv	120422:10	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=8.666508,50.086344,8.670853,50.088974
+DNT188.83	hnrv	120422:11	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+85.127.232.182	hnrv	120422:12	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=12.876,47.6898,13.3697,47.8824
+DNT74..78	hnrv	120422:12	Mozilla/5.0 (Windows NT 6.0; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+134.3.133.63	hnrv	120422:14	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=9.01467,48.67208,9.03778,48.68102&page=4
+DNT85..98	hnrv	120422:14	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+92.75.38.203	hnrv	120422:14	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT91..80	hnrv	120422:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
+DNT91..80	hnrv	120422:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
+DNT91..80	hnrv	120422:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
+DNT79..23	hnrv	120422:15	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+217.212.230.21	hnrv_stat	120422:15	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+93.214.188.161	hnrv	120422:15	Opera/9.80 (Windows NT 5.1; U; de) Presto/2.10.229 Version/11.62	http://www.openstreetmap.org/browse/changesets?bbox=7.38342,50.81188,7.40618,50.82092&page=2
+92.75.38.203	hnrv	120422:15	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT178.31	hnrv	120422:16	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT79..11	hnrv	120422:16	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+92.75.38.203	hnrv	120422:16	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT79..35	hnrv	120422:17	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+DNT217.01	hnrv	120422:17	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT217.01	hnrv	120422:17	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+217.85.130.101	hnrv	120422:17	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.4+ (KHTML, like Gecko) Version/5.0 Safari/535.4+	NONE
+DNT178.31	hnrv	120422:17	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+92.75.38.203	hnrv	120422:18	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:18	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6091402.00426&lon=1299330.91937&layers=B0TTTT
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6091402.00426&lon=1299330.91937&layers=B0TTTT
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6091402.00426&lon=1299330.91937&layers=B0TTTT
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.38.203	hnrv	120422:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT93..13	hnrv	120422:19	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+208.80.194.30	bp_i	120422:19	Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; (R1 1.5); .NET CLR 1.1.4322; PeoplePal 3.0)	NULL
+93.207.179.52	hnrv	120422:21	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changeset/11372448
+89.204.130.132	hnrv_stat	120422:21	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+DNT62..19	hnrv	120422:21	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+91.66.127.101	hnrv	120422:21	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	http://wiki.openstreetmap.org/wiki/Qualit�tssicherung
+DNT91..10	hnrv	120422:22	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+89.204.130.132	hnrv	120422:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.130.132	hnrv	120422:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.130.132	hnrv	120422:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+188.110.116.102	hnrv	120422:22	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	http://www.openstreetmap.org/browse/changesets?bbox=8.52258,49.50437,8.55464,49.51693&page=1
+89.204.130.132	hnrv_stat	120422:23	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.130.132	hnrv	120422:23	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+188.110.116.102	hnrv	120422:23	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	http://www.openstreetmap.org/browse/changesets?bbox=8.52258,49.50437,8.55464,49.51693&page=1
+DNT178.31	hnrv	120422:23	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT178.31	ghp	120422:23	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+DNT178.31	ghp_de	120422:23	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+217.95.6.233	hnrv	120422:23	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=13.75236,51.19794,13.78957,51.21044&page=2
+89.204.130.132	hnrv_stat	120422:23	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+78.42.232.171	hnrv	120423:00	Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	http://www.openstreetmap.org/browse/changesets?bbox=8.661285,49.447107,8.667154,49.450138
+82.113.98.12	hnrv_stat	120423:09	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+188.110.116.102	hnrv	120423:09	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	NONE
+DNT217.46	hnrv	120423:10	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+134.61.11.207	hnrv	120423:10	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+178.7.126.86	hnrv	120423:10	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+134.61.11.207	hnrv_stat	120423:10	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+DNT88..26	hnrv	120423:12	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT141.91	hnrv	120423:12	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+85.127.92.172	hnrv	120423:13	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changeset/11382294
+134.61.11.207	hnrv_stat	120423:13	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+178.7.126.86	hnrv	120423:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6091402.00426&lon=1299330.91937&layers=B0TTTT
+178.7.126.86	hnrv	120423:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=17&lat=6091983.04511&lon=1376538.28957&layers=B0TTTT
+178.7.126.86	hnrv	120423:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=17&lat=6091986.6281&lon=1376643.39048&layers=B0TTTT
+178.7.126.86	hnrv	120423:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=17&lat=6091986.6281&lon=1376643.39048&layers=B0
+134.61.11.207	hnrv	120423:14	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.207	hnrv_stat	120423:14	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=12&lat=6582643.67573&lon=681920.37811&layers=BTTTT
+DNT92..01	hnrv	120423:14	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+134.61.11.207	hnrv_stat	120423:15	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=12&lat=6582643.67573&lon=681920.37811&layers=BTTTT
+134.61.11.207	hnrv_stat	120423:15	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.207	hnrv_stat	120423:16	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+DNT91..42	hnrv	120423:16	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
+DNT91..42	hnrv	120423:16	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
+DNT92..01	hnrv	120423:17	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT92..01	hnrv	120423:17	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT92..01	hnrv	120423:17	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+178.7.126.86	hnrv	120423:18	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=17&lat=6091986.6281&lon=1376643.39048&layers=B0TTTT
+178.7.126.86	hnrv	120423:18	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=17&lat=6091983.04511&lon=1376538.28957&layers=B0TTTT
+178.7.126.86	hnrv	120423:18	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6091402.00426&lon=1299330.91937&layers=B0TTTT
+178.7.126.86	ghp	120423:18	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=17&lat=6091983.04511&lon=1376538.28957&layers=B0TTTT
+178.7.126.86	ghp_de	120423:18	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.github.com/
+178.7.126.86	ghp_de	120423:18	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.github.com/
+87.148.86.101	hnrv	120423:19	Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+84.180.158.162	hnrv	120423:20	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.151 Safari/535.19	http://www.openstreetmap.org/browse/changesets?bbox=11.39675,51.28027,11.47001,51.31001
+91.18.178.214	hnrv	120423:20	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+91.18.178.214	hnrv	120423:20	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+88.128.182.134	hnrv	120423:21	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)	http://www.openstreetmap.org/history?bbox=11.9,47.474,12.36,47.822
+85.176.173.254	hnrv	120423:21	Mozilla/5.0 (Windows NT 5.1) AppleWebKit/536.8 (KHTML, like Gecko) Chrome/20.0.1105.0 Safari/536.8	http://wiki.openstreetmap.org/wiki/Qualitätssicherung
+85.176.173.254	hnrv	120423:21	Mozilla/5.0 (Windows NT 5.1) AppleWebKit/536.8 (KHTML, like Gecko) Chrome/20.0.1105.0 Safari/536.8	http://gulp21.bplaced.net/osm/housenumbervalidator/
+79.235.89.178	hnrv	120423:21	Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3	NONE
+87.148.86.101	hnrv	120423:21	Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT91..40	hnrv	120423:21	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+79.212.83.55	hnrv	120423:22	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+81.217.134.50	hnrv	120423:22	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=16.27688,48.04451,16.28625,48.04872
+188.110.116.102	hnrv	120423:22	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	NONE
+DNT92..01	hnrv	120423:22	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT92..01	hnrv	120423:23	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+DNT92..01	hnrv	120423:23	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+79.220.45.22	hnrv	120423:23	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=8.731737,50.176348,8.737569,50.179144
+DNT62..80	hnrv	120424:00	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+82.113.121.134	hnrv_stat	120424:01	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+84.144.71.167	bp_i	120424:02	Mozilla/5.0 (Windows; U; Windows NT 5.0; de; rv:1.9.2.28) Gecko/20120306 Firefox/3.6.28	NULL
+84.144.71.167	bp_add_i	120424:02	Mozilla/5.0 (Windows; U; Windows NT 5.0; de; rv:1.9.2.28) Gecko/20120306 Firefox/3.6.28	NULL
+93.129.153.192	hnrv	120424:07	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=8.5897,49.4837,8.7179,49.533&page=1
+178.77.101.94	hnrv	120424:08	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/node/1702217757/history
+DNT87..63	hnrv	120424:08	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT87..63	hnrv	120424:08	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT217.86	hnrv	120424:09	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+192.35.17.26	fizz	120424:10	Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	http://wiki.documentfoundation.org/Development/Crazy_Ideas
+DNT88..48	hnrv	120424:10	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+134.61.11.207	hnrv	120424:11	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.207	hnrv_stat	120424:11	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.207	hnrv_stat	120424:12	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+91.89.118.26	hnrv	120424:12	Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=9.82178,47.67927,9.82203,47.6794
+91.89.118.26	hnrv	120424:12	Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://gulp21.bplaced.net/osm/housenumbervalidator/
+91.89.118.26	hnrv	120424:13	Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://forum.openstreetmap.org/viewtopic.php?id=12669&p=2
+DNT83..42	hnrv	120424:13	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+DNT91..33	hnrv	120424:14	Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+84.151.88.5	hnrv	120424:14	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://wiki.openstreetmap.org/wiki/Qualitätssicherung
+134.61.11.207	hnrv_stat	120424:15	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+208.80.194.33	bp_i	120424:15	Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; {0B103D42-5857-7DE7-DFC9-891BEC88F26F}; .NET CLR 1.0.3705; .NET CLR 1.1.4322; Media Center PC 4.0; .NET CLR 2.0.50727)	NULL
+DNT217.43	hnrv	120424:16	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
+188.110.116.102	hnrv	120424:17	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	NONE
+134.61.11.207	hnrv_stat	120424:18	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+92.206.81.32	hnrv	120424:19	Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=12.3295,51.3954,12.3941,51.4249
+92.77.95.145	hnrv	120424:20	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=9.93657,52.64934,9.98858,52.67219&page=3
+84.174.142.177	hnrv	120424:20	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changeset/11407373
+87.150.255.187	hnrv	120424:21	Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	http://www.openstreetmap.org/browse/changesets?bbox=8.0255,50.9602,8.1208,51.0074
+93.222.201.56	hnrv	120424:21	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=7.037213,49.535419,7.041559,49.537348
+93.222.201.56	dart_de	120424:21	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://gulp21.bplaced.net/osm/housenumbervalidator/
+DNT88..48	hnrv	120424:21	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+79.248.160.153	hnrv	120424:21	Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=8.492516,47.946965,8.496614,47.949146
+78.34.232.7	hnrv	120424:21	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/history?bbox=6.0089,50.747,6.1852,50.7981
+DNT178.29	hnrv	120424:21	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+82.113.99.134	hnrv_stat	120424:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+82.113.99.134	hnrv	120424:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+188.110.116.102	hnrv	120424:22	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	NONE
+82.113.99.134	hnrv	120424:23	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+187.22.248.189	hnrv	120425:02	Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11	http://www.openstreetmap.org/browse/changesets?bbox=7.09172,51.34845,7.09172,51.34845
+84.166.154.174	hnrv	120425:05	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET4.0C)	http://www.openstreetmap.org/browse/changesets?bbox=7.37959,49.54101,7.39569,49.54935
+84.166.154.174	hnrv	120425:05	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET4.0C)	NONE
+178.7.126.160	hnrv	120425:07	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+89.204.137.127	hnrv_stat	120425:09	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+178.7.126.160	hnrv	120425:10	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT93..96	hnrv	120425:10	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+87.148.87.61	hnrv	120425:10	Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+134.61.11.207	hnrv_stat	120425:11	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.207	hnrv	120425:11	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	http://gulp21.bplaced.net/osm/housenumbervalidator/stat.php
+DNT77..44	hnrv	120425:13	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)	DNT
+134.61.11.207	hnrv_stat	120425:13	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.207	hnrv	120425:14	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+DNT178.91	hnrv	120425:14	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+178.7.126.160	hnrv	120425:14	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+134.61.11.207	hnrv_stat	120425:15	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+DNT87..47	hnrv	120425:15	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+DNT91..33	hnrv	120425:16	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20100101 Firefox/10.0.3 Iceweasel/10.0.3	DNT
+83.243.48.2	hnrv	120425:16	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)	http://www.openstreetmap.org/browse/changesets?bbox=7.950852,49.83506,7.956699,49.837859
+DNT178.91	hnrv	120425:16	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT87..47	hnrv	120425:16	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+178.7.126.160	hnrv	120425:16	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+178.7.126.160	hnrv	120425:16	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+85.126.184.210	hnrv	120425:17	Mozilla/5.0 (Windows NT 5.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1	http://forum.openstreetmap.org/viewtopic.php?id=15080
+DNT84..51	hnrv	120425:17	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+188.110.116.102	hnrv	120425:17	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	NONE
+DNT91..14	hnrv	120425:18	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+89.204.139.193	hnrv_stat	120425:19	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+87.150.209.184	hnrv	120425:20	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; MSNIE9A)	http://www.openstreetmap.org/browse/changesets?bbox=7.06509,51.0759,7.11873,51.0994&page=3
+87.150.209.184	dart_de	120425:20	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; MSNIE9A)	http://gulp21.bplaced.net/osm/housenumbervalidator/
+77.13.204.53	hnrv	120425:21	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	http://forum.openstreetmap.org/viewtopic.php?id=15080
+93.135.225.0	hnrv	120425:23	Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/534.10 (KHTML, like Gecko) Iron/8.0.555.0 Chrome/8.0.555.0 Safari/534.10	NONE
+92.75.43.90	hnrv	120426:07	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.43.90	hnrv	120426:07	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+217.6.249.162	hnrv	120426:08	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://forum.openstreetmap.org/viewtopic.php?pid=238155
+92.75.43.90	hnrv	120426:11	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+134.61.11.207	hnrv_stat	120426:11	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.207	hnrv	120426:11	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+DNT95..31	hnrv	120426:12	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+DNT95..31	hnrv	120426:12	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+208.80.194.27	bp_i	120426:12	Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.0; Windows NT 5.1; YPC 3.0.1; IEMB3; IEMB3)	NULL
+188.110.116.102	hnrv	120426:12	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	NONE
+217.6.201.93	hnrv	120426:12	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; InfoPath.1)	http://forum.openstreetmap.org/viewtopic.php?id=15080
+217.6.201.93	hnrv	120426:12	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; InfoPath.1)	http://forum.openstreetmap.org/viewtopic.php?id=15080
+79.243.199.129	hnrv	120426:13	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	http://www.openstreetmap.org/browse/changesets?bbox=10.8278,53.1986,10.9766,53.2507&page=2
+87.173.196.161	hnrv	120426:13	Opera/9.80 (Windows NT 6.1; U; de) Presto/2.10.229 Version/11.61	http://forum.openstreetmap.org/viewtopic.php?id=15080
+217.91.239.143	hnrv	120426:13	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	http://www.openstreetmap.org/browse/changesets?bbox=7.7062,49.4103,7.8105,49.4614&page=2
+DNT95..31	hnrv	120426:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT153..2	hnrv	120426:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+DNT95..31	hnrv	120426:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+92.75.43.90	hnrv	120426:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT88..86	hnrv	120426:14	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+62.226.62.30	hnrv	120426:14	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	http://www.openstreetmap.org/browse/changesets?bbox=6.049899,51.809774,6.055977,51.811744
+62.226.62.30	hnrv	120426:14	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/
+62.226.62.30	hnrv	120426:14	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=18&lat=6765260.09658&lon=676231.19398&layers=B0TTTT
+62.158.102.230	hnrv	120426:14	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.165 Safari/535.19	http://www.openstreetmap.org/browse/changesets?bbox=12.48952,51.11847,12.51208,51.12937
+DNT91..48	hnrv	120426:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+DNT91..48	hnrv	120426:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+DNT91..48	hnrv	120426:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+134.61.11.207	hnrv_stat	120426:15	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+92.244.36.122	hnrv	120426:15	Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)	NONE
+92.244.36.122	hnrv	120426:15	Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)	NONE
+92.244.36.122	hnrv	120426:15	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT88..86	hnrv	120426:15	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+217.5.177.162	hnrv	120426:17	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB7.3; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET4.0C; .NET4.0E; OfficeLiveConnector.1.5; OfficeLivePatch.1.3)	http://wiki.openstreetmap.org/wiki/Qualitätssicherung
+DNT88..86	hnrv	120426:17	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+217.5.177.162	hnrv	120426:17	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB7.3; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET4.0C; .NET4.0E; OfficeLiveConnector.1.5; OfficeLivePatch.1.3)	http://wiki.openstreetmap.org/wiki/Qualitätssicherung
+DNT50..54	bp_add_sup	120426:18	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:12.0) Gecko/20100101 Firefox/12.0	NULL
+92.75.43.90	hnrv	120426:18	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+93.232.84.151	hnrv	120426:18	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)	http://wiki.openstreetmap.org/wiki/Qualitätssicherung
+84.157.149.157	hnrv	120426:19	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT93..41	hnrv	120426:20	Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+89.204.155.229	hnrv_stat	120426:20	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.155.229	hnrv_stat	120426:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+92.75.43.90	hnrv	120426:23	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+188.110.116.102	hnrv	120426:23	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	NONE
+DNT93..41	hnrv	120427:07	Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+217.91.239.143	hnrv	120427:07	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+59.145.148.242	bp_i	120427:08	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NULL
+59.145.148.242	bp_add_i	120427:08	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NULL
+DNT82..11	hnrv	120427:08	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+79.244.52.167	hnrv	120427:08	Mozilla/5.0 (Windows NT 6.0) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	NONE
+188.110.169.192	hnrv	120427:10	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+89.204.153.138	hnrv_stat	120427:10	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+134.61.11.207	hnrv_stat	120427:11	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+212.90.151.27	hnrv	120427:12	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:13.0) Gecko/20100101 Firefox/13.0	http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator
+217.5.177.162	hnrv	120427:12	Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB7.3; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET4.0C; .NET4.0E; OfficeLiveConnector.1.5; OfficeLivePatch.1.3)	http://wiki.openstreetmap.org/wiki/Qualitätssicherung
+84.157.134.137	hnrv	120427:13	Mozilla/5.0 (Windows NT 5.1; rv:10.0) Gecko/20100101 Firefox/10.0	NONE
+84.157.134.137	hnrv	120427:13	Mozilla/5.0 (Windows NT 5.1; rv:10.0) Gecko/20100101 Firefox/10.0	NONE
+84.157.134.137	hnrv	120427:13	Mozilla/5.0 (Windows NT 5.1; rv:10.0) Gecko/20100101 Firefox/10.0	NONE
+188.110.169.192	hnrv	120427:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+134.61.11.207	hnrv	120427:13	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+DNT217.93	hnrv	120427:14	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+122.105.142.86	bp_add_sup	120427:14	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	NULL
+195.190.15.15	hnrv	120427:14	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)	http://www.openstreetmap.org/browse/changesets?bbox=16.64756,48.71773,16.69382,48.74066
+188.110.169.192	hnrv	120427:14	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT217.74	hnrv	120427:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+DNT217.74	hnrv	120427:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+DNT217.74	hnrv	120427:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+DNT217.74	hnrv	120427:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+DNT92..09	hnrv	120427:16	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT62..11	hnrv	120427:16	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT62..11	hnrv	120427:16	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+188.110.169.192	hnrv	120427:17	Mozilla/5.0 (Linux; U; Android 3.2; de-de; LIFETAB_P9514 Build/HTJ85B) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13	http://gulp21.bplaced.net/osm/housenumbervalidator.html?zoom=18&lat=6678372.03867&lon=875512.28823&layers=B
+84.171.96.59	hnrv	120427:17	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=9.308,48.6,10.142,48.987&page=4
+188.110.169.192	hnrv	120427:18	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+188.110.169.192	hnrv	120427:18	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT93..16	hnrv	120427:18	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+95.208.193.132	hnrv	120427:18	Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	http://www.google.de/reader/view/
+66.249.71.74	ghp	120427:19	Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)	NONE
+82.113.119.193	hnrv_stat	120427:19	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+DNT84..32	hnrv	120427:19	Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+79.214.169.161	hnrv	120427:20	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+93.232.94.98	hnrv	120427:21	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)	http://wiki.openstreetmap.org/wiki/Qualitätssicherung
+79.213.89.225	hnrv	120427:21	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/534.55.3 (KHTML, like Gecko) Version/5.1.5 Safari/534.55.3	http://www.openstreetmap.org/browse/changesets?bbox=10.874598,53.138568,10.879292,53.141052&page=3
+93.104.98.238	hnrv	120427:22	Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/20100101 Firefox/10.0.2	http://www.openstreetmap.org/browse/changesets?bbox=11.43669,48.14336,11.50167,48.16904
+DNT92..09	hnrv	120427:22	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+82.113.119.193	hnrv_stat	120427:23	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+208.80.194.30	bp_i	120428:00	Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; University of Leicester; .NET CLR 1.1.4322; .NET CLR 2.0.50727)	NULL
+DNT217.74	hnrv	120428:06	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+DNT109.55	bp_dart_a	120428:08	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; NP06)	NULL
+62.158.106.228	hnrv	120428:08	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.165 Safari/535.19	http://www.openstreetmap.org/browse/changesets?bbox=12.47959,51.11507,12.52023,51.13327
+94.216.38.73	hnrv	120428:08	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+109.90.227.104	hnrv	120428:10	Opera/9.80 (Windows NT 6.1; WOW64; U; de) Presto/2.10.229 Version/11.62	NONE
+DNT178.79	hnrv	120428:12	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+94.216.38.73	hnrv	120428:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+108.195.20.139	bp_add_sup	120428:14	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	NULL
+217.95.182.43	hnrv	120428:15	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	http://www.openstreetmap.org/browse/changesets?bbox=14.0579,51.69564,14.13232,51.72141
+217.95.182.43	dart_de	120428:15	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	http://gulp21.bplaced.net/osm/housenumbervalidator/
+62.21.36.192	hnrv	120428:16	Opera/9.80 (Windows NT 6.1; WOW64; U; Edition Campaign 21; pl) Presto/2.10.229 Version/11.62	http://www.openstreetmap.org/browse/changesets?bbox=16.93282,52.37894,16.95142,52.38483
+DNT195.29	hnrv	120428:19	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+62.40.147.170	hnrv	120428:19	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=16.33481,48.30842,16.40798,48.33328
+62.40.147.170	ghp	120428:19	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko/20100101 Firefox/11.0	http://gulp21.bplaced.net/osm/housenumbervalidator/
+178.6.23.99	hnrv	120428:19	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+94.216.38.73	hnrv	120428:20	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+94.216.38.73	hnrv	120428:23	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT206.81	bp_add_sup	120429:02	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	NULL
+DNT91..25	hnrv	120429:07	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+79.232.59.51	hnrv	120429:07	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	http://www.openstreetmap.org/browse/changesets?bbox=12.5555,47.8548,12.7044,47.9111&page=2
+94.216.39.12	hnrv	120429:08	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+89.24.157.146	hnrv	120429:10	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0) Gecko/20100101 Firefox/5.0	http://www.openstreetmap.org/browse/changesets?bbox=16.6005,49.1858,16.62582,49.19399
+91.60.65.192	hnrv	120429:12	Mozilla/5.0 (X11; U; Linux x86_64; de; rv:1.9.1.19) Gecko/20110430 Iceweasel/3.5.19 (like Firefox/3.5.19)	http://www.openstreetmap.org/browse/changesets?bbox=8.659,51.8388,9.1015,52.0062
+91.60.65.192	hnrv	120429:12	Mozilla/5.0 (X11; U; Linux x86_64; de; rv:1.9.1.19) Gecko/20110430 Iceweasel/3.5.19 (like Firefox/3.5.19)	http://www.openstreetmap.org/browse/changesets?bbox=8.659,51.8388,9.1015,52.0062
+79.194.242.5	hnrv	120429:13	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+79.194.242.5	hnrv	120429:13	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+87.142.23.11	hnrv	120429:13	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; LEN2)	http://www.openstreetmap.org/browse/changesets?bbox=11.1003,47.9962,11.398,48.1172&page=2
+79.194.242.5	hnrv	120429:13	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+62.47.22.47	hnrv	120429:15	Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	http://www.openstreetmap.org/browse/changeset/11448132
+79.194.242.5	hnrv	120429:15	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	http://www.openstreetmap.org/browse/changeset/11448132
+94.216.39.12	hnrv	120429:15	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+62.47.22.47	hnrv	120429:15	Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19	http://www.openstreetmap.org/browse/changeset/11448132
+DNT217.29	hnrv	120429:17	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+DNT93..10	hnrv	120429:18	Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+DNT93..10	hnrv	120429:18	Mozilla/5.0 (Windows NT 6.1; rv:13.0) Gecko/20100101 Firefox/13.0	DNT
+91.53.232.247	hnrv	120429:20	Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+91.53.232.247	dart_de	120429:20	Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/
+80.187.106.198	hnrv	120429:21	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)	NONE
+89.204.138.238	bp_i	120429:22	Opera/9.80 (Android 2.3.1; Linux; Opera Tablet/ADR-1204201824; U; de) Presto/2.10.254 Version/12.00	NULL
+89.204.138.238	bp_add_i	120429:22	Opera/9.80 (Android 2.3.1; Linux; Opera Tablet/ADR-1204201824; U; de) Presto/2.10.254 Version/12.00	NULL
+89.204.138.238	hnrv_stat	120429:22	Opera/9.80 (Android 2.3.1; Linux; Opera Tablet/ADR-1204201824; U; de) Presto/2.10.254 Version/12.00	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Android 2.3.1; Linux; Opera Tablet/ADR-1204201824; U; de) Presto/2.10.254 Version/12.00	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+93.104.105.245	hnrv	120429:22	Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/20100101 Firefox/10.0.2	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.138.238	hnrv	120429:22	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+208.80.194.30	bp_i	120430:00	Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; FunWebProducts; HbTools 4.8.4; yplus 5.1.02b)	NULL
+207.46.199.24	bp_i	120430:04	Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b	NULL
+188.110.173.124	hnrv	120430:07	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+93.198.212.148	hnrv	120430:08	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	http://www.openstreetmap.org/browse/changeset/11451152
+DNT87..71	hnrv	120430:09	Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+DNT212.53	bp_noun	120430:10	Mozilla/5.0 (X11; Linux i686; rv:12.0) Gecko/20100101 Firefox/12.0 Iceweasel/12.0	NULL
+89.204.153.5	hnrv_stat	120430:10	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.153.5	hnrv	120430:10	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.153.5	hnrv	120430:10	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+89.204.153.5	hnrv	120430:10	Mozilla/5.0 (Windows NT 6.0; WOW64; rv:10.0.2) Gecko/20100101 Firefox/10.0.2	NONE
+134.61.11.207	hnrv	120430:11	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.207	hnrv	120430:11	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+147.142.85.37	hnrv	120430:11	Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=13.909868,51.09032,13.919169,51.09342&page=2
+134.61.11.207	hnrv_stat	120430:12	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+85.176.151.135	hnrv	120430:12	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://www.openstreetmap.org/browse/way/114978354/history
+134.61.11.207	hnrv	120430:12	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.207	hnrv_stat	120430:13	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	http://gulp21.bplaced.net/osm/housenumbervalidator/
+DNT178.89	hnrv	120430:13	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+188.110.173.124	hnrv	120430:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+188.110.173.124	hnrv	120430:13	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+134.61.11.207	hnrv	120430:14	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.207	hnrv	120430:14	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.225	hnrv	120430:15	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+DNT178.89	hnrv	120430:16	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+DNT91..34	hnrv	120430:16	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+134.61.11.225	hnrv	120430:16	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.225	hnrv_stat	120430:16	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	http://gulp21.bplaced.net/osm/housenumbervalidator/
+134.61.11.225	hnrv_stat	120430:19	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+134.61.11.225	hnrv	120430:19	Opera/9.80 (X11; Linux i686; U; en) Presto/2.10.229 Version/11.61	NONE
+188.110.173.124	hnrv	120430:19	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+188.100.40.188	hnrv	120430:20	Opera/9.80 (Android 2.3.4; Linux; Opera Mobi/ADR-1204201824; U; de) Presto/2.10.254 Version/12.00	http://wiki.openstreetmap.org/wiki/Talk:Niederrhein/Viersen/Stammtisch/Status
+188.100.40.188	hnrv	120430:20	Opera/9.80 (Android 2.3.4; Linux; Opera Mobi/ADR-1204201824; U; de) Presto/2.10.254 Version/12.00	http://wiki.openstreetmap.org/wiki/Talk:Niederrhein/Viersen/Stammtisch/Status
+93.232.112.26	hnrv	120430:20	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)	http://wiki.openstreetmap.org/wiki/Qualitätssicherung
+DNT93..48	hnrv	120430:20	Mozilla/5.0 (Windows NT 6.1; rv:13.0) Gecko/20100101 Firefox/13.0	DNT
+80.121.28.224	hnrv	120430:21	Mozilla/5.0 (Linux; U; Android 3.2; de-at; LIFETAB_P9514 Build/HTJ85B) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13	NONE
+DNT188.88	hnrv	120430:21	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+93.232.112.26	hnrv	120430:21	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)	http://gulp21.bplaced.net/osm/housenumbervalidator/
+79.224.10.127	hnrv	120430:22	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	http://www.openstreetmap.org/user/gulp21/edits
+79.224.10.127	hnrv	120430:22	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/11.10 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19	http://www.openstreetmap.org/browse/changeset/11461987
+DNT188.88	hnrv	120430:23	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+DNT188.88	hnrv	120430:23	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	DNT
+DNT188.88	hnrv	120430:23	Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+DNT178.78	hnrv	120430:23	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+84.44.178.200	hnrv	120430:23	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/12.04 Chromium/18.0.1025.162 Chrome/18.0.1025.162 Safari/535.19	http://forum.openstreetmap.org/viewtopic.php?id=15080
+31.16.154.234	hnrv	120501:00	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:11.0) Gecko/20100101 Firefox/11.0	http://www.openstreetmap.org/browse/changesets?bbox=9.602432,50.001777,9.60845,50.004974&page=3
+DNT91..34	hnrv	120501:06	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+178.2.18.80	hnrv	120501:07	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+80.239.242.207	hnrv_stat	120501:09	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+80.239.242.207	hnrv	120501:10	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+144.124.121.12	hnrv	120501:11	Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)	http://www.openstreetmap.org/browse/changesets?bbox=7.988482,50.264223,7.996668,50.267498&page=5
+82.83.230.153	hnrv	120501:13	Mozilla/5.0 (Windows NT 5.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2	http://www.openstreetmap.org/browse/changeset/11451152
+82.83.230.153	dart_de	120501:14	Mozilla/5.0 (Windows NT 5.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2	http://gulp21.bplaced.net/osm/housenumbervalidator/
+82.83.230.153	ghp_de	120501:14	Mozilla/5.0 (Windows NT 5.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2	http://gulp21.github.com/
+82.83.230.153	hnrv_stat	120501:14	Mozilla/5.0 (Windows NT 5.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2	http://forum.openstreetmap.org/viewtopic.php?id=12669&p=2
+DNT82..53	hnrv	120501:14	Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0	NONE
+178.13.69.83	hnrv	120501:14	Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.168 Safari/535.19	NONE
+178.2.18.80	hnrv	120501:14	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+178.2.18.80	hnrv_stat	120501:14	Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20100101 Firefox/12.0	http://gulp21.bplaced.net/osm/housenumbervalidator/?zoom=14&lat=6091402.00426&lon=1299330.91937&layers=B0TTTT
+DNT91..55	hnrv	120501:15	Mozilla/5.0 (X11; Linux x86_64; rv:10.0.4) Gecko/20100101 Firefox/10.0.4 Iceweasel/10.0.4	DNT
+88.152.145.49	hnrv	120501:16	Mozilla/5.0 (iPod; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3	http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator
+DNT217.60	hnrv	120501:16	Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0	DNT
+217.232.66.212	hnrv	120501:16	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0	NONE
+80.239.242.143	hnrv_stat	120501:16	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
+80.239.242.143	hnrv	120501:16	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	http://gulp21.bplaced.net/osm/housenumbervalidator/stat.php
+80.239.242.143	hnrv_stat	120501:17	Opera/9.80 (Windows NT 6.0; WOW64; U; Edition Campaign 21; de) Presto/2.10.229 Version/11.62	NONE
