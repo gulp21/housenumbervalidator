@@ -40,7 +40,7 @@
 	<p style="color:red;font-size:20px;max-width:80%">Ihr Browser ist sehr alt, unsicher und langsam!</p>
 	<![endif]-->
 	<!--[if lt IE 9]>
-	<p style="font-size:20px;max-width:80%">Sie benutzen eine alte Version des Internet Explorers langsam ist und nicht in der Lage ist, diese und andere Webseiten richtig darzustellen.<br/>
+	<p style="font-size:20px;max-width:80%">Sie benutzen eine alte Version des Internet Explorers, die langsam ist und nicht in der Lage ist, diese und andere Webseiten richtig darzustellen.<br/>
 	Laden Sie sich <a href="http://www.microsoft.com/windows/internet-explorer/" target="_blank">die aktuelle Version des Internet Explorers</a> kostenlos herunter, benutzen Sie einen anderen kostenlosen Browser, z.B. <a href="http://www.mozilla.org/firefox/" target="_blank">Mozilla Firefox</a> oder <a href="http://www.google.com/chrome/" target="_blank">Google Chrome</a> oder installieren Sie ein anderes Betriebssystem, z.B. das freie <a href="http://ubuntuusers.de" target="_blank">Ubuntu</a>.</p>
 	<![endif]-->
 	

@@ -15,6 +15,11 @@
 	
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	
+	TODO
+	addr:housename is a number
+	Hier wäre es m.E. sinnvoll, Abweichungen in :city, :postcode, :country zu ignorieren, wenn beide Objekte höchstens einen bestimmten Abstand voneinander aufweisen. (Bahnhofstraße 1 in 12345 Pusemuckel und Bahnhofstraße 1 ohne Ort und PLZ sind in Ordnung, wenn mindestens $(heuristischer Wert) auseinander.) (Oli-Wan)
+	
 */
 
 #include <iostream>
@@ -348,7 +353,7 @@ bool isComplete(housenumber &hnr) {
 	}
 	
 	if( ( bCheckStreetSuffix && (hnr.street.endsWith("str") || hnr.street.contains("str.") || hnr.street.endsWith("Str") || hnr.street.contains("Str.")) )
-           || ( hnr.street.length()>0 && !hnr.street[0].isUpper() && !hnr.street.contains(QRegExp("[0-9](\\.|e)")) && !hnr.street.startsWith("an") && !hnr.street.startsWith("am") && !hnr.street.startsWith("van") && !hnr.street.startsWith("von") ) ) {
+           || ( hnr.street.length()>0 && !hnr.street[0].isUpper() && !hnr.street.contains(QRegExp("[0-9](\\.|e)")) && !hnr.street.startsWith("an") && !hnr.street.startsWith("am") && !hnr.street.startsWith("van") && !hnr.street.startsWith("von") && !hnr.street.startsWith("vom") ) ) {
 		broken|=street;
 	}
 	

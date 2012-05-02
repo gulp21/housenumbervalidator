@@ -243,7 +243,7 @@
 	<p style="color:red;font-size:20px;max-width:80%">Ihr Browser ist sehr alt, unsicher und langsam!</p>
 	<![endif]-->
 	<!--[if lt IE 9]>
-	<p style="font-size:20px;max-width:80%">Sie benutzen eine alte Version des Internet Explorers langsam ist und nicht in der Lage ist, diese und andere Webseiten richtig darzustellen.<br/>
+	<p style="font-size:20px;max-width:80%">Sie benutzen eine alte Version des Internet Explorers, die langsam ist und nicht in der Lage ist, diese und andere Webseiten richtig darzustellen.<br/>
 	Laden Sie sich <a href="http://www.microsoft.com/windows/internet-explorer/" target="_blank">die aktuelle Version des Internet Explorers</a> kostenlos herunter, benutzen Sie einen anderen kostenlosen Browser, z.B. <a href="http://www.mozilla.org/firefox/" target="_blank">Mozilla Firefox</a> oder <a href="http://www.google.com/chrome/" target="_blank">Google Chrome</a> oder installieren Sie ein anderes Betriebssystem, z.B. das freie <a href="http://ubuntuusers.de" target="_blank">Ubuntu</a>.</p>
 	<![endif]-->
 	
@@ -266,7 +266,9 @@
 				new OpenLayers.Control.LayerSwitcher({'ascending':false}),
 				new OpenLayers.Control.Permalink(),
 				new OpenLayers.Control.Attribution()
-			]
+			],
+			projection: new OpenLayers.Projection("EPSG:900913"),
+			displayProjection: new OpenLayers.Projection("EPSG:4326")
 		});
 		
 		var mapnikMap = new OpenLayers.Layer.OSM.Mapnik("Mapnik",
@@ -285,6 +287,7 @@
 		map.addLayer(mapquestMap);
 		
 		var dupes = new OpenLayers.Layer.Vector("Dupes", {
+			projection: map.displayProjection,
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
 			protocol: new OpenLayers.Protocol.HTTP({
 				url: "./get_dupes.php",
@@ -295,6 +298,7 @@
 		
 		
 		var probl = new OpenLayers.Layer.Vector("Problematic", {
+			projection: map.displayProjection,
 			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
 			protocol: new OpenLayers.Protocol.HTTP({
 				url: "./get_problematic.php",
@@ -405,6 +409,11 @@
 				document.getElementById('reportframe').style.display='block';
 			}
 		}
+		
+		function openOsmi() {
+			var position = map.getCenter().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
+			var osmiWindow = window.open("http://tools.geofabrik.de/osmi/?view=addresses&lon="+position.lon+"&lat="+position.lat+"&zoom="+map.getZoom()+"&overlays=postal_code,no_addr_street,street_not_found,interpolation,interpolation_errors,connection_lines,nearest_points,nearest_roads").focus();
+		}
 	</script>
 	
 	<div id="footer">
@@ -452,7 +461,7 @@
 	?>
 	&dash; <a href="stat.php" target="_blank">mehr Statistiken</a>
 	<br/>
-	<span style="font-weight:bold">Maximal 1800 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span>
+	<span style="font-weight:bold">Maximal 1800 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span> <a href="#" onclick="javascript:openOsmi()">im OSMI anzeigen</a>
 	<br/>
 	Duplikate: <img src="pin_red.png" alt="red square"/> Nodes, <img src="pin_blue.png" alt="blue square"/> Ways &dash;
 	Problematisch: <img src="pin_circle_red.png" alt="red circle"/> Stra&szlig;e, <img src="pin_circle_blue.png" alt="blue circle"/> Anderes &dash;
