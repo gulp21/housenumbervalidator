@@ -93,6 +93,7 @@
 			else if(t.x==Date.UTC(2012,3,4)) annotation="<br/><b>Datenbank read-only<b>";
 			else if(t.x==Date.UTC(2012,3,29)) annotation="<br/><b>Katasterimport Kreis Viersen<b>";
 			else if(t.x==Date.UTC(2012,3,30)) annotation="<br/><b>Katasterimport Kreis Viersen<b>";
+			else if(t.x==Date.UTC(2012,4,03)) annotation="<br/><b>Algorithmuskorrektur<b>";
 			return Highcharts.dateFormat('%e. %b %y', t.x) + ': ' + t.y + annotation;
 		};
 		$(document).ready(function() {
