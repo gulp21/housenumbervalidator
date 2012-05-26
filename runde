@@ -101,23 +101,25 @@ function combine {
 	rm broken.txt
 	rm log.txt
 	
+	path=`echo ~/Dokumente/GitHub/housenumbervalidator`
+	
 	for land in "baden-wuerttemberg" "bayern" "berlin" "brandenburg" "bremen" "hamburg" "hessen" "nordrhein-westfalen" "mecklenburg-vorpommern" "niedersachsen" "rheinland-pfalz" "saarland" "sachsen" "sachsen-anhalt" "schleswig-holstein" "thueringen" "austria"
 	do
 		echo $land...
 		if [ ! $land == "austria" ]; then
-			tail ../$land/dupes.txt -n +2 >> dupes.txt
-			tail ../$land/broken.txt -n +2 >> broken.txt
+			tail $path/$land/dupes.txt -n +2 >> dupes.txt
+			tail $path/$land/broken.txt -n +2 >> broken.txt
 		fi
 		echo $land >> log.txt
-		cat ../$land/log.txt >> log.txt
+		cat $path/$land/log.txt >> log.txt
 		echo "" >> log.txt
 	done
 	
-	grep -v -P "\tBE\t|\tDK\t|\tFR\t|\tLU\t|\tNL\t|\tCH\t|\tAT\t|\tPL\t|\tCZ\t" broken.txt | grep -v --file=../html/reports.txt > brok
+	grep -v -P "\tBE\t|\tDK\t|\tFR\t|\tLU\t|\tNL\t|\tCH\t|\tAT\t|\tPL\t|\tCZ\t" broken.txt | grep -v --file=$path/html/reports.txt > brok
 	echo $((`cat broken.txt | wc -l`-`cat brok | wc -l`)) foreign lines removed
 	mv brok broken.txt
 	
-	grep dupes.txt -v --file=../html/reports.txt > dupes
+	grep dupes.txt -v --file=$path/html/reports.txt > dupes
 	mv dupes dupes.txt
 	
 	echo Dupes:
@@ -126,8 +128,8 @@ function combine {
 	wc -l broken.txt
 	
 	echo Merging with austria...
-	tail ../austria/dupes.txt -n +2 >> dupes.txt
-	tail ../austria/broken.txt -n +2 >> broken.txt
+	tail $path/austria/dupes.txt -n +2 >> dupes.txt
+	tail $path/austria/broken.txt -n +2 >> broken.txt
 }
 
 function delete {
