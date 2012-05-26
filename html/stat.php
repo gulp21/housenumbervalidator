@@ -81,7 +81,7 @@
 	
 	$(function () {
 		var chart1, chart2, chart3, piechart1, piechart2, chart4;
-		var lastUpdate='4. Jan 12 \u2013 1. May 12';
+		var lastUpdate='4. Jan 12 \u2013 26. May 12';
 		function formatter(t) {
 			annotation="";
 			if(t.x==Date.UTC(2012,1,20)) annotation="<br/><b>Algorithmusänderung<b>";
@@ -470,42 +470,42 @@
 					data: [
 						{
 							name: 'Firefox',
-							y: 918,
+							y: 1359,
 							color: 'tomato',
 						},
 						{
 							name: 'Opera',
-							y: 166,
+							y: 221,
 							color: 'maroon',
 						},
 						{
 							name: 'Chrome',
-							y: 146,
+							y: 176,
 							color: 'forestgreen',
 						},
 						{
 							name: 'IE',
-							y: 58,
+							y: 101,
 							color: 'dodgerblue',
 						},
 						{
 							name: 'Konqueror',
-							y: 35,
+							y: 40,
 							color: 'royalblue',
 						},
 						{
 							name: 'Bot',
-							y: 21,
+							y: 23,
 							color: 'silver',
 						},
 						{
 							name: 'Safari',
-							y: 14,
+							y: 23,
 							color: 'lightgray',
 						},
 						{
 							name: 'Mobile',
-							y: 14,
+							y: 19,
 							color: 'yellowgreen',
 						},
 					]
@@ -549,27 +549,27 @@
 					data: [
 						{
 							name: 'Windows',
-							y: 649,
+							y: 1041,
 							color: 'royalblue',
 						},
 						{
 							name: 'Linux',
-							y: 619,
+							y: 795,
 							color: 'goldenrod',
 						},
 						{
 							name: 'MacOSX',
-							y: 70,
+							y: 78,
 							color: 'dimgray',
 						},
 						{
 							name: 'Bot',
-							y: 21,
+							y: 23,
 							color: 'silver',
 						},
 						{
 							name: 'Mobile',
-							y: 14,
+							y: 19,
 							color: 'yellowgreen',
 						},
 					]
@@ -628,20 +628,23 @@
 					type: 'spline',
 					yAxis: 0,
 					data: [
-					[Date.UTC(2012,0,10),15.5],
-					[Date.UTC(2012,0,20),9.9],
-					[Date.UTC(2012,1,1),8],
+					[Date.UTC(2012,0,10),20.3],
+					[Date.UTC(2012,0,20),11.0],
+					[Date.UTC(2012,1,1),6.6],
 					[Date.UTC(2012,1,10),5.1],
-					[Date.UTC(2012,1,20),6.7],
-					[Date.UTC(2012,2,1),14.8],
-					[Date.UTC(2012,2,10),5.6],
-					[Date.UTC(2012,2,20),12.1],
-					[Date.UTC(2012,3,1),13.3],
-					[Date.UTC(2012,3,10),7.7],
-					[Date.UTC(2012,3,20),13.8],
-					[Date.UTC(2012,4,1),25.1],
-// 					[Date.UTC(2012,4,10),0,],
-// 					[Date.UTC(2012,4,20),0,],
+					[Date.UTC(2012,1,20),10.1],
+					[Date.UTC(2012,2,1),11.5],
+					[Date.UTC(2012,2,10),5.7],
+					[Date.UTC(2012,2,20),12.2],
+					[Date.UTC(2012,3,1),13.2],
+					[Date.UTC(2012,3,10),8.4],
+					[Date.UTC(2012,3,20),14.8],
+					[Date.UTC(2012,4,1),25.5],
+					[Date.UTC(2012,4,10),25.7],
+					[Date.UTC(2012,4,20),17.2],
+// 					[Date.UTC(2012,5,1),12.6],
+// 					[Date.UTC(2012,5,10),12.6],
+// 					[Date.UTC(2012,5,20),0],
 					]
 				}]
 			});
