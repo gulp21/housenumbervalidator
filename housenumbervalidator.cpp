@@ -336,10 +336,6 @@ bool isComplete(housenumber &hnr) {
 	
 	if(hnr.ignore) return false;
 	
-// 	if(hnr.isWay) {
-// 		vGetLatLonForWay(hnr.lat, hnr.lon, hnr.nodeId, treeNodes);
-// 	}
-	
 	if(hnr.lat==0 || hnr.lon==0) return false;
 	
 	int broken=0;
