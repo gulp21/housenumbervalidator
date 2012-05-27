@@ -1,0 +1,9 @@
+//./housenumbervalidator input.osm.hnr.osm -ac=DE -cpn -css -iih -cpc=5
+lat	lon	id	type	broken	name	country	city	postcode	street	number
+56.20055070	6.68804710	-67	0	4	 	DE	NeussNULL	-1230	Niederstraße	21
+51.20055760	6.68800440	749379193	0	10	 	DE	1euss	12345	caputt Str.	21
+51.20055760	6.68800440	549345693	0	8	 	DE	Neuss	12345	11. Str.	21
+51.20058760	6.68800440	745379198	0	8	 	DE	Neuss	12345	Niederstr	21
+51.20058760	6.68805440	745379200	0	13	 	1E	Neuss	D-12345	Niederstr.	21
+51.20058760	6.68805440	745379290	0	3	 	D	123	12345	Niederstraße	21
+51.20058760	6.68805440	745377200	0	12	 	DE	Neuss	123456	Niederstr.	21

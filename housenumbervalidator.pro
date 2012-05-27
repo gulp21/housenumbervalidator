@@ -10,3 +10,5 @@ QT += xml
 
 # Input
 SOURCES += housenumbervalidator.cpp
+SOURCES += HouseNumber.cpp
+HEADERS += HouseNumber.h

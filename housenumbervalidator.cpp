@@ -1,5 +1,5 @@
 /*
-	v0.4-120526
+	v0.5-120527
 	
 	Copyright (C) 2012 Markus Brenneis
 	
@@ -31,6 +31,8 @@
 #include <QStringList>
 #include <QTime>
 
+#include "HouseNumber.h"
+
 using namespace std;
 
 struct binTree;
@@ -38,32 +40,6 @@ struct binTree;
 typedef binTree* pBinTree;
 
 struct housenumber;
-
-struct housenumber {
-	double lat, lon;
-	int id;
-	bool ignore, isWay, isHnr;
-	QString name, shop, number, street, postcode, city, country, nodeId;
-	pBinTree dupe;
-};
-
-struct binTree {
-	pBinTree left;
-	pBinTree right;
-	double lat, lon;
-	int id;
-	bool ignore, isWay;
-	QString address;
-	pBinTree dupe;
-};
-
-enum enBrokenKey {
-	country=1,
-	city=2,
-	postcode=4,
-	street=8,
-	number=16
-};
 
 QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.osm";
 bool bIgnoreFixme=true, bIgnoreNote=true, bIgnoreCityHint=false, bCheckPostcodeNumber=false, bCheckStreetSuffix=false, bLog=false;
@@ -110,7 +86,7 @@ int main(int argc, const char* argv[]) {
 		
 		filename=QString(argv[1]);
 		
-		for(int i=2; i<argc; i++){
+		for(int i=2; i<argc; ++i){
 			if(QString(argv[i])=="-nif" || QString(argv[i])=="--not-ignore-fixme") bIgnoreFixme=false;
 			else if(QString(argv[i])=="-nin" || QString(argv[i])=="--not-ignore-note") bIgnoreNote=false;
 			/*else if(QString(argv[i])=="-in" or QString(argv[i])=="--ignore-note") ignorenote=TRUE;
@@ -181,7 +157,7 @@ int main(int argc, const char* argv[]) {
 	brokenStream.setCodec("UTF-8");
 	brokenStream << "lat\tlon\tid\ttype\tbroken\tname\tcountry\tcity\tpostcode\tstreet\tnumber\n";
 	
-	housenumber hnr;
+	HouseNumber hnr;
 	
 // 	if(lines==9200594) qDebug() << "NOTE: You have to set the 'lines=N' options by hand in order to get sensible progress information";
 	if(!filename.endsWith(".hnr.osm")) qDebug() << "NOTE: Version 0.4+ supports nodes only, you should execute ' ./filter" << filename << "' first.";
@@ -193,96 +169,67 @@ int main(int argc, const char* argv[]) {
 		//if there is a new node
 		if(line.contains("<node")) {
 			// reset
-			hnr.city="";
-			hnr.country="";
-			hnr.dupe=NULL;
-			hnr.id=0;
-			hnr.ignore=false;
-			hnr.isHnr=false;
-			hnr.isWay=false;
-			hnr.lat=0;
-			hnr.lon=0;
-			hnr.name="";
-			hnr.nodeId="";
-			hnr.number="";
-			hnr.postcode="";
-			hnr.shop="";
-			hnr.street="";
+			hnr=new HouseNumber();
 			
 			QString id=line;
 			// NOTE: QRegExp seems to be extremly slow, so we don't use .* here
-			id.replace("\n", "");			//remove newline
+			id.replace("\n", ""); //remove newline
 			qint64 id64=id.split(QRegExp("[\"']"))[1].toLongLong();
 			
 			if(id64>999999999999900) {
-				hnr.isWay=true;
-				hnr.id=id64-1000000000000000;
+				hnr->setIsWay(true);;
+				hnr->setId(id64-1000000000000000);
 			} else {
-				hnr.id=id64;
+				hnr->setId(id64);
 			}
 			
 			if(line.contains("lat"))
-				hnr.lat=line.split("lat")[1].split(QRegExp("[\"']"))[1].toDouble();
+				hnr->setLat(line.split("lat")[1].split(QRegExp("[\"']"))[1].toDouble());
 			
 			if(line.contains("lon"))
-				hnr.lon=line.split("lon")[1].split(QRegExp("[\"']"))[1].toDouble();
-			
-// 			if(line.contains("/>") && !hnr.isWay) { // no children
-// 				insertNode(hnr);
-// 			}
+				hnr->setLon(line.split("lon")[1].split(QRegExp("[\"']"))[1].toDouble());
 		
 		// if there is the end of the node
 		} else if(line.contains("</node")) {
 			
-			if(isComplete(hnr)) {
-				pBinTree pHnr;
-				pHnr = new binTree;
-				housenumberToBinTree(hnr, pHnr);
-				insert(pHnr, treeHousenumbers);
-// 				if(!pHnr->isWay) {
-// 					pBinTree pHnr2;
-// 					pHnr2 = new binTree;
-// 					nodeToBinTree(hnr, pHnr2);
-// 					insert(pHnr2, treeNodes);
-// 				}
-			} else {
-// 				if(line.contains("</node")) {
-// 					insertNode(hnr);
-// 				}
-				//qDebug() << "There is something wrong with this element";
-				//qDebug() << hnr.lat << hnr.lon << hnr.id << hnr.country << hnr.city << hnr.street << hnr.number << hnr.ignore;
-			} // if(isComplete)
+			if(hnr->isHouseNumer()) {
+				if(hnr->isComplete()) {
+					insert(hnr, treeHousenumbers);
+				} else {
+					insert(hnr, treeIncomplete);
+				}
+			}
 			
 		} else if(line.contains("k=\"addr:") || line.contains("k='addr:")) {
 			if(line.contains("addr:country")) {
-				hnr.country=line.split(QRegExp("[\"']"))[3];
-				hnr.isHnr=true;
-			} else if(line.contains("addr:city")){
-				hnr.city=line.split(QRegExp("[\"']"))[3];
-				if(!bIgnoreCityHint) hnr.isHnr=true;
-			} else if(line.contains("addr:postcode")){
-				hnr.postcode=line.split(QRegExp("[\"']"))[3];
-				hnr.isHnr=true;
-			} else if(line.contains("addr:street")){
-				hnr.street=line.split(QRegExp("[\"']"))[3];
-				hnr.isHnr=true;
-			//we use a given housename when there is no housenumber
-			} else if( (line.contains("addr:housenumber")) || ((line.contains("addr:housename") && hnr.number=="")) ){
-				hnr.number=line.split(QRegExp("[\"']"))[3];
-				hnr.isHnr=true;
+				hnr->setCountry(line.split(QRegExp("[\"']"))[3]);
+// 				hnr.isHnr=true;
+			} else if(line.contains("addr:city")) {
+				hnr->setCity(line.split(QRegExp("[\"']"))[3]);
+// 				if(!bIgnoreCityHint) hnr.isHnr=true;
+			} else if(line.contains("addr:postcode")) {
+				hnr->setPostcode(line.split(QRegExp("[\"']"))[3]);
+// 				hnr.isHnr=true;
+			} else if(line.contains("addr:street")) {
+				hnr->setStreet(line.split(QRegExp("[\"']"))[3]);
+// 				hnr.isHnr=true;
+			} else if(line.contains("addr:housenumber")) {
+				hnr->setNumber(line.split(QRegExp("[\"']"))[3]);
+// 				hnr.isHnr=true;
+			} else if(line.contains("addr:housename")) {
+				hnr->setHousename(line.split(QRegExp("[\"']"))[3]);
+// 				hnr.isHnr=true;
 			//interpolation lines should be ignored
-			} else if(line.contains("addr:interpolation")){
-				hnr.ignore=true;
-			} else if(line.contains("addr:housename") && hnr.name=="") {
-				hnr.name=line.split(QRegExp("[\"']"))[3];
+			} else if(line.contains("addr:interpolation")) {
+				hnr->setIgnore(true);
 			}
 		// later on, the duplicate house number check will ignore POIs with different shop/amenity/tourism tag
 		} else if( line.contains("k=\"shop\"") || line.contains("k='shop'") ||
 		           line.contains("k=\"amenity\"") || line.contains("k='amenity'") ||
 		           line.contains("k='tourism'") || line.contains("k=\"tourism\"") ) {
-			hnr.shop=line.split(QRegExp("[\"']"))[3];
+			hnr->setShop(line.split(QRegExp("[\"']"))[3]);
 		} else if( ( line.contains("k=\"name\"") || line.contains("k='name'") || line.contains("k=\"operator\"") || line.contains("k='operator'") ) && hnr.name=="") {
-			hnr.name=line.split(QRegExp("[\"']"))[3];
+			hnr->setName(line.split(QRegExp("[\"']"))[3]);
 		// ignore nodes with fixme/note
 		} else if( ( (line.contains("k=\"fixme\"", Qt::CaseInsensitive) || line.contains("k='fixme'", Qt::CaseInsensitive)) && bIgnoreFixme ) ||
 		           ( (line.contains("k=\"note\"", Qt::CaseInsensitive) || line.contains("k='note'", Qt::CaseInsensitive)) && bIgnoreNote ) ||
@@ -290,14 +237,10 @@ int main(int argc, const char* argv[]) {
 		           (line.contains("street_lamp"))
 			)
 		{
-			hnr.ignore=true;
+			hnr->setIgnore(true);
 		}
-// 		else if(line.contains("<nd") && hnr.nodeId=="") {
-// 			QString ref=line.split(QRegExp("[\"']"))[1];
-// 			hnr.nodeId=ref.right(1)+ref;
-// 		}
 		
-		lineCount++;
+		++lineCount;
 		if(lineCount%10000==0) qDebug() << lineCount <<  now.elapsed()/1000 << "seconds";
 		
 		if(lineCount%100000==0 && lines>0) {
@@ -327,72 +270,6 @@ int main(int argc, const char* argv[]) {
 	logStream << hnrCount+dupeCount << " housenumbers, " << dupeCount << " dupes, " << incompleteCount << " incomplete, " << brokenCount << " broken" << endl;
 	
 	return 0;
-}
-
-bool isComplete(housenumber &hnr) {
-	
-	if(!hnr.isHnr || hnr.id==0) return false;
-	hnrCount++;
-	
-	if(hnr.ignore) return false;
-	
-	if(hnr.lat==0 || hnr.lon==0) return false;
-	
-	int broken=0;
-	
-	if(hnr.postcode!="") {
-		if(bCheckPostcodeNumber && ( (hnr.postcode!=QString("%1").arg(hnr.postcode.toInt()) && hnr.postcode!=QString("0%1").arg(hnr.postcode.toInt()) ) || hnr.postcode.toInt()<=0) ) {
-			broken|=postcode;
-		} else if(iCheckPostcodeChars>-1 && hnr.postcode.length()!=iCheckPostcodeChars) {
-			broken|=postcode;
-		}
-	}
-	
-	if( ( bCheckStreetSuffix && (hnr.street.endsWith("str") || hnr.street.contains("str.") || hnr.street.endsWith("Str") || hnr.street.contains("Str.")) )
-           || ( hnr.street.length()>0 && !hnr.street[0].isUpper() && !hnr.street.contains(QRegExp("[0-9](\\.|e)")) && !hnr.street.startsWith("an") && !hnr.street.startsWith("am") && !hnr.street.startsWith("van") && !hnr.street.startsWith("von") && !hnr.street.startsWith("vom") ) ) {
-		broken|=street;
-	}
-	
-	if(hnr.country!="" && (hnr.country.length()!=2 || !hnr.country[0].isLetter() || !hnr.country[1].isLetter() /*|| hnr.country.toUpper()!=hnr.country*/) ) {
-		broken|=country;
-	}
-	
-	if( hnr.city.length()>0 && ( !hnr.city[0].isUpper() || hnr.city.contains("traße") ||
-	   hnr.city.endsWith("str") || hnr.city.contains("str.") || hnr.city.endsWith("Str") || hnr.city.contains("Str.") ) ) {
-		broken|=city;
-	}
-	
-	if( hnr.number.length()>0 && ( hnr.number.contains("traße") || hnr.number.endsWith("str") || hnr.number.contains("str.") || hnr.number.endsWith("Str") || hnr.number.contains("Str.") /*|| hnr.number.contains(QRegExp("[0-9]+[Aa-Zz]?,? [0-9]+[Aa-Zz]?")) || hnr.number.contains("<") || hnr.number.contains("fix", Qt::CaseInsensitive) || hnr.number.contains("unkn", Qt::CaseInsensitive)*/ ) ) {
-		broken|=number;
-	}
-	
-	if(broken!=0) {
-		brokenStream << qsGenerateBrokenOutput(hnr, broken);
-		brokenCount++;
-	}
-	
-	int missingCount=0;
-	
-	if(hnr.country=="") missingCount++;
-	if(hnr.city=="") missingCount++;
-	if(hnr.postcode=="") missingCount++;
-	if(hnr.street=="") missingCount++;
-	if(hnr.number=="") missingCount++;
-	
-	if(missingCount>0) {
-		//incompleteStream << qsGenerateIncompleteOutput(hnr, missingCount); TODO paramter
-		incompleteCount++;
-		
-		if(hnr.country=="") hnr.country=qsAssumeCountry;
-		if(hnr.city=="") hnr.city=qsAssumeCity;
-		if(hnr.postcode=="") hnr.city=qsAssumePostcode;
-		
-		if(hnr.country=="" || hnr.city=="" || hnr.postcode=="" || hnr.street=="" || hnr.number=="") {
-			return false;
-		}
-	}
-	
-	return true;
 }
 
 QString qsGenerateDupeOutput(pBinTree hnr) {
@@ -449,7 +326,7 @@ void insert(pBinTree &element, pBinTree &tree) {
 			}
 			element->dupe=tree;
 			duplicatesStream << qsGenerateDupeOutput(element);
-			dupeCount++;
+			++dupeCount;
 		}
 	}
 }
