@@ -1,5 +1,5 @@
 /*
-	v0.4-120323
+	v0.4-120526
 	
 	Copyright (C) 2012 Markus Brenneis
 	
@@ -19,6 +19,7 @@
 	TODO
 	addr:housename is a number
 	Hier wäre es m.E. sinnvoll, Abweichungen in :city, :postcode, :country zu ignorieren, wenn beide Objekte höchstens einen bestimmten Abstand voneinander aufweisen. (Bahnhofstraße 1 in 12345 Pusemuckel und Bahnhofstraße 1 ohne Ort und PLZ sind in Ordnung, wenn mindestens $(heuristischer Wert) auseinander.) (Oli-Wan)
+	TODOs in source
 	
 */
 
@@ -137,7 +138,6 @@ int main(int argc, const char* argv[]) {
 	}
 	
 	treeHousenumbers=NULL;
-// 	treeNodes=NULL;
 	
 	//open input file
 	QFile file(filename);
@@ -457,13 +457,6 @@ void insert(pBinTree &element, pBinTree &tree) {
 		}
 	}
 }
-
-// void insertNode(housenumber hnr) {
-// 	pBinTree pHnr;
-// 	pHnr = new binTree;
-// 	nodeToBinTree(hnr, pHnr);
-// 	insert(pHnr, treeNodes);
-// }
 
 void housenumberToBinTree(housenumber hnr, pBinTree &node) {
 	node->address=QString("%1||%2||%3||%4||%5||%6||%7")
