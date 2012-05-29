@@ -25,7 +25,6 @@
 
 #include <iostream>
 #include <QDebug>
-#include <QDomDocument>
 #include <QFile>
 #include <QString>
 #include <QStringList>
@@ -77,11 +76,8 @@ bool isComplete(housenumber &hnr);
 QString qsGenerateDupeOutput(pBinTree hnr);
 // QString qsGenerateIncompleteOutput(housenumber hnr, int i);
 QString qsGenerateBrokenOutput(housenumber hnr, int keys);
-// void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree);
 void insert(pBinTree &element, pBinTree &root);
-// void insertNode(housenumber hnr);
 void housenumberToBinTree(housenumber hnr, pBinTree &node);
-void nodeToBinTree(housenumber hnr, pBinTree &node);
 void inorder(pBinTree &root);
 
 int main(int argc, const char* argv[]) {
@@ -385,7 +381,7 @@ bool isComplete(housenumber &hnr) {
 		
 		if(hnr.country=="") hnr.country=qsAssumeCountry;
 		if(hnr.city=="") hnr.city=qsAssumeCity;
-		if(hnr.postcode=="") hnr.city=qsAssumePostcode;
+		if(hnr.postcode=="") hnr.postcode=qsAssumePostcode;
 		
 		if(hnr.country=="" || hnr.city=="" || hnr.postcode=="" || hnr.street=="" || hnr.number=="") {
 			return false;
@@ -461,16 +457,6 @@ void housenumberToBinTree(housenumber hnr, pBinTree &node) {
 	node->dupe=hnr.dupe;
 	node->id=hnr.id;
 	node->isWay=hnr.isWay;
-	node->lat=hnr.lat;
-	node->lon=hnr.lon;
-	node->left=NULL;
-	node->right=NULL;
-}
-
-void nodeToBinTree(housenumber hnr, pBinTree &node) {
-	node->address=QString("%1").arg(hnr.id);
-	node->address=node->address.right(1)+node->address; // the ids are sorted, but a binary tree does not want to get the input sorted
-	node->id=hnr.id;
 	node->lat=hnr.lat;
 	node->lon=hnr.lon;
 	node->left=NULL;
