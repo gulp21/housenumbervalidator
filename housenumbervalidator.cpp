@@ -31,15 +31,13 @@
 #include <QStringList>
 #include <QTime>
 
+class HouseNumber;
+
+typedef HouseNumber* pHouseNumber;
+
 #include "HouseNumber.h"
 
 using namespace std;
-
-struct binTree;
-
-typedef binTree* pBinTree;
-
-struct housenumber;
 
 QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.osm";
 bool bIgnoreFixme=true, bIgnoreNote=true, bIgnoreCityHint=false, bCheckPostcodeNumber=false, bCheckStreetSuffix=false, bLog=false;
@@ -47,18 +45,11 @@ int lines=9200594, lineCount=0, dupeCount=0, hnrCount=0, incompleteCount=0, brok
 
 QTextStream duplicatesStream, incompleteStream, brokenStream, logStream;
 
-pBinTree treeHousenumbers;
+pHouseNumber treeHousenumbers, treeIncomplete;
 
-bool isComplete(housenumber &hnr);
-QString qsGenerateDupeOutput(pBinTree hnr);
-// QString qsGenerateIncompleteOutput(housenumber hnr, int i);
-QString qsGenerateBrokenOutput(housenumber hnr, int keys);
-// void vGetLatLonForWay(double &lat, double &lon, QString ref, pBinTree tree);
-void insert(pBinTree &element, pBinTree &root);
+void insert(pHouseNumber &element, pHouseNumber &root);
 // void insertNode(housenumber hnr);
-void housenumberToBinTree(housenumber hnr, pBinTree &node);
-void nodeToBinTree(housenumber hnr, pBinTree &node);
-void inorder(pBinTree &root);
+void inorder(pHouseNumber &root);
 
 int main(int argc, const char* argv[]) {
 	QTime now;
@@ -157,7 +148,7 @@ int main(int argc, const char* argv[]) {
 	brokenStream.setCodec("UTF-8");
 	brokenStream << "lat\tlon\tid\ttype\tbroken\tname\tcountry\tcity\tpostcode\tstreet\tnumber\n";
 	
-	HouseNumber hnr;
+	pHouseNumber hnr;
 	
 // 	if(lines==9200594) qDebug() << "NOTE: You have to set the 'lines=N' options by hand in order to get sensible progress information";
 	if(!filename.endsWith(".hnr.osm")) qDebug() << "NOTE: Version 0.4+ supports nodes only, you should execute ' ./filter" << filename << "' first.";
@@ -192,7 +183,7 @@ int main(int argc, const char* argv[]) {
 		// if there is the end of the node
 		} else if(line.contains("</node")) {
 			
-			if(hnr->isHouseNumer()) {
+			if(hnr->isHouseNumber()) {
 				if(hnr->isComplete()) {
 					insert(hnr, treeHousenumbers);
 				} else {
@@ -228,7 +219,7 @@ int main(int argc, const char* argv[]) {
 		           line.contains("k=\"amenity\"") || line.contains("k='amenity'") ||
 		           line.contains("k='tourism'") || line.contains("k=\"tourism\"") ) {
 			hnr->setShop(line.split(QRegExp("[\"']"))[3]);
-		} else if( ( line.contains("k=\"name\"") || line.contains("k='name'") || line.contains("k=\"operator\"") || line.contains("k='operator'") ) && hnr.name=="") {
+		} else if( line.contains("k=\"name\"") || line.contains("k='name'") || line.contains("k=\"operator\"") || line.contains("k='operator'") ) {
 			hnr->setName(line.split(QRegExp("[\"']"))[3]);
 		// ignore nodes with fixme/note
 		} else if( ( (line.contains("k=\"fixme\"", Qt::CaseInsensitive) || line.contains("k='fixme'", Qt::CaseInsensitive)) && bIgnoreFixme ) ||
@@ -272,52 +263,24 @@ int main(int argc, const char* argv[]) {
 	return 0;
 }
 
-QString qsGenerateDupeOutput(pBinTree hnr) {
-	QStringList address=hnr->address.split("||");
-	
-	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\n")
-	                .arg(hnr->lat,0,'f',8).arg(hnr->lon,0,'f',8).arg(hnr->id)
-	                .arg(hnr->isWay?1:0).arg(address[5]).arg(address[6])
-	                .arg(address[0]).arg(address[1]).arg(address[2]).arg(address[3]).arg(address[4])
-	                .arg(hnr->dupe->id).arg(hnr->dupe->isWay?1:0).arg(hnr->dupe->lat,0,'f',8).arg(hnr->dupe->lon,0,'f',8);
-}
-
-// QString qsGenerateIncompleteOutput(housenumber hnr, int i) {
-// 	//QString link=qsGenerateLink(hnr);
-// 	//QString link="";
-// 	
-// 	//return QString("%1\t%2\tIncomplete\t%3 %4 %5 %6 %7 %8 is missing %9 pieces of address information\tpin.png\t16,16\t-8,-8\n")
-// // 	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(link)
-// // 	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number)
-// // 	                .arg(i);
-// 	return "NULL";
-// }
-
-QString qsGenerateBrokenOutput(housenumber hnr, int keys) {
-	return QString("%1\t%2\t%3\t%4\t%5\t%6 %7\t%8\t%9\t%10\t%11\t%12\n")
-	                .arg(hnr.lat,0,'f',8).arg(hnr.lon,0,'f',8).arg(hnr.id)
-	                .arg(hnr.isWay?1:0).arg(keys).arg(hnr.name).arg(hnr.shop)
-	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street).arg(hnr.number);
-}
-
-void inorder(pBinTree &tree) {
+void inorder(pHouseNumber &tree) {
 	if(tree!=NULL) {
 		inorder(tree->left);
-		qDebug() << " " << tree->address;
+// 		qDebug() << " " << tree->address; TODO
 		inorder(tree->right);
 	}
 }
 
-void insert(pBinTree &element, pBinTree &tree) {
+void insert(pHouseNumber &element, pHouseNumber &tree) {
 	if(tree==NULL) {
 		tree=element;
 		//inorder(treeHousenumbers);
 		//qDebug() << "--end";
 	} else {
 		//if(treeHousenumbers!=NULL) qDebug() << (element.address < root->address) << (element.address > root->address) << (element.address == root->address) << element.address << root->address << treeHousenumbers->address;
-		if(element->address < tree->address) {
+		if(element < tree) {
 			insert(element, tree->left);
-		} else if(element->address > tree->address) {
+		} else if(element > tree) {
 			insert(element, tree->right);
 		} else {
 			qDebug() << "Dupe found!";
@@ -325,31 +288,8 @@ void insert(pBinTree &element, pBinTree &tree) {
 				qDebug() << 100.0*lineCount/lines << "%";
 			}
 			element->dupe=tree;
-			duplicatesStream << qsGenerateDupeOutput(element);
+			duplicatesStream << element->qsGenerateDupeOutput();
 			++dupeCount;
 		}
 	}
-}
-
-void housenumberToBinTree(housenumber hnr, pBinTree &node) {
-	node->address=QString("%1||%2||%3||%4||%5||%6||%7")
-	                .arg(hnr.country).arg(hnr.city).arg(hnr.postcode).arg(hnr.street)
-	                .arg(hnr.number).arg(hnr.name).arg(hnr.shop);
-	node->dupe=hnr.dupe;
-	node->id=hnr.id;
-	node->isWay=hnr.isWay;
-	node->lat=hnr.lat;
-	node->lon=hnr.lon;
-	node->left=NULL;
-	node->right=NULL;
-}
-
-void nodeToBinTree(housenumber hnr, pBinTree &node) {
-	node->address=QString("%1").arg(hnr.id);
-	node->address=node->address.right(1)+node->address; // the ids are sorted, but a binary tree does not want to get the input sorted
-	node->id=hnr.id;
-	node->lat=hnr.lat;
-	node->lon=hnr.lon;
-	node->left=NULL;
-	node->right=NULL;
 }
