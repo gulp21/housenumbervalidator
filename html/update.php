@@ -34,7 +34,7 @@
 		}
 	}
 	echo "read ".$i." lines from broken.txt<br/>";
-	if($i>1000) {
+	if($i>200) {
 		unlink("/users/gulp21/www/osm/housenumbervalidator/update/broken.txt");
 		echo "removed broken.txt<br/>";
 	}
