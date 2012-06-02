@@ -4,7 +4,7 @@
 #include <QRegExp>
 #include <QString>
 
-// I now that this is not so nice… (if you have got a better idea [or a patch], let me know it)
+// I know that this is not so nice… (if you have got a better idea [or a patch], let me know it)
 extern bool bIgnoreCityHint, bCheckPostcodeNumber, bCheckStreetSuffix;
 extern int iCheckPostcodeChars;
 extern QString qsAssumeCountry, qsAssumeCity, qsAssumePostcode;
@@ -26,7 +26,7 @@ enum Completeness {
 	IGNORE=512
 };
 
-class HouseNumber { 
+class HouseNumber {
 	public:
 		HouseNumber();
 		~HouseNumber();
@@ -45,10 +45,16 @@ class HouseNumber {
 		void setStreet(QString street);
 		void setShop(QString shop);
 		
-		int getId();
-		bool getIsWay();
-		double getLat();
-		double getLon();
+		QString getCity() const;
+		QString getCountry() const;
+		int getId() const;
+		bool getIsWay() const;
+		double getLat() const;
+		double getLon() const;
+		QString getName() const;
+		QString getNumber() const;
+		QString getPostcode() const;
+		QString getStreet() const;
 		
 		bool isHouseNumber();
 		bool isComplete();
@@ -65,5 +71,8 @@ class HouseNumber {
 		bool ignore_, isHnr_, isWay_;
 		QString city_, country_, housename_, name_, number_, postcode_, street_, shop_;
 };
+
+bool operator<(HouseNumber const& lhs, HouseNumber const rhs);
+bool operator>(HouseNumber const& lhs, HouseNumber const rhs);
 
 #endif 

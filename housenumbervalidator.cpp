@@ -25,7 +25,6 @@
 
 #include <iostream>
 #include <QDebug>
-#include <QDomDocument>
 #include <QFile>
 #include <QString>
 #include <QStringList>
@@ -278,9 +277,9 @@ void insert(pHouseNumber &element, pHouseNumber &tree) {
 		//qDebug() << "--end";
 	} else {
 		//if(treeHousenumbers!=NULL) qDebug() << (element.address < root->address) << (element.address > root->address) << (element.address == root->address) << element.address << root->address << treeHousenumbers->address;
-		if(element < tree) {
+		if(*element < *tree) {
 			insert(element, tree->left);
-		} else if(element > tree) {
+		} else if(*element > *tree) {
 			insert(element, tree->right);
 		} else {
 			qDebug() << "Dupe found!";

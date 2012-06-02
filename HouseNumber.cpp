@@ -23,6 +23,33 @@ HouseNumber::HouseNumber() {
 HouseNumber::~HouseNumber() {
 }
 
+/*!
+ * compares QString("%1%2%3%4").arg(number_).arg(street_).arg(postcode_).arg(city_).arg(country_)
+ */
+bool operator<(HouseNumber const& lhs, HouseNumber const rhs) {
+	if(lhs.getNumber()!=rhs.getNumber())
+		return lhs.getNumber()<rhs.getNumber();
+	if(lhs.getStreet()!=lhs.getStreet())
+		return lhs.getStreet()<rhs.getStreet();
+	if(lhs.getPostcode()!=rhs.getPostcode())
+		return lhs.getPostcode()<rhs.getPostcode();
+	if(lhs.getCity()!=rhs.getCity())
+		return lhs.getCity()<rhs.getCity();
+	return lhs.getCountry()<rhs.getCountry();
+}
+
+bool operator>(HouseNumber const& lhs, HouseNumber const rhs) {
+	if(lhs.getNumber()!=rhs.getNumber())
+		return lhs.getNumber()>rhs.getNumber();
+	if(lhs.getStreet()!=lhs.getStreet())
+		return lhs.getStreet()>rhs.getStreet();
+	if(lhs.getPostcode()!=rhs.getPostcode())
+		return lhs.getPostcode()>rhs.getPostcode();
+	if(lhs.getCity()!=rhs.getCity())
+		return lhs.getCity()>rhs.getCity();
+	return lhs.getCountry()>rhs.getCountry();
+}
+
 void HouseNumber::setHousename(QString housename) {
 	housename_=housename;
 	completeness_|=HOUSENAME;
@@ -89,22 +116,41 @@ void HouseNumber::setShop(QString shop) {
 	shop_+=shop;
 }
 
-int HouseNumber::getId() {
+QString HouseNumber::getCity() const {
+	return city_;
+}
+
+QString HouseNumber::getCountry() const {
+	return country_;
+}
+
+int HouseNumber::getId() const {
 	return id_;
 }
 
-bool HouseNumber::getIsWay() {
+bool HouseNumber::getIsWay() const {
 	return isWay_;
 }
 
-double HouseNumber::getLat() {
+double HouseNumber::getLat() const {
 	return lat_;
 }
 
-double HouseNumber::getLon() {
+double HouseNumber::getLon() const {
 	return lon_;
 }
 
+QString HouseNumber::getNumber() const {
+	return number_;
+}
+
+QString HouseNumber::getPostcode() const {
+	return postcode_;
+}
+
+QString HouseNumber::getStreet() const {
+	return street_;
+}
 
 	//we use a given housename when there is no housenumber -> comparator & isComplete
 /*!
@@ -203,7 +249,7 @@ QString HouseNumber::qsGenerateDupeOutput() {
 	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\n")
 	                .arg(lat_,0,'f',8).arg(lon_,0,'f',8).arg(id_)
 	                .arg(isWay_?1:0).arg(name_==""?housename_:name_).arg(shop_)
-                        .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_)
+	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_)
 	                .arg(dupe->getId()).arg(dupe->getIsWay()?1:0).arg(dupe->getLat(),0,'f',8).arg(dupe->getLon(),0,'f',8);
 }
 
