@@ -4,6 +4,8 @@
 #include <QRegExp>
 #include <QString>
 
+const int DISTANCE_THRESHOLD=0.01;
+
 // I know that this is not so nice… (if you have got a better idea [or a patch], let me know it)
 extern bool bIgnoreCityHint, bCheckPostcodeNumber, bCheckStreetSuffix;
 extern int iCheckPostcodeChars;
@@ -74,5 +76,6 @@ class HouseNumber {
 
 bool operator<(HouseNumber const& lhs, HouseNumber const rhs);
 bool operator>(HouseNumber const& lhs, HouseNumber const rhs);
+bool operator==(HouseNumber & lhs, HouseNumber & rhs);
 
 #endif 

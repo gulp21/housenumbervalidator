@@ -50,6 +50,33 @@ bool operator>(HouseNumber const& lhs, HouseNumber const rhs) {
 	return lhs.getCountry()>rhs.getCountry();
 }
 
+/*!
+ * Two house numbers are considered to be equal if
+ * * country, city, postcode, street, and housenumber equal
+ * * or housenumber, and street equal, and country, city, and postcode do not differ (ignoring empty values), and lat/lon difference is less than DISTANCE_THRESHOLD
+ */
+bool operator==(HouseNumber & lhs, HouseNumber & rhs) {
+	// when we have got complete address information
+	if(lhs.isComplete() && rhs.isComplete()) {
+		return true;
+	}
+	
+	// consider two house numbers with similar address information and little distance to each other to be equal
+	if(lhs.getNumber()==rhs.getNumber() && lhs.getStreet()==lhs.getStreet() && lhs.getNumber()!="" && lhs.getStreet()!="") {
+		if(abs(lhs.getLat()-rhs.getLat())>DISTANCE_THRESHOLD || abs(lhs.getLon()-rhs.getLon())>DISTANCE_THRESHOLD)
+			return false;
+		if(lhs.getPostcode()!="" && rhs.getPostcode()!="" && lhs.getPostcode()!=rhs.getPostcode())
+			return false;
+		if(lhs.getCity()!="" && rhs.getCity()!="" && lhs.getCity()!=rhs.getCity())
+			return false;
+		if(lhs.getCountry()!="" && rhs.getCountry()!="" && lhs.getCountry()!=rhs.getCountry())
+			return false;
+		return true;
+	}
+	
+	return false;
+}
+
 void HouseNumber::setHousename(QString housename) {
 	housename_=housename;
 	completeness_|=HOUSENAME;
