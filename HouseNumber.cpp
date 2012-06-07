@@ -128,14 +128,10 @@ void HouseNumber::setHousename(QString housename) {
 
 void HouseNumber::setId(int id) {
 	id_=id;
-	completeness_|=ID;
 }
 
 void HouseNumber::setIgnore(bool ignore) {
-	if(ignore)
-		completeness_|=LON;
-	else
-		completeness_&=~LON;
+	ignore_=ignore;
 }
 
 void HouseNumber::setIsWay(bool b) {
@@ -144,16 +140,14 @@ void HouseNumber::setIsWay(bool b) {
 
 void HouseNumber::setLat(double lat) {
 	lat_=lat;
-	completeness_|=LAT;
 }
 
 void HouseNumber::setLon(double lon) {
 	lon_=lon;
-	completeness_|=LON;
 }
 
 void HouseNumber::setName(QString name) {
-	if(name=="")
+	if(name_=="")
 		name_=name;
 }
 
@@ -211,6 +205,10 @@ QString HouseNumber::getCountry() const {
 
 int HouseNumber::getId() const {
 	return id_;
+}
+
+bool HouseNumber::getIgnore() const {
+	return ignore_;
 }
 
 bool HouseNumber::getIsWay() const {
@@ -287,7 +285,7 @@ bool HouseNumber::isComplete() {
 			setName(housename_);
 	}
 	
-	if( (completeness_ & COUNTRY) && (completeness_ & CITY) && (completeness_ & POSTCODE) && (completeness_ & STREET) && (completeness_ & NUMBER) ) {
+	if( country_=="" || city_=="" || postcode_=="" || street_=="" || number_=="" ) {
 		//incompleteStream << qsGenerateIncompleteOutput(hnr, missingCount); TODO paramter
 		//incompleteCount++;
 		

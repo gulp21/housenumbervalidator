@@ -1,6 +1,7 @@
 #ifndef _HouseNumber_h_
 #define _HouseNumber_h_
 
+#include <QDebug>
 #include <QRegExp>
 #include <QString>
 
@@ -21,11 +22,7 @@ enum Completeness {
 	POSTCODE=4,
 	STREET=8,
 	NUMBER=16,
-	HOUSENAME=32,
-	ID=64,
-	LAT=128,
-	LON=256,
-	IGNORE=512
+	HOUSENAME=32
 };
 
 class HouseNumber {
@@ -51,6 +48,7 @@ class HouseNumber {
 		QString getCity() const;
 		QString getCountry() const;
 		int getId() const;
+		bool getIgnore() const;
 		bool getIsWay() const;
 		double getLat() const;
 		double getLon() const;

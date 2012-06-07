@@ -85,12 +85,12 @@ function lands1 {
 
 function lands2 {
 	d2=`date`
-	run bremen bremen && run saarland && run berlin berlin && run mecklenburg-vorpommern && run schleswig-holstein && run sachsen-anhalt && run sachsen && run baden-wuerttemberg && echo finished lands2 $d2 - `date`
+	run bremen Bremen && run saarland && run berlin Berlin && run mecklenburg-vorpommern && run schleswig-holstein && run sachsen-anhalt && run sachsen && run baden-wuerttemberg && echo finished lands2 $d2 - `date`
 }
 
 function lands3 {
 	d3=`date`
-	run nordrhein-westfalen && run hessen && run hamburg hamburg && echo finished lands3 $d3 - `date`
+	run nordrhein-westfalen && run hessen && run hamburg Hamburg && echo finished lands3 $d3 - `date`
 }
 
 function combine {
@@ -143,9 +143,6 @@ function delete {
 # 		rm $land/dupes.txt
 	done
 }
-
-# run berlin berlin
-# exit 0
 
 if [ $1 == "c" ]; then
 	getreports

@@ -36,6 +36,11 @@ class HouseNumber;
 
 typedef HouseNumber* pHouseNumber;
 
+enum Tree {
+	TREE_HOUSENUMBERS=0,
+	TREE_INCOMPLETE=1
+};
+
 #include "HouseNumber.h"
 
 using namespace std;
@@ -48,8 +53,7 @@ QTextStream duplicatesStream, incompleteStream, brokenStream, logStream;
 
 pHouseNumber treeHousenumbers, treeIncomplete;
 
-void insert(pHouseNumber &element, pHouseNumber &root);
-// void insertNode(housenumber hnr);
+void insert(pHouseNumber &element, pHouseNumber &tree, Tree treeType);
 void inorder(pHouseNumber &root);
 
 int main(int argc, const char* argv[]) {
@@ -194,11 +198,11 @@ int main(int argc, const char* argv[]) {
 				}
 				if(hnr->isHouseNumber()) {
 					++hnrCount;
-					if(broken==0) {
+					if(broken==0 && !hnr->getIgnore()) {
 						if(hnr->isComplete()) {
-							insert(hnr, treeHousenumbers);
+							insert(hnr, treeHousenumbers, TREE_HOUSENUMBERS);
 						} else {
-							insert(hnr, treeIncomplete);
+							insert(hnr, treeIncomplete, TREE_INCOMPLETE);
 							++incompleteCount;
 						}
 					}
@@ -288,7 +292,7 @@ void inorder(pHouseNumber &tree) {
 /*!
  * inserts @param element into the binary tree @param tree, unless there is a dupe (dupes will be written to dupes.txt)
  */
-void insert(pHouseNumber &element, pHouseNumber &tree) {
+void insert(pHouseNumber &element, pHouseNumber &tree, Tree treeType) {
 	if(tree==NULL) {
 		tree=element;
 		//inorder(treeHousenumbers);
@@ -296,17 +300,22 @@ void insert(pHouseNumber &element, pHouseNumber &tree) {
 	} else {
 		//if(treeHousenumbers!=NULL) qDebug() << (element.address < root->address) << (element.address > root->address) << (element.address == root->address) << element.address << root->address << treeHousenumbers->address;
 		if(*element < *tree) {
-			insert(element, tree->left);
+			insert(element, tree->left, treeType);
 		} else if(*element > *tree) {
-			insert(element, tree->right);
+			insert(element, tree->right, treeType);
 		} else {
-			qDebug() << "Dupe found!";
-			if(lines>0) {
-				qDebug() << 100.0*lineCount/lines << "%";
+			switch(treeType) {
+				case TREE_HOUSENUMBERS:
+					qDebug() << "Dupe found!";
+					if(lines>0) {
+						qDebug() << 100.0*lineCount/lines << "%";
+					}
+					element->dupe=tree;
+					duplicatesStream << element->qsGenerateDupeOutput();
+					++dupeCount;
+					break;
+// 				case TREE_INCOMPLETE TODO additional == check, make sure that we reach relevant entries
 			}
-			element->dupe=tree;
-			duplicatesStream << element->qsGenerateDupeOutput();
-			++dupeCount;
 		}
 	}
 }
