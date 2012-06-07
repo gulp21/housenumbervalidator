@@ -47,6 +47,7 @@ class HouseNumber {
 		void setStreet(QString street);
 		void setShop(QString shop);
 		
+		int getBroken() const;
 		QString getCity() const;
 		QString getCountry() const;
 		int getId() const;
@@ -56,14 +57,15 @@ class HouseNumber {
 		QString getName() const;
 		QString getNumber() const;
 		QString getPostcode() const;
+		QString getShop() const;
 		QString getStreet() const;
 		
-		bool isHouseNumber();
+		bool hasAddressInformation() const;
+		bool isHouseNumber() const;
 		bool isComplete();
-		bool isBroken();
 		
-		QString qsGenerateDupeOutput();
-		QString qsGenerateBrokenOutput();
+		QString qsGenerateDupeOutput() const;
+		QString qsGenerateBrokenOutput() const;
 		
 		pHouseNumber dupe, left, right;
 	
@@ -78,4 +80,4 @@ bool operator<(HouseNumber const& lhs, HouseNumber const rhs);
 bool operator>(HouseNumber const& lhs, HouseNumber const rhs);
 bool operator==(HouseNumber & lhs, HouseNumber & rhs);
 
-#endif 
+#endif // _HouseNumber_h_

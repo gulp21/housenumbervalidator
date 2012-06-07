@@ -125,7 +125,7 @@
 		$problems[$i]=explode("\n",$problems[$i]);
 		$duplicates[$i]=explode("\n",$duplicates[$i]);
 		
-		echo "<br/>".$mail['mail']."<br/>".$problems[$i][1]."<br/>".$duplicates[$i][1]."<br/><br/>";
+		echo "<br/>".$mail['mail']."<br/>".$problems[$i][1]."<br/>".$duplicates[$i][1]."<br/>";
 		
 		$i-=10;
 	}

@@ -1,3 +1,2 @@
 lat	lon	id	type	name	country	city	postcode	street	number	dupe_id	dupe_type	dupe_lat	dupe_lon
-51.20044960	6.68818610	745379051	0	twiceShop clothes	DE	Neuss	41460	Niederstraße	23-31	-10	0	51.20046700	6.68817440
-51.20056010	6.68789660	-38	1	 	DE	Neuss	41460	Niederstraße	20	1103439448	0	51.20066130	6.68818860
+51.20044960	6.68818610	745379051	0	 clothes	DE	Neuss	41460	Niederstraße	23-31	-10	0	51.20046703	6.68817445

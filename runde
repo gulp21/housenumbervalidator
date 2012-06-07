@@ -144,6 +144,9 @@ function delete {
 	done
 }
 
+# run berlin berlin
+# exit 0
+
 if [ $1 == "c" ]; then
 	getreports
 	combine

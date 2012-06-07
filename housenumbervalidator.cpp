@@ -1,5 +1,5 @@
 /*
-	v0.5-120527
+	v0.5-120607
 	
 	Copyright (C) 2012 Markus Brenneis
 	
@@ -16,6 +16,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
+	FIXME
+	operator< ignores shop?
 	TODO
 	addr:housename is a number
 	Hier wäre es m.E. sinnvoll, Abweichungen in :city, :postcode, :country zu ignorieren, wenn beide Objekte höchstens einen bestimmten Abstand voneinander aufweisen. (Bahnhofstraße 1 in 12345 Pusemuckel und Bahnhofstraße 1 ohne Ort und PLZ sind in Ordnung, wenn mindestens $(heuristischer Wert) auseinander.) (Oli-Wan)
@@ -104,6 +106,7 @@ int main(int argc, const char* argv[]) {
 	}
 	
 	treeHousenumbers=NULL;
+	treeIncomplete=NULL;
 	
 	//open input file
 	QFile file(filename);
@@ -182,11 +185,23 @@ int main(int argc, const char* argv[]) {
 		// if there is the end of the node
 		} else if(line.contains("</node")) {
 			
-			if(hnr->isHouseNumber()) {
-				if(hnr->isComplete()) {
-					insert(hnr, treeHousenumbers);
-				} else {
-					insert(hnr, treeIncomplete);
+			if(hnr->hasAddressInformation()) {
+				// if we have a node with addr:postcode=11 it is broken though it is not considered to be a house number
+				int broken=hnr->getBroken();
+				if(broken!=0) {
+					brokenStream << hnr->qsGenerateBrokenOutput();
+					++brokenCount;
+				}
+				if(hnr->isHouseNumber()) {
+					++hnrCount;
+					if(broken==0) {
+						if(hnr->isComplete()) {
+							insert(hnr, treeHousenumbers);
+						} else {
+							insert(hnr, treeIncomplete);
+							++incompleteCount;
+						}
+					}
 				}
 			}
 			
@@ -245,7 +260,7 @@ int main(int argc, const char* argv[]) {
 	brokenFile.close();
 	
 	qDebug() << "finished after" <<  now.elapsed()/1000 << "seconds";
-	qDebug() << hnrCount+dupeCount << "housenumbers," << dupeCount << "dupes," << incompleteCount << "incomplete," << brokenCount << "broken";
+	qDebug() << hnrCount << "housenumbers," << dupeCount << "dupes," << incompleteCount << "incomplete," << brokenCount << "broken";
 	
 	QFile logFile("log.txt");
 	logFile.remove();
@@ -257,7 +272,7 @@ int main(int argc, const char* argv[]) {
 	logStream.setDevice(&logFile);
 	logStream.setCodec("UTF-8");
 	logStream << "finished after " <<  now.elapsed()/1000 << " seconds" << endl;
-	logStream << hnrCount+dupeCount << " housenumbers, " << dupeCount << " dupes, " << incompleteCount << " incomplete, " << brokenCount << " broken" << endl;
+	logStream << hnrCount << " housenumbers, " << dupeCount << " dupes, " << incompleteCount << " incomplete, " << brokenCount << " broken" << endl;
 	
 	return 0;
 }
@@ -270,6 +285,9 @@ void inorder(pHouseNumber &tree) {
 	}
 }
 
+/*!
+ * inserts @param element into the binary tree @param tree, unless there is a dupe (dupes will be written to dupes.txt)
+ */
 void insert(pHouseNumber &element, pHouseNumber &tree) {
 	if(tree==NULL) {
 		tree=element;

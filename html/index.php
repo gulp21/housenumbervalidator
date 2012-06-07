@@ -104,6 +104,133 @@
 			}
 		}
 		
+		@-webkit-keyframes fadeInBounceDelayed {
+			from {
+				opacity: 0;
+			}
+			60% {
+				opacity: 0;
+			}
+			90% {
+				opacity: .85;
+			}
+			to {
+				opacity: .7;
+			}
+		}
+		@-moz-keyframes fadeInBounceDelayed {
+			from {
+				opacity: 0;
+			}
+			60% {
+				opacity: 0;
+			}
+			90% {
+				opacity: .85;
+			}
+			to {
+				opacity: .7;
+			}
+		}
+		@-o-keyframes fadeInBounceDelayed {
+			from {
+				opacity: 0;
+			}
+			60% {
+				opacity: 0;
+			}
+			90% {
+				opacity: .85;
+			}
+			to {
+				opacity: .7;
+			}
+		}
+		@-ms-keyframes fadeInBounceDelayed {
+			from {
+				opacity: 0;
+			}
+			60% {
+				opacity: 0;
+			}
+			90% {
+				opacity: .85;
+			}
+			to {
+				opacity: .7;
+			}
+		}
+		@keyframes fadeInBounceDelayed {
+			from {
+				opacity: 0;
+			}
+			60% {
+				opacity: 0;
+			}
+			90% {
+				opacity: .85;
+			}
+			to {
+				opacity: .7;
+			}
+		}
+		
+		@-webkit-keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+			10% {
+				opacity: 0;
+			}
+			to {
+				opacity: .7;
+			}
+		}
+		/*@-moz-keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+			10% {
+				opacity: 0;
+			}
+			to {
+				opacity: .7;
+			}
+		}*/
+		@-o-keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+			10% {
+				opacity: 0;
+			}
+			to {
+				opacity: .7;
+			}
+		}
+		@-ms-keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+			10% {
+				opacity: 0;
+			}
+			to {
+				opacity: .7;
+			}
+		}
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+			10% {
+				opacity: 0;
+			}
+			to {
+				opacity: .7;
+			}
+		}
+		
 		#footer {
 			position: absolute;
 			bottom: 18px;
@@ -112,6 +239,11 @@
 			opacity: .7;
 			background: white;
 			font-size: 16px;
+			-webkit-animation: fadeIn .8s ease-in-out;
+			-moz-animation: fadeIn .8s ease-in-out;
+			-o-animation: fadeIn .8s ease-in-out;
+			-ms-animation: fadeIn .8s ease-in-out;
+			animation: fadeIn .8s ease-in-out;
 		}
 		
 		@media (max-width: 800px) {
@@ -219,6 +351,11 @@
 			text-decoration: none;
 			color: black;
 			opacity: .7;
+			-webkit-animation: fadeInBounceDelayed 1.6s ease-in-out;
+			-moz-animation: fadeInBounceDelayed 1.6s ease-in-out;
+			-o-animation: fadeInBounceDelayed 1.6s ease-in-out;
+			-ms-animation: fadeInBounceDelayed 1.6s ease-in-out;
+			animation: fadeInBounceDelayed 1.6s ease-in-out;
 		}
 		
 		.ad:hover {
