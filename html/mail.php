@@ -9,7 +9,7 @@
 	
 	echo $subscribers." subscribers<br/>";
 	
-	$probs=mysql_query("SELECT * FROM problematic WHERE `broken` BETWEEN '1' AND '7' OR `street` REGEXP '.*str\.? ?[0-9].*' OR `street` REGEXP '\<.*'") or die ("MySQL-Error: ".mysql_error());
+	$probs=mysql_query("SELECT * FROM problematic WHERE corrected=0 AND (`broken` BETWEEN '1' AND '7' OR `street` REGEXP '.*str\.? ?[0-9].*' OR `street` REGEXP '\<.*')") or die ("MySQL-Error: ".mysql_error()); //TODO
 	
 	echo "Found ".mysql_num_rows($probs)." Ps<br/>";
 	
@@ -25,20 +25,23 @@
 		
 		if(trim($prob['name'])!="") $table.="Name\t".$prob['name']."\n";
 		
-		if(($prob['broken']|1)==$prob['broken']) $style='*'; else $style='';
+		if($prob['broken'] & 1) $style='*'; else $style='';
 		if($prob['country']!="") $table.=$style."addr:country\t".$prob['country'].$style."\n";
 		
-		if(($prob['broken']|2)==$prob['broken']) $style='*'; else $style='';
+		if($prob['broken'] & 2) $style='*'; else $style='';
 		if($prob['city']!="") $table.=$style."addr:city\t".$prob['city'].$style."\n";
 		
-		if(($prob['broken']|4)==$prob['broken']) $style='*'; else $style='';
+		if($prob['broken'] & 4) $style='*'; else $style='';
 		if($prob['postcode']!="") $table.=$style."addr:postcode\t".$prob['postcode'].$style."\n";
 		
-		if(($prob['broken']|8)==$prob['broken']) $style='*'; else $style='';
+		if($prob['broken'] & 8) $style='*'; else $style='';
 		if($prob['street']!="") $table.=$style."addr:street\t".$prob['street'].$style."\n";
 		
-		if(($prob['broken']|16)==$prob['broken']) $style='*'; else $style='';
+		if($prob['broken'] & 16) $style='*'; else $style='';
 		if($prob['number']!="") $table.=$style."addr:number\t".$prob['number'].$style."\n";
+		
+		if($prob['broken'] & 32) $style='*'; else $style='';
+		if($prob['housename']!="") $table.=$style."addr:housename\t".$prob['housename'].$style."\n";
 		
 		if($prob['type']==1) {
 			$type="way";
@@ -59,7 +62,7 @@
 		if($i==$subscribers*10) break;
 	}
 	
-	$dupes=mysql_query("SELECT * FROM dupes") or die ("MySQL-Error: ".mysql_error());
+	$dupes=mysql_query("SELECT * FROM dupes WHERE corrected=0") or die ("MySQL-Error: ".mysql_error());
 	
 	echo "Found ".mysql_num_rows($dupes)." Ds<br/>";
 	
@@ -72,23 +75,6 @@
 		if($i++<0) continue;
 		
 		$table="";
-		
-		if(trim($dupe['name'])!="") $table.="Name\t".$dupe['name']."\n";
-		
-		if(($dupe['broken']|1)==$dupe['broken']) $style='*'; else $style='';
-		if($dupe['country']!="") $table.=$style."addr:country\t".$dupe['country'].$style."\n";
-		
-		if(($dupe['broken']|2)==$dupe['broken']) $style='*'; else $style='';
-		if($dupe['city']!="") $table.=$style."addr:city\t".$dupe['city'].$style."\n";
-		
-		if(($dupe['broken']|4)==$dupe['broken']) $style='*'; else $style='';
-		if($dupe['postcode']!="") $table.=$style."addr:postcode\t".$dupe['postcode'].$style."\n";
-		
-		if(($dupe['broken']|8)==$dupe['broken']) $style='*'; else $style='';
-		if($dupe['street']!="") $table.=$style."addr:street\t".$dupe['street'].$style."\n";
-		
-		if(($dupe['broken']|16)==$dupe['broken']) $style='*'; else $style='';
-		if($dupe['number']!="") $table.=$style."addr:number\t".$dupe['number'].$style."\n";
 		
 		if($dupe['type']==1) {
 			$type="way";

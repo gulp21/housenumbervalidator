@@ -243,7 +243,6 @@ QString HouseNumber::getStreet() const {
 	return street_;
 }
 
-	//we use a given housename when there is no housenumber -> comparator & isComplete TODO
 /*!
  * @returns false if the node does not have any addr:.* tags or essential information (id, lat, lon) is missing
  */
@@ -258,7 +257,6 @@ bool HouseNumber::hasAddressInformation() const {
 	if(completeness_ & HOUSENAME) return true;
 	
 	return false;
-	// TODO hnrCount++;
 }
 
 /*!
@@ -302,13 +300,11 @@ bool HouseNumber::isComplete() {
 	return true;
 }
 
-// TODO house housename if name==""
-
 QString HouseNumber::qsGenerateDupeOutput() const {
-	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\n")
+	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\t%16\n")
 	                .arg(lat_,0,'f',8).arg(lon_,0,'f',8).arg(id_)
 	                .arg(isWay_?1:0).arg(name_==""?housename_:name_).arg(shop_)
-	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_)
+	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_).arg(housename_)
 	                .arg(dupe->getId()).arg(dupe->getIsWay()?1:0).arg(dupe->getLat(),0,'f',8).arg(dupe->getLon(),0,'f',8);
 }
 
@@ -324,8 +320,8 @@ QString HouseNumber::qsGenerateDupeOutput() const {
 // }
 
 QString HouseNumber::qsGenerateBrokenOutput() const {
-	return QString("%1\t%2\t%3\t%4\t%5\t%6 %7\t%8\t%9\t%10\t%11\t%12\n")
+	return QString("%1\t%2\t%3\t%4\t%5\t%6 %7\t%8\t%9\t%10\t%11\t%12\t%13\n")
 	                .arg(lat_,0,'f',8).arg(lon_,0,'f',8).arg(id_)
 	                .arg(isWay_?1:0).arg(broken_).arg(name_==""?housename_:name_).arg(shop_)
-	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_);
+	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_).arg(housename_);
 }

@@ -16,10 +16,7 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
-	FIXME
-	operator< ignores shop?
 	TODO
-	addr:housename is a number
 	Hier wäre es m.E. sinnvoll, Abweichungen in :city, :postcode, :country zu ignorieren, wenn beide Objekte höchstens einen bestimmten Abstand voneinander aufweisen. (Bahnhofstraße 1 in 12345 Pusemuckel und Bahnhofstraße 1 ohne Ort und PLZ sind in Ordnung, wenn mindestens $(heuristischer Wert) auseinander.) (Oli-Wan)
 	TODOs in source
 	
@@ -130,7 +127,7 @@ int main(int argc, const char* argv[]) {
 	}
 	duplicatesStream.setDevice(&duplicatesFile);
 	duplicatesStream.setCodec("UTF-8");
-	duplicatesStream << "lat\tlon\tid\ttype\tname\tcountry\tcity\tpostcode\tstreet\tnumber\tdupe_id\tdupe_type\tdupe_lat\tdupe_lon\n";
+	duplicatesStream << "lat\tlon\tid\ttype\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\tdupe_id\tdupe_type\tdupe_lat\tdupe_lon\n";
 	
 	QFile incompleteFile("incomplete.txt");
 	incompleteFile.remove();
@@ -152,7 +149,7 @@ int main(int argc, const char* argv[]) {
 	}
 	brokenStream.setDevice(&brokenFile);
 	brokenStream.setCodec("UTF-8");
-	brokenStream << "lat\tlon\tid\ttype\tbroken\tname\tcountry\tcity\tpostcode\tstreet\tnumber\n";
+	brokenStream << "lat\tlon\tid\ttype\tbroken\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\n";
 	
 	pHouseNumber hnr;
 	
@@ -202,7 +199,7 @@ int main(int argc, const char* argv[]) {
 						if(hnr->isComplete()) {
 							insert(hnr, treeHousenumbers, TREE_HOUSENUMBERS);
 						} else {
-							insert(hnr, treeIncomplete, TREE_INCOMPLETE);
+// 							insert(hnr, treeIncomplete, TREE_INCOMPLETE); TODO
 							++incompleteCount;
 						}
 					}

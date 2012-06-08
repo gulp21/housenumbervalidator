@@ -104,133 +104,6 @@
 			}
 		}
 		
-		@-webkit-keyframes fadeInBounceDelayed {
-			from {
-				opacity: 0;
-			}
-			60% {
-				opacity: 0;
-			}
-			90% {
-				opacity: .85;
-			}
-			to {
-				opacity: .7;
-			}
-		}
-		@-moz-keyframes fadeInBounceDelayed {
-			from {
-				opacity: 0;
-			}
-			60% {
-				opacity: 0;
-			}
-			90% {
-				opacity: .85;
-			}
-			to {
-				opacity: .7;
-			}
-		}
-		@-o-keyframes fadeInBounceDelayed {
-			from {
-				opacity: 0;
-			}
-			60% {
-				opacity: 0;
-			}
-			90% {
-				opacity: .85;
-			}
-			to {
-				opacity: .7;
-			}
-		}
-		@-ms-keyframes fadeInBounceDelayed {
-			from {
-				opacity: 0;
-			}
-			60% {
-				opacity: 0;
-			}
-			90% {
-				opacity: .85;
-			}
-			to {
-				opacity: .7;
-			}
-		}
-		@keyframes fadeInBounceDelayed {
-			from {
-				opacity: 0;
-			}
-			60% {
-				opacity: 0;
-			}
-			90% {
-				opacity: .85;
-			}
-			to {
-				opacity: .7;
-			}
-		}
-		
-		@-webkit-keyframes fadeIn {
-			from {
-				opacity: 0;
-			}
-			10% {
-				opacity: 0;
-			}
-			to {
-				opacity: .7;
-			}
-		}
-		/*@-moz-keyframes fadeIn {
-			from {
-				opacity: 0;
-			}
-			10% {
-				opacity: 0;
-			}
-			to {
-				opacity: .7;
-			}
-		}*/
-		@-o-keyframes fadeIn {
-			from {
-				opacity: 0;
-			}
-			10% {
-				opacity: 0;
-			}
-			to {
-				opacity: .7;
-			}
-		}
-		@-ms-keyframes fadeIn {
-			from {
-				opacity: 0;
-			}
-			10% {
-				opacity: 0;
-			}
-			to {
-				opacity: .7;
-			}
-		}
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-			}
-			10% {
-				opacity: 0;
-			}
-			to {
-				opacity: .7;
-			}
-		}
-		
 		#footer {
 			position: absolute;
 			bottom: 18px;
@@ -239,11 +112,6 @@
 			opacity: .7;
 			background: white;
 			font-size: 16px;
-			-webkit-animation: fadeIn .8s ease-in-out;
-			-moz-animation: fadeIn .8s ease-in-out;
-			-o-animation: fadeIn .8s ease-in-out;
-			-ms-animation: fadeIn .8s ease-in-out;
-			animation: fadeIn .8s ease-in-out;
 		}
 		
 		@media (max-width: 800px) {
@@ -351,11 +219,6 @@
 			text-decoration: none;
 			color: black;
 			opacity: .7;
-			-webkit-animation: fadeInBounceDelayed 1.6s ease-in-out;
-			-moz-animation: fadeInBounceDelayed 1.6s ease-in-out;
-			-o-animation: fadeInBounceDelayed 1.6s ease-in-out;
-			-ms-animation: fadeInBounceDelayed 1.6s ease-in-out;
-			animation: fadeInBounceDelayed 1.6s ease-in-out;
 		}
 		
 		.ad:hover {
@@ -371,6 +234,11 @@
 		
 		a img {
 			border: none;
+		}
+		
+		a[href^="report.php?id="] {
+			text-decoration: none;
+			color: green;
 		}
 	</style>
 </head>
@@ -594,7 +462,7 @@
 		}
 	}
 // 	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current $hnr_diff Hausnummern, $dupes_current $dupes_diff Duplikate, $probl_current $probl_diff problematisch$date_old)";
-	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current Hausnummern, $dupes_current Duplikate, $probl_current problematisch)";
+	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current Hausnummern in DE, $dupes_current Duplikate, $probl_current problematisch)";
 	?>
 	&dash; <a href="stat.php" target="_blank">mehr Statistiken</a>
 	<br/>
@@ -632,14 +500,16 @@
 			document.getElementById("ad2").style.display='block';
 	</script>
 	<div id="reportdiv">
-		Nutzen Sie diese Funktion, wenn die doppelten Hausnummern tats&auml;chlich so in der Realit&auml;t existieren.<br/>
-		Bitte geben Sie die ID ein:
+		Nutzen Sie diese Funktion, wenn die doppelten oder &quot;fehlerhaften&quot; Hausnummern tats&auml;chlich so in der Realit&auml;t existieren.<br/>
+		Klicken Sie zun&auml;chst im Popup auf den gr&uuml;nen Haken (Fehler als behoben kennzeichnen);<br/>
+		dadurch werden die untenstehenden Felder ausgef&uuml;llt. Klicken Sie anschlie&szlig;end auf &quot;Absenden&quot;.
 		<form action="report.php" method="get" target="reportframe">
-		<input type="text" size="17" name="id"/>
-		<input type="checkbox" name="way" value="true"/>Das ist ein Weg (blaues Quadrat)
+		<input type="text" size="17" name="id" readonly/>
+		<input type="checkbox" name="way_u" value="true" disabled/>Das ist ein Weg (blaues Quadrat)
+		<input type="hidden" name="way" value="1"/>
 		<input type="submit" value="Absenden"/>
 		</form>
-		<small>Bitte diese Funktion nicht verwenden, wenn der Fehler zwischenzeitlich korrigiert wurde!</small>
+		<small>Bitte diese Funktion nicht verwenden, wenn der Fehler zwischenzeitlich korrigiert wurde (also nur bei false positives verwenden)!</small>
 	</div>
 	<div id="oneperdaydiv">
 		<b>Sie wollen regelm&auml;&szlig;ig zur Verbesserung der Daten beitragen?</b><br/>
