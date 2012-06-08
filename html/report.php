@@ -8,10 +8,15 @@ if($_GET["table"]=="dupes" || $_GET["table"]=="problematic") { // reports for co
 	$query="UPDATE $_GET[table] SET corrected=1 WHERE id=$id AND type=$type";
 	mysql_query($query) or print("<script language=\"javascript\">alert(\"MySQL-Error: ".mysql_error()." - $query\")</script>");
 	$affected_rows=mysql_affected_rows();
+	if($affected_rows==0) { // the error might have already been reported, so check if it was successful
+		$query="SELECT id FROM $_GET[table] WHERE corrected=1 AND id=$id AND type=$type";
+		$result=mysql_query($query) or print("<script language=\"javascript\">alert(\"MySQL-Error: ".mysql_error()." - $query\")</script>");
+		$affected_rows=mysql_num_rows($result);
+	}
 	if($affected_rows==1) {
 		print("<script language=\"javascript\">alert(\"$id wird vorerst nicht mehr angezeigt.\")</script>");
 	} else {
-		print("<script language=\"javascript\">alert(\"Irgendwas ist schief gelafen. ($affected_rows - $query)\")</script>");
+		print("<script language=\"javascript\">alert(\"Irgendwas ist schief gelaufen. ($affected_rows - $query)\")</script>");
 	}
 } else { // reports for false alarms
 	$str="\n\t".trim($_GET["id"])."\t".$_GET["way"];
