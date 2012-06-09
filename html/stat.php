@@ -471,42 +471,42 @@
 					data: [
 						{
 							name: 'Firefox',
-							y: 1359,
+							y: 1598,
 							color: 'tomato',
 						},
 						{
 							name: 'Opera',
-							y: 221,
+							y: 222,
 							color: 'maroon',
 						},
 						{
 							name: 'Chrome',
-							y: 176,
+							y: 213,
 							color: 'forestgreen',
 						},
 						{
 							name: 'IE',
-							y: 101,
+							y: 129,
 							color: 'dodgerblue',
 						},
 						{
 							name: 'Konqueror',
-							y: 40,
+							y: 41,
 							color: 'royalblue',
 						},
 						{
-							name: 'Bot',
-							y: 23,
-							color: 'silver',
-						},
-						{
 							name: 'Safari',
-							y: 23,
+							y: 28,
 							color: 'lightgray',
 						},
 						{
+							name: 'Bot',
+							y: 22,
+							color: 'silver',
+						},
+						{
 							name: 'Mobile',
-							y: 19,
+							y: 21,
 							color: 'yellowgreen',
 						},
 					]
@@ -550,27 +550,27 @@
 					data: [
 						{
 							name: 'Windows',
-							y: 1041,
+							y: 1271,
 							color: 'royalblue',
 						},
 						{
 							name: 'Linux',
-							y: 795,
+							y: 865,
 							color: 'goldenrod',
 						},
 						{
 							name: 'MacOSX',
-							y: 78,
+							y: 85,
 							color: 'dimgray',
 						},
 						{
 							name: 'Bot',
-							y: 23,
+							y: 22,
 							color: 'silver',
 						},
 						{
 							name: 'Mobile',
-							y: 19,
+							y: 21,
 							color: 'yellowgreen',
 						},
 					]
@@ -643,8 +643,8 @@
 					[Date.UTC(2012,4,1),25.5],
 					[Date.UTC(2012,4,10),25.7],
 					[Date.UTC(2012,4,20),17.2],
-// 					[Date.UTC(2012,5,1),12.6],
-// 					[Date.UTC(2012,5,10),12.6],
+					[Date.UTC(2012,5,1),21.4],
+					[Date.UTC(2012,5,10),25], //FIXME
 // 					[Date.UTC(2012,5,20),0],
 					]
 				}]

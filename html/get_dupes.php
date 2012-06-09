@@ -37,25 +37,21 @@
 		
 		if($dupe['type']==1) {
 			$type="way";
-			$t="w";
 			$pin="pin_blue.png";
 		} else {
 			$type="node";
-			$t="n";
 			$pin="pin_red.png";
 		}
 		
 		if($dupe['dupe_type']==1) {
 			$type_dupe="way";
-			$t_d="w";
 		} else {
 			$type_dupe="node";
-			$t_d="n";
 		}
 		
-		$link='<a target="_blank" title="Details bei OSM anzeigen" href="http://www.openstreetmap.org/browse/'.$type.'/'.$dupe['id'].'">'.$dupe['id'].'</a> <a target="josmframe" title="in JOSM bearbeiten" href="http://localhost:8111/load_object?objects='.$t.$dupe['id'].'&select='.$type.$dupe['id'].'"><img src="josm.png" alt="JOSM"/></a>&thinsp;<a target="_blank" title="in Potlatch 2 bearbeiten" href="http://www.openstreetmap.org/edit?zoom=18&'.$type.'='.$dupe['id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a>';
+		$link='<a target="_blank" title="Details bei OSM anzeigen" href="http://www.openstreetmap.org/browse/'.$type.'/'.$dupe['id'].'">'.$dupe['id'].'</a> <a target="josmframe" title="in JOSM bearbeiten" href="http://localhost:8111/load_and_zoom?left='.($dupe['lon']-0.001).'&right='.($dupe['lon']+0.001).'&top='.($dupe['lat']+0.001).'&bottom='.($dupe['lat']-0.001).'&select='.$type.$dupe['id'].'"><img src="josm.png" alt="JOSM"/></a>&thinsp;<a target="_blank" title="in Potlatch 2 bearbeiten" href="http://www.openstreetmap.org/edit?zoom=18&'.$type.'='.$dupe['id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a>';
 		
-		$dupe_link='<a target="_blank" title="Details bei OSM anzeigen" href="http://www.openstreetmap.org/browse/'.$type_dupe.'/'.$dupe['dupe_id'].'">'.$dupe['dupe_id'].'</a> <a target="josmframe" title="in JOSM bearbeiten" href="http://localhost:8111/load_object?objects='.$t_d.$dupe['dupe_id'].'&select='.$type_dupe.$dupe['dupe_id'].'"><img src="josm.png" alt="JOSM"/></a>&thinsp;<a target="_blank" title="in Potlatch 2 bearbeiten" href="http://www.openstreetmap.org/edit?zoom=18&'.$type_dupe.'='.$dupe['dupe_id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a> [<a href="#" title="schwarzes Rechteck um Duplikat zeichnen" onclick="showPosition('.$dupe['dupe_lat'].','.$dupe['dupe_lon'].')">zeigen</a>]';
+		$dupe_link='<a target="_blank" title="Details bei OSM anzeigen" href="http://www.openstreetmap.org/browse/'.$type_dupe.'/'.$dupe['dupe_id'].'">'.$dupe['dupe_id'].'</a> <a target="josmframe" title="in JOSM bearbeiten" href="http://localhost:8111/load_and_zoom?left='.($dupe['dupe_lon']-0.001).'&right='.($dupe['dupe_lon']+0.001).'&top='.($dupe['dupe_lat']+0.001).'&bottom='.($dupe['dupe_lat']-0.001).'&select='.$type_dupe.$dupe['dupe_id'].'"><img src="josm.png" alt="JOSM"/></a>&thinsp;<a target="_blank" title="in Potlatch 2 bearbeiten" href="http://www.openstreetmap.org/edit?zoom=18&'.$type_dupe.'='.$dupe['dupe_id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a> [<a href="#" title="schwarzes Rechteck um Duplikat zeichnen" onclick="showPosition('.$dupe['dupe_lat'].','.$dupe['dupe_lon'].')">zeigen</a>]';
 		
 		$corrected_link='<a target="josmframe" href="report.php?id='.$dupe['id'].'&type='.$dupe['type'].'&table=dupes" title="diesen Fehler als behoben markieren" onclick="javascript:markAsCorrectedClicked(\''.$dupe['id'].'\', '.$dupe['type'].', \'dupes\');">&#10004;</a>';
 		

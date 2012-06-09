@@ -45,13 +45,11 @@
 		
 		if($prob['type']==1) {
 			$type="way";
-			$t="w";
 		} else {
 			$type="node";
-			$t="n";
 		}
 		
-		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$prob['id']."\nJOSM: http://localhost:8111/load_object?objects=".$t.$prob['id']."&select=".$type.$prob['id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$prob['id']."&editor=potlatch2";
+		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$prob['id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($prob['lon']-0.0001)."&right=".($prob['lon']+0.0001)."&top=".($prob['lat']+0.0001)."&bottom=".($prob['lat']-0.0001)."&select=".$type.$prob['id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$prob['id']."&editor=potlatch2";
 		
 		$problems[$i]=
 			"Problematisch\n"
@@ -78,23 +76,19 @@
 		
 		if($dupe['type']==1) {
 			$type="way";
-			$t="w";
 		} else {
 			$type="node";
-			$t="n";
 		}
 		
 		if($dupe['dupe_type']==1) {
 			$type_dupe="way";
-			$t_d="w";
 		} else {
 			$type_dupe="node";
-			$t_d="n";
 		}
 		
-		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$dupe['id']."\nJOSM: http://localhost:8111/load_object?objects=".$t.$dupe['id']."&select=".$type.$dupe['id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$dupe['id']."&editor=potlatch2";
+		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$dupe['id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($dupe['lon']-0.0001)."&right=".($dupe['lon']+0.0001)."&top=".($dupe['lat']+0.0001)."&bottom=".($dupe['lat']-0.0001)."&select=".$type.$dupe['id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$dupe['id']."&editor=potlatch2";
 		
-		$link.="\nOSM: http://www.openstreetmap.org/browse/".$type_dupe."/".$dupe['dupe_id']."\nJOSM: http://localhost:8111/load_object?objects=".$t_d.$dupe['dupe_id']."&select=".$type_dupe.$dupe['dupe_id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type_dupe."=".$dupe['dupe_id']."&editor=potlatch2";
+		$link.="\nOSM: http://www.openstreetmap.org/browse/".$type_dupe."/".$dupe['dupe_id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($dupe['dupe_lon']-0.0001)."&right=".($dupe['dupe_lon']+0.0001)."&top=".($dupe['dupe_lat']+0.0001)."&bottom=".($dupe['dupe_lat']-0.0001)."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type_dupe."=".$dupe['dupe_id']."&editor=potlatch2";
 		
 		$duplicates[$i]=
 			"Duplikat\n"

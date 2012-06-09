@@ -149,12 +149,6 @@ if [ $1 == "c" ]; then
 	combine
 elif [ $1 == "d" ]; then
 	delete
-elif [ $1 -eq 1 ]; then
-	lands1
-elif [ $1 -eq 2 ]; then
-	lands2
-elif [ $1 -eq 3 ]; then
-	lands3
 elif [ $1 == "convenience1" ]; then
 	./runaustria
 	./runde 1
@@ -169,6 +163,12 @@ elif [ $1 == "convenience2" ]; then
 	git diff | kompare -
 	git commit -a
 	cd ..
+elif [ $1 -eq 1 ]; then
+	lands1
+elif [ $1 -eq 2 ]; then
+	lands2
+elif [ $1 -eq 3 ]; then
+	lands3
 else
 	echo What does $1 mean?
 fi

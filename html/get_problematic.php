@@ -50,10 +50,8 @@
 		
 		if($brok['type']==1) {
 			$type="way";
-			$t="w";
 		} else {
 			$type="node";
-			$t="n";
 		}
 		
 		if(8==$brok['broken']) {
@@ -62,7 +60,7 @@
 			$pin="pin_circle_blue.png";
 		}
 		
-		$link='<a target="_blank" title="Details bei OSM anzeigen" href="http://www.openstreetmap.org/browse/'.$type.'/'.$brok['id'].'">'.$brok['id'].'</a> <a target="josmframe" title="in JOSM bearbeiten" href="http://localhost:8111/load_object?objects='.$t.$brok['id'].'&select='.$type.$brok['id'].'"><img src="josm.png" alt="JOSM"/></a>&thinsp;<a target="_blank" title="in Potlatch 2 bearbeiten" href="http://www.openstreetmap.org/edit?zoom=18&'.$type.'='.$brok['id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a>';
+		$link='<a target="_blank" title="Details bei OSM anzeigen" href="http://www.openstreetmap.org/browse/'.$type.'/'.$brok['id'].'">'.$brok['id'].'</a> <a target="josmframe" title="in JOSM bearbeiten" href="http://localhost:8111/load_and_zoom?left='.($brok['lon']-0.001).'&right='.($brok['lon']+0.001).'&top='.($brok['lat']+0.001).'&bottom='.($brok['lat']-0.001).'&select='.$type.$brok['id'].'"><img src="josm.png" alt="JOSM"/></a>&thinsp;<a target="_blank" title="in Potlatch 2 bearbeiten" href="http://www.openstreetmap.org/edit?zoom=18&'.$type.'='.$brok['id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a>';
 		
 		$corrected_link='<a target="josmframe" href="report.php?id='.$brok['id'].'&type='.$brok['type'].'&table=problematic" title="diesen Fehler als behoben markieren" onclick="javascript:markAsCorrectedClicked(\''.$brok['id'].'\', '.$brok['type'].', \'problematic\');">&#10004;</a>';
 		
