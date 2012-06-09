@@ -145,6 +145,7 @@
 			left: 5px;
 			z-index: 2000;
 			background: white;
+			padding-right: 22px;
 		}
 		
 		#reportframe {
@@ -153,6 +154,12 @@
 			z-index: 2000;
 			border: none;
 			background: white;
+		}
+		
+		.closediv {
+			position: absolute;
+			right: 4px;
+			top: 2px;
 		}
 		
 		[id^="OL_Icon_"], [id^="OpenLayers.Geometry.Point"], #footer {
@@ -395,10 +402,15 @@
 			markers.setVisibility(true);
 		}
 		
+		function hideOverlays() {
+			document.getElementById('reportdiv').style.display='none';
+			document.getElementById('oneperdaydiv').style.display='none';
+			document.getElementById('reportframe').style.display='none';
+		}
+		
 		function report() {
 			if(document.getElementById('reportdiv').style.display=='block') {
-				document.getElementById('reportdiv').style.display='none';
-				document.getElementById('reportframe').style.display='none';
+				hideOverlays();
 			} else {
 				document.getElementById('reportdiv').style.display='block';
 				document.getElementById('reportframe').style.display='block';
@@ -407,8 +419,7 @@
 		
 		function oneperday() {
 			if(document.getElementById('oneperdaydiv').style.display=='block') {
-				document.getElementById('oneperdaydiv').style.display='none';
-				document.getElementById('reportframe').style.display='none';
+				hideOverlays();
 			} else {
 				document.getElementById('oneperdaydiv').style.display='block';
 				document.getElementById('reportframe').style.display='block';
@@ -418,6 +429,19 @@
 		function openOsmi() {
 			var position = map.getCenter().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
 			var osmiWindow = window.open("http://tools.geofabrik.de/osmi/?view=addresses&lon="+position.lon+"&lat="+position.lat+"&zoom="+map.getZoom()+"&overlays=postal_code,no_addr_street,street_not_found,interpolation,interpolation_errors,connection_lines,nearest_points,nearest_roads").focus();
+		}
+		
+		function markAsCorrectedClicked(id, type, layer) {
+			document.getElementsByName('id')[0].value=id;
+			document.getElementsByName('way_u')[0].checked=type;
+			document.getElementsByName('way')[0].value=type;
+			map.removePopup(map.popups[0]);
+			if(layer=="problematic")
+				probl.refresh();
+			else if(layer=="dupes")
+				dupes.refresh();
+			else
+				alert("unknown layer " + layer + " (" + id + " " + type + ")");
 		}
 	</script>
 	
@@ -500,7 +524,7 @@
 			document.getElementById("ad2").style.display='block';
 	</script>
 	<div id="reportdiv">
-		Nutzen Sie diese Funktion, wenn die doppelten oder &quot;fehlerhaften&quot; Hausnummern tats&auml;chlich so in der Realit&auml;t existieren.<br/>
+		Nutzen Sie diese Funktion, wenn die doppelten oder &quot;fehlerhaften&quot; Hausnummern tats&auml;chlich so in der Realit&auml;t existieren.<a href="#" onclick="javascript:hideOverlays();" class="closediv"><img src="theme/default/img/close.gif" alt="[close]"/></a><br/>
 		Klicken Sie zun&auml;chst im Popup auf den gr&uuml;nen Haken (Fehler als behoben kennzeichnen);<br/>
 		dadurch werden die untenstehenden Felder ausgef&uuml;llt. Klicken Sie anschlie&szlig;end auf &quot;Absenden&quot;.
 		<form action="report.php" method="get" target="reportframe">
@@ -512,7 +536,7 @@
 		<small>Bitte diese Funktion nicht verwenden, wenn der Fehler zwischenzeitlich korrigiert wurde (also nur bei false positives verwenden)!</small>
 	</div>
 	<div id="oneperdaydiv">
-		<b>Sie wollen regelm&auml;&szlig;ig zur Verbesserung der Daten beitragen?</b><br/>
+		<b>Sie wollen regelm&auml;&szlig;ig zur Verbesserung der Daten beitragen?</b><a href="#" onclick="javascript:hideOverlays();" class="closediv"><img src="theme/default/img/close.gif" alt="[close]"/></a><br/>
 		Wenn Sie sich hier registrieren, werden Sie (fast) t&auml;glich<br/>
 		eine E-Mail mit einem Link zu einem Fehler bekommen, den Sie korrigieren k&ouml;nnen.<br/>
 		<small>Wenn Sie sich abmelden wollen, tragen Sie Ihre E-Mailadresse in das Textfeld ein<br/>

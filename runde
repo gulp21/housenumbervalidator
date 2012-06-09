@@ -155,6 +155,20 @@ elif [ $1 -eq 2 ]; then
 	lands2
 elif [ $1 -eq 3 ]; then
 	lands3
+elif [ $1 == "convenience1" ]; then
+	./runaustria
+	./runde 1
+	./runde 2
+	./runde 3
+elif [ $1 == "convenience2" ]; then
+	gnumeric stat.gnumeric  &
+	./runde d
+	./runde c
+	cd de
+	cat log.txt
+	git diff | kompare -
+	git commit -a
+	cd ..
 else
 	echo What does $1 mean?
 fi

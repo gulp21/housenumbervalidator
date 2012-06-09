@@ -14,7 +14,7 @@ if($_GET["table"]=="dupes" || $_GET["table"]=="problematic") { // reports for co
 		$affected_rows=mysql_num_rows($result);
 	}
 	if($affected_rows==1) {
-		print("<script language=\"javascript\">alert(\"$id wird vorerst nicht mehr angezeigt.\")</script>");
+// 		print("<script language=\"javascript\">alert(\"$id wird vorerst nicht mehr angezeigt.\")</script>");
 	} else {
 		print("<script language=\"javascript\">alert(\"Irgendwas ist schief gelaufen. ($affected_rows - $query)\")</script>");
 	}
