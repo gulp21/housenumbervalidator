@@ -130,6 +130,11 @@ function combine {
 	echo Merging with austria...
 	tail $path/austria/dupes.txt -n +2 >> dupes.txt
 	tail $path/austria/broken.txt -n +2 >> broken.txt
+	
+	cat dupes.txt | sort | uniq > d~
+	mv d~ dupes.txt
+	cat broken.txt | sort | uniq > b~
+	mv b~ broken.txt
 }
 
 function delete {

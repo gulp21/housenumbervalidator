@@ -174,7 +174,7 @@
 						include("connect.php");
 						$last=-1;
 						$name="housenumbers";
-						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						$entries=mysql_query("SELECT date, $name FROM stats ORDER BY date") or die ("MySQL-Error: ".mysql_error());
 						while($entry=mysql_fetch_assoc($entries)) {
 							$current=$entry["$name"];
 							$date=$entry['date'];
@@ -206,7 +206,7 @@
 					type: 'spline',
 					data: [
 					<?php
-						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						$entries=mysql_query("SELECT date, $name FROM stats ORDER BY date") or die ("MySQL-Error: ".mysql_error());
 						while($entry=mysql_fetch_assoc($entries)) {
 							$date=$entry['date'];
 							$date=explode("-",$entry['date']);
@@ -293,7 +293,7 @@
 					<?php
 						$last=-1;
 						$name="dupes";
-						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						$entries=mysql_query("SELECT date, $name FROM stats ORDER BY date") or die ("MySQL-Error: ".mysql_error());
 						while($entry=mysql_fetch_assoc($entries)) {
 							$current=$entry["$name"];
 							$date=$entry['date'];
@@ -312,7 +312,7 @@
 					type: 'spline',
 					data: [
 					<?php
-						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						$entries=mysql_query("SELECT date, $name FROM stats ORDER BY date") or die ("MySQL-Error: ".mysql_error());
 						while($entry=mysql_fetch_assoc($entries)) {
 							$date=$entry['date'];
 							$date=explode("-",$entry['date']);
@@ -401,7 +401,7 @@
 					<?php
 						$last=-1;
 						$name="problematic";
-						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						$entries=mysql_query("SELECT date, $name FROM stats ORDER BY date") or die ("MySQL-Error: ".mysql_error());
 						while($entry=mysql_fetch_assoc($entries)) {
 							$current=$entry["$name"];
 							$date=$entry['date'];
@@ -420,7 +420,7 @@
 					type: 'spline',
 					data: [
 					<?php
-						$entries=mysql_query("SELECT date, $name FROM stats") or die ("MySQL-Error: ".mysql_error());
+						$entries=mysql_query("SELECT date, $name FROM stats ORDER BY date") or die ("MySQL-Error: ".mysql_error());
 						while($entry=mysql_fetch_assoc($entries)) {
 							$date=$entry['date'];
 							$date=explode("-",$entry['date']);
