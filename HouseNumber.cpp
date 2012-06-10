@@ -127,7 +127,7 @@ void HouseNumber::setHousename(QString housename) {
 	housename_=housename;
 	completeness_|=HOUSENAME;
 	
-	if(housename_==QString("%1").arg(housename_.toInt())) {
+	if(housename_.contains(QRegExp("^[0-9]+[aA-zZ]?$"))) {
 		broken_|=HOUSENAME;
 	}
 }

@@ -208,6 +208,20 @@
     <tag k='addr:postcode' v='41460' />
     <tag k='addr:street' v='Niederstraße' />
   </node>
+  <node id='1155539448' action='modify' timestamp='2011-02-24T19:39:55Z' uid='141931' user='Sharlin' visible='true' version='2' changeset='7384620' lat='51.2006613' lon='6.6881886'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housename' v='20c' />
+    <tag k='addr:postcode' v='41460' />
+    <tag k='addr:street' v='Niederstraße' />
+  </node>
+  <node id='155503439448' action='modify' timestamp='2011-02-24T19:39:55Z' uid='141931' user='Sharlin' visible='true' version='2' changeset='7384620' lat='51.2006613' lon='6.6881886'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housename' v='20' />
+    <tag k='addr:postcode' v='41460' />
+    <tag k='addr:street' v='Niederungstraße' />
+  </node>
   <node id='111239448' action='modify' timestamp='2011-02-24T19:39:55Z' uid='141931' user='Sharlin' visible='true' version='2' changeset='7384620' lat='51.2046613' lon='6.6881586'>
     <tag k='addr:city' v='Neuss' />
     <tag k='addr:country' v='DE' />
