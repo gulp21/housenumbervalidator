@@ -207,22 +207,22 @@ int main(int argc, const char* argv[]) {
 			}
 			
 		} else if(line.contains("k=\"addr:") || line.contains("k='addr:")) {
-			if(line.contains("addr:country")) {
+			if(line.contains("addr:country\"") || line.contains("addr:country'")) {
 				hnr->setCountry(line.split(QRegExp("[\"']"))[3]);
 // 				hnr.isHnr=true;
-			} else if(line.contains("addr:city")) {
+			} else if(line.contains("addr:city\"") || line.contains("addr:city'")) {
 				hnr->setCity(line.split(QRegExp("[\"']"))[3]);
 // 				if(!bIgnoreCityHint) hnr.isHnr=true;
-			} else if(line.contains("addr:postcode")) {
+			} else if(line.contains("addr:postcode\"") || line.contains("addr:postcode'")) {
 				hnr->setPostcode(line.split(QRegExp("[\"']"))[3]);
 // 				hnr.isHnr=true;
-			} else if(line.contains("addr:street")) {
+			} else if(line.contains("addr:street\"") || line.contains("addr:street'")) {
 				hnr->setStreet(line.split(QRegExp("[\"']"))[3]);
 // 				hnr.isHnr=true;
-			} else if(line.contains("addr:housenumber")) {
+			} else if(line.contains("addr:housenumber\"") || line.contains("addr:housenumber'")) {
 				hnr->setNumber(line.split(QRegExp("[\"']"))[3]);
 // 				hnr.isHnr=true;
-			} else if(line.contains("addr:housename")) {
+			} else if(line.contains("addr:housename\"") || line.contains("addr:housename'")) {
 				hnr->setHousename(line.split(QRegExp("[\"']"))[3]);
 // 				hnr.isHnr=true;
 			//interpolation lines should be ignored

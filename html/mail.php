@@ -9,9 +9,12 @@
 	
 	echo $subscribers." subscribers<br/>";
 	
-	$probs=mysql_query("SELECT * FROM problematic WHERE corrected=0 AND (`broken` BETWEEN '1' AND '7' OR `street` REGEXP '.*str\.? ?[0-9].*' OR `street` REGEXP '\<.*')") or die ("MySQL-Error: ".mysql_error()); //TODO
+	$probs=mysql_query("SELECT * FROM problematic WHERE corrected=0 AND (`broken` & 7 OR `street` REGEXP '.*str\.? ?[0-9].*' OR `street` REGEXP '\<.*')") or die ("MySQL-Error: ".mysql_error());
 	
 	echo "Found ".mysql_num_rows($probs)." Ps<br/>";
+	
+	if(mysql_num_rows($probs) < $subscribers*10+10)
+		die("that's not enough...");
 	
 	$i=-rand(0,mysql_num_rows($probs)-$subscribers*10);
 	
@@ -96,7 +99,7 @@
 		
 		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$dupe['id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($dupe['lon']-0.001)."&right=".($dupe['lon']+0.001)."&top=".($dupe['lat']+0.001)."&bottom=".($dupe['lat']-0.001)."&select=".$type.$dupe['id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$dupe['id']."&editor=potlatch2";
 		
-		$link.="\nOSM: http://www.openstreetmap.org/browse/".$type_dupe."/".$dupe['dupe_id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($dupe['dupe_lon']-0.001)."&right=".($dupe['dupe_lon']+0.001)."&top=".($dupe['dupe_lat']+0.001)."&bottom=".($dupe['dupe_lat']-0.001)."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type_dupe."=".$dupe['dupe_id']."&editor=potlatch2";
+		$link.="\nOSM: http://www.openstreetmap.org/browse/".$type_dupe."/".$dupe['dupe_id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($dupe['dupe_lon']-0.001)."&right=".($dupe['dupe_lon']+0.001)."&top=".($dupe['dupe_lat']+0.001)."&bottom=".($dupe['dupe_lat']-0.001)."&select=".$type_dupe.$dupe['dupe_id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type_dupe."=".$dupe['dupe_id']."&editor=potlatch2";
 		
 		$duplicates[$i]=
 			"Duplikat\n"
