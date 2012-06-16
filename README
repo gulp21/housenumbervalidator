@@ -5,9 +5,16 @@ Installation
 
 Requirements: Qt4
 
-qmake
+qmake housenumbervalidator.pro
 make
 ./housenumbervalidator
+
+Unit Tests
+==========
+
+qmake housenumbervalidatortest.pro
+make
+./housenumbervalidatortest
 
 Useful commands
 ===============

@@ -63,7 +63,7 @@
 		if($i==$subscribers*10) break;
 	}
 	
-	$dupes=mysql_query("SELECT * FROM dupes WHERE corrected=0") or die ("MySQL-Error: ".mysql_error());
+	$dupes=mysql_query("SELECT * FROM dupes WHERE corrected=0 AND possible_dupe=0") or die ("MySQL-Error: ".mysql_error());
 	
 	echo "Found ".mysql_num_rows($dupes)." Ds<br/>";
 	

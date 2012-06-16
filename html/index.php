@@ -492,7 +492,7 @@
 	<br/>
 	<span style="font-weight:bold">Maximal 1800 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span> <a href="#" onclick="javascript:openOsmi()">im OSMI anzeigen</a>
 	<br/>
-	Duplikate: <img src="pin_red.png" alt="red square"/> Nodes, <img src="pin_blue.png" alt="blue square"/> Ways &dash;
+	Duplikate: <img src="pin_red.png" alt="red square"/> Exakt, <img src="pin_blue.png" alt="blue square"/> &Auml;hnlich &dash;
 	Problematisch: <img src="pin_circle_red.png" alt="red circle"/> Stra&szlig;e, <img src="pin_circle_blue.png" alt="blue circle"/> Anderes &dash;
 	<a href="#" onclick="report();" style="color:red;font-weight:bold;">Fehlalarm melden</a> &dash;
 	<a href="#" onclick="oneperday();" style="color:green;font-weight:bold;">Ein korrigierter Fehler am Tag</a>

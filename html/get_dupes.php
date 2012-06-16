@@ -35,12 +35,16 @@
 		if($dupe['housename']!="") $table.="<tr><td>addr:housename</td><td>".$dupe['housename']."</td></tr>";
 		$table.="</table>";
 		
+		if($dupe['possible_dupe']==0) {
+			$pin="pin_red.png";
+		} else {
+			$pin="pin_blue.png";
+		}
+		
 		if($dupe['type']==1) {
 			$type="way";
-			$pin="pin_blue.png";
 		} else {
 			$type="node";
-			$pin="pin_red.png";
 		}
 		
 		if($dupe['dupe_type']==1) {

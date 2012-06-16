@@ -25,9 +25,12 @@
 #include <iostream>
 #include <QDebug>
 #include <QFile>
+#include <QList>
 #include <QString>
 #include <QStringList>
 #include <QTime>
+
+const double POSSIBLE_DUPE_TIME=0.1;
 
 class HouseNumber;
 
@@ -44,14 +47,17 @@ using namespace std;
 
 QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.osm";
 bool bIgnoreFixme=true, bIgnoreNote=true, bIgnoreCityHint=false, bCheckPostcodeNumber=false, bCheckStreetSuffix=false, bLog=false;
-int lines=9200594, lineCount=0, dupeCount=0, hnrCount=0, incompleteCount=0, brokenCount=0, iCheckPostcodeChars=-1;
+int lines=9200594, lineCount=0, dupeCount=0, possibleDupeCount=0, hnrCount=0, incompleteCount=0, brokenCount=0, iCheckPostcodeChars=-1;
 
 QTextStream duplicatesStream, incompleteStream, brokenStream, logStream;
 
-pHouseNumber treeHousenumbers, treeIncomplete;
+pHouseNumber treeHousenumbers/*, treeIncomplete*/;
+
+QList<pHouseNumber> listIncomplete;
 
 void insert(pHouseNumber &element, pHouseNumber &tree, Tree treeType);
 void inorder(pHouseNumber &root);
+void findInTree(pHouseNumber &hnr, pHouseNumber &tree);
 
 int main(int argc, const char* argv[]) {
 	QTime now;
@@ -107,7 +113,7 @@ int main(int argc, const char* argv[]) {
 	}
 	
 	treeHousenumbers=NULL;
-	treeIncomplete=NULL;
+// 	treeIncomplete=NULL;
 	
 	//open input file
 	QFile file(filename);
@@ -127,7 +133,7 @@ int main(int argc, const char* argv[]) {
 	}
 	duplicatesStream.setDevice(&duplicatesFile);
 	duplicatesStream.setCodec("UTF-8");
-	duplicatesStream << "lat\tlon\tid\ttype\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\tdupe_id\tdupe_type\tdupe_lat\tdupe_lon\n";
+	duplicatesStream << "lat\tlon\tid\ttype\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\tdupe_id\tdupe_type\tdupe_lat\tdupe_lon\tpossible_dupe\n";
 	
 	QFile incompleteFile("incomplete.txt");
 	incompleteFile.remove();
@@ -199,7 +205,7 @@ int main(int argc, const char* argv[]) {
 						if(hnr->isComplete()) {
 							insert(hnr, treeHousenumbers, TREE_HOUSENUMBERS);
 						} else {
-// 							insert(hnr, treeIncomplete, TREE_INCOMPLETE); TODO
+							listIncomplete << hnr;
 							++incompleteCount;
 						}
 					}
@@ -250,18 +256,32 @@ int main(int argc, const char* argv[]) {
 		if(lineCount%10000==0) qDebug() << lineCount <<  now.elapsed()/1000 << "seconds";
 		
 		if(lineCount%100000==0 && lines>0) {
-			qDebug() << 100.0*lineCount/lines << "%";
+			qDebug() << 100.0*lineCount/lines*(1-POSSIBLE_DUPE_TIME) << "%";
 		}
 		
 	} //while(!in.atEnd())
 	
+	qDebug() << "dupes" << dupeCount << "incomplete" << incompleteCount;
+	
+	for(int i=0; i<incompleteCount; ++i) {
+		if(i%100==0) {
+			qDebug() << 100.0*i/incompleteCount*POSSIBLE_DUPE_TIME+(1-POSSIBLE_DUPE_TIME)*100.0 << "%";
+		}
+		findInTree(listIncomplete[i], treeHousenumbers);
+		if(listIncomplete[i]->dupe!=NULL) {
+			duplicatesStream << listIncomplete[i]->qsGenerateDupeOutput(true);
+			++dupeCount;
+			++possibleDupeCount;
+			qDebug() << "possible dupe found";
+		}
+	}
 	
 	duplicatesFile.close();
 	incompleteFile.close();
 	brokenFile.close();
 	
 	qDebug() << "finished after" <<  now.elapsed()/1000 << "seconds";
-	qDebug() << hnrCount << "housenumbers," << dupeCount << "dupes," << incompleteCount << "incomplete," << brokenCount << "broken";
+	qDebug() << hnrCount << "housenumbers," << dupeCount << "dupes," << incompleteCount << "incomplete," << brokenCount << "broken," << possibleDupeCount << "possible_dupes";
 	
 	QFile logFile("log.txt");
 	logFile.remove();
@@ -273,7 +293,7 @@ int main(int argc, const char* argv[]) {
 	logStream.setDevice(&logFile);
 	logStream.setCodec("UTF-8");
 	logStream << "finished after " <<  now.elapsed()/1000 << " seconds" << endl;
-	logStream << hnrCount << " housenumbers, " << dupeCount << " dupes, " << incompleteCount << " incomplete, " << brokenCount << " broken" << endl;
+	logStream << hnrCount << " housenumbers, " << dupeCount << " dupes, " << incompleteCount << " incomplete, " << brokenCount << " broken, " << possibleDupeCount << "possible_dupes" << endl;
 	
 	return 0;
 }
@@ -283,6 +303,28 @@ void inorder(pHouseNumber &tree) {
 		inorder(tree->left);
 // 		qDebug() << " " << tree->address; TODO
 		inorder(tree->right);
+	}
+}
+
+void findInTree(pHouseNumber &hnr, pHouseNumber &tree) {
+	if(tree!=NULL && hnr->dupe==NULL) {
+		if(hnr->getNumber().toLower()>tree->getNumber().toLower()) {
+			findInTree(hnr, tree->right);
+		} else if(hnr->getNumber().toLower()<tree->getNumber().toLower()) {
+			findInTree(hnr, tree->left);
+		} else {
+			if(hnr->getStreet().toLower()>tree->getStreet().toLower()) {
+				findInTree(hnr, tree->right);
+			} else if(hnr->getStreet().toLower()<tree->getStreet().toLower()) {
+				findInTree(hnr, tree->left);
+			} else {
+				findInTree(hnr, tree->left);
+				if(*hnr==*tree) {
+					hnr->dupe=tree;
+				}
+				findInTree(hnr, tree->right);
+			}
+		}
 	}
 }
 
@@ -301,18 +343,18 @@ void insert(pHouseNumber &element, pHouseNumber &tree, Tree treeType) {
 		} else if(*element > *tree) {
 			insert(element, tree->right, treeType);
 		} else {
-			switch(treeType) {
-				case TREE_HOUSENUMBERS:
+// 			switch(treeType) {
+// 				case TREE_HOUSENUMBERS:
 					qDebug() << "Dupe found!";
 					if(lines>0) {
-						qDebug() << 100.0*lineCount/lines << "%";
+						qDebug() << 100.0*lineCount/lines*(1-POSSIBLE_DUPE_TIME) << "%";
 					}
 					element->dupe=tree;
 					duplicatesStream << element->qsGenerateDupeOutput();
 					++dupeCount;
-					break;
+// 					break;
 // 				case TREE_INCOMPLETE TODO additional == check, make sure that we reach relevant entries
-			}
+// 			}
 		}
 	}
 }

@@ -73,29 +73,33 @@ bool operator>(HouseNumber const& lhs, HouseNumber const rhs) {
  *    and lat/lon difference is less than DISTANCE_THRESHOLD
  */
 bool operator==(HouseNumber & lhs, HouseNumber & rhs) {
-	// only continue when we have got complete address information
-	if(!lhs.isComplete() || !rhs.isComplete()) {
+	// only continue when we have got the most important pieces of address information
+	if(!lhs.isHouseNumber() || !rhs.isHouseNumber()) {
 		return false;
 	}
 	
 	// means that country, city, postcode, street, housenumber, and shop equal
-	if(lhs<rhs && rhs>lhs) {
+	if(lhs<rhs && lhs>rhs) {
 		return true;
 	}
 	
-	if(lhs.getName().toLower()!=rhs.getName().toLower() || lhs.getShop().toLower()!=rhs.getShop().toLower()) {
+	if(lhs.getName().toLower()!=rhs.getName().toLower() ||
+	   lhs.getShop().toLower()!=rhs.getShop().toLower()) {
 		return false;
 	}
 	
 	// consider two house numbers with similar address information and little distance to each other to be equal
-	if(lhs.getNumber().toLower()==rhs.getNumber().toLower() && lhs.getStreet().toLower()==lhs.getStreet().toLower() && lhs.getNumber()!="" && lhs.getStreet()!="") {
-		if(abs(lhs.getLat()-rhs.getLat())>DISTANCE_THRESHOLD || abs(lhs.getLon()-rhs.getLon())>DISTANCE_THRESHOLD)
+	if(lhs.getNumber().toLower()==rhs.getNumber().toLower() &&
+	   lhs.getStreet().toLower()==rhs.getStreet().toLower() &&
+	   lhs.getNumber()!="" && lhs.getStreet()!="") {
+		if(myAbs(lhs.getLat()-rhs.getLat())>DISTANCE_THRESHOLD ||
+		   myAbs(lhs.getLon()-rhs.getLon())>DISTANCE_THRESHOLD)
 			return false;
-		if(lhs.getPostcode()!="" && rhs.getPostcode()!="" && lhs.getPostcode()!=rhs.getPostcode().toLower())
+		if(lhs.getPostcode()!="" && rhs.getPostcode()!="" && lhs.getPostcode().toLower()!=rhs.getPostcode().toLower())
 			return false;
-		if(lhs.getCity()!="" && rhs.getCity()!="" && lhs.getCity()!=rhs.getCity().toLower())
+		if(lhs.getCity()!="" && rhs.getCity()!="" && lhs.getCity().toLower()!=rhs.getCity().toLower())
 			return false;
-		if(lhs.getCountry()!="" && rhs.getCountry()!="" && lhs.getCountry()!=rhs.getCountry().toLower())
+		if(lhs.getCountry()!="" && rhs.getCountry()!="" && lhs.getCountry().toLower()!=rhs.getCountry().toLower())
 			return false;
 		return true;
 	}
@@ -306,12 +310,13 @@ bool HouseNumber::isComplete() {
 	return true;
 }
 
-QString HouseNumber::qsGenerateDupeOutput() const {
-	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\t%16\n")
+QString HouseNumber::qsGenerateDupeOutput(bool possibleDupe) const {
+	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\t%16\t%17\n")
 	                .arg(lat_,0,'f',8).arg(lon_,0,'f',8).arg(id_)
 	                .arg(isWay_?1:0).arg(name_==""?housename_:name_).arg(shop_)
 	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_).arg(housename_)
-	                .arg(dupe->getId()).arg(dupe->getIsWay()?1:0).arg(dupe->getLat(),0,'f',8).arg(dupe->getLon(),0,'f',8);
+	                .arg(dupe->getId()).arg(dupe->getIsWay()?1:0).arg(dupe->getLat(),0,'f',8).arg(dupe->getLon(),0,'f',8)
+	                .arg(possibleDupe?1:0);
 }
 
 // QString qsGeneraateIncompleteOutput(housenumber hnr, int i) {

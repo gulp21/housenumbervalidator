@@ -11,7 +11,7 @@ See main.cpp for details. */
 #include <QRegExp>
 #include <QString>
 
-const int DISTANCE_THRESHOLD=0.01;
+const double DISTANCE_THRESHOLD=0.01;
 
 // I know that this is not so nice… (if you have got a better idea [or a patch], let me know it)
 extern bool bIgnoreCityHint, bCheckPostcodeNumber, bCheckStreetSuffix;
@@ -68,7 +68,7 @@ class HouseNumber {
 		bool isHouseNumber() const;
 		bool isComplete();
 		
-		QString qsGenerateDupeOutput() const;
+		QString qsGenerateDupeOutput(bool possibleDupe=false) const;
 		QString qsGenerateBrokenOutput() const;
 		
 		pHouseNumber dupe, left, right;
@@ -83,5 +83,6 @@ class HouseNumber {
 bool operator<(HouseNumber const& lhs, HouseNumber const rhs);
 bool operator>(HouseNumber const& lhs, HouseNumber const rhs);
 bool operator==(HouseNumber & lhs, HouseNumber & rhs);
+inline double myAbs(double x) { return x<0 ? (-x) : x; }
 
 #endif // _HouseNumber_h_

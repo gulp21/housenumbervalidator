@@ -1,11 +1,54 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<osm version='0.6' generator='JOSM'>
-  <bounds minlat='51.2002654' minlon='6.6876268' maxlat='51.200662' maxlon='6.6884154' origin='CGImap 0.0.2' />
-  <node id='-41' action='modify' visible='true' lat='51.20059881311' lon='6.68791382166176' />
-  <node id='-39' action='modify' visible='true' lat='51.200536970538025' lon='6.687946005163234' />
-  <node id='-37' action='modify' visible='true' lat='51.200521509882044' lon='6.687893438777496' />
-  <node id='-36' action='modify' visible='true' lat='51.200579319264754' lon='6.687847309092052' />
-  <node id='-10' action='modify' timestamp='2010-11-21T05:55:58Z' visible='true' lat='51.20046702526305' lon='6.688174450282328'>
+<osm version='0.6' upload='true' generator='JOSM'>
+  <bounds minlat='51.2002654' minlon='6.687626799999999' maxlat='51.200662' maxlon='6.688415399999999' origin='CGImap 0.0.2' />
+  <node id='-123' action='modify' timestamp='2011-02-24T19:39:55Z' visible='true' lat='51.2526613567682' lon='6.785795314223173'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='1554' />
+    <tag k='addr:postcode' v='41460' />
+    <tag k='addr:street' v='Musterstraße' />
+  </node>
+  <node id='-120' action='modify' timestamp='2011-02-24T19:39:55Z' visible='true' lat='51.20038867477088' lon='6.687958870483168'>
+    <tag k='addr:housenumber' v='1554' />
+    <tag k='addr:street' v='Musterstraße' />
+  </node>
+  <node id='-115' action='modify' timestamp='2011-02-24T19:39:55Z' visible='true' lat='51.20035177372575' lon='6.687780970507132'>
+    <tag k='addr:housenumber' v='154' />
+    <tag k='addr:street' v='Niederstraße' />
+  </node>
+  <node id='-112' action='modify' timestamp='2011-02-24T19:39:55Z' visible='true' lat='51.20035946144592' lon='6.687742936719151'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='154' />
+    <tag k='addr:postcode' v='41460' />
+    <tag k='addr:street' v='Niederstraße' />
+  </node>
+  <node id='-67' action='modify' timestamp='2010-05-22T12:59:40Z' visible='true' lat='56.25555075238106' lon='6.688047170261663'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='231' />
+    <tag k='addr:postcode' v='12300' />
+    <tag k='addr:street' v='van-Niederstraße' />
+  </node>
+  <node id='-65' action='modify' timestamp='2010-05-22T12:59:40Z' visible='true' lat='56.20055075238106' lon='6.688047170261663'>
+    <tag k='addr:city' v='NeussNULL' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:postcode' v='-1230' />
+    <tag k='addr:street' v='Niederstraße' />
+  </node>
+  <node id='-63' action='modify' timestamp='2010-05-22T12:59:40Z' visible='true' lat='51.20055075238106' lon='6.688047170261663'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:postcode' v='41460' />
+    <tag k='addr:street' v='Niederstraße' />
+    <tag k='fax' v='+49-2131-2917075' />
+    <tag k='name' v='OK' />
+    <tag k='phone' v='+49-2131-2914040' />
+    <tag k='shop' v='test' />
+  </node>
+  <node id='-61' action='modify' timestamp='2010-11-21T05:55:58Z' visible='true' lat='51.20046702526305' lon='6.688174450282328'>
     <tag k='addr:city' v='Neuss' />
     <tag k='addr:country' v='DE' />
     <tag k='addr:housenumber' v='23-31' />
@@ -17,30 +60,16 @@
     <tag k='shop' v='clothes' />
     <tag k='wheelchair' v='yes' />
   </node>
-  <node id='-8' action='modify' timestamp='2010-05-22T12:59:40Z' visible='true' lat='51.20055075238106' lon='6.688047170261663'>
+  <node id='-59' action='modify' visible='true' lat='51.200579319264754' lon='6.687847309092052' />
+  <node id='-57' action='modify' visible='true' lat='51.200521509882044' lon='6.687893438777496' />
+  <node id='-55' action='modify' visible='true' lat='51.200536970538025' lon='6.687946005163234' />
+  <node id='-53' action='modify' visible='true' lat='51.20059881311' lon='6.68791382166176' />
+  <node id='111239448' action='modify' timestamp='2011-02-24T19:39:55Z' uid='141931' user='Sharlin' visible='true' version='2' changeset='7384620' lat='51.2046613' lon='6.6881586'>
     <tag k='addr:city' v='Neuss' />
     <tag k='addr:country' v='DE' />
-    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:housenumber' v='20 22' />
     <tag k='addr:postcode' v='41460' />
     <tag k='addr:street' v='Niederstraße' />
-    <tag k='fax' v='+49-2131-2917075' />
-    <tag k='name' v='OK' />
-    <tag k='phone' v='+49-2131-2914040' />
-    <tag k='shop' v='test' />
-  </node>
-  <node id='-67' action='modify' timestamp='2010-05-22T12:59:40Z' visible='true' lat='56.20055075238106' lon='6.688047170261663'>
-    <tag k='addr:city' v='NeussNULL' />
-    <tag k='addr:country' v='DE' />
-    <tag k='addr:housenumber' v='21' />
-    <tag k='addr:postcode' v='-1230' />
-    <tag k='addr:street' v='Niederstraße' />
-  </node>
-  <node id='-17' action='modify' timestamp='2010-05-22T12:59:40Z' visible='true' lat='56.25555075238106' lon='6.688047170261663'>
-    <tag k='addr:city' v='Neuss' />
-    <tag k='addr:country' v='DE' />
-    <tag k='addr:housenumber' v='21' />
-    <tag k='addr:postcode' v='12300' />
-    <tag k='addr:street' v='van-Niederstraße' />
   </node>
   <node id='133300308' timestamp='2011-01-14T16:58:03Z' uid='194703' user='gulp21' visible='true' version='11' changeset='6968988' lat='51.1993569' lon='6.6902208'>
     <tag k='highway' v='traffic_signals' />
@@ -84,6 +113,20 @@
     <tag k='wheelchair' v='yes' />
   </node>
   <node id='387683416' timestamp='2011-01-14T16:57:58Z' uid='194703' user='gulp21' visible='true' version='2' changeset='6968988' lat='51.1996078' lon='6.6897985' />
+  <node id='549345693' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005576' lon='6.6880044'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:postcode' v='12345' />
+    <tag k='addr:street' v='11. Str.' />
+  </node>
+  <node id='549379193' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005576' lon='6.6880044'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:postcode' v='12345' />
+    <tag k='addr:street' v='11. Straße' />
+  </node>
   <node id='598497419' timestamp='2011-01-14T16:57:58Z' uid='194703' user='gulp21' visible='true' version='3' changeset='6968988' lat='51.1994343' lon='6.6900871'>
     <tag k='FIXME' v='Relationen' />
     <tag k='name' v='Glockhammer' />
@@ -100,6 +143,13 @@
     <tag k='FIXME' v='stimmt der Name?' />
     <tag k='name' v='Gürtel Uhren Taschen' />
     <tag k='shop' v='clothes' />
+  </node>
+  <node id='745377200' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005876' lon='6.6880544'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:postcode' v='123456' />
+    <tag k='addr:street' v='Niederstr.' />
   </node>
   <node id='745378798' timestamp='2011-01-14T16:57:58Z' uid='194703' user='gulp21' visible='true' version='2' changeset='6968988' lat='51.200525' lon='6.6883189'>
     <tag k='amenity' v='bench' />
@@ -118,12 +168,6 @@
     <tag k='shop' v='clothes' />
     <tag k='wheelchair' v='yes' />
   </node>
-  <node id='745379551' action='modify' timestamp='2010-11-21T05:55:58Z' uid='290680' user='wheelmap_visitor' visible='true' version='2' changeset='6419849' lat='51.2004496' lon='6.6881861'>
-    <tag k='addr:city' v='Neuss' />
-    <tag k='addr:postcode' v='41460' />
-    <tag k='addr:street' v='Niederstraße' />
-    <tag k='highway' v='street_lamp' />
-  </node>
   <node id='745379135' timestamp='2011-02-24T19:39:54Z' uid='141931' user='Sharlin' visible='true' version='2' changeset='7384620' lat='51.200411' lon='6.688263'>
     <tag k='addr:city' v='Neuss' />
     <tag k='addr:country' v='DE' />
@@ -141,34 +185,6 @@
     <tag k='addr:housenumber' v='21' />
     <tag k='addr:street' v='Niederstraße' />
   </node>
-  <node id='749379193' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005576' lon='6.6880044'>
-    <tag k='addr:city' v='1euss' />
-    <tag k='addr:country' v='DE' />
-    <tag k='addr:postcode' v='12345' />
-    <tag k='addr:housenumber' v='21' />
-    <tag k='addr:street' v='caputt Str.' />
-  </node>
-  <node id='949379193' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005576' lon='6.6880044'>
-    <tag k='addr:city' v='Neuss' />
-    <tag k='addr:country' v='DE' />
-    <tag k='addr:postcode' v='12345' />
-    <tag k='addr:housenumber' v='21' />
-    <tag k='addr:street' v='11er Straße' />
-  </node>
-  <node id='549379193' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005576' lon='6.6880044'>
-    <tag k='addr:city' v='Neuss' />
-    <tag k='addr:country' v='DE' />
-    <tag k='addr:postcode' v='12345' />
-    <tag k='addr:housenumber' v='21' />
-    <tag k='addr:street' v='11. Straße' />
-  </node>
-  <node id='549345693' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005576' lon='6.6880044'>
-    <tag k='addr:city' v='Neuss' />
-    <tag k='addr:country' v='DE' />
-    <tag k='addr:postcode' v='12345' />
-    <tag k='addr:housenumber' v='21' />
-    <tag k='addr:street' v='11. Str.' />
-  </node>
   <node id='745379195' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005546' lon='6.6880024'>
     <tag k='addr:city' v='Neuss' />
     <tag k='name' v='only city hint' />
@@ -177,34 +193,54 @@
     <tag k='addr:city' v='Neuss' />
     <tag k='addr:country' v='DE' />
     <tag k='addr:housenumber' v='21' />
-    <tag k='addr:street' v='Niederstr' />
     <tag k='addr:postcode' v='12345' />
+    <tag k='addr:street' v='Niederstr' />
   </node>
   <node id='745379200' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005876' lon='6.6880544'>
     <tag k='addr:city' v='Neuss' />
     <tag k='addr:country' v='1E' />
     <tag k='addr:housenumber' v='21' />
-    <tag k='addr:street' v='Niederstr.' />
     <tag k='addr:postcode' v='D-12345' />
+    <tag k='addr:street' v='Niederstr.' />
   </node>
   <node id='745379290' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005876' lon='6.6880544'>
     <tag k='addr:city' v='123' />
     <tag k='addr:country' v='D' />
     <tag k='addr:housenumber' v='21' />
-    <tag k='addr:street' v='Niederstraße' />
     <tag k='addr:postcode' v='12345' />
+    <tag k='addr:street' v='Niederstraße' />
   </node>
-  <node id='745377200' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005876' lon='6.6880544'>
+  <node id='745379551' action='modify' timestamp='2010-11-21T05:55:58Z' uid='290680' user='wheelmap_visitor' visible='true' version='2' changeset='6419849' lat='51.2004496' lon='6.6881861'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:postcode' v='41460' />
+    <tag k='addr:street' v='Niederstraße' />
+    <tag k='highway' v='street_lamp' />
+  </node>
+  <node id='749379193' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005576' lon='6.6880044'>
+    <tag k='addr:city' v='1euss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='21' />
+    <tag k='addr:postcode' v='12345' />
+    <tag k='addr:street' v='caputt Str.' />
+  </node>
+  <node id='949379193' action='modify' timestamp='2010-05-22T12:59:40Z' uid='194703' user='gulp21' visible='true' version='1' changeset='4774190' lat='51.2005576' lon='6.6880044'>
     <tag k='addr:city' v='Neuss' />
     <tag k='addr:country' v='DE' />
     <tag k='addr:housenumber' v='21' />
-    <tag k='addr:street' v='Niederstr.' />
-    <tag k='addr:postcode' v='123456' />
+    <tag k='addr:postcode' v='12345' />
+    <tag k='addr:street' v='11er Straße' />
   </node>
   <node id='1103439448' action='modify' timestamp='2011-02-24T19:39:55Z' uid='141931' user='Sharlin' visible='true' version='2' changeset='7384620' lat='51.2006613' lon='6.6881886'>
     <tag k='addr:city' v='Neuss' />
     <tag k='addr:country' v='DE' />
     <tag k='addr:housenumber' v='20' />
+    <tag k='addr:postcode' v='41460' />
+    <tag k='addr:street' v='Niederstraße' />
+  </node>
+  <node id='1112398848' action='modify' timestamp='2011-02-24T19:39:55Z' uid='141931' user='Sharlin' visible='true' version='2' changeset='7384620' lat='51.2042613' lon='6.6811586'>
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='20, 22' />
     <tag k='addr:postcode' v='41460' />
     <tag k='addr:street' v='Niederstraße' />
   </node>
@@ -222,43 +258,29 @@
     <tag k='addr:postcode' v='41460' />
     <tag k='addr:street' v='Niederungstraße' />
   </node>
-  <node id='111239448' action='modify' timestamp='2011-02-24T19:39:55Z' uid='141931' user='Sharlin' visible='true' version='2' changeset='7384620' lat='51.2046613' lon='6.6881586'>
-    <tag k='addr:city' v='Neuss' />
-    <tag k='addr:country' v='DE' />
-    <tag k='addr:housenumber' v='20 22' />
-    <tag k='addr:postcode' v='41460' />
-    <tag k='addr:street' v='Niederstraße' />
-  </node>
-  <node id='1112398848' action='modify' timestamp='2011-02-24T19:39:55Z' uid='141931' user='Sharlin' visible='true' version='2' changeset='7384620' lat='51.2042613' lon='6.6811586'>
-    <tag k='addr:city' v='Neuss' />
-    <tag k='addr:country' v='DE' />
-    <tag k='addr:housenumber' v='20, 22' />
-    <tag k='addr:postcode' v='41460' />
-    <tag k='addr:street' v='Niederstraße' />
-  </node>
-  <way id='-38' action='modify' visible='true'>
-    <nd ref='-36' />
-    <nd ref='-37' />
-    <nd ref='-39' />
-    <nd ref='-41' />
-    <nd ref='-36' />
-    <tag k='addr:city' v='Neuss' />
-    <tag k='addr:country' v='DE' />
-    <tag k='addr:housenumber' v='20' />
-    <tag k='addr:postcode' v='41460' />
-    <tag k='addr:street' v='Niederstraße' />
-    <tag k='building' v='yes' />
-  </way>
-  <way id='11118' action='modify' visible='true'>
-    <nd ref='-36' />
-    <nd ref='-37' />
-    <nd ref='-39' />
-    <nd ref='-41' />
-    <nd ref='-36' />
+  <way id='-101' action='modify' visible='true'>
+    <nd ref='-59' />
+    <nd ref='-57' />
+    <nd ref='-55' />
+    <nd ref='-53' />
+    <nd ref='-59' />
     <tag k='addr:city' v='NeussOK!' />
     <tag k='addr:country' v='DE' />
     <tag k='addr:housenumber' v='20' />
     <tag k='addr:postcode' v='01460' />
+    <tag k='addr:street' v='Niederstraße' />
+    <tag k='building' v='yes' />
+  </way>
+  <way id='-99' action='modify' visible='true'>
+    <nd ref='-59' />
+    <nd ref='-57' />
+    <nd ref='-55' />
+    <nd ref='-53' />
+    <nd ref='-59' />
+    <tag k='addr:city' v='Neuss' />
+    <tag k='addr:country' v='DE' />
+    <tag k='addr:housenumber' v='20' />
+    <tag k='addr:postcode' v='41460' />
     <tag k='addr:street' v='Niederstraße' />
     <tag k='building' v='yes' />
   </way>

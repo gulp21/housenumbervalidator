@@ -24,7 +24,7 @@
 			if(!in_array(" $columns[2] $columns[3]", $corrected_dupes)) {
 				mysql_query("insert into dupes values ($columns[0], $columns[1], $columns[2], $columns[3],
 				'$columns[4]', '$columns[5]', '$columns[6]', '$columns[7]', '$columns[8]', '$columns[9]',
-				'$columns[10]', '$columns[11]', '$columns[12]', '$columns[13]', '".trim($columns[14])."','0')")
+				'$columns[10]', '$columns[11]', '$columns[12]', '$columns[13]', '$columns[14]', '".trim($columns[15])."','0')")
 				or die(mysql_error());
 			} else {
 				++$k;

@@ -81,7 +81,7 @@
 	
 	$(function () {
 		var chart1, chart2, chart3, piechart1, piechart2, chart4;
-		var lastUpdate='4. Jan 12 \u2013 26. May 12';
+		var lastUpdate='4. Jan 12 \u2013 10. Jun 12';
 		function formatter(t) {
 			annotation="";
 			if(t.x==Date.UTC(2012,1,20)) annotation="<br/><b>Algorithmusänderung<b>";
@@ -97,6 +97,7 @@
 			else if(t.x==Date.UTC(2012,5,08)) annotation="<br/><b>Algorithmusänderung<b>";
 			else if(t.x==Date.UTC(2012,5,11)) annotation="<br/><b>Algorithmusänderung<b>";
 			else if(t.x==Date.UTC(2012,5,13)) annotation="<br/><b>Algorithmuskorrektur<b>";
+			else if(t.x==Date.UTC(2012,5,16)) annotation="<br/><b>erweiterte Duplikatsprüfung<b>";
 			return Highcharts.dateFormat('%e. %b %y', t.x) + ': ' + t.y + annotation;
 		};
 		$(document).ready(function() {
