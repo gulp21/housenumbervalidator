@@ -9,7 +9,7 @@
 	
 	echo $subscribers." subscribers<br/>";
 	
-	$probs=mysql_query("SELECT * FROM problematic WHERE corrected=0 AND (`broken` & 7 OR `street` REGEXP '.*str\.? ?[0-9].*' OR `street` REGEXP '\<.*')") or die ("MySQL-Error: ".mysql_error());
+	$probs=mysql_query("SELECT * FROM problematic WHERE corrected=0 AND (`broken` & 39 OR `street` REGEXP '.*str\.? ?[0-9].*' OR `street` REGEXP '\<.*')") or die ("MySQL-Error: ".mysql_error());
 	
 	echo "Found ".mysql_num_rows($probs)." Ps<br/>";
 	
@@ -67,6 +67,9 @@
 	
 	echo "Found ".mysql_num_rows($dupes)." Ds<br/>";
 	
+	if(mysql_num_rows($dupes) < $subscribers*10+10)
+                die("that's not enough...");
+	
 	$i=-rand(0,mysql_num_rows($dupes)-$subscribers*10);
 	
 	echo "i ".$i."<br/>";
@@ -78,12 +81,12 @@
 		$table="";
 		
 		if(trim($dupe['name'])!="") $table.="Name\t".$dupe['name']."\n";
-		if($dupe['country']!="") $table.=$style."addr:country\t".$dupe['country'].$style."\n";
-		if($dupe['city']!="") $table.=$style."addr:city\t".$dupe['city'].$style."\n";
-		if($dupe['postcode']!="") $table.=$style."addr:postcode\t".$dupe['postcode'].$style."\n";
-		if($dupe['street']!="") $table.=$style."addr:street\t".$dupe['street'].$style."\n";
-		if($dupe['number']!="") $table.=$style."addr:number\t".$dupe['number'].$style."\n";
-		if($dupe['housename']!="") $table.=$style."addr:number\t".$dupe['housename'].$style."\n";
+		if($dupe['country']!="") $table.="addr:country\t".$dupe['country']."\n";
+		if($dupe['city']!="") $table.="addr:city\t".$dupe['city']."\n";
+		if($dupe['postcode']!="") $table.="addr:postcode\t".$dupe['postcode']."\n";
+		if($dupe['street']!="") $table.="addr:street\t".$dupe['street']."\n";
+		if($dupe['number']!="") $table.="addr:number\t".$dupe['number']."\n";
+		if($dupe['housename']!="") $table.="addr:number\t".$dupe['housename']."\n";
 		
 		if($dupe['type']==1) {
 			$type="way";
