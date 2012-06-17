@@ -66,6 +66,7 @@ class HouseNumberTest: public QObject {
 			hnr1->setPostcode("");
 			hnr1->setStreet("Niederstraße");
 			hnr1->setNumber("21");
+			QVERIFY(*hnr1<*hnr2);
 			hnr2->setLat(56.2555507);
 			hnr2->setLon(6.6880471);
 			hnr2->setCountry("DE");
@@ -74,6 +75,36 @@ class HouseNumberTest: public QObject {
 			hnr2->setStreet("van-Niederstraße");
 			hnr2->setNumber("231");
 			QVERIFY(!(*hnr1==*hnr2));
+		}
+		
+		void operatorComparisonTest() {
+			qsAssumeCity="";
+			HouseNumber *hnr1 = new HouseNumber();
+			HouseNumber *hnr2 = new HouseNumber();
+			hnr1->setLat(51.2005576);
+			hnr1->setLon(6.6880044);
+			hnr1->setCountry("DE");
+			hnr1->setCity("Neuss");
+			hnr1->setPostcode("12345");
+			hnr1->setStreet("Niederstraße");
+			hnr1->setNumber("21");
+			hnr2->setLat(56.2555507);
+			hnr2->setLon(6.6880471);
+			hnr2->setCountry("DE");
+			hnr2->setCity("Neuss");
+			hnr2->setPostcode("12300");
+			hnr2->setStreet("van-Niederstraße");
+			hnr2->setNumber("21");
+			QVERIFY(*hnr1<*hnr2);
+			QVERIFY(!(*hnr1>*hnr2));
+			hnr2->setPostcode("12345");
+			hnr2->setStreet("Niederstraße");
+			QVERIFY(!(*hnr1<*hnr2));
+			QVERIFY(!(*hnr1>*hnr2));
+			QVERIFY(*hnr1==*hnr2);
+			hnr2->setShop("bus_stop");
+			QVERIFY(*hnr1<*hnr2);
+			QVERIFY(!(*hnr1>*hnr2));
 		}
 };
 

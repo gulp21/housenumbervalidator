@@ -80,8 +80,8 @@ class HouseNumber {
 		QString city_, country_, housename_, name_, number_, postcode_, street_, shop_;
 };
 
-bool operator<(HouseNumber const& lhs, HouseNumber const rhs);
-bool operator>(HouseNumber const& lhs, HouseNumber const rhs);
+bool operator<(HouseNumber const& lhs, HouseNumber const& rhs);
+bool operator>(HouseNumber const& lhs, HouseNumber const& rhs);
 bool operator==(HouseNumber & lhs, HouseNumber & rhs);
 inline double myAbs(double x) { return x<0 ? (-x) : x; }
 

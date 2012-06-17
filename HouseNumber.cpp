@@ -34,7 +34,7 @@ HouseNumber::~HouseNumber() {
  * compares QString("%1%2%3%4%5%6")
  *  .arg(number_).arg(street_).arg(postcode_).arg(city_).arg(country_).arg(name_).arg(shop_).toLower()
  */
-bool operator<(HouseNumber const& lhs, HouseNumber const rhs) {
+bool operator<(HouseNumber const& lhs, HouseNumber const& rhs) {
 	if(lhs.getNumber().toLower()!=rhs.getNumber().toLower())
 		return lhs.getNumber().toLower()<rhs.getNumber().toLower();
 	if(lhs.getStreet().toLower()!=rhs.getStreet().toLower())
@@ -50,20 +50,8 @@ bool operator<(HouseNumber const& lhs, HouseNumber const rhs) {
 	return lhs.getShop().toLower()<rhs.getShop().toLower();
 }
 
-bool operator>(HouseNumber const& lhs, HouseNumber const rhs) {
-	if(lhs.getNumber().toLower()!=rhs.getNumber().toLower())
-		return lhs.getNumber().toLower()>rhs.getNumber().toLower();
-	if(lhs.getStreet().toLower()!=rhs.getStreet().toLower())
-		return lhs.getStreet().toLower()>rhs.getStreet().toLower();
-	if(lhs.getPostcode().toLower()!=rhs.getPostcode().toLower())
-		return lhs.getPostcode().toLower()>rhs.getPostcode().toLower();
-	if(lhs.getCity().toLower()!=rhs.getCity().toLower())
-		return lhs.getCity().toLower()>rhs.getCity().toLower();
-	if(lhs.getCountry().toLower()!=rhs.getCountry().toLower())
-		return lhs.getCountry().toLower()>rhs.getCountry().toLower();
-	if(lhs.getName().toLower()!=rhs.getName().toLower())
-		return lhs.getName().toLower()>rhs.getName().toLower();
-	return lhs.getShop().toLower()>rhs.getShop().toLower();
+bool operator>(HouseNumber const& lhs, HouseNumber const& rhs) {
+	return operator<(rhs, lhs);
 }
 
 /*!
@@ -79,7 +67,7 @@ bool operator==(HouseNumber & lhs, HouseNumber & rhs) {
 	}
 	
 	// means that country, city, postcode, street, housenumber, and shop equal
-	if(lhs<rhs && lhs>rhs) {
+	if(!(lhs<rhs) && !(lhs>rhs)) {
 		return true;
 	}
 	
@@ -166,7 +154,8 @@ void HouseNumber::setNumber(QString number) {
 	completeness_|=NUMBER;
 	
 	if( number_.contains("traße") || number_.endsWith("str") || number_.contains("str.") ||
-	    number_.endsWith("Str") || number_.contains("Str.") /*|| number_.contains(QRegExp("[0-9]+[Aa-Zz]?,? [0-9]+[Aa-Zz]?"))*/ || number_.contains("<") || number_.contains("..") ||
+	    number_.endsWith("Str") || number_.contains("Str.") /*|| number_.contains(QRegExp("[0-9]+[Aa-Zz]?,? [0-9]+[Aa-Zz]?"))*/ ||
+	    number_.contains("<") || number_.contains("..") || number_.contains("?") ||
 	    number_.contains("fix", Qt::CaseInsensitive) || number_.contains("unkn", Qt::CaseInsensitive) ) {
 		broken_|=NUMBER;
 	}
