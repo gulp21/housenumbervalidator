@@ -155,7 +155,7 @@ int main(int argc, const char* argv[]) {
 	}
 	brokenStream.setDevice(&brokenFile);
 	brokenStream.setCodec("UTF-8");
-	brokenStream << "lat\tlon\tid\ttype\tbroken\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\n";
+	brokenStream << "lat\tlon\tid\ttype\tbroken\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\teasyfix\n";
 	
 	pHouseNumber hnr;
 	
@@ -293,7 +293,7 @@ int main(int argc, const char* argv[]) {
 	logStream.setDevice(&logFile);
 	logStream.setCodec("UTF-8");
 	logStream << "finished after " <<  now.elapsed()/1000 << " seconds" << endl;
-	logStream << hnrCount << " housenumbers, " << dupeCount << " dupes, " << incompleteCount << " incomplete, " << brokenCount << " broken, " << possibleDupeCount << "possible_dupes" << endl;
+	logStream << hnrCount << " housenumbers, " << dupeCount << " dupes, " << incompleteCount << " incomplete, " << brokenCount << " broken, " << possibleDupeCount << " possible_dupes" << endl;
 	
 	return 0;
 }

@@ -25,7 +25,10 @@ class HouseNumberTest: public QObject {
 			QVERIFY(hnr->isComplete()==true);
 			QVERIFY(hnr->getBroken()==33);
 			QCOMPARE(hnr->qsGenerateBrokenOutput(),
-				 QString("51.19704670\t6.60817180\t1337\t0\t33\t1a \tDeutschland\tKaarst\t41564\tRathausplatz\t1a\t1a\n"));
+				 QString("51.19704670\t6.60817180\t1337\t0\t33\t1a \tDeutschland\tKaarst\t41564\tRathausplatz\t1a\t1a\t1\n"));
+			hnr->setStreet("Rathausstr.");
+			QCOMPARE(hnr->qsGenerateBrokenOutput(),
+				 QString("51.19704670\t6.60817180\t1337\t0\t41\t1a \tDeutschland\tKaarst\t41564\tRathausstr.\t1a\t1a\t0\n"));
 		}
 		
 		void operatorEqualsTest() {

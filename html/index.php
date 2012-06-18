@@ -6,8 +6,11 @@
 		
 		[id^="OpenLayers.Control.Attribution"] {
 			top: 0px;
-			right: 0px;
+			right: 0px !important;
 			max-height: 20px;
+			opacity: .7;
+			background: white;
+			padding: 0px 3px 0px 5px;
 		}
 		
 		[id^="OL_Icon_"], [id^="OpenLayers.Geometry.Point"] {
@@ -286,7 +289,7 @@
 		var mapnikMap = new OpenLayers.Layer.OSM.Mapnik("Mapnik",
 		{
 			transitionEffect: 'resize',
-			attribution: ''
+			attribution: '&copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC&#8209;BY&#8209;SA</a>'
 		});
 		map.addLayer(mapnikMap);
 		
@@ -294,7 +297,7 @@
 		{
 			transitionEffect: 'resize',
 			numZoomLevels: 19,
-			attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
+			attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">, &copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC&#8209;BY&#8209;SA</a>'
 		});
 		map.addLayer(mapquestMap);
 		
@@ -493,9 +496,8 @@
 	<span style="font-weight:bold">Maximal 1800 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span> <a href="#" onclick="javascript:openOsmi()">im OSMI anzeigen</a>
 	<br/>
 	Duplikate: <img src="pin_red.png" alt="red square"/> Exakt, <img src="pin_blue.png" alt="blue square"/> &Auml;hnlich &dash;
-	Problematisch: <img src="pin_circle_red.png" alt="red circle"/> Stra&szlig;e, <img src="pin_circle_blue.png" alt="blue circle"/> Anderes &dash;
-	<a href="#" onclick="report();" style="color:red;font-weight:bold;">Fehlalarm melden</a> &dash;
-	<a href="#" onclick="oneperday();" style="color:green;font-weight:bold;">Ein korrigierter Fehler am Tag</a>
+	Problematisch: <img src="pin_circle_red.png" alt="red circle"/> EasyFix, <img src="pin_circle_blue.png" alt="blue circle"/> Komplizierter od. Botaufgabe &dash;
+	<a href="#" onclick="report();" style="color:red;font-weight:bold;">Fehlalarm melden</a>
 	<br/>
 	<a href="https://github.com/gulp21" target="_blank">Source</a> &dash;
 	<a href="http://forum.openstreetmap.org/viewtopic.php?id=12669" target="_blank">Forum</a> &dash;
@@ -503,7 +505,7 @@
 	<a href="http://gulp21.github.com/" target="_blank">mehr&hellip;</a> &dash;
 	Kontakt: <a href="http://www.openstreetmap.org/message/new/gulp21" target="_blank">&uuml;ber OSM</a>,
 	<a href="#" onclick="alert(unescape('support[dot]gulp21 (%E4t) googlemail[dot]com'));">E-Post</a> &dash;
-	&copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC&#8209;BY&#8209;SA</a>
+	<a href="#" onclick="oneperday();" style="color:green;font-weight:bold;">Ein korrigierter Fehler am Tag</a>
 	</div>
 	<a href="http://gulp21.github.com/qeodart_de.html" target="_blank" class="ad" id="ad1" style="background-color: rgba(256,168,88,.9);display:none">
 		<img src="qeodart.png" alt="QeoDart Icon"/>

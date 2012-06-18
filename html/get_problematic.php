@@ -54,7 +54,7 @@
 			$type="node";
 		}
 		
-		if(8==$brok['broken']) {
+		if($brok['easyfix']==1) {
 			$pin="pin_circle_red.png";
 		} else {
 			$pin="pin_circle_blue.png";

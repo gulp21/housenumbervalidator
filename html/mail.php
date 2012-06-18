@@ -9,7 +9,7 @@
 	
 	echo $subscribers." subscribers<br/>";
 	
-	$probs=mysql_query("SELECT * FROM problematic WHERE corrected=0 AND (`broken` & 39 OR `street` REGEXP '.*str\.? ?[0-9].*' OR `street` REGEXP '\<.*')") or die ("MySQL-Error: ".mysql_error());
+	$probs=mysql_query("SELECT * FROM problematic WHERE corrected=0 AND easyfix=1") or die ("MySQL-Error: ".mysql_error());
 	
 	echo "Found ".mysql_num_rows($probs)." Ps<br/>";
 	

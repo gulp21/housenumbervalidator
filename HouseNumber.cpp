@@ -13,6 +13,7 @@ HouseNumber::HouseNumber() {
 	ignore_=false;
 	isHnr_=false;
 	isWay_=false;
+	isEasyFix_=true;
 	city_="";
 	country_="";
 	name_="";
@@ -153,11 +154,13 @@ void HouseNumber::setNumber(QString number) {
 	number_=number;
 	completeness_|=NUMBER;
 	
-	if( number_.contains("traße") || number_.endsWith("str") || number_.contains("str.") ||
-	    number_.endsWith("Str") || number_.contains("Str.") /*|| number_.contains(QRegExp("[0-9]+[Aa-Zz]?,? [0-9]+[Aa-Zz]?"))*/ ||
-	    number_.contains("<") || number_.contains("..") || number_.contains("?") ||
-	    number_.contains("fix", Qt::CaseInsensitive) || number_.contains("unkn", Qt::CaseInsensitive) ) {
+	if(number_.contains("traße") || number_.endsWith("str") || number_.contains("str.") ||
+	   number_.endsWith("Str") || number_.contains("Str.") /*|| number_.contains(QRegExp("[0-9]+[Aa-Zz]?,? [0-9]+[Aa-Zz]?"))*/) {
 		broken_|=NUMBER;
+	} else if(number_.contains("<") || number_.contains("..") || number_.contains("?") ||
+	          number_.contains("fix", Qt::CaseInsensitive) || number_.contains("unkn", Qt::CaseInsensitive)) {
+		broken_|=NUMBER;
+		isEasyFix_=false;
 	}
 }
 
@@ -165,7 +168,10 @@ void HouseNumber::setPostcode(QString postcode) {
 	postcode_=postcode;
 	completeness_|=POSTCODE;
 	
-	if( bCheckPostcodeNumber && ( (postcode_!=QString("%1").arg(postcode_.toInt()) &&
+	if(postcode_.contains("fix", Qt::CaseInsensitive) || postcode_.contains("unkn", Qt::CaseInsensitive)) {
+		broken_|=POSTCODE;
+		isEasyFix_=false;
+	} else if( bCheckPostcodeNumber && ( (postcode_!=QString("%1").arg(postcode_.toInt()) &&
 	    postcode_!=QString("0%1").arg(postcode_.toInt())) || postcode_.toInt()<=0 ) ) {
 		broken_|=POSTCODE;
 	} else if(iCheckPostcodeChars>-1 && postcode_.length()!=iCheckPostcodeChars) {
@@ -177,12 +183,16 @@ void HouseNumber::setStreet(QString street) {
 	street_=street;
 	completeness_|=STREET;
 	
-	if( ( bCheckStreetSuffix && (street_.endsWith("str") || street_.contains("str.") ||
-	                             street_.endsWith("Str") || street_.contains("Str.")) ) ||
-	    ( street_.length()>0 && !street_[0].isUpper() && !street_.contains(QRegExp("[0-9](\\.|e)")) &&
-	      !street_.startsWith("an") && !street_.startsWith("am") && !street_.startsWith("van") &&
-	      !street_.startsWith("von") && !street_.startsWith("vom") ) ) {
+	if(bCheckStreetSuffix && (street_.endsWith("str") || street_.contains("str.") ||
+	                          street_.endsWith("Str") || street_.contains("Str.")) ) {
 		broken_|=STREET;
+		if(street_.endsWith("tr."))
+			isEasyFix_=false;
+	} else if (street_.length()>0 && !street_[0].isUpper() && !street_.contains(QRegExp("[0-9](\\.|e)")) &&
+	           !street_.startsWith("an") && !street_.startsWith("am") && !street_.startsWith("van") &&
+	           !street_.startsWith("von") && !street_.startsWith("vom")) {
+		broken_|=STREET;
+		isEasyFix_=false;
 	}
 }
 
@@ -320,8 +330,9 @@ QString HouseNumber::qsGenerateDupeOutput(bool possibleDupe) const {
 // }
 
 QString HouseNumber::qsGenerateBrokenOutput() const {
-	return QString("%1\t%2\t%3\t%4\t%5\t%6 %7\t%8\t%9\t%10\t%11\t%12\t%13\n")
+	return QString("%1\t%2\t%3\t%4\t%5\t%6 %7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\n")
 	                .arg(lat_,0,'f',8).arg(lon_,0,'f',8).arg(id_)
 	                .arg(isWay_?1:0).arg(broken_).arg(name_==""?housename_:name_).arg(shop_)
-	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_).arg(housename_);
+	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_).arg(housename_)
+	                .arg(isEasyFix_?1:0); //recheck mit mail.php abfrage, ob wir alle hardFix raushaben, farbkodierung anpassen (get_broken, index, wiki)
 }

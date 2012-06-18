@@ -76,7 +76,7 @@ class HouseNumber {
 	private:
 		double lat_, lon_;
 		int id_, completeness_, broken_;
-		bool ignore_, isHnr_, isWay_;
+		bool ignore_, isHnr_, isWay_, isEasyFix_;
 		QString city_, country_, housename_, name_, number_, postcode_, street_, shop_;
 };
 

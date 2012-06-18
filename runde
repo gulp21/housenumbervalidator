@@ -149,11 +149,25 @@ function delete {
 	done
 }
 
+function delete_dupes {
+	echo Sure? [y]
+	read SURE
+	if [ "$SURE"=="y" ]; then
+		for land in "baden-wuerttemberg" "bayern" "berlin" "brandenburg" "bremen" "hamburg" "hessen" "nordrhein-westfalen" "mecklenburg-vorpommern" "niedersachsen" "rheinland-pfalz" "saarland" "sachsen" "sachsen-anhalt" "schleswig-holstein" "thueringen" "austria"
+		do
+			echo rm $land/dupes.txt
+			rm $land/dupes.txt
+		done
+	fi
+}
+
 if [ $1 == "c" ]; then
 	getreports
 	combine
 elif [ $1 == "d" ]; then
 	delete
+elif [ $1 == "dd" ]; then
+	delete_dupes
 elif [ $1 == "convenience1" ]; then
 	./runaustria
 	./runde 1
