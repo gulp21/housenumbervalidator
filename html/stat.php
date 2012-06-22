@@ -81,7 +81,6 @@
 	
 	$(function () {
 		var chart1, chart2, chart3, piechart1, piechart2, chart4;
-		var lastUpdate='4. Jan 12 \u2013 10. Jun 12';
 		function formatter(t) {
 			annotation="";
 			if(t.x==Date.UTC(2012,1,20)) annotation="<br/><b>Algorithmusänderung<b>";
@@ -448,7 +447,7 @@
 					text: 'browsers'
 				},
 				subtitle: {
-					text: lastUpdate
+					text: '4. Jan 12 \u2013 today'
 				},
 				tooltip: {
 					formatter: function() {
@@ -475,42 +474,74 @@
 					data: [
 						{
 							name: 'Firefox',
-							y: 1598,
+							y:
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Firefox%" or ua like "%Namoroka%")');
+							echo mysql_num_rows($r);
+							?>,
 							color: 'tomato',
 						},
 						{
-							name: 'Opera',
-							y: 222,
-							color: 'maroon',
-						},
-						{
 							name: 'Chrome',
-							y: 213,
+							y:
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Chrome%")');
+							echo mysql_num_rows($r);
+							?>,
 							color: 'forestgreen',
 						},
 						{
+							name: 'Opera',
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Opera%")');
+							echo mysql_num_rows($r);
+							?>,
+							color: 'maroon',
+						},
+						{
 							name: 'IE',
-							y: 129,
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%MSIE%")');
+							echo mysql_num_rows($r);
+							?>,
 							color: 'dodgerblue',
 						},
 						{
-							name: 'Konqueror',
-							y: 41,
-							color: 'royalblue',
-						},
-						{
 							name: 'Safari',
-							y: 28,
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Safari%") and not(ua like "%Chrome%") and not(ua like "%Mobile%") and not(ua like "%Googlebot-Mobile%")');
+							echo mysql_num_rows($r);
+							?>,
 							color: 'lightgray',
 						},
 						{
+							name: 'Konqueror',
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Konqu%")');
+							echo mysql_num_rows($r);
+							?>,
+							color: 'royalblue',
+						},
+						{
 							name: 'Bot',
-							y: 22,
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%http%")');
+							echo mysql_num_rows($r);
+							?>,
 							color: 'silver',
 						},
 						{
 							name: 'Mobile',
-							y: 21,
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Mobile%")');
+							echo mysql_num_rows($r);
+							?>,
 							color: 'yellowgreen',
 						},
 					]
@@ -527,7 +558,7 @@
 					text: 'os'
 				},
 				subtitle: {
-					text: lastUpdate
+					text: '4. Jan 12 \u2013 today'
 				},
 				tooltip: {
 					formatter: function() {
@@ -554,28 +585,48 @@
 					data: [
 						{
 							name: 'Windows',
-							y: 1271,
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Windows%")');
+							echo mysql_num_rows($r);
+							?>,
 							color: 'royalblue',
 						},
 						{
 							name: 'Linux',
-							y: 865,
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Linux%") and not(ua like "%Android%")');
+							echo mysql_num_rows($r);
+							?>,
 							color: 'goldenrod',
 						},
 						{
 							name: 'MacOSX',
-							y: 85,
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Macin%")');
+							echo mysql_num_rows($r);
+							?>,
 							color: 'dimgray',
 						},
 						{
-							name: 'Bot',
-							y: 22,
-							color: 'silver',
+							name: 'Mobile',
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Mobile%")');
+							echo mysql_num_rows($r);
+							?>,
+							color: 'yellowgreen',
 						},
 						{
-							name: 'Mobile',
-							y: 21,
-							color: 'yellowgreen',
+							name: 'Bot',
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%http%")');
+							echo mysql_num_rows($r);
+							?>,
+							color: 'silver',
 						},
 					]
 				}]
@@ -588,6 +639,14 @@
 				},
 				title: {
 					text: 'unique visits per day'
+				},
+				subtitle: {
+					text:
+					<?php
+					$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv"');
+					echo mysql_num_rows($r);
+					?>
+					+ ' total'
 				},
 				xAxis: {
 					type: 'datetime',
@@ -613,7 +672,7 @@
 							color: '#000000'
 						}
 					},
-					max: 30,
+					max: 40,
 					min: 0
 				}],
 				legend: {
@@ -621,10 +680,7 @@
 				},
 				tooltip: {
 					formatter: function() {
-						d='2';
-						if(Highcharts.dateFormat('%e', this.x)=="1") d='21';
-						else if(Highcharts.dateFormat('%e', this.x)=="20") d='11';
-						return d + '. \u2013 ' + Highcharts.dateFormat('%e. %b %y', this.x) + ': ' + this.y;
+						return 'week of ' + Highcharts.dateFormat('%e. %b %y', this.x) + ': ' + this.y;
 					},
 				},
 				series: [{
@@ -633,23 +689,17 @@
 					type: 'spline',
 					yAxis: 0,
 					data: [
-					[Date.UTC(2012,0,10),20.3],
-					[Date.UTC(2012,0,20),11.0],
-					[Date.UTC(2012,1,1),6.6],
-					[Date.UTC(2012,1,10),5.1],
-					[Date.UTC(2012,1,20),10.1],
-					[Date.UTC(2012,2,1),11.5],
-					[Date.UTC(2012,2,10),5.7],
-					[Date.UTC(2012,2,20),12.2],
-					[Date.UTC(2012,3,1),13.2],
-					[Date.UTC(2012,3,10),8.4],
-					[Date.UTC(2012,3,20),14.8],
-					[Date.UTC(2012,4,1),25.5],
-					[Date.UTC(2012,4,10),25.7],
-					[Date.UTC(2012,4,20),17.2],
-					[Date.UTC(2012,5,1),21.4],
-					[Date.UTC(2012,5,10),25], //FIXME
-// 					[Date.UTC(2012,5,20),0],
+					<?php
+					for($i=0; ; $i+=7) {
+						$start = 0+$i;
+						$end = 7+$i;
+						$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and time between date_add("12/01/9", interval '.$start.' day) and date_add("12/01/10", interval '.$end.' day)');
+						if(mysql_num_rows($r)==0)
+							break;
+						$ave=round(mysql_num_rows($r)/7, 1);
+						echo "[Date.UTC(2012,0,9+".$i."),".$ave."],\n";
+					}
+					?>
 					]
 				}]
 			});

@@ -1,7 +1,7 @@
 <?
 
 // in case do not track is enabled, save a shortened ip
-function ip() {
+function getIp() {
 	$addr=$_SERVER['REMOTE_ADDR'];
 	if(strlen($addr)<3) return "NAN";
 	if(isset($_SERVER['HTTP_DNT']) && $_SERVER['HTTP_DNT']==1) {
@@ -11,7 +11,7 @@ function ip() {
 	}
 }
 
-function referer() {
+function getReferer() {
 	if(!isset($_GET["ref"])) {
 		return "NULL";
 	} else if($_GET["ref"]=="") {
@@ -23,8 +23,31 @@ function referer() {
 	}
 }
 
+include("housenumbervalidator/connect.php");
+
+mysql_set_charset("utf8");
+
 $out = fopen("counter.txt", "a");
 $timestamp = date("ymd:H",time());
-fputs($out,ip()."\t".$_GET["id"]."\t".$timestamp."\t".$_SERVER['HTTP_USER_AGENT']."\t".referer()."\n");
+$ip = mysql_real_escape_string(getIp());
+$id = mysql_real_escape_string($_GET["id"]);
+$ua = mysql_real_escape_string($_SERVER[HTTP_USER_AGENT]);
+$referer = mysql_real_escape_string(getReferer());
+fputs($out,$ip."\t".$id."\t".$timestamp."\t".$ua."\t".$referer."\n");
 fclose($out);
+
+$time = date('y/m/d H:00:00',time());
+
+$query = "insert into `hits` values (\"".$ip."\", \"".$id."\", \"".$time."\", \"".$ua."\", \"".$referer."\")";
+// echo $query;
+mysql_query($query); //or die ("MySQL-Error: ".mysql_error());
+
+if($id=="me") {
+    $today = date("y/m/d 00:00:00",time());
+    $query = "DELETE FROM `hits` where ip=\"".$ip."\" and time > \"".$today."\"";
+    echo $query."<br/>";
+    mysql_query($query) or die ("MySQL-Error: ".mysql_error());
+    echo mysql_affected_rows()-1 ." entries removed";
+}
+
 ?>

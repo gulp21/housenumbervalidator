@@ -1,6 +1,8 @@
 <?php
 	include("../connect.php");
 	
+	$skip=8;
+	
 	mysql_set_charset("utf8");
 	
 	$mails=mysql_query("SELECT * FROM mails") or die ("MySQL-Error: ".mysql_error());
@@ -13,10 +15,10 @@
 	
 	echo "Found ".mysql_num_rows($probs)." Ps<br/>";
 	
-	if(mysql_num_rows($probs) < $subscribers*10+10)
+	if(mysql_num_rows($probs) < $subscribers*$skip+$skip)
 		die("that's not enough...");
 	
-	$i=-rand(0,mysql_num_rows($probs)-$subscribers*10);
+	$i=-rand(0,mysql_num_rows($probs)-$subscribers*$skip);
 	
 	echo "i ".$i."<br/>";
 	
@@ -60,17 +62,17 @@
 			.$table
 			."\n";
 		
-		if($i==$subscribers*10) break;
+		if($i==$subscribers*$skip) break;
 	}
 	
 	$dupes=mysql_query("SELECT * FROM dupes WHERE corrected=0 AND possible_dupe=0") or die ("MySQL-Error: ".mysql_error());
 	
 	echo "Found ".mysql_num_rows($dupes)." Ds<br/>";
 	
-	if(mysql_num_rows($dupes) < $subscribers*10+10)
+	if(mysql_num_rows($dupes) < $subscribers*$skip+$skip)
                 die("that's not enough...");
 	
-	$i=-rand(0,mysql_num_rows($dupes)-$subscribers*10);
+	$i=-rand(0,mysql_num_rows($dupes)-$subscribers*$skip);
 	
 	echo "i ".$i."<br/>";
 	
@@ -110,7 +112,7 @@
 			.$table
 			."\n\n";
 		
-		if($i==$subscribers*10) break;
+		if($i==$subscribers*$skip) break;
 	}
 	
 	while($mail=mysql_fetch_assoc($mails)) {
@@ -121,7 +123,7 @@
 		
 		echo "<br/>".$mail['mail']."<br/>".$problems[$i][1]."<br/>".$duplicates[$i][1]."<br/>";
 		
-		$i-=10;
+		$i-=$skip;
 	}
 	
 ?>
