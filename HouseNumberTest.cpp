@@ -59,9 +59,9 @@ class HouseNumberTest: public QObject {
 			QVERIFY(hnr2->isHouseNumber()==true);
 			QVERIFY(hnr2->isComplete()==false);
 			QVERIFY(hnr2->getBroken()==0);
-			QVERIFY(*hnr1==*hnr2);
+			QVERIFY(hnr1->isSameHouseNumber(*hnr2));
 			hnr2->setLon(6.6181719);
-			QVERIFY(!(*hnr1==*hnr2));
+			QVERIFY(!(hnr1->isSameHouseNumber(*hnr2)));
 			hnr1->setLat(51.2005576);
 			hnr1->setLon(6.6880044);
 			hnr1->setCountry("DE");
@@ -69,7 +69,7 @@ class HouseNumberTest: public QObject {
 			hnr1->setPostcode("");
 			hnr1->setStreet("Niederstraße");
 			hnr1->setNumber("21");
-			QVERIFY(*hnr1<*hnr2);
+			QVERIFY(hnr1->isLessThanAddress(*hnr2));
 			hnr2->setLat(56.2555507);
 			hnr2->setLon(6.6880471);
 			hnr2->setCountry("DE");
@@ -77,7 +77,7 @@ class HouseNumberTest: public QObject {
 			hnr2->setPostcode("12300");
 			hnr2->setStreet("van-Niederstraße");
 			hnr2->setNumber("231");
-			QVERIFY(!(*hnr1==*hnr2));
+			QVERIFY(!(hnr1->isSameHouseNumber(*hnr2)));
 		}
 		
 		void operatorComparisonTest() {
@@ -98,16 +98,16 @@ class HouseNumberTest: public QObject {
 			hnr2->setPostcode("12300");
 			hnr2->setStreet("van-Niederstraße");
 			hnr2->setNumber("21");
-			QVERIFY(*hnr1<*hnr2);
-			QVERIFY(!(*hnr1>*hnr2));
+			QVERIFY(hnr1->isLessThanAddress(*hnr2));
+			QVERIFY(!(hnr1->isGreaterThanAddress(*hnr2)));
 			hnr2->setPostcode("12345");
 			hnr2->setStreet("Niederstraße");
-			QVERIFY(!(*hnr1<*hnr2));
-			QVERIFY(!(*hnr1>*hnr2));
-			QVERIFY(*hnr1==*hnr2);
+			QVERIFY(!(hnr1->isLessThanAddress(*hnr2)));
+			QVERIFY(!(hnr1->isGreaterThanAddress(*hnr2)));
+			QVERIFY(hnr1->isSameHouseNumber(*hnr2));
 			hnr2->setShop("bus_stop");
-			QVERIFY(*hnr1<*hnr2);
-			QVERIFY(!(*hnr1>*hnr2));
+			QVERIFY(hnr1->isLessThanAddress(*hnr2));
+			QVERIFY(!(hnr1->isGreaterThanAddress(*hnr2)));
 		}
 };
 

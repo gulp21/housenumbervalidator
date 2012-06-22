@@ -35,24 +35,24 @@ HouseNumber::~HouseNumber() {
  * compares QString("%1%2%3%4%5%6")
  *  .arg(number_).arg(street_).arg(postcode_).arg(city_).arg(country_).arg(name_).arg(shop_).toLower()
  */
-bool operator<(HouseNumber const& lhs, HouseNumber const& rhs) {
-	if(lhs.getNumber().toLower()!=rhs.getNumber().toLower())
-		return lhs.getNumber().toLower()<rhs.getNumber().toLower();
-	if(lhs.getStreet().toLower()!=rhs.getStreet().toLower())
-		return lhs.getStreet().toLower()<rhs.getStreet().toLower();
-	if(lhs.getPostcode().toLower()!=rhs.getPostcode().toLower())
-		return lhs.getPostcode().toLower()<rhs.getPostcode().toLower();
-	if(lhs.getCity().toLower()!=rhs.getCity().toLower())
-		return lhs.getCity().toLower()<rhs.getCity().toLower();
-	if(lhs.getCountry().toLower()!=rhs.getCountry().toLower())
-		return lhs.getCountry().toLower()<rhs.getCountry().toLower();
-	if(lhs.getName().toLower()!=rhs.getName().toLower())
-		return lhs.getName().toLower()<rhs.getName().toLower();
-	return lhs.getShop().toLower()<rhs.getShop().toLower();
+bool HouseNumber::isLessThanAddress(HouseNumber const& rhs) const {
+	if(getNumber().toLower()!=rhs.getNumber().toLower())
+		return getNumber().toLower()<rhs.getNumber().toLower();
+	if(getStreet().toLower()!=rhs.getStreet().toLower())
+		return getStreet().toLower()<rhs.getStreet().toLower();
+	if(getPostcode().toLower()!=rhs.getPostcode().toLower())
+		return getPostcode().toLower()<rhs.getPostcode().toLower();
+	if(getCity().toLower()!=rhs.getCity().toLower())
+		return getCity().toLower()<rhs.getCity().toLower();
+	if(getCountry().toLower()!=rhs.getCountry().toLower())
+		return getCountry().toLower()<rhs.getCountry().toLower();
+	if(getName().toLower()!=rhs.getName().toLower())
+		return getName().toLower()<rhs.getName().toLower();
+	return getShop().toLower()<rhs.getShop().toLower();
 }
 
-bool operator>(HouseNumber const& lhs, HouseNumber const& rhs) {
-	return operator<(rhs, lhs);
+bool HouseNumber::isGreaterThanAddress(HouseNumber const& rhs) const {
+	return rhs.isLessThanAddress(*this);
 }
 
 /*!
@@ -61,34 +61,34 @@ bool operator>(HouseNumber const& lhs, HouseNumber const& rhs) {
  * * or housenumber, street, name, and shop equal, and country, city, and postcode do not differ (ignoring empty values),
  *    and lat/lon difference is less than DISTANCE_THRESHOLD
  */
-bool operator==(HouseNumber & lhs, HouseNumber & rhs) {
+bool HouseNumber::isSameHouseNumber(HouseNumber & rhs) const {
 	// only continue when we have got the most important pieces of address information
-	if(!lhs.isHouseNumber() || !rhs.isHouseNumber()) {
+	if(!isHouseNumber() || !rhs.isHouseNumber()) {
 		return false;
 	}
 	
 	// means that country, city, postcode, street, housenumber, and shop equal
-	if(!(lhs<rhs) && !(lhs>rhs)) {
+	if(!(isLessThanAddress(rhs)) && !(isGreaterThanAddress(rhs))) {
 		return true;
 	}
 	
-	if(lhs.getName().toLower()!=rhs.getName().toLower() ||
-	   lhs.getShop().toLower()!=rhs.getShop().toLower()) {
+	if(getName().toLower()!=rhs.getName().toLower() ||
+	   getShop().toLower()!=rhs.getShop().toLower()) {
 		return false;
 	}
 	
 	// consider two house numbers with similar address information and little distance to each other to be equal
-	if(lhs.getNumber().toLower()==rhs.getNumber().toLower() &&
-	   lhs.getStreet().toLower()==rhs.getStreet().toLower() &&
-	   lhs.getNumber()!="" && lhs.getStreet()!="") {
-		if(myAbs(lhs.getLat()-rhs.getLat())>DISTANCE_THRESHOLD ||
-		   myAbs(lhs.getLon()-rhs.getLon())>DISTANCE_THRESHOLD)
+	if(getNumber().toLower()==rhs.getNumber().toLower() &&
+	   getStreet().toLower()==rhs.getStreet().toLower() &&
+	   getNumber()!="" && getStreet()!="") {
+		if(myAbs(getLat()-rhs.getLat())>DISTANCE_THRESHOLD ||
+		   myAbs(getLon()-rhs.getLon())>DISTANCE_THRESHOLD)
 			return false;
-		if(lhs.getPostcode()!="" && rhs.getPostcode()!="" && lhs.getPostcode().toLower()!=rhs.getPostcode().toLower())
+		if(getPostcode()!="" && rhs.getPostcode()!="" && getPostcode().toLower()!=rhs.getPostcode().toLower())
 			return false;
-		if(lhs.getCity()!="" && rhs.getCity()!="" && lhs.getCity().toLower()!=rhs.getCity().toLower())
+		if(getCity()!="" && rhs.getCity()!="" && getCity().toLower()!=rhs.getCity().toLower())
 			return false;
-		if(lhs.getCountry()!="" && rhs.getCountry()!="" && lhs.getCountry().toLower()!=rhs.getCountry().toLower())
+		if(getCountry()!="" && rhs.getCountry()!="" && getCountry().toLower()!=rhs.getCountry().toLower())
 			return false;
 		return true;
 	}

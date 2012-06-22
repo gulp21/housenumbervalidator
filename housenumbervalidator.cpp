@@ -319,7 +319,7 @@ void findInTree(pHouseNumber &hnr, pHouseNumber &tree) {
 				findInTree(hnr, tree->left);
 			} else {
 				findInTree(hnr, tree->left);
-				if(*hnr==*tree) {
+				if(hnr->isSameHouseNumber(*tree)) {
 					hnr->dupe=tree;
 				}
 				findInTree(hnr, tree->right);
@@ -338,9 +338,9 @@ void insert(pHouseNumber &element, pHouseNumber &tree, Tree treeType) {
 		//qDebug() << "--end";
 	} else {
 		//if(treeHousenumbers!=NULL) qDebug() << (element.address < root->address) << (element.address > root->address) << (element.address == root->address) << element.address << root->address << treeHousenumbers->address;
-		if(*element < *tree) {
+		if(element->isLessThanAddress(*tree)) {
 			insert(element, tree->left, treeType);
-		} else if(*element > *tree) {
+		} else if(element->isGreaterThanAddress(*tree)) {
 			insert(element, tree->right, treeType);
 		} else {
 // 			switch(treeType) {

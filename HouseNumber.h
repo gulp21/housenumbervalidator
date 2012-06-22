@@ -36,6 +36,10 @@ class HouseNumber {
 		HouseNumber();
 		~HouseNumber();
 		
+		bool isLessThanAddress(HouseNumber const& rhs) const;
+		bool isGreaterThanAddress(HouseNumber const& rhs) const;
+		bool isSameHouseNumber(HouseNumber & rhs) const;
+		
 		void setCity(QString country);
 		void setCountry(QString country);
 		void setHousename(QString housename);
@@ -80,9 +84,6 @@ class HouseNumber {
 		QString city_, country_, housename_, name_, number_, postcode_, street_, shop_;
 };
 
-bool operator<(HouseNumber const& lhs, HouseNumber const& rhs);
-bool operator>(HouseNumber const& lhs, HouseNumber const& rhs);
-bool operator==(HouseNumber & lhs, HouseNumber & rhs);
 inline double myAbs(double x) { return x<0 ? (-x) : x; }
 
 #endif // _HouseNumber_h_
