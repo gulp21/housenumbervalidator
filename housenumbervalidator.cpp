@@ -36,28 +36,23 @@ class HouseNumber;
 
 typedef HouseNumber* pHouseNumber;
 
-enum Tree {
-	TREE_HOUSENUMBERS=0,
-	TREE_INCOMPLETE=1
-};
-
 #include "HouseNumber.h"
 
 using namespace std;
 
 QString qsAssumeCountry="", qsAssumeCity="", qsAssumePostcode="", filename="input.osm";
 bool bIgnoreFixme=true, bIgnoreNote=true, bIgnoreCityHint=false, bCheckPostcodeNumber=false, bCheckStreetSuffix=false, bLog=false;
-int lines=9200594, lineCount=0, dupeCount=0, possibleDupeCount=0, hnrCount=0, incompleteCount=0, brokenCount=0, iCheckPostcodeChars=-1;
+int lines=9200594, lineCount=0, dupeCount=0, possibleDupeCount=0, hnrCount=0, incompleteCount=0, brokenCount=0, iCheckPostcodeChars=-1, i=0;
 
 QTextStream duplicatesStream, incompleteStream, brokenStream, logStream;
 
-pHouseNumber treeHousenumbers/*, treeIncomplete*/;
+pHouseNumber treeHousenumbers, treeIncomplete;
 
-QList<pHouseNumber> listIncomplete;
-
-void insert(pHouseNumber &element, pHouseNumber &tree, Tree treeType);
-void inorder(pHouseNumber &root);
+void findPossibleDupes(pHouseNumber &hnr);
 void findInTree(pHouseNumber &hnr, pHouseNumber &tree);
+void inorder(pHouseNumber &root);
+void addToTreeHousenumbers(pHouseNumber &element, pHouseNumber &tree);
+void addToTreeIncomplete(pHouseNumber &element, pHouseNumber &tree);
 
 int main(int argc, const char* argv[]) {
 	QTime now;
@@ -73,7 +68,7 @@ int main(int argc, const char* argv[]) {
 			qDebug() << "  -cpn    --check-postcode-number   When addr:postcode is not a number, save entry in broken.txt";
 			qDebug() << "  -cpc=X  --check-postcode-chars=X  When addr:postcode does not have X characters, save entry in broken.txt";
 			qDebug() << "  -css    --check-street-suffix     When addr:street ends with 'str' or 'str.', save entry in broken.txt";
-			qDebug() << "  -iih    --ignore-city-hint        Objects which hava a addr:city tag (and no other addr:* tag) are not considered to be a house number, and thus are not listed as incomplete";
+// 			qDebug() << "  -iih    --ignore-city-hint        Objects which hava a addr:city tag (and no other addr:* tag) are not considered to be a house number, and thus are not listed as incomplete";
 			qDebug() << "  -l      --log                     Create a log file";
 			qDebug() << "  -l=N    --lines=N                 Set lines variable (for sensible progress information";
 			qDebug() << "  -nif,   --not-ignore-fixme        do output ways/nodes which have a fixme tag";
@@ -91,15 +86,13 @@ int main(int argc, const char* argv[]) {
 			/*else if(QString(argv[i])=="-in" or QString(argv[i])=="--ignore-note") ignorenote=TRUE;
 			else if(QString(argv[i])=="-npc" or QString(argv[i])=="--no-postcode-count") nopostcodecount=TRUE;
 			else if(QString(argv[i])=="-ich" or QString(argv[i])=="--ignore-country-hint") ignorecountryhint=TRUE;*/
-			else if(QString(argv[i])=="-iih" or QString(argv[i])=="--ignore-city-hint") bIgnoreCityHint=true;
+// 			else if(QString(argv[i])=="-iih" or QString(argv[i])=="--ignore-city-hint") bIgnoreCityHint=true;
 			/*else if(QString(argv[i])=="-iph" or QString(argv[i])=="--ignore-postcode-hint") ignorepostcodehint=TRUE;
 			else if(QString(argv[i])=="-ish" or QString(argv[i])=="--ignore-street-hint") ignorestreethint=TRUE;
 			else if(QString(argv[i])=="-inh" or QString(argv[i])=="--ignore-number-hint") ignorenumberhint=TRUE;*/
 			else if(QString(argv[i]).contains("-ac=") || QString(argv[i]).contains("--assume-country=")) qsAssumeCountry=QString(argv[i]).split("=")[1];
 			else if(QString(argv[i]).contains("-ai=") || QString(argv[i]).contains("--assume-city=")) qsAssumeCity=QString(argv[i]).split("=")[1];
 			else if(QString(argv[i]).contains("-ap=") || QString(argv[i]).contains("--assume-postcode=")) qsAssumePostcode=QString(argv[i]).split("=")[1];
-// 			else if(QString(argv[i]).contains("-wo=")) dupesperosm=QString(argv[i]).mid(4).toInt();
-// 			else if(QString(argv[i]).contains("--write-osm=")) dupesperosm=QString(argv[i]).mid(12).toInt();
 			else if(QString(argv[i]).contains("--check-postcode-number") || QString(argv[i]).contains("-cpn")) bCheckPostcodeNumber=true;
 			else if(QString(argv[i]).contains("--check-postcode-chars=") || QString(argv[i]).contains("-cpc=")) iCheckPostcodeChars=QString(argv[i]).split("=")[1].toInt();
 			else if(QString(argv[i]).contains("--check-street-suffix") || QString(argv[i]).contains("-css")) bCheckStreetSuffix=true;
@@ -203,9 +196,9 @@ int main(int argc, const char* argv[]) {
 					++hnrCount;
 					if(broken==0 && !hnr->getIgnore()) {
 						if(hnr->isComplete()) {
-							insert(hnr, treeHousenumbers, TREE_HOUSENUMBERS);
+							addToTreeHousenumbers(hnr, treeHousenumbers);
 						} else {
-							listIncomplete << hnr;
+							addToTreeIncomplete(hnr, treeIncomplete);
 							++incompleteCount;
 						}
 					}
@@ -263,18 +256,7 @@ int main(int argc, const char* argv[]) {
 	
 	qDebug() << "dupes" << dupeCount << "incomplete" << incompleteCount;
 	
-	for(int i=0; i<incompleteCount; ++i) {
-		if(i%100==0) {
-			qDebug() << 100.0*i/incompleteCount*POSSIBLE_DUPE_TIME+(1-POSSIBLE_DUPE_TIME)*100.0 << "%";
-		}
-		findInTree(listIncomplete[i], treeHousenumbers);
-		if(listIncomplete[i]->dupe!=NULL) {
-			duplicatesStream << listIncomplete[i]->qsGenerateDupeOutput(true);
-			++dupeCount;
-			++possibleDupeCount;
-			qDebug() << "possible dupe found";
-		}
-	}
+	findPossibleDupes(treeIncomplete);
 	
 	duplicatesFile.close();
 	incompleteFile.close();
@@ -306,6 +288,27 @@ void inorder(pHouseNumber &tree) {
 	}
 }
 
+void findPossibleDupes(pHouseNumber &hnr) {
+	if(hnr!=NULL) {
+		if(i%100==0) {
+			qDebug() << 100.0*i/incompleteCount*POSSIBLE_DUPE_TIME+(1-POSSIBLE_DUPE_TIME)*100.0 << "%";
+		}
+		findInTree(hnr, treeHousenumbers);
+		if(hnr->dupe==NULL) {
+			findInTree(hnr, treeIncomplete);
+		}
+		if(hnr->dupe!=NULL) {
+			duplicatesStream << hnr->qsGenerateDupeOutput(true);
+			++dupeCount;
+			++possibleDupeCount;
+			qDebug() << "possible dupe found";
+		}
+		++i;
+		findPossibleDupes(hnr->left);
+		findPossibleDupes(hnr->right);
+	}
+}
+
 void findInTree(pHouseNumber &hnr, pHouseNumber &tree) {
 	if(tree!=NULL && hnr->dupe==NULL) {
 		if(hnr->getNumber().toLower()>tree->getNumber().toLower()) {
@@ -319,7 +322,8 @@ void findInTree(pHouseNumber &hnr, pHouseNumber &tree) {
 				findInTree(hnr, tree->left);
 			} else {
 				findInTree(hnr, tree->left);
-				if(hnr->isSameHouseNumber(*tree)) {
+				// do not say that a house number is a dupe of itself and prevent mutual accusations
+				if(hnr->isSameAddress(*tree) && !(hnr->isSameNode(*tree)) && !(tree->dupe==hnr)) {
 					hnr->dupe=tree;
 				}
 				findInTree(hnr, tree->right);
@@ -331,7 +335,7 @@ void findInTree(pHouseNumber &hnr, pHouseNumber &tree) {
 /*!
  * inserts @param element into the binary tree @param tree, unless there is a dupe (dupes will be written to dupes.txt)
  */
-void insert(pHouseNumber &element, pHouseNumber &tree, Tree treeType) {
+void addToTreeHousenumbers(pHouseNumber &element, pHouseNumber &tree) {
 	if(tree==NULL) {
 		tree=element;
 		//inorder(treeHousenumbers);
@@ -339,12 +343,10 @@ void insert(pHouseNumber &element, pHouseNumber &tree, Tree treeType) {
 	} else {
 		//if(treeHousenumbers!=NULL) qDebug() << (element.address < root->address) << (element.address > root->address) << (element.address == root->address) << element.address << root->address << treeHousenumbers->address;
 		if(element->isLessThanAddress(*tree)) {
-			insert(element, tree->left, treeType);
+			addToTreeHousenumbers(element, tree->left);
 		} else if(element->isGreaterThanAddress(*tree)) {
-			insert(element, tree->right, treeType);
+			addToTreeHousenumbers(element, tree->right);
 		} else {
-// 			switch(treeType) {
-// 				case TREE_HOUSENUMBERS:
 					qDebug() << "Dupe found!";
 					if(lines>0) {
 						qDebug() << 100.0*lineCount/lines*(1-POSSIBLE_DUPE_TIME) << "%";
@@ -352,9 +354,24 @@ void insert(pHouseNumber &element, pHouseNumber &tree, Tree treeType) {
 					element->dupe=tree;
 					duplicatesStream << element->qsGenerateDupeOutput();
 					++dupeCount;
-// 					break;
-// 				case TREE_INCOMPLETE TODO additional == check, make sure that we reach relevant entries
-// 			}
+		}
+	}
+}
+
+/*!
+ * inserts @param element into the binary tree @param tree
+ */
+void addToTreeIncomplete(pHouseNumber &element, pHouseNumber &tree) {
+	if(tree==NULL) {
+		tree=element;
+	} else {
+		if(element->isLessThanNode(*tree)) {
+			addToTreeIncomplete(element, tree->left);
+		} else if(element->isGreaterThanNode(*tree)) {
+			addToTreeIncomplete(element, tree->right);
+		} else {
+			qDebug() << "[E] We should not get here";
+			qDebug() << element->qsGenerateBrokenOutput();
 		}
 	}
 }

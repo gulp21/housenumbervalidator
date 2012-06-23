@@ -53,7 +53,7 @@ function run {
 			echo $(tput bold)$(tput setaf 1)filter problem$(tput sgr0)
 			exit 3;
 		fi
-		nice -n 19 ./housenumbervalidator $1.osm.pbf.hnr.osm -l -l=`wc -l $1.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=DE -cpn -css -iih -cpc=5 $ai
+		nice -n 19 ./housenumbervalidator $1.osm.pbf.hnr.osm -l -l=`wc -l $1.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=DE -cpn -css -cpc=5 $ai
 		if [ ! $? -eq 0 ]; then
 			echo $(tput bold)$(tput setaf 1)housenumbervalidator problem $1 $(tput sgr0)
 			exit 4;

@@ -36,7 +36,7 @@ function run {
 			echo $(tput bold)$(tput setaf 1)filter problem$(tput sgr0)
 			exit 3;
 		fi
-		nice -n 19 ./housenumbervalidator austria.osm.pbf.hnr.osm -l -l=`wc -l austria.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=AT -cpn -css -iih -cpc=4
+		nice -n 19 ./housenumbervalidator austria.osm.pbf.hnr.osm -l -l=`wc -l austria.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=AT -cpn -css -cpc=4
 		if [ ! $? -eq 0 ]; then
 			echo $(tput bold)$(tput setaf 1)housenumbervalidator problem austria$(tput sgr0)
 			exit 4;

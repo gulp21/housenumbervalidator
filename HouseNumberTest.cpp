@@ -31,7 +31,7 @@ class HouseNumberTest: public QObject {
 				 QString("51.19704670\t6.60817180\t1337\t0\t41\t1a \tDeutschland\tKaarst\t41564\tRathausstr.\t1a\t1a\t0\n"));
 		}
 		
-		void operatorEqualsTest() {
+		void isSameAddressTest() {
 			qsAssumeCity="";
 			HouseNumber *hnr1 = new HouseNumber();
 			hnr1->setLat(51.1970467);
@@ -59,9 +59,9 @@ class HouseNumberTest: public QObject {
 			QVERIFY(hnr2->isHouseNumber()==true);
 			QVERIFY(hnr2->isComplete()==false);
 			QVERIFY(hnr2->getBroken()==0);
-			QVERIFY(hnr1->isSameHouseNumber(*hnr2));
+			QVERIFY(hnr1->isSameAddress(*hnr2));
 			hnr2->setLon(6.6181719);
-			QVERIFY(!(hnr1->isSameHouseNumber(*hnr2)));
+			QVERIFY(!(hnr1->isSameAddress(*hnr2)));
 			hnr1->setLat(51.2005576);
 			hnr1->setLon(6.6880044);
 			hnr1->setCountry("DE");
@@ -77,10 +77,14 @@ class HouseNumberTest: public QObject {
 			hnr2->setPostcode("12300");
 			hnr2->setStreet("van-Niederstraße");
 			hnr2->setNumber("231");
-			QVERIFY(!(hnr1->isSameHouseNumber(*hnr2)));
+			QVERIFY(!(hnr1->isSameAddress(*hnr2)));
+			hnr2->setPostcode("");
+			hnr2->setStreet("Niederstraße");
+			hnr2->setNumber("21");
+			QVERIFY(!(hnr1->isSameAddress(*hnr2)));
 		}
 		
-		void operatorComparisonTest() {
+		void addressComparisonTest() {
 			qsAssumeCity="";
 			HouseNumber *hnr1 = new HouseNumber();
 			HouseNumber *hnr2 = new HouseNumber();
@@ -104,10 +108,38 @@ class HouseNumberTest: public QObject {
 			hnr2->setStreet("Niederstraße");
 			QVERIFY(!(hnr1->isLessThanAddress(*hnr2)));
 			QVERIFY(!(hnr1->isGreaterThanAddress(*hnr2)));
-			QVERIFY(hnr1->isSameHouseNumber(*hnr2));
+			QVERIFY(hnr1->isSameAddress(*hnr2));
 			hnr2->setShop("bus_stop");
 			QVERIFY(hnr1->isLessThanAddress(*hnr2));
 			QVERIFY(!(hnr1->isGreaterThanAddress(*hnr2)));
+		}
+		
+		void nodeComparisonTest() {
+			qsAssumeCity="";
+			HouseNumber *hnr1 = new HouseNumber();
+			HouseNumber *hnr2 = new HouseNumber();
+			hnr1->setLat(51.2005576);
+			hnr1->setLon(6.6880044);
+			hnr1->setId(125);
+			hnr1->setIsWay(false);
+			hnr1->setStreet("Niederstraße");
+			hnr1->setNumber("21a");
+			hnr2->setLat(56.2555507);
+			hnr2->setLon(6.6880471);
+			hnr2->setId(125);
+			hnr2->setIsWay(true);
+			hnr2->setStreet("Niederstraße");
+			hnr2->setNumber("21A");
+			QVERIFY(hnr1->isLessThanNode(*hnr2));
+			QVERIFY(!(hnr1->isGreaterThanNode(*hnr2)));
+			hnr2->setId(124);
+			hnr2->setIsWay(false);
+			QVERIFY(!(hnr1->isLessThanNode(*hnr2)));
+			QVERIFY(hnr1->isGreaterThanNode(*hnr2));
+			QVERIFY(hnr2->isLessThanNode(*hnr1));
+			hnr2->setId(125);
+			QVERIFY(hnr1->isSameNode(*hnr2));
+			QVERIFY(hnr2->isSameNode(*hnr1));
 		}
 };
 

@@ -527,15 +527,6 @@
 							color: 'royalblue',
 						},
 						{
-							name: 'Bot',
-							y: 
-							<?php
-							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%http%")');
-							echo mysql_num_rows($r);
-							?>,
-							color: 'silver',
-						},
-						{
 							name: 'Mobile',
 							y: 
 							<?php
@@ -543,6 +534,15 @@
 							echo mysql_num_rows($r);
 							?>,
 							color: 'yellowgreen',
+						},
+						{
+							name: 'Bot',
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%http%")');
+							echo mysql_num_rows($r);
+							?>,
+							color: 'silver',
 						},
 					]
 				}]

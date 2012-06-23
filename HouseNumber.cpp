@@ -32,8 +32,10 @@ HouseNumber::~HouseNumber() {
 }
 
 /*!
- * compares QString("%1%2%3%4%5%6")
+ * compares QString("%1%2%3%4%5%6%7")
  *  .arg(number_).arg(street_).arg(postcode_).arg(city_).arg(country_).arg(name_).arg(shop_).toLower()
+ * thus, the house numbers are sorted by address (used for treeHousenumbers)
+ * @note the address information must be complete
  */
 bool HouseNumber::isLessThanAddress(HouseNumber const& rhs) const {
 	if(getNumber().toLower()!=rhs.getNumber().toLower())
@@ -61,39 +63,55 @@ bool HouseNumber::isGreaterThanAddress(HouseNumber const& rhs) const {
  * * or housenumber, street, name, and shop equal, and country, city, and postcode do not differ (ignoring empty values),
  *    and lat/lon difference is less than DISTANCE_THRESHOLD
  */
-bool HouseNumber::isSameHouseNumber(HouseNumber & rhs) const {
-	// only continue when we have got the most important pieces of address information
-	if(!isHouseNumber() || !rhs.isHouseNumber()) {
-		return false;
-	}
-	
-	// means that country, city, postcode, street, housenumber, and shop equal
-	if(!(isLessThanAddress(rhs)) && !(isGreaterThanAddress(rhs))) {
-		return true;
-	}
-	
+bool HouseNumber::isSameAddress(HouseNumber const& rhs) const {
 	if(getName().toLower()!=rhs.getName().toLower() ||
-	   getShop().toLower()!=rhs.getShop().toLower()) {
+	   getShop().toLower()!=rhs.getShop().toLower() ||
+	   getNumber().toLower()!=rhs.getNumber().toLower() ||
+	   getStreet().toLower()!=rhs.getStreet().toLower() ||
+	   getNumber()=="" || getStreet()=="") {
 		return false;
+	}
+	
+	if(getPostcode().toLower()==rhs.getPostcode().toLower() && getPostcode()!="" &&
+	   getCity().toLower()==rhs.getCity().toLower() && getCity()!="" &&
+	   getCountry().toLower()==rhs.getCountry().toLower() && getCountry()!="") {
+		return true;
 	}
 	
 	// consider two house numbers with similar address information and little distance to each other to be equal
-	if(getNumber().toLower()==rhs.getNumber().toLower() &&
-	   getStreet().toLower()==rhs.getStreet().toLower() &&
-	   getNumber()!="" && getStreet()!="") {
-		if(myAbs(getLat()-rhs.getLat())>DISTANCE_THRESHOLD ||
-		   myAbs(getLon()-rhs.getLon())>DISTANCE_THRESHOLD)
-			return false;
-		if(getPostcode()!="" && rhs.getPostcode()!="" && getPostcode().toLower()!=rhs.getPostcode().toLower())
-			return false;
-		if(getCity()!="" && rhs.getCity()!="" && getCity().toLower()!=rhs.getCity().toLower())
-			return false;
-		if(getCountry()!="" && rhs.getCountry()!="" && getCountry().toLower()!=rhs.getCountry().toLower())
-			return false;
-		return true;
-	}
-	
-	return false;
+	if(myAbs(getLat()-rhs.getLat())>DISTANCE_THRESHOLD ||
+	   myAbs(getLon()-rhs.getLon())>DISTANCE_THRESHOLD)
+		return false;
+	if(getPostcode()!="" && rhs.getPostcode()!="" && getPostcode().toLower()!=rhs.getPostcode().toLower())
+		return false;
+	if(getCity()!="" && rhs.getCity()!="" && getCity().toLower()!=rhs.getCity().toLower())
+		return false;
+	if(getCountry()!="" && rhs.getCountry()!="" && getCountry().toLower()!=rhs.getCountry().toLower())
+		return false;
+	return true;
+}
+
+/*!
+ * compares QString("%1%2%3%4")
+ *  .arg(number_).arg(street_).arg(id_).arg(isWay_).toLower()
+ * thus, the house numbers are sorted by address, id, and type (used for treeIncomplete)
+ */
+bool HouseNumber::isLessThanNode(HouseNumber const& rhs) const {
+	if(getNumber().toLower()!=rhs.getNumber().toLower())
+		return getNumber().toLower()<rhs.getNumber().toLower();
+	if(getStreet().toLower()!=rhs.getStreet().toLower())
+		return getStreet().toLower()<rhs.getStreet().toLower();
+	if(getId()!=rhs.getId())
+		return getId()<rhs.getId();
+	return getIsWay()<rhs.getIsWay();
+}
+
+bool HouseNumber::isGreaterThanNode(HouseNumber const& rhs) const {
+	return rhs.isLessThanNode(*this);
+}
+
+bool HouseNumber::isSameNode(HouseNumber const& rhs) const {
+	return (id_==rhs.getId() && isWay_==rhs.getIsWay());
 }
 
 void HouseNumber::setCity(QString city) {
@@ -270,7 +288,7 @@ bool HouseNumber::hasAddressInformation() const {
 
 /*!
  * @returns false if the node does not have the addr:.* tags needed for operator== (i.e. number and street)
- * NOTE hasAddressInformation() should be called first
+ * @note hasAddressInformation() should be called first
  */
 bool HouseNumber::isHouseNumber() const {
 	if( (completeness_ & NUMBER || completeness_ & HOUSENAME) && completeness_ & STREET)
@@ -282,7 +300,7 @@ bool HouseNumber::isHouseNumber() const {
  * @returns false if the house number does not have all pieces of information
  * if number is not set, number is set to housename
  * if name is not set, name is set to housename
- * NOTE isHouseNumer() should be called first
+ * @note isHouseNumer() should be called first
  */
 bool HouseNumber::isComplete() {
 	if(housename_!="") {

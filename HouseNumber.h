@@ -38,7 +38,10 @@ class HouseNumber {
 		
 		bool isLessThanAddress(HouseNumber const& rhs) const;
 		bool isGreaterThanAddress(HouseNumber const& rhs) const;
-		bool isSameHouseNumber(HouseNumber & rhs) const;
+		bool isSameAddress(HouseNumber const& rhs) const;
+		bool isLessThanNode(HouseNumber const& rhs) const;
+		bool isGreaterThanNode(HouseNumber const& rhs) const;
+		bool isSameNode(HouseNumber const& rhs) const;
 		
 		void setCity(QString country);
 		void setCountry(QString country);
