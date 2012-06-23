@@ -303,7 +303,7 @@
 		
 		var dupes = new OpenLayers.Layer.Vector("Dupes", {
 			projection: map.displayProjection,
-			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			protocol: new OpenLayers.Protocol.HTTP({
 				url: "./get_dupes.php",
 				format: new OpenLayers.Format.Text()
@@ -314,7 +314,7 @@
 		
 		var probl = new OpenLayers.Layer.Vector("Problematic", {
 			projection: map.displayProjection,
-			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1})],
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 			protocol: new OpenLayers.Protocol.HTTP({
 				url: "./get_problematic.php",
 				format: new OpenLayers.Format.Text()
@@ -493,7 +493,7 @@
 	?>
 	&dash; <a href="stat.php" target="_blank">mehr Statistiken</a>
 	<br/>
-	<span style="font-weight:bold">Maximal 1800 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span> <a href="#" onclick="javascript:openOsmi()">im OSMI anzeigen</a>
+	<span style="font-weight:bold">Maximal 1600 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span> <a href="#" onclick="javascript:openOsmi()">im OSMI anzeigen</a>
 	<br/>
 	Duplikate: <img src="pin_red.png" alt="red square"/> Exakt, <img src="pin_blue.png" alt="blue square"/> &Auml;hnlich &dash;
 	Problematisch: <img src="pin_circle_red.png" alt="red circle"/> EasyFix, <img src="pin_circle_blue.png" alt="blue circle"/> Komplizierter od. Botaufgabe &dash;
