@@ -176,7 +176,8 @@ void HouseNumber::setNumber(QString number) {
 	   number_.endsWith("Str") || number_.contains("Str.") /*|| number_.contains(QRegExp("[0-9]+[Aa-Zz]?,? [0-9]+[Aa-Zz]?"))*/) {
 		broken_|=NUMBER;
 	} else if(number_.contains("<") || number_.contains("..") || number_.contains("?") ||
-	          number_.contains("fix", Qt::CaseInsensitive) || number_.contains("unkn", Qt::CaseInsensitive)) {
+	          number_.contains("fix", Qt::CaseInsensitive) || number_.contains("unkn", Qt::CaseInsensitive) ||
+	          QRegExp("[xX]+").exactMatch(number_)) {
 		broken_|=NUMBER;
 		isEasyFix_=false;
 	}

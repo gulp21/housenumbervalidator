@@ -1,5 +1,5 @@
 /*
-	v0.5-120609
+	v0.5-120627
 	
 	Copyright (C) 2012 Markus Brenneis
 	
@@ -17,7 +17,6 @@
 	along with this program. If not, see <http://www.gnu.org/licenses/>.
 	
 	TODO
-	Hier wäre es m.E. sinnvoll, Abweichungen in :city, :postcode, :country zu ignorieren, wenn beide Objekte höchstens einen bestimmten Abstand voneinander aufweisen. (Bahnhofstraße 1 in 12345 Pusemuckel und Bahnhofstraße 1 ohne Ort und PLZ sind in Ordnung, wenn mindestens $(heuristischer Wert) auseinander.) (Oli-Wan)
 	TODOs in source
 	
 */
@@ -323,7 +322,7 @@ void findInTree(pHouseNumber &hnr, pHouseNumber &tree) {
 			} else {
 				findInTree(hnr, tree->left);
 				// do not say that a house number is a dupe of itself and prevent mutual accusations
-				if(hnr->isSameAddress(*tree) && !(hnr->isSameNode(*tree)) && !(tree->dupe==hnr)) {
+				if(hnr->isSameAddress(*tree) && !(hnr->isSameNode(*tree)) && tree->dupe==NULL) {
 					hnr->dupe=tree;
 				}
 				findInTree(hnr, tree->right);
