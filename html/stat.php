@@ -189,19 +189,6 @@
 							if($last==-1) echo '0,'; else echo ($current-$last);
 							echo '],';
 							$last=$current;
-							
-// 							$current=$entry["$name"];
-// 							$date=$entry['date'];
-// 							$date=explode("-",$entry['date']);
-// 							echo $entry['date']." ".$current-$last." ".$current." ".$last." € ";
-// 							if($last!=-1) {
-// 								echo '{';
-// 								echo "x: Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
-// 								echo "y: ".$current-$last.",";
-// 								if(($entry["hide"]|1)==$entry["hide"]) echo "color: 'rgba(0,0,0,.5)'";
-// 								echo '},';
-// 							}
-// 							$last=$current;
 						}
 					?>
 					]
@@ -692,13 +679,30 @@
 					yAxis: 0,
 					data: [
 					<?php
+					function dateDiff($lhd, $rhd) {
+						return strtotime($rhd)-strtotime($lhd);
+					}
+						
 					for($i=0; ; $i+=7) {
 						$start = 0+$i;
 						$end = 7+$i;
 						$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and time between date_add("12/01/9", interval '.$start.' day) and date_add("12/01/10", interval '.$end.' day)');
 						if(mysql_num_rows($r)==0)
 							break;
-						$ave=round(mysql_num_rows($r)/7, 1);
+						
+						$divisor = 7;
+						$diff=dateDiff(
+								date_format(
+									(date_add(new DateTime("2012-01-10"), date_interval_create_from_date_string($end.' days'))), 'Y-m-d H:i'
+								),
+								date_format(date_create(),'Y-m-d H:i')
+							);
+						if($diff<0) {
+							$divisor = ((7*60*60*24+$diff)/(60*60*24));
+						}
+						
+						$ave=round(mysql_num_rows($r)/$divisor, 1);
+						
 						echo "[Date.UTC(2012,0,9+".$i."),".$ave."],\n";
 					}
 					?>
