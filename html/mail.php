@@ -1,7 +1,7 @@
 <?php
 	include("../connect.php");
 	
-	$skip=4;
+	$skip=6;
 	
 	mysql_set_charset("utf8");
 	
@@ -15,8 +15,11 @@
 	
 	echo "Found ".mysql_num_rows($probs)." Ps<br/>";
 	
-	if(mysql_num_rows($probs) < $subscribers*$skip+$skip)
-		die("that's not enough...");
+	while(mysql_num_rows($probs) < $subscribers*$skip+$skip) {
+		echo $skip." that's not enough...<br/>";
+		if($skip==1) die("that's not enough... REALLY");
+		--$skip;
+	}
 	
 	$i=-rand(0,mysql_num_rows($probs)-$subscribers*$skip);
 	

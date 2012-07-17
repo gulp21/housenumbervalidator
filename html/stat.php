@@ -100,6 +100,7 @@
 			else if(t.x==Date.UTC(2012,5,17)) annotation="<br/><b>Algorithmusänderung<b>";
 			else if(t.x==Date.UTC(2012,5,23)) annotation="<br/><b>erweiterte Duplikatsprüfung<b>";
 			else if(t.x==Date.UTC(2012,5,24)) annotation="<br/><b>Algorithmusänderung<b>";
+			else if(t.x==Date.UTC(2012,6,18)) annotation="<br/><b>OSMF Redaction Account<b>";
 			return Highcharts.dateFormat('%e. %b %y', t.x) + ': ' + t.y + annotation;
 		};
 		$(document).ready(function() {
