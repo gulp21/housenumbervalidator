@@ -101,6 +101,8 @@
 			else if(t.x==Date.UTC(2012,5,23)) annotation="<br/><b>erweiterte Duplikatsprüfung<b>";
 			else if(t.x==Date.UTC(2012,5,24)) annotation="<br/><b>Algorithmusänderung<b>";
 			else if(t.x==Date.UTC(2012,6,18)) annotation="<br/><b>OSMF Redaction Account<b>";
+			else if(t.x==Date.UTC(2012,6,19)) annotation="<br/><b>OSMF Redaction Account<b>";
+			else if(t.x==Date.UTC(2012,6,20)) annotation="<br/><b>OSMF Redaction Account<b>";
 			return Highcharts.dateFormat('%e. %b %y', t.x) + ': ' + t.y + annotation;
 		};
 		$(document).ready(function() {
@@ -662,7 +664,7 @@
 							color: '#000000'
 						}
 					},
-					max: 40,
+					max: 50,
 					min: 0
 				}],
 				legend: {

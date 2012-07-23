@@ -1,7 +1,7 @@
 <?php
 	include("../connect.php");
 	
-	$skip=6;
+	$skip=10;
 	
 	mysql_set_charset("utf8");
 	
