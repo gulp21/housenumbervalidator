@@ -483,15 +483,6 @@
 							color: 'forestgreen',
 						},
 						{
-							name: 'Opera',
-							y: 
-							<?php
-							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Opera%")');
-							echo mysql_num_rows($r);
-							?>,
-							color: 'maroon',
-						},
-						{
 							name: 'IE',
 							y: 
 							<?php
@@ -499,6 +490,15 @@
 							echo mysql_num_rows($r);
 							?>,
 							color: 'dodgerblue',
+						},
+						{
+							name: 'Opera',
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Opera%")');
+							echo mysql_num_rows($r);
+							?>,
+							color: 'maroon',
 						},
 						{
 							name: 'Safari',
@@ -536,6 +536,7 @@
 							?>,
 							color: 'silver',
 						},
+						//Epiphany
 					]
 				}]
 			});

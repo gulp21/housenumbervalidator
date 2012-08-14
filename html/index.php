@@ -123,9 +123,15 @@
 			}
 		}
 		
+		@media (max-width: 650px) {
+			#footer {
+				font-size: 12px;
+			}
+		}
+		
 		@media (max-width: 500px) {
 			#footer {
-				font-size: 11px;
+				font-size: 10px;
 			}
 		}
 		
@@ -488,7 +494,6 @@
 			else $date_old=" [verglichen mit $date_old]";
 		}
 	}
-// 	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current $hnr_diff Hausnummern, $dupes_current $dupes_diff Duplikate, $probl_current $probl_diff problematisch$date_old)";
 	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current Hausnummern in DE, $dupes_current Duplikate, $probl_current problematisch)";
 	?>
 	&dash; <a href="stat.php" target="_blank">mehr Statistiken</a>
