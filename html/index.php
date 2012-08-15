@@ -531,7 +531,7 @@
 		dadurch werden die untenstehenden Felder ausgef&uuml;llt. Klicken Sie anschlie&szlig;end auf &quot;Absenden&quot;.
 		<form action="report.php" method="get" target="reportframe">
 		<input type="text" size="17" name="id" readonly/>
-		<input type="checkbox" name="way_u" value="true" disabled/>Das ist ein Weg (blaues Quadrat)
+		<input type="checkbox" name="way_u" value="true" disabled/>Das ist ein Weg
 		<input type="hidden" name="way" value="1"/>
 		<input type="submit" value="Absenden"/>
 		</form>
