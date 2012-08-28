@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html style="height: 99%; font-family: 'Times New Roman', serif;">
 <head>
+	<meta charset="UTF-8"/>
 	<title>housenumbervalidator</title>
 	<style type="text/css">
 		
@@ -278,7 +279,7 @@
 			controls: [
 				new OpenLayers.Control.Navigation({documentDrag: true/*, dragPanOptions: {enableKinetic: true}*/}),
 				new OpenLayers.Control.PanZoomBar(),
-				new OpenLayers.Control.LayerSwitcher({'ascending':false}),
+				new OpenLayers.Control.LayerSwitcher({'ascending':true}),
 				new OpenLayers.Control.Permalink(),
 				new OpenLayers.Control.Attribution()
 			],
@@ -301,36 +302,77 @@
 		});
 		map.addLayer(mapquestMap);
 		
-		var dupes = new OpenLayers.Layer.Vector("Dupes", {
+		var dupes_near = new OpenLayers.Layer.Vector("Duplikate (Sehr Nah)", {
 			projection: map.displayProjection,
-			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 0.9})],
 			protocol: new OpenLayers.Protocol.HTTP({
-				url: "./get_dupes.php",
+				url: "./get_dupes.php?dupe_type=0",
 				format: new OpenLayers.Format.Text()
 			})
 		});
-		map.addLayer(dupes);
+		map.addLayer(dupes_near);
 		
-		
-		var probl = new OpenLayers.Layer.Vector("Problematic", {
+		var dupes_exact = new OpenLayers.Layer.Vector("Duplikate (Exakt)", {
 			projection: map.displayProjection,
-			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 0.9})],
 			protocol: new OpenLayers.Protocol.HTTP({
-				url: "./get_problematic.php",
+				url: "./get_dupes.php?dupe_type=1",
 				format: new OpenLayers.Format.Text()
 			})
 		});
-		map.addLayer(probl);
-
+		map.addLayer(dupes_exact);
+		
+		var dupes_similar = new OpenLayers.Layer.Vector("Duplikate (Ähnlich)", {
+			projection: map.displayProjection,
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 0.9})],
+			protocol: new OpenLayers.Protocol.HTTP({
+				url: "./get_dupes.php?dupe_type=2",
+				format: new OpenLayers.Format.Text()
+			})
+		});
+		map.addLayer(dupes_similar);
+		
+		var prob_easy = new OpenLayers.Layer.Vector("Problematisch (Einfach zu beheben)", {
+			projection: map.displayProjection,
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 0.9})],
+			protocol: new OpenLayers.Protocol.HTTP({
+				url: "./get_problematic.php?prob_type=0",
+				format: new OpenLayers.Format.Text()
+			})
+		});
+		map.addLayer(prob_easy);
+		
+		var prob_complicated = new OpenLayers.Layer.Vector("Problematisch (Kompliziert/Botaufgabe)", {
+			projection: map.displayProjection,
+			strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 0.9})],
+			protocol: new OpenLayers.Protocol.HTTP({
+				url: "./get_problematic.php?prob_type=1",
+				format: new OpenLayers.Format.Text()
+			})
+		});
+		map.addLayer(prob_complicated);
+		
 		// Interaction; not needed for initial display.
-		selectControl = new OpenLayers.Control.SelectFeature([dupes,probl]);
+		selectControl = new OpenLayers.Control.SelectFeature([dupes_near,dupes_exact,dupes_similar,prob_easy,prob_complicated]);
 		map.addControl(selectControl);
 		selectControl.activate();
-		dupes.events.on({
+		dupes_near.events.on({
 			'featureselected': onFeatureSelect,
 			'featureunselected': onFeatureUnselect
 		});
-		probl.events.on({
+		dupes_exact.events.on({
+			'featureselected': onFeatureSelect,
+			'featureunselected': onFeatureUnselect
+		});
+		dupes_similar.events.on({
+			'featureselected': onFeatureSelect,
+			'featureunselected': onFeatureUnselect
+		});
+		prob_easy.events.on({
+			'featureselected': onFeatureSelect,
+			'featureunselected': onFeatureUnselect
+		});
+		prob_complicated.events.on({
 			'featureselected': onFeatureSelect,
 			'featureunselected': onFeatureUnselect
 		});
@@ -439,10 +481,16 @@
 			document.getElementsByName('way_u')[0].checked=type;
 			document.getElementsByName('way')[0].value=type;
 			map.removePopup(map.popups[0]);
-			if(layer=="problematic")
-				probl.refresh();
-			else if(layer=="dupes")
-				dupes.refresh();
+			if(layer=="prob_easy")
+				prob_easy.refresh();
+			else if(layer=="prob_complicated")
+				prob_complicated.refresh();
+			else if(layer=="dupes_near")
+				dupes_near.refresh();
+			else if(layer=="dupes_exact")
+				dupes_exact.refresh();
+			else if(layer=="dupes_similar")
+				dupes_similar.refresh();
 			else
 				alert("unknown layer " + layer + " (" + id + " " + type + ")");
 		}
@@ -462,7 +510,7 @@
 			$date_current=$stat['date'];
 			$hnr_current=$stat['housenumbers'];
 			$dupes_current=$stat['dupes'];
-			$probl_current=$stat['problematic'];
+			$prob_current=$stat['problematic'];
 			$hide=$stat['hide'];
 		} else {
 			$date_old=$stat['date'];
@@ -474,36 +522,35 @@
 			if($dupes_diff==0) $dupes_diff="&plusmn;0";
 			else if($dupes_diff>0) $dupes_diff="+".$dupes_diff;
 			else $dupes_diff="&minus;".$dupes_diff*-1;
-			$probl_diff=$probl_current-$stat['problematic'];
-			if($probl_diff==0) $probl_diff="&plusmn;0";
-			else if($probl_diff>0) $probl_diff="+".$probl_diff;
-			else $probl_diff="&minus;".$probl_diff*-1;
+			$prob_diff=$prob_current-$stat['problematic'];
+			if($prob_diff==0) $prob_diff="&plusmn;0";
+			else if($prob_diff>0) $prob_diff="+".$prob_diff;
+			else $prob_diff="&minus;".$prob_diff*-1;
 			if(($hide|1)==$hide) $hnr_diff="";
 			else $hnr_diff=" [".$hnr_diff."]";
 			if(($hide|2)==$hide) $dupes_diff="";
 			else $dupes_diff=" [".$dupes_diff."]";
-			if(($hide|4)==$hide) $probl_diff="";
-			else $probl_diff=" [".$probl_diff."]";
+			if(($hide|4)==$hide) $prob_diff="";
+			else $prob_diff=" [".$prob_diff."]";
 			if($hide==7) $date_old="";
 			else $date_old=" [verglichen mit $date_old]";
 		}
 	}
-// 	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current $hnr_diff Hausnummern, $dupes_current $dupes_diff Duplikate, $probl_current $probl_diff problematisch$date_old)";
-	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current Hausnummern in DE, $dupes_current Duplikate, $probl_current problematisch)";
+	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current Hausnummern in DE, $dupes_current Duplikate, $prob_current problematisch)";
 	?>
 	&dash; <a href="stat.php" target="_blank">mehr Statistiken</a>
 	<br/>
 	<span style="font-weight:bold">Maximal 1600 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span> <a href="#" onclick="javascript:openOsmi()">im OSMI anzeigen</a>
 	<br/>
-	Duplikate: <img src="pin_red.png" alt="red square"/> Exakt, <img src="pin_blue.png" alt="blue square"/> &Auml;hnlich &dash;
-	Problematisch: <img src="pin_circle_red.png" alt="red circle"/> EasyFix, <img src="pin_circle_blue.png" alt="blue circle"/> Komplizierter od. Botaufgabe &dash;
+	Duplikate: <img src="pin_pink.png" alt="pink square"/> Sehr nah, <img src="pin_red.png" alt="red square"/> Exakt, <img src="pin_blue.png" alt="blue square"/> Ähnlich &dash;
+	Problematisch: <img src="pin_circle_red.png" alt="red circle"/> EasyFix, <img src="pin_circle_blue.png" alt="blue circle"/> Komplizierter/Botaufgabe &dash;
 	<a href="#" onclick="report();" style="color:red;font-weight:bold;">Fehlalarm melden</a>
 	<br/>
 	<a href="https://github.com/gulp21" target="_blank">Source</a> &dash;
 	<a href="http://forum.openstreetmap.org/viewtopic.php?id=12669" target="_blank">Forum</a> &dash;
 	<span style="font-weight:bold;"><a href="http://wiki.openstreetmap.org/wiki/User:Gulp21/housenumbervalidator" target="_blank">Hilfe (Wiki)</a></span> &dash;
 	<a href="http://gulp21.github.com/" target="_blank">mehr&hellip;</a> &dash;
-	Kontakt: <a href="http://www.openstreetmap.org/message/new/gulp21" target="_blank">&uuml;ber OSM</a>,
+	Kontakt: <a href="http://www.openstreetmap.org/message/new/gulp21" target="_blank">über OSM</a>,
 	<a href="#" onclick="alert(unescape('support[dot]gulp21 (%E4t) googlemail[dot]com'));">E-Post</a> &dash;
 	<a href="#" onclick="oneperday();" style="color:green;font-weight:bold;">Ein korrigierter Fehler am Tag</a>
 	</div>
@@ -511,13 +558,13 @@
 		<img src="qeodart.png" alt="QeoDart Icon"/>
 		<b>QeoDart</b><br/>
 		das freie Geographie-Lernspiel<br/>
-		f&uuml;r Linux &amp; Windows
+		für Linux &amp; Windows
 	</a>
 	<a href="http://languagetool.org/de" target="_blank" class="ad" id="ad2" style="background-color: rgba(152,184,240,.9);display:none;width:270px;">
 		<img src="LanguageToolBig.png" alt="LT Icon"/>
 		<b>LanguageTool</b><br/>
-		freie Grammatik- und Stilpr&uuml;fung<br/>
-		f&uuml;r LibreOffice und OpenOffice.org
+		freie Grammatik- und Stilprüfung<br/>
+		für LibreOffice und OpenOffice.org
 	</a>
 	<script type="text/javascript">
 		if(Math.random()>.5)
@@ -526,9 +573,9 @@
 			document.getElementById("ad2").style.display='block';
 	</script>
 	<div id="reportdiv">
-		Nutzen Sie diese Funktion, wenn die doppelten oder &quot;fehlerhaften&quot; Hausnummern tats&auml;chlich so in der Realit&auml;t existieren.<a href="#" onclick="javascript:hideOverlays();" class="closediv"><img src="theme/default/img/close.gif" alt="[close]"/></a><br/>
-		Klicken Sie zun&auml;chst im Popup auf den gr&uuml;nen Haken (Fehler als behoben kennzeichnen);<br/>
-		dadurch werden die untenstehenden Felder ausgef&uuml;llt. Klicken Sie anschlie&szlig;end auf &quot;Absenden&quot;.
+		Nutzen Sie diese Funktion, wenn die doppelten oder &quot;fehlerhaften&quot; Hausnummern tatsächlich so in der Realität existieren.<a href="#" onclick="javascript:hideOverlays();" class="closediv"><img src="theme/default/img/close.gif" alt="[close]"/></a><br/>
+		Klicken Sie zunächst im Popup auf den grünen Haken (Fehler als behoben kennzeichnen);<br/>
+		dadurch werden die untenstehenden Felder ausgefüllt. Klicken Sie anschließend auf &quot;Absenden&quot;.
 		<form action="report.php" method="get" target="reportframe">
 		<input type="text" size="17" name="id" readonly/>
 		<input type="checkbox" name="way_u" value="true" disabled/>Das ist ein Weg
@@ -538,14 +585,14 @@
 		<small>Bitte diese Funktion nicht verwenden, wenn der Fehler zwischenzeitlich korrigiert wurde (also nur bei false positives verwenden)!</small>
 	</div>
 	<div id="oneperdaydiv">
-		<b>Sie wollen regelm&auml;&szlig;ig zur Verbesserung der Daten beitragen?</b><a href="#" onclick="javascript:hideOverlays();" class="closediv"><img src="theme/default/img/close.gif" alt="[close]"/></a><br/>
-		Wenn Sie sich hier registrieren, werden Sie (fast) t&auml;glich<br/>
-		eine E-Mail mit einem Link zu einem Fehler bekommen, den Sie korrigieren k&ouml;nnen.<br/>
+		<b>Sie wollen regelmäßig zur Verbesserung der Daten beitragen?</b><a href="#" onclick="javascript:hideOverlays();" class="closediv"><img src="theme/default/img/close.gif" alt="[close]"/></a><br/>
+		Wenn Sie sich hier registrieren, werden Sie (fast) täglich<br/>
+		eine E-Mail mit einem Link zu einem Fehler bekommen, den Sie korrigieren können.<br/>
 		<small>Wenn Sie sich abmelden wollen, tragen Sie Ihre E-Mailadresse in das Textfeld ein<br/>
 		und klicken Sie auf &quot;Anmelden&quot;, ohne die Checkbox vorher aktiviert zu haben.</small>
 		<form action="register.php" method="get" target="reportframe">
 		<input type="text" size="17" name="mail"/>
-		<input type="checkbox" name="register" value="true"/>Ich m&ouml;chte mich anmelden. Die angegebene E-Mail-Adresse geh&ouml;rt mir.<br/>Die E-Mail-Adresse wird nur zum Versand der E-Mails (max. 1/d) verwendet.<br/>
+		<input type="checkbox" name="register" value="true"/>Ich möchte mich anmelden. Die angegebene E-Mail-Adresse gehört mir.<br/>Die E-Mail-Adresse wird nur zum Versand der E-Mails (max. 1/d) verwendet.<br/>
 		<input type="submit" value="Anmelden"/>
 		</form>
 	</div>

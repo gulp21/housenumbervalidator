@@ -1,11 +1,18 @@
 <?php
+// TODO
+// index: shorter mysql
+// support suburb! (854045017, 1461556529)
+// stat_interpolate.php bzw. bei stats.php interpolieren
+	
+	// returns a list of dupes in the db within @param bbox of @dupe_type [-1: all, 0: near, 1: exact, 2: similar] (max. 800)
+	
 	include("connect.php");
 	
 	header("Content-Type: text/csv; charset=UTF-8");
 	
 	mysql_set_charset("utf8");
 	
-	if($_GET['bbox']) {
+	if(!is_null($_GET['bbox'])) {
 		$bbox=explode(",",$_GET['bbox']);
 		settype($bbox[0], "float");
 		settype($bbox[1], "float");
@@ -18,7 +25,13 @@
 		$bbox[3]=50;
 	}
 	
-	$dupes=mysql_query("SELECT * FROM dupes WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0 LIMIT 800") or die ("MySQL-Error: ".mysql_error());
+	if(!is_null($_GET['dupe_type'])) {
+		$dupe_type=$_GET['dupe_type'];
+	} else {
+		$dupe_type=-1;
+	}
+	
+	$dupes=mysql_query("SELECT *,(lat-dupe_lat) AS d_lat,(lon-dupe_lon) AS d_lon FROM dupes WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0 LIMIT 800") or die ("MySQL-Error: ".mysql_error());
 	
 	echo "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
 	
@@ -35,10 +48,26 @@
 		if($dupe['housename']!="") $table.="<tr><td>addr:housename</td><td>".$dupe['housename']."</td></tr>";
 		$table.="</table>";
 		
-		if($dupe['possible_dupe']==0) {
+		$VERY_NEAR_THRESHOLD=0.00002;
+		
+		if ($dupe['d_lat']<$VERY_NEAR_THRESHOLD && $dupe['d_lon']<$VERY_NEAR_THRESHOLD
+		    && $dupe['d_lat']>-$VERY_NEAR_THRESHOLD && $dupe['d_lon']>-$VERY_NEAR_THRESHOLD) {
+			if($dupe_type==-1 || $dupe_type==0) {
+				$pin="pin_pink.png";
+				$layer="dupes_near";
+			} else {
+				$pin="NULL";
+			}
+		} else if(($dupe_type==-1 || $dupe_type==1)
+		          && $dupe['possible_dupe']==0) {
 			$pin="pin_red.png";
-		} else {
+			$layer="dupes_exact";
+		} else if(($dupe_type==-1 || $dupe_type==2)
+		          && $dupe['possible_dupe']==1) {
 			$pin="pin_blue.png";
+			$layer="dupes_similar";
+		} else {
+			$pin="NULL";
 		}
 		
 		if($dupe['type']==1) {
@@ -57,14 +86,16 @@
 		
 		$dupe_link='<a target="_blank" title="Details bei OSM anzeigen" href="http://www.openstreetmap.org/browse/'.$type_dupe.'/'.$dupe['dupe_id'].'">'.$dupe['dupe_id'].'</a> <a target="josmframe" title="in JOSM bearbeiten" href="http://localhost:8111/load_and_zoom?left='.($dupe['dupe_lon']-0.001).'&right='.($dupe['dupe_lon']+0.001).'&top='.($dupe['dupe_lat']+0.001).'&bottom='.($dupe['dupe_lat']-0.001).'&select='.$type_dupe.$dupe['dupe_id'].'"><img src="josm.png" alt="JOSM"/></a>&thinsp;<a target="_blank" title="in Potlatch 2 bearbeiten" href="http://www.openstreetmap.org/edit?zoom=18&'.$type_dupe.'='.$dupe['dupe_id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a> [<a href="#" title="schwarzes Rechteck um Duplikat zeichnen" onclick="showPosition('.$dupe['dupe_lat'].','.$dupe['dupe_lon'].')">zeigen</a>]';
 		
-		$corrected_link='<a target="josmframe" href="report.php?id='.$dupe['id'].'&type='.$dupe['type'].'&table=dupes" title="diesen Fehler als behoben markieren" onclick="javascript:markAsCorrectedClicked(\''.$dupe['id'].'\', '.$dupe['type'].', \'dupes\');">&#10004;</a>';
+		$corrected_link='<a target="josmframe" href="report.php?id='.$dupe['id'].'&type='.$dupe['type'].'&table=dupes" title="diesen Fehler als behoben markieren" onclick="javascript:markAsCorrectedClicked(\''.$dupe['id'].'\', '.$dupe['type'].', \''.$layer.'\');">&#10004;</a>';
 		
-		echo "$dupe[lat]\t"
-			."$dupe[lon]\t"
-			."Duplikat $corrected_link\t"
-			."<div>$link ist Duplikat von<br/>$dupe_link<br/>$table</div>\t"
-			."$pin\t"
-			."16,16\t"
-			."-8,-8\n";
+		if($pin!="NULL") { // i.e. dupe is of requested dupe_type
+			echo "$dupe[lat]\t"
+				."$dupe[lon]\t"
+				."Duplikat $corrected_link\t"
+				."<div>$link ist Duplikat von<br/>$dupe_link<br/>$table</div>\t"
+				."$pin\t"
+				."16,16\t"
+				."-8,-8\n";
+		}
 	}
 ?>
