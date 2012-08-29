@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html style="font-family: 'Times New Roman', serif;">
 <head>
-	<meta charset="UTF-8" />
+	<meta charset="UTF-8"/>
 	<title>housenumbervalidator &dash; statistic</title>
 	<style type="text/css">
 		[id^="chart"] {

@@ -46,7 +46,7 @@
 		if($prob['street']!="") $table.=$style."addr:street\t".$prob['street'].$style."\n";
 		
 		if($prob['broken'] & 16) $style='*'; else $style='';
-		if($prob['number']!="") $table.=$style."addr:number\t".$prob['number'].$style."\n";
+		if($prob['number']!="") $table.=$style."addr:housenumber\t".$prob['number'].$style."\n";
 		
 		if($prob['broken'] & 32) $style='*'; else $style='';
 		if($prob['housename']!="") $table.=$style."addr:housename\t".$prob['housename'].$style."\n";
@@ -68,7 +68,9 @@
 		if($i==$subscribers*$skip) break;
 	}
 	
-	$dupes=mysql_query("SELECT * FROM dupes WHERE corrected=0 AND possible_dupe=0") or die ("MySQL-Error: ".mysql_error());
+	$VERY_NEAR_THRESHOLD=0.00002;
+	
+	$dupes=mysql_query("SELECT * FROM dupes WHERE corrected=0 AND possible_dupe=0 AND (lat-dupe_lat)<$VERY_NEAR_THRESHOLD and (lon-dupe_lon)<$VERY_NEAR_THRESHOLD and (lat-dupe_lat)>-$VERY_NEAR_THRESHOLD and (lon-dupe_lon)>-$VERY_NEAR_THRESHOLD") or die ("MySQL-Error: ".mysql_error());
 	
 	echo "Found ".mysql_num_rows($dupes)." Ds<br/>";
 	
@@ -90,8 +92,8 @@
 		if($dupe['city']!="") $table.="addr:city\t".$dupe['city']."\n";
 		if($dupe['postcode']!="") $table.="addr:postcode\t".$dupe['postcode']."\n";
 		if($dupe['street']!="") $table.="addr:street\t".$dupe['street']."\n";
-		if($dupe['number']!="") $table.="addr:number\t".$dupe['number']."\n";
-		if($dupe['housename']!="") $table.="addr:number\t".$dupe['housename']."\n";
+		if($dupe['number']!="") $table.="addr:housenumber\t".$dupe['number']."\n";
+		if($dupe['housename']!="") $table.="addr:housename\t".$dupe['housename']."\n";
 		
 		if($dupe['type']==1) {
 			$type="way";
