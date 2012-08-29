@@ -9,7 +9,7 @@ echo `date +%H:%M:%S` creating $1.hnr.osm
 echo ------------------
 
 echo osmconvert…
-$osmconvert $1 --max-objects=30000000 --hash-memory=100 --all-to-nodes --drop-relations --out-o5m > $1.o5m
+$osmconvert $1 --max-objects=40000000 --hash-memory=100 --all-to-nodes --drop-relations --out-o5m > $1.o5m
 echo osmfilter…
 $osmfilter $1.o5m --hash-memory=100 --keep-nodes="addr:*=" --keep-tags="all addr:*= shop= amenity= tourism= name= operator= power=sub_station street_lamp note= fixme= NOTE= FIXME=" -o=$1.hnr.osm
 rm $1.o5m
