@@ -124,9 +124,15 @@
 			}
 		}
 		
+		@media (max-width: 650px) {
+			#footer {
+				font-size: 12px;
+			}
+		}
+		
 		@media (max-width: 500px) {
 			#footer {
-				font-size: 11px;
+				font-size: 10px;
 			}
 		}
 		
