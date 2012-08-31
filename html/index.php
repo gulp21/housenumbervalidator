@@ -501,41 +501,15 @@
 	<?php
 	include("connect.php");
 	
-	$stats=mysql_query("SELECT * FROM `stats` ORDER BY date DESC LIMIT 2");
+	$stats=mysql_query("SELECT * FROM `stats` ORDER BY date DESC LIMIT 1");
 	
-	$i=0;
 	while($stat=mysql_fetch_assoc($stats)) {
-		if($i==0) {
-			$i=1;
-			$date_current=$stat['date'];
-			$hnr_current=$stat['housenumbers'];
-			$dupes_current=$stat['dupes'];
-			$prob_current=$stat['problematic'];
-			$hide=$stat['hide'];
-		} else {
-			$date_old=$stat['date'];
-			$hnr_diff=$hnr_current-$stat['housenumbers'];
-			if($hnr_diff==0) $hnr_diff="&plusmn;0";
-			else if($hnr_diff>0) $hnr_diff="+".$hnr_diff;
-			else $hnr_diff="&minus;".$hnr_diff*-1;
-			$dupes_diff=$dupes_current-$stat['dupes'];
-			if($dupes_diff==0) $dupes_diff="&plusmn;0";
-			else if($dupes_diff>0) $dupes_diff="+".$dupes_diff;
-			else $dupes_diff="&minus;".$dupes_diff*-1;
-			$prob_diff=$prob_current-$stat['problematic'];
-			if($prob_diff==0) $prob_diff="&plusmn;0";
-			else if($prob_diff>0) $prob_diff="+".$prob_diff;
-			else $prob_diff="&minus;".$prob_diff*-1;
-			if(($hide|1)==$hide) $hnr_diff="";
-			else $hnr_diff=" [".$hnr_diff."]";
-			if(($hide|2)==$hide) $dupes_diff="";
-			else $dupes_diff=" [".$dupes_diff."]";
-			if(($hide|4)==$hide) $prob_diff="";
-			else $prob_diff=" [".$prob_diff."]";
-			if($hide==7) $date_old="";
-			else $date_old=" [verglichen mit $date_old]";
-		}
+		$date_current=$stat['date'];
+		$hnr_current=$stat['housenumbers'];
+		$dupes_current=$stat['dupes'];
+		$prob_current=$stat['problematic'];
 	}
+	
 	echo "<span style=\"font-weight:bold;\">$date_current</span> ($hnr_current Hausnummern in DE, $dupes_current Duplikate, $prob_current problematisch)";
 	?>
 	&dash; <a href="stat.php" target="_blank">mehr Statistiken</a>

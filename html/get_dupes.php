@@ -1,8 +1,9 @@
 <?php
 // TODO
-// index: shorter mysql
 // support suburb! (854045017, 1461556529)
-// stat_interpolate.php bzw. bei stats.php interpolieren
+// removeme.php
+// stat 27.->db
+// referer stats, os donut chart
 	
 	// returns a list of dupes in the db within @param bbox of @dupe_type [-1: all, 0: near, 1: exact, 2: similar] (max. 800)
 	

@@ -1,4 +1,4 @@
-<?php /* TODO counter->db; removeme.php */
+<?php
 	include("../connect.php");
 	
 	mysql_set_charset("utf8");

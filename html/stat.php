@@ -77,6 +77,29 @@
 	
 	<script src="highcharts.src.js"></script>
 	
+	<?php
+	function plot_diff($previous_date,$current_date,$date,$current,$last) {
+		if(date_diff($previous_date,$current_date)->d>1) { // interpolate missing values
+			echo " /*interpolateStart*/ ";
+			$diff=date_diff($previous_date,$current_date)->d;
+			for($i=0; $i<$diff; $i++) {
+				echo '[';
+				echo "Date.UTC(".$date[0].",".($date[1]-1).",".($date[2]+$i-$diff+1)."),";
+				echo round(($current-$last)/$diff);
+				echo '],';
+			}
+			echo " /*interpolateEnd*/ ";
+		} else if(date_diff($previous_date,$current_date)->d<1) {
+			echo " /*sthIsWrong*/ ";
+		} else {
+			echo '[';
+			echo "Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
+			if($last==-1) echo '0,'; else echo ($current-$last);
+			echo '],';
+		}
+	}
+	?>
+	
 	<script type="text/javascript">
 	
 	$(function () {
@@ -103,6 +126,7 @@
 			else if(t.x==Date.UTC(2012,6,18)) annotation="<br/><b>OSMF Redaction Account<b>";
 			else if(t.x==Date.UTC(2012,6,19)) annotation="<br/><b>OSMF Redaction Account<b>";
 			else if(t.x==Date.UTC(2012,6,20)) annotation="<br/><b>OSMF Redaction Account<b>";
+			else if(t.x==Date.UTC(2012,7,29)) annotation="<br/><b>xybot<b>";
 			return Highcharts.dateFormat('%e. %b %y', t.x) + ': ' + t.y + annotation;
 		};
 		$(document).ready(function() {
@@ -179,19 +203,19 @@
 					yAxis: 1,
 					data: [
 					<?php
-						include("connect.php");
+						include("./connect.php");
 						$last=-1;
 						$name="housenumbers";
 						$entries=mysql_query("SELECT date, $name FROM stats ORDER BY date") or die ("MySQL-Error: ".mysql_error());
+						$previous_date=new DateTime('2012-01-13');
 						while($entry=mysql_fetch_assoc($entries)) {
 							$current=$entry["$name"];
 							$date=$entry['date'];
 							$date=explode("-",$entry['date']);
-							echo '[';
-							echo "Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
-							if($last==-1) echo '0,'; else echo ($current-$last);
-							echo '],';
+							$current_date=new DateTime("$date[0]-$date[1]-$date[2]");
+							plot_diff($previous_date,$current_date,$date,$current,$last);
 							$last=$current;
+							$previous_date=$current_date;
 						}
 					?>
 					]
@@ -289,15 +313,15 @@
 						$last=-1;
 						$name="dupes";
 						$entries=mysql_query("SELECT date, $name FROM stats ORDER BY date") or die ("MySQL-Error: ".mysql_error());
+						$previous_date=new DateTime('2012-01-13');
 						while($entry=mysql_fetch_assoc($entries)) {
 							$current=$entry["$name"];
 							$date=$entry['date'];
 							$date=explode("-",$entry['date']);
-							echo '[';
-							echo "Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
-							if($last==-1) echo '0,'; else echo ($current-$last);
-							echo '],';
+							$current_date=new DateTime("$date[0]-$date[1]-$date[2]");
+							plot_diff($previous_date,$current_date,$date,$current,$last);
 							$last=$current;
+							$previous_date=$current_date;
 						}
 					?>
 					]
@@ -397,15 +421,15 @@
 						$last=-1;
 						$name="problematic";
 						$entries=mysql_query("SELECT date, $name FROM stats ORDER BY date") or die ("MySQL-Error: ".mysql_error());
+						$previous_date=new DateTime('2012-01-13');
 						while($entry=mysql_fetch_assoc($entries)) {
 							$current=$entry["$name"];
 							$date=$entry['date'];
 							$date=explode("-",$entry['date']);
-							echo '[';
-							echo "Date.UTC(".$date[0].",".($date[1]-1).",".$date[2]."),";
-							if($last==-1) echo '0,'; else echo ($current-$last);
-							echo '],';
+							$current_date=new DateTime("$date[0]-$date[1]-$date[2]");
+							plot_diff($previous_date,$current_date,$date,$current,$last);
 							$last=$current;
+							$previous_date=$current_date;
 						}
 					?>
 					]
@@ -439,7 +463,7 @@
 					text: 'browsers'
 				},
 				subtitle: {
-					text: '4. Jan 12 \u2013 today'
+					text: 'Jan 4 2012 \u2013 today'
 				},
 				tooltip: {
 					formatter: function() {
@@ -483,15 +507,6 @@
 							color: 'forestgreen',
 						},
 						{
-							name: 'Opera',
-							y: 
-							<?php
-							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Opera%")');
-							echo mysql_num_rows($r);
-							?>,
-							color: 'maroon',
-						},
-						{
 							name: 'IE',
 							y: 
 							<?php
@@ -499,6 +514,15 @@
 							echo mysql_num_rows($r);
 							?>,
 							color: 'dodgerblue',
+						},
+						{
+							name: 'Opera',
+							y: 
+							<?php
+							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Opera%")');
+							echo mysql_num_rows($r);
+							?>,
+							color: 'maroon',
 						},
 						{
 							name: 'Safari',
@@ -550,7 +574,7 @@
 					text: 'os'
 				},
 				subtitle: {
-					text: '4. Jan 12 \u2013 today'
+					text: 'Jan 4 2012 \u2013 today'
 				},
 				tooltip: {
 					formatter: function() {
@@ -682,26 +706,23 @@
 					yAxis: 0,
 					data: [
 					<?php
-					function dateDiff($lhd, $rhd) {
-						return strtotime($rhd)-strtotime($lhd);
-					}
-						
 					for($i=0; ; $i+=7) {
-						$start = 0+$i;
-						$end = 7+$i;
+						$start=0+$i;
+						$end=7+$i;
 						$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and time between date_add("12/01/9", interval '.$start.' day) and date_add("12/01/10", interval '.$end.' day)');
 						if(mysql_num_rows($r)==0)
 							break;
 						
 						$divisor = 7;
-						$diff=dateDiff(
-								date_format(
-									(date_add(new DateTime("2012-01-10"), date_interval_create_from_date_string($end.' days'))), 'Y-m-d H:i'
-								),
-								date_format(date_create(),'Y-m-d H:i')
-							);
-						if($diff<0) {
-							$divisor = ((7*60*60*24+$diff)/(60*60*24));
+						$date_end=date_add(new DateTime("2012/01/09"), new DateInterval("P".$end."D"));
+						$date_now=new DateTime("now");
+						if($date_end>$date_now) {
+							$divisor=7-((date_diff($date_end,$date_now)->d)
+							         +(date_diff($date_end,$date_now)->h)/24);
+							echo "/*".mysql_num_rows($r)." / $divisor "
+							     .$date_end->format('Y-m-d H:i:s')." "
+							     .$date_now->format('Y-m-d H:i:s')." "
+							     .date_diff($date_end,$date_now)->d."*/";
 						}
 						
 						$ave=round(mysql_num_rows($r)/$divisor, 1);
