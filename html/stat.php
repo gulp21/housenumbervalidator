@@ -564,12 +564,96 @@
 					]
 				}]
 			});
+			
+			<?php
+			$win_all=mysql_num_rows(mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Windows%")'));
+			$win_xp=mysql_num_rows(mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Windows NT 5.1%")'));
+			$win_vista=mysql_num_rows(mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Windows NT 6.0%")'));
+			$win_7=mysql_num_rows(mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Windows NT 6.1%")'));
+			$win_8=mysql_num_rows(mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Windows NT 6.2%")'));
+			$win_other=$win_all-$win_xp-$win_vista-$win_7-$win_8;
+			$linux_all=mysql_num_rows(mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Linux%") and not(ua like "%Android%")'));
+			$macos_all=mysql_num_rows(mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Macin%")'));
+			$mobile_all=mysql_num_rows(mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Mobile%")'));
+			$bot_all=mysql_num_rows(mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%http%")'));
+			?>
+			
+			// parts taken from highcharts.com/tree/master/samples/highcharts/demo/pie-donut/
+			categories = ['Windows', 'Linux', 'MacOSX', 'Mobile', 'Bot'],
+			data = [{
+				y: <?php echo $win_all;?>,
+				color: 'royalblue',
+				drilldown: {
+					name: 'Windows versions',
+					categories: ['Windows XP', 'Windows Vista', 'Windows 7', 'Windows 8', 'Windows other'],
+					data: [<?php echo "$win_xp, $win_vista, $win_7, $win_8, $win_other";?>],
+					color: ['rgb(65,110,225)', 'rgb(65,125,225)', 'rgb(65,140,225)', 'rgb(65,155,225)', 'rgb(65,170,255)']
+				}
+				}, {
+				y: <?php echo $linux_all;?>,
+				color: 'goldenrod',
+				drilldown: {
+					name: 'Linux',
+					categories: ['Linux'],
+					data: [<?php echo $linux_all;?>],
+					color: ['goldenrod']
+				}
+				}, {
+				y: <?php echo $macos_all;?>,
+				color: 'dimgray',
+				drilldown: {
+					name: 'MacOSX',
+					categories: ['MacOSX'],
+					data: [<?php echo $macos_all;?>],
+					color: ['dimgray']
+				}
+				}, {
+				y: <?php echo $mobile_all;?>,
+				color: 'yellowgreen',
+				drilldown: {
+					name: 'Mobile',
+					categories: ['Mobile'],
+					data: [<?php echo $mobile_all;?>],
+					color: ['yellowgreen']
+				}
+				}, {
+				y: <?php echo $bot_all;?>,
+				color: 'silver',
+				drilldown: {
+					name: 'Bot',
+					categories: ['Bot'],
+					data: [<?php echo $bot_all;?>],
+					color: ['silver']
+				}
+				}];
+			
+			// Build the data arrays
+			var browserData = [];
+			var versionsData = [];
+			for (var i = 0; i < data.length; i++) {
+				// add browser data
+				browserData.push({
+					name: categories[i],
+					y: data[i].y,
+					color: data[i].color
+				});
+				// add version data
+				for (var j = 0; j < data[i].drilldown.data.length; j++) {
+					versionsData.push({
+						name: data[i].drilldown.categories[j],
+						y: data[i].drilldown.data[j],
+						color: data[i].drilldown.color[j]
+					});
+				}
+			}
+			
 			piechart2 = new Highcharts.Chart({
 				chart: {
 					renderTo: 'piechart2div',
 					plotBackgroundColor: null,
 					plotBorderWidth: null,
-					plotShadow: false
+					plotShadow: false,
+					type: 'pie'
 				},
 				title: {
 					text: 'os'
@@ -597,55 +681,16 @@
 					}
 				},
 				series: [{
-					type: 'pie',
-					name: 'os',
-					data: [
-						{
-							name: 'Windows',
-							y: 
-							<?php
-							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Windows%")');
-							echo mysql_num_rows($r);
-							?>,
-							color: 'royalblue',
-						},
-						{
-							name: 'Linux',
-							y: 
-							<?php
-							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Linux%") and not(ua like "%Android%")');
-							echo mysql_num_rows($r);
-							?>,
-							color: 'goldenrod',
-						},
-						{
-							name: 'MacOSX',
-							y: 
-							<?php
-							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Macin%")');
-							echo mysql_num_rows($r);
-							?>,
-							color: 'dimgray',
-						},
-						{
-							name: 'Mobile',
-							y: 
-							<?php
-							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%Mobile%")');
-							echo mysql_num_rows($r);
-							?>,
-							color: 'yellowgreen',
-						},
-						{
-							name: 'Bot',
-							y: 
-							<?php
-							$r=mysql_query('SELECT DISTINCT ip,ua,time FROM `hits` WHERE id="hnrv" and (ua like "%http%")');
-							echo mysql_num_rows($r);
-							?>,
-							color: 'silver',
-						},
-					]
+					name: 'OS',
+					data: browserData,
+					size: '60%',
+					dataLabels: {
+						enabled: false
+					}
+				}, {
+					name: 'Versions',
+					data: versionsData,
+					innerSize: '60%'
 				}]
 			});
 			chart4 = new Highcharts.Chart({
