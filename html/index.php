@@ -482,11 +482,7 @@
 			var osmiWindow = window.open("http://tools.geofabrik.de/osmi/?view=addresses&lon="+position.lon+"&lat="+position.lat+"&zoom="+map.getZoom()+"&overlays=postal_code,no_addr_street,street_not_found,interpolation,interpolation_errors,connection_lines,nearest_points,nearest_roads").focus();
 		}
 		
-		function markAsCorrectedClicked(id, type, layer) {
-			document.getElementsByName('id')[0].value=id;
-			document.getElementsByName('way_u')[0].checked=type;
-			document.getElementsByName('way')[0].value=type;
-			map.removePopup(map.popups[0]);
+		function refreshLayerAfterCorrectedClicked(id, type, layer) {
 			if(layer=="prob_easy")
 				prob_easy.refresh();
 			else if(layer=="prob_complicated")
@@ -499,6 +495,15 @@
 				dupes_similar.refresh();
 			else
 				alert("unknown layer " + layer + " (" + id + " " + type + ")");
+		}
+		
+		function markAsCorrectedClicked(id, type, layer) {
+			document.getElementsByName('id')[0].value=id;
+			document.getElementsByName('way_u')[0].checked=type;
+			document.getElementsByName('way')[0].value=type;
+			map.removePopup(map.popups[0]);
+			
+			window.setTimeout("refreshLayerAfterCorrectedClicked('"+id+"', '"+type+"', '"+layer+"')", 500);
 		}
 	</script>
 	
