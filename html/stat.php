@@ -56,17 +56,18 @@
 		<b>QeoDart</b><br/>
 		das freie Geographie-Lernspiel für Linux &amp; Windows
 	</a>
-	<div id="chart1div"></div>
-	<div id="chart2div"></div>
-	<div id="chart3div"></div>
+	<div id="chartHouseNumbersDiv"></div>
+	<div id="chartDupesDiv"></div>
+	<div id="chartProblemsDiv"></div>
 	<a href="http://languagetool.org/de" target="_blank" class="ad" id="ad2" style="background-color: rgba(152,184,240,.9);">
 		<img src="LanguageToolBig.png" alt="LT Icon"/>
 		<b>LanguageTool</b><br/>
 		freie Grammatik- und Stilprüfung für LibreOffice und OpenOffice.org
 	</a>
-	<div id="piechart1div" style="float:left;width:510px;"></div>
-	<div id="piechart2div" style="float:left;width:560px;"></div>
-	<div id="chart4div" style="clear:left;"></div>
+	<div id="pieChartBrowsersDiv" style="float:left;width:510px;"></div>
+	<div id="pieChartOsDiv" style="float:left;width:570px;"></div>
+	<div id="chartHitsDiv" style="clear:left;"></div>
+	<div id="chartTopReferresDiv"></div>
 	<a href="http://shop.highsoft.com/highcharts.html" target="_blank" class="ad" id="ad3" style="background-color: rgba(200,200,200,.9);">
 		<img src="by-nc.eu.png" alt="CC-by-nc"/>
 		<b>Highcharts JS</b><br/>
@@ -103,7 +104,7 @@
 	<script type="text/javascript">
 	
 	$(function () {
-		var chart1, chart2, chart3, piechart1, piechart2, chart4;
+		var chartHouseNumbers, chartDupes, chartProblems, pieChartBrowsers, pieChartOs, chartHits, chartTopReferres;
 		function formatter(t) {
 			annotation="";
 			if(t.x==Date.UTC(2012,1,20)) annotation="<br/><b>Algorithmusänderung<b>";
@@ -130,9 +131,9 @@
 			return Highcharts.dateFormat('%e. %b %y', t.x) + ': ' + t.y + annotation;
 		};
 		$(document).ready(function() {
-			chart1 = new Highcharts.Chart({
+			chartHouseNumbers = new Highcharts.Chart({
 				chart: {
-					renderTo: 'chart1div',
+					renderTo: 'chartHouseNumbersDiv',
 					zoomType: 'xy',
 					alignTicks: false,
 				},
@@ -238,9 +239,9 @@
 					]
 				}]
 			});
-			chart2 = new Highcharts.Chart({
+			chartDupes = new Highcharts.Chart({
 				chart: {
-					renderTo: 'chart2div',
+					renderTo: 'chartDupesDiv',
 					zoomType: 'xy',
 					alignTicks: false,
 				},
@@ -344,9 +345,9 @@
 					]
 				}]
 			});
-			chart3 = new Highcharts.Chart({
+			chartProblems = new Highcharts.Chart({
 				chart: {
-					renderTo: 'chart3div',
+					renderTo: 'chartProblemsDiv',
 					zoomType: 'xy',
 					alignTicks: false,
 				},
@@ -452,9 +453,9 @@
 					]
 				}]
 			});
-			piechart1 = new Highcharts.Chart({
+			pieChartBrowsers = new Highcharts.Chart({
 				chart: {
-					renderTo: 'piechart1div',
+					renderTo: 'pieChartBrowsersDiv',
 					plotBackgroundColor: null,
 					plotBorderWidth: null,
 					plotShadow: false
@@ -628,18 +629,18 @@
 				}];
 			
 			// Build the data arrays
-			var browserData = [];
-			var versionsData = [];
+			var osData = [];
+			var osVersionsData = [];
 			for (var i = 0; i < data.length; i++) {
 				// add browser data
-				browserData.push({
+				osData.push({
 					name: categories[i],
 					y: data[i].y,
 					color: data[i].color
 				});
 				// add version data
 				for (var j = 0; j < data[i].drilldown.data.length; j++) {
-					versionsData.push({
+					osVersionsData.push({
 						name: data[i].drilldown.categories[j],
 						y: data[i].drilldown.data[j],
 						color: data[i].drilldown.color[j]
@@ -647,9 +648,9 @@
 				}
 			}
 			
-			piechart2 = new Highcharts.Chart({
+			pieChartOs = new Highcharts.Chart({
 				chart: {
-					renderTo: 'piechart2div',
+					renderTo: 'pieChartOsDiv',
 					plotBackgroundColor: null,
 					plotBorderWidth: null,
 					plotShadow: false,
@@ -682,20 +683,20 @@
 				},
 				series: [{
 					name: 'OS',
-					data: browserData,
+					data: osData,
 					size: '60%',
 					dataLabels: {
 						enabled: false
 					}
 				}, {
 					name: 'Versions',
-					data: versionsData,
+					data: osVersionsData,
 					innerSize: '60%'
 				}]
 			});
-			chart4 = new Highcharts.Chart({
+			chartHits = new Highcharts.Chart({
 				chart: {
-					renderTo: 'chart4div',
+					renderTo: 'chartHitsDiv',
 					zoomType: 'xy',
 					alignTicks: false,
 				},
@@ -734,8 +735,9 @@
 							color: '#000000'
 						}
 					},
-					max: 50,
-					min: 0
+					max: 70,
+					min: 0,
+					endOnTick: false
 				}],
 				legend: {
 					enabled: false
@@ -777,6 +779,62 @@
 					}
 					?>
 					]
+				}]
+			});
+			
+			<?php
+			$none=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "NONE%"'));
+			$dnt=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "DNT%"'));
+			$forum=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%forum.openstreetmap.org%"'));
+			$wiki=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%wiki.openstreetmap.org%"'));
+			$browse=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%openstreetmap.org/browse%"'));
+			$other_osm=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%openstreetmap%"'))-$forum-$wiki-$browse;
+			$bplaced=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%gulp21.bplaced.net%" AND referrer NOT LIKE "%gulp21.bplaced.net/osm/housenumbervalidator%"'));
+			$github=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%gulp21.github.com%"'));
+			$search=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%.google.%"'));
+			$other=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` where id="hnrv" AND time>="2012-01-21 12:00:00" AND NOT(referrer LIKE "NONE%" OR referrer LIKE "DNT%" OR referrer LIKE "%openstreetmap%" OR referrer LIKE "%gulp21.bplaced.net%" OR referrer LIKE "%gulp21.github.com%" OR referrer LIKE "%.google.%" OR referrer LIKE "NULL%" OR referrer="\n")'));
+			?>
+			chartTopReferres = new Highcharts.Chart({
+				chart: {
+					renderTo: 'chartTopReferresDiv',
+					type: 'bar'
+				},
+				title: {
+					text: 'Top Referrers'
+				},
+				subtitle: {
+					text: 'Jan 21 2012 \u2013 today'
+				},
+				xAxis: {
+					categories: ['None', 'Do Not Track', 'openstreetmap.org/browse', 'wiki.openstreetmap.org', 'forum.openstreetmap.org', 'other openstreetmap', 'Search Engine', 'gulp21.github.com', 'gulp21.bplaced.net', 'Other'],
+					title: {
+					text: null
+					}
+				},
+				yAxis: {
+					title: {
+					text: null
+					},
+					min: 0
+				},
+				plotOptions: {
+					bar: {
+					dataLabels: {
+						enabled: true
+					}
+					}
+				},
+				tooltip: {
+					formatter: function() {
+					return ''+
+						'<b>'+this.x+':</b> '+this.y;
+					}
+				},
+				legend: {
+					enabled: false
+				},
+				series: [{
+					data: [<?php echo "$none, $dnt, $browse, $wiki, $forum, $other_osm, $search, $github, $bplaced, $other"; ?>]
 				}]
 			});
 		});
