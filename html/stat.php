@@ -783,16 +783,16 @@
 			});
 			
 			<?php
-			$none=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "NONE%"'));
-			$dnt=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "DNT%"'));
-			$forum=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%forum.openstreetmap.org%"'));
-			$wiki=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%wiki.openstreetmap.org%"'));
-			$browse=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%openstreetmap.org/browse%"'));
-			$other_osm=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%openstreetmap%"'))-$forum-$wiki-$browse;
-			$bplaced=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%gulp21.bplaced.net%" AND referrer NOT LIKE "%gulp21.bplaced.net/osm/housenumbervalidator%"'));
-			$github=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%gulp21.github.com%"'));
-			$search=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` WHERE id="hnrv" AND referrer LIKE "%.google.%"'));
-			$other=mysql_num_rows(mysql_query('SELECT DISTINCT ip,time,ua FROM `hits` where id="hnrv" AND time>="2012-01-21 12:00:00" AND NOT(referrer LIKE "NONE%" OR referrer LIKE "DNT%" OR referrer LIKE "%openstreetmap%" OR referrer LIKE "%gulp21.bplaced.net%" OR referrer LIKE "%gulp21.github.com%" OR referrer LIKE "%.google.%" OR referrer LIKE "NULL%" OR referrer="\n")'));
+			$none=mysql_num_rows(mysql_query('SELECT referrer FROM (SELECT * FROM `hits` WHERE id="hnrv" GROUP BY ip,time,ua) AS tmp WHERE referrer LIKE "NONE%"'));
+			$dnt=mysql_num_rows(mysql_query('SELECT referrer FROM (SELECT * FROM `hits` WHERE id="hnrv" GROUP BY ip,time,ua) AS tmp WHERE referrer LIKE "DNT%"'));
+			$forum=mysql_num_rows(mysql_query('SELECT referrer FROM (SELECT * FROM `hits` WHERE id="hnrv" GROUP BY ip,time,ua) AS tmp WHERE referrer LIKE "%forum.openstreetmap.org%"'));
+			$wiki=mysql_num_rows(mysql_query('SELECT referrer FROM (SELECT * FROM `hits` WHERE id="hnrv" GROUP BY ip,time,ua) AS tmp WHERE referrer LIKE "%wiki.openstreetmap.org%"'));
+			$browse=mysql_num_rows(mysql_query('SELECT referrer FROM (SELECT * FROM `hits` WHERE id="hnrv" GROUP BY ip,time,ua) AS tmp WHERE referrer LIKE "%openstreetmap.org/browse%"'));
+			$other_osm=mysql_num_rows(mysql_query('SELECT referrer FROM (SELECT * FROM `hits` WHERE id="hnrv" GROUP BY ip,time,ua) AS tmp WHERE referrer LIKE "%openstreetmap%"'))-$forum-$wiki-$browse;
+			$bplaced=mysql_num_rows(mysql_query('SELECT referrer FROM (SELECT * FROM `hits` WHERE id="hnrv" GROUP BY ip,time,ua) AS tmp WHERE referrer LIKE "%gulp21.bplaced.net%" AND referrer NOT LIKE "%gulp21.bplaced.net/osm/housenumbervalidator%"'));
+			$github=mysql_num_rows(mysql_query('SELECT referrer FROM (SELECT * FROM `hits` WHERE id="hnrv" GROUP BY ip,time,ua) AS tmp WHERE referrer LIKE "%gulp21.github.com%"'));
+			$search=mysql_num_rows(mysql_query('SELECT referrer FROM (SELECT * FROM `hits` WHERE id="hnrv" GROUP BY ip,time,ua) AS tmp WHERE referrer LIKE "%.google.%"'));
+			$other=mysql_num_rows(mysql_query('SELECT referrer FROM (SELECT * FROM `hits` WHERE id="hnrv" GROUP BY ip,time,ua) AS tmp WHERE id="hnrv" AND time>="2012-01-21 12:00:00" AND NOT(referrer LIKE "NONE%" OR referrer LIKE "DNT%" OR referrer LIKE "%openstreetmap%" OR referrer LIKE "%gulp21.bplaced.net%" OR referrer LIKE "%gulp21.github.com%" OR referrer LIKE "%.google.%" OR referrer LIKE "NULL%" OR referrer="\n")'));
 			?>
 			chartTopReferres = new Highcharts.Chart({
 				chart: {
