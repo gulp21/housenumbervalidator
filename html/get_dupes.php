@@ -3,9 +3,8 @@
 // support suburb! (854045017, 1461556529)
 // removeme.php
 // stat 27.->db
-// referer stats, os donut chart
 	
-	// returns a list of dupes in the db within @param bbox of @dupe_type [-1: all, 0: near, 1: exact, 2: similar] (max. 800)
+	// returns a list of dupes in the db within @param bbox of @param dupe_type [-1: all, 0: near, 1: exact, 2: similar] (max. 800)
 	
 	include("connect.php");
 	

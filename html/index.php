@@ -296,7 +296,7 @@
 		var mapnikMap = new OpenLayers.Layer.OSM.Mapnik("Mapnik",
 		{
 			transitionEffect: 'resize',
-			attribution: '&copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC&#8209;BY&#8209;SA</a>'
+			attribution: '&copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> contributors, <a href="http://www.openstreetmap.org/copyright" target="_blank">Data ODbl / Map CC-by-sa</a>'
 		});
 		map.addLayer(mapnikMap);
 		
@@ -304,7 +304,7 @@
 		{
 			transitionEffect: 'resize',
 			numZoomLevels: 19,
-			attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">, &copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> and contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC&#8209;BY&#8209;SA</a>'
+			attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">, Data &copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> contributors, <a href="http://www.openstreetmap.org/copyright" target="_blank">ODbl</a>'
 		});
 		map.addLayer(mapquestMap);
 		
