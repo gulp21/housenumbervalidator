@@ -27,7 +27,7 @@ function run {
 	
 	mv index.html index.html~
 	
-	wget http://download.geofabrik.de/osm/europe/germany/ -O index.html
+	wget http://download.geofabrik.de/openstreetmap/europe/germany/ -O index.html
 	d=`cat index.html | grep $1.osm.pbf | sed -e "s/\`date +%Y\`.*//g" | sed -e "s/.*>//g" | grep -v \`date +%d\` | wc -l`
 	cdate=`stat -c %y dupes.txt | awk '{ printf $1 "\n"}'`
 	
