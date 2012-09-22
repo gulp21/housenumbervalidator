@@ -26,7 +26,7 @@ function run {
 		rm austria.*
 		cp ../filter .
 		cp ../housenumbervalidator .
-		wget http://download.geofabrik.de/osm/europe/austria.osm.pbf
+		wget http://download.geofabrik.de/openstreetmap/europe/austria.osm.pbf
 		if [ ! $? -eq 0 ]; then
 			echo $(tput bold)$(tput setaf 1)download problem$(tput sgr0)
 			exit 1;
