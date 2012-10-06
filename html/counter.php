@@ -42,12 +42,4 @@ $query = "insert into `hits` values (\"".$ip."\", \"".$id."\", \"".$time."\", \"
 // echo $query;
 mysql_query($query); //or die ("MySQL-Error: ".mysql_error());
 
-if($id=="me") {
-    $today = date("y/m/d 00:00:00",time());
-    $query = "DELETE FROM `hits` where ip=\"".$ip."\" and time > \"".$today."\"";
-    echo $query."<br/>";
-    mysql_query($query) or die ("MySQL-Error: ".mysql_error());
-    echo mysql_affected_rows()-1 ." entries removed";
-}
-
 ?>

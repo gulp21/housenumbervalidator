@@ -2,7 +2,7 @@
 housenumbervalidator Copyright (C) 2012 Markus Brenneis
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it under certain conditions.
-See main.cpp for details. */
+See housenumbervalidator.cpp for details. */
 
 #include "HouseNumber.h"
 

@@ -1,9 +1,4 @@
 <?php
-// TODO
-// support suburb! (854045017, 1461556529)
-// removeme.php + getLatestStats.php
-// stat 27.->db
-	
 	// returns a list of dupes in the db within @param bbox of @param dupe_type [-1: all, 0: near, 1: exact, 2: similar] (max. 800)
 	
 	include("connect.php");
