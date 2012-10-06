@@ -57,7 +57,7 @@
 			for($j=0;$j<11;$j++) $columns[$j]=mysql_real_escape_string($columns[$j]);
 			
 			if(!in_array(" $columns[2] $columns[3]", $corrected_probs)) {
-				mysql_query("insert into `problematic` values ($columns[0], $columns[1], $columns[2], $columns[3], $columns[4], '$columns[5]', '$columns[6]', '$columns[7]', '$columns[8]', '$columns[9]', '$columns[10]', '$columns[11]', '".trim($columns[12])."', '0')")
+				mysql_query("insert into `problematic` values ($columns[0], $columns[1], $columns[2], $columns[3], $columns[4], '$columns[5]', '$columns[6]', '$columns[7]', '$columns[8]', '$columns[9]', '$columns[10]', '$columns[11]', '$columns[12]', '".trim($columns[13])."', '0')")
 			or die(mysql_error());
 			} else {
 				++$k;

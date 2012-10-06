@@ -219,6 +219,10 @@ void HouseNumber::setShop(QString shop) {
 	shop_+=shop;
 }
 
+void HouseNumber::setUid(QString uid) {
+	uid_=uid;
+}
+
 int HouseNumber::getBroken() const {
 	return broken_;
 }
@@ -269,6 +273,10 @@ QString HouseNumber::getShop() const {
 
 QString HouseNumber::getStreet() const {
 	return street_;
+}
+
+QString HouseNumber::getUid() const {
+	return uid_;
 }
 
 /*!
@@ -349,9 +357,9 @@ QString HouseNumber::qsGenerateDupeOutput(bool possibleDupe) const {
 // }
 
 QString HouseNumber::qsGenerateBrokenOutput() const {
-	return QString("%1\t%2\t%3\t%4\t%5\t%6 %7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\n")
+	return QString("%1\t%2\t%3\t%4\t%5\t%6 %7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\n")
 	                .arg(lat_,0,'f',8).arg(lon_,0,'f',8).arg(id_)
 	                .arg(isWay_?1:0).arg(broken_).arg(name_==""?housename_:name_).arg(shop_)
 	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_).arg(housename_)
-	                .arg(isEasyFix_?1:0); //recheck mit mail.php abfrage, ob wir alle hardFix raushaben, farbkodierung anpassen (get_broken, index, wiki)
+	                .arg(isEasyFix_?1:0).arg(uid_);
 }

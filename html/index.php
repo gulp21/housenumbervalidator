@@ -148,7 +148,7 @@
 			}
 		}
 		
-		#reportdiv, #oneperdaydiv {
+		#reportdiv, #oneperdaydiv, #userstatsframe {
 			display: none;
 			position: absolute;
 			top: 5px;
@@ -164,6 +164,13 @@
 			z-index: 2000;
 			border: none;
 			background: white;
+		}
+		
+		#userstatsframe {
+			height: 80%;
+			width: 60%;
+			opacity: .9;
+			border: none;
 		}
 		
 		.closediv {
@@ -272,6 +279,7 @@
 	<div style="height:100%" id="mapdiv"></div>
 	<iframe style="display:none;" id="josmframe" src="about:blank" name="josmframe"></iframe>
 	<iframe style="display:none;" id="reportframe" src="about:blank"></iframe>
+	<iframe style="display:none;" id="userstatsframe" src="about:blank"></iframe>
 	<script type="text/javascript">
 		document.write("<iframe style=\"display:none;\" id=\"counterframe\" src=\"../counter.php?id=hnrv&ref="  + document.referrer.replace(/\&/g,"%26") + "\"></iframe>");
 	</script>
@@ -477,6 +485,16 @@
 			}
 		}
 		
+		function userstats() {
+			if(document.getElementById('userstatsframe').style.display=='block') {
+				document.getElementById('userstatsframe').style.display='none';
+			} else {
+				document.getElementById('userstatsframe').style.display='block';
+				bbox=map.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).toBBOX();
+				document.getElementById('userstatsframe').src="http://gulp21.bplaced.net/osm/housenumbervalidator/get_problematic.php?areastat=1&bbox="+bbox;
+			}
+		}
+		
 		function openOsmi() {
 			var position = map.getCenter().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
 			var osmiWindow = window.open("http://tools.geofabrik.de/osmi/?view=addresses&lon="+position.lon+"&lat="+position.lat+"&zoom="+map.getZoom()+"&overlays=postal_code,no_addr_street,street_not_found,interpolation,interpolation_errors,connection_lines,nearest_points,nearest_roads").focus();
@@ -537,6 +555,7 @@
 	<a href="http://gulp21.github.com/" target="_blank">mehr&hellip;</a> &dash;
 	Kontakt: <a href="http://www.openstreetmap.org/message/new/gulp21" target="_blank">über OSM</a>,
 	<a href="#" onclick="alert(unescape('support[dot]gulp21 (%E4t) googlemail[dot]com'));">E-Post</a> &dash;
+	<a href="#" onclick="userstats();">Bereichsstatistik</a> &dash;
 	<a href="#" onclick="oneperday();" style="color:green;font-weight:bold;">Ein korrigierter Fehler am Tag</a>
 	</div>
 	<a href="http://gulp21.github.com/qeodart_de.html" target="_blank" class="ad" id="ad1" style="background-color: rgba(256,168,88,.9);display:none">

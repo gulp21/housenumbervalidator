@@ -1,9 +1,29 @@
 <?php
 	// returns a list of problems in the db within @param bbox of @prob_type [-1: all, 0: easy, 1: complicated] (max. 800)
+	// @param areastat=1: create a list of users which created the problems in the bbox
+	
+	// @param uid: osm user name
+	function generateUserLink($uid) {
+		return "<a src=\"_blank\" href=\"http://openstreetmap.org/user/$uid/\">$uid</a>";
+	}
+	
+	// @param objects: comma seperated list of objects (ways and nodes), format $type[0,1]$id
+	function generateObjectLinks($objects) {
+		$links="";
+		
+		$objects=explode(",",$objects);
+		
+		foreach ($objects as $object) {
+			$type=(substr($object,0,1)==0?"node":"way");
+			$id=substr($object,1);
+			
+			$links.="<a src=\"_blank\" href=\"http://openstreetmap.org/browse/$type/$id\">$type $id</a>, ";
+		}
+		
+		return substr($links,0,-2);
+	}
 	
 	include("connect.php");
-	
-	header("Content-Type: text/csv; charset=UTF-8");
 	
 	mysql_set_charset("utf8");
 	
@@ -26,65 +46,86 @@
 		$prob_type=-1;
 	}
 	
-	$broks=mysql_query("SELECT * FROM problematic WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3]  AND corrected=0 LIMIT 800") or die ("MySQL-Error: ".mysql_error());
-	
-	echo "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
-	
-	while($brok=mysql_fetch_assoc($broks)) {
+	if($_GET['areastat']!=1) {
 		
-		$table='<table>';
+		header("Content-Type: text/csv; charset=UTF-8");
 		
-		if(trim($brok['name'])!="") $table.="<tr><td>Name</td><td>".$brok['name']."</td></tr>";
+		$broks=mysql_query("SELECT * FROM problematic WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3]  AND corrected=0 LIMIT 800") or die ("MySQL-Error: ".mysql_error());
 		
-		if($brok['broken'] & 1) $style=' class="broken" '; else $style='';
-		if($brok['country']!="") $table.="<tr$style><td>addr:country</td><td>".$brok['country']."</td></tr>";
+		echo "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
 		
-		if($brok['broken'] & 2) $style=' class="broken" '; else $style='';
-		if($brok['city']!="") $table.="<tr$style><td>addr:city</td><td>".$brok['city']."</td></tr>";
+		while($brok=mysql_fetch_assoc($broks)) {
+			
+			$table='<table>';
+			
+			if(trim($brok['name'])!="") $table.="<tr><td>Name</td><td>".$brok['name']."</td></tr>";
+			
+			if($brok['broken'] & 1) $style=' class="broken" '; else $style='';
+			if($brok['country']!="") $table.="<tr$style><td>addr:country</td><td>".$brok['country']."</td></tr>";
+			
+			if($brok['broken'] & 2) $style=' class="broken" '; else $style='';
+			if($brok['city']!="") $table.="<tr$style><td>addr:city</td><td>".$brok['city']."</td></tr>";
+			
+			if($brok['broken'] & 4) $style=' class="broken" '; else $style='';
+			if($brok['postcode']!="") $table.="<tr$style><td>addr:postcode</td><td>".$brok['postcode']."</td></tr>";
+			
+			if($brok['broken'] & 8) $style=' class="broken" '; else $style='';
+			if($brok['street']!="") $table.="<tr$style><td>addr:street</td><td>".$brok['street']."</td></tr>";
+			
+			if($brok['broken'] & 16) $style=' class="broken" '; else $style='';
+			if($brok['number']!="") $table.="<tr$style><td>addr:housenumber</td><td>".trim($brok['number'])."</td></tr>";
+			
+			if($brok['broken'] & 32) $style=' class="broken" '; else $style='';
+			if($brok['housename']!="") $table.="<tr$style><td>addr:housename</td><td>".trim($brok['housename'])."</td></tr>";
+			
+			$table.="</table>";
+			
+			if($brok['type']==1) {
+				$type="way";
+			} else {
+				$type="node";
+			}
+			
+			if(($prob_type==-1 || $prob_type==0) && $brok['easyfix']==1) {
+				$pin="pin_circle_red.png";
+				$layer="prob_easy";
+			} else if(($prob_type==-1 || $prob_type==1) && $brok['easyfix']==0) {
+				$pin="pin_circle_blue.png";
+				$layer="prob_complicated";
+			} else {
+				$pin="NULL";
+			}
+			
+			$link='<a target="_blank" title="Details bei OSM anzeigen" href="http://www.openstreetmap.org/browse/'.$type.'/'.$brok['id'].'">'.$brok['id'].'</a> <a target="josmframe" title="in JOSM bearbeiten" href="http://localhost:8111/load_and_zoom?left='.($brok['lon']-0.001).'&right='.($brok['lon']+0.001).'&top='.($brok['lat']+0.001).'&bottom='.($brok['lat']-0.001).'&select='.$type.$brok['id'].'"><img src="josm.png" alt="JOSM"/></a>&thinsp;<a target="_blank" title="in Potlatch 2 bearbeiten" href="http://www.openstreetmap.org/edit?zoom=18&'.$type.'='.$brok['id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a>';
+			
+			$corrected_link='<a target="josmframe" href="report.php?id='.$brok['id'].'&type='.$brok['type'].'&table=problematic" title="diesen Fehler als behoben markieren" onclick="javascript:markAsCorrectedClicked(\''.$brok['id'].'\', '.$brok['type'].', \''.$layer.'\');">&#10004;</a>';
+			
+			if($pin!="NULL") { // i.e. dupe is of requested dupe_type
+				echo
+					"$brok[lat]\t"
+					."$brok[lon]\t"
+					."Problematisch $corrected_link\t"
+					."<div>$link<br/>$table\t"
+					."$pin\t"
+					."16,16\t"
+					."-8,-8\n";
+			}
+		} // while mysql_fetch_assoc
 		
-		if($brok['broken'] & 4) $style=' class="broken" '; else $style='';
-		if($brok['postcode']!="") $table.="<tr$style><td>addr:postcode</td><td>".$brok['postcode']."</td></tr>";
+	} else {
+		$broks=mysql_query("SELECT count(*) AS count, GROUP_CONCAT(type,id) id, uid FROM `problematic` WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0 GROUP BY uid ORDER BY count DESC LIMIT 800") or die ("MySQL-Error: ".mysql_error());
 		
-		if($brok['broken'] & 8) $style=' class="broken" '; else $style='';
-		if($brok['street']!="") $table.="<tr$style><td>addr:street</td><td>".$brok['street']."</td></tr>";
+		echo '<style type="text/css">tr:nth-child(even){background-color:#f2f2f2;}</style>';
+		echo "Diese Benutzer haben die meisten Probleme im angezeigten Bereich &quot;verursacht&quot;:<br/>";
+		echo "(Tabelle wird beim Verschieben NICHT automatisch aktualisiert. Zum Aktualisieren zweimal auf &quot;Bereichsstatistik&quot; klicken.)<br/>";
+		echo "<table>\n";
+		echo "<tr style=\"font-weight:bold\"><td>#</td><td>Benutzer</td><td>Objekte</td></tr>";
 		
-		if($brok['broken'] & 16) $style=' class="broken" '; else $style='';
-		if($brok['number']!="") $table.="<tr$style><td>addr:housenumber</td><td>".trim($brok['number'])."</td></tr>";
-		
-		if($brok['broken'] & 32) $style=' class="broken" '; else $style='';
-		if($brok['housename']!="") $table.="<tr$style><td>addr:housename</td><td>".trim($brok['housename'])."</td></tr>";
-		
-		$table.="</table>";
-		
-		if($brok['type']==1) {
-			$type="way";
-		} else {
-			$type="node";
+		while($brok=mysql_fetch_assoc($broks)) {
+			echo "<tr><td>".$brok['count']."</td><td>".generateUserLink($brok['uid'])."</td><td>".generateObjectLinks($brok['id'])."</td></tr>\n";
 		}
 		
-		if(($prob_type==-1 || $prob_type==0) && $brok['easyfix']==1) {
-			$pin="pin_circle_red.png";
-			$layer="prob_easy";
-		} else if(($prob_type==-1 || $prob_type==1) && $brok['easyfix']==0) {
-			$pin="pin_circle_blue.png";
-			$layer="prob_complicated";
-		} else {
-			$pin="NULL";
-		}
+		echo "</table>\n";
 		
-		$link='<a target="_blank" title="Details bei OSM anzeigen" href="http://www.openstreetmap.org/browse/'.$type.'/'.$brok['id'].'">'.$brok['id'].'</a> <a target="josmframe" title="in JOSM bearbeiten" href="http://localhost:8111/load_and_zoom?left='.($brok['lon']-0.001).'&right='.($brok['lon']+0.001).'&top='.($brok['lat']+0.001).'&bottom='.($brok['lat']-0.001).'&select='.$type.$brok['id'].'"><img src="josm.png" alt="JOSM"/></a>&thinsp;<a target="_blank" title="in Potlatch 2 bearbeiten" href="http://www.openstreetmap.org/edit?zoom=18&'.$type.'='.$brok['id'].'&editor=potlatch2"><img src="potlatch.png" alt="Potlatch"/></a>';
-		
-		$corrected_link='<a target="josmframe" href="report.php?id='.$brok['id'].'&type='.$brok['type'].'&table=problematic" title="diesen Fehler als behoben markieren" onclick="javascript:markAsCorrectedClicked(\''.$brok['id'].'\', '.$brok['type'].', \''.$layer.'\');">&#10004;</a>';
-		
-		if($pin!="NULL") { // i.e. dupe is of requested dupe_type
-			echo
-				"$brok[lat]\t"
-				."$brok[lon]\t"
-				."Problematisch $corrected_link\t"
-				."<div>$link<br/>$table\t"
-				."$pin\t"
-				."16,16\t"
-				."-8,-8\n";
-		}
-	}
+	} // if areastat
 ?>

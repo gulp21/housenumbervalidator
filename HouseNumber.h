@@ -56,6 +56,7 @@ class HouseNumber {
 		void setPostcode(QString postcode);
 		void setStreet(QString street);
 		void setShop(QString shop);
+		void setUid(QString uid);
 		
 		int getBroken() const;
 		QString getCity() const;
@@ -70,6 +71,7 @@ class HouseNumber {
 		QString getPostcode() const;
 		QString getShop() const;
 		QString getStreet() const;
+		QString getUid() const;
 		
 		bool hasAddressInformation() const;
 		bool isHouseNumber() const;
@@ -84,7 +86,7 @@ class HouseNumber {
 		double lat_, lon_;
 		int id_, completeness_, broken_;
 		bool ignore_, isHnr_, isWay_, isEasyFix_;
-		QString city_, country_, housename_, name_, number_, postcode_, street_, shop_;
+		QString city_, country_, housename_, name_, number_, postcode_, street_, shop_, uid_;
 };
 
 inline double myAbs(double x) { return x<0 ? (-x) : x; }

@@ -18,6 +18,8 @@
 	
 	TODO
 	TODOs in source
+	dcp: statistik per user (mail)
+	Rostocker Straße 32 [weg|straße [1-9]*]
 	
 */
 
@@ -180,7 +182,10 @@ int main(int argc, const char* argv[]) {
 			
 			if(line.contains("lon"))
 				hnr->setLon(line.split("lon")[1].split(QRegExp("[\"']"))[1].toDouble());
-		
+			
+			if(line.contains("user"))
+				hnr->setUid(line.split("user")[1].split(QRegExp("[\"']"))[1]);
+			
 		// if there is the end of the node
 		} else if(line.contains("</node")) {
 			
