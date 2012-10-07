@@ -23,11 +23,20 @@ echo mysql_affected_rows() ." entries removed";
 
 $hits=mysql_query("SELECT * FROM hits ORDER BY time DESC LIMIT 100") or die ("MySQL-Error: ".mysql_error());
 
-echo '<style type="text/css">tr:nth-child(even){background-color:#f2f2f2;}tr{white-space:nowrap;}</style>';
-echo '<table>';
+echo '<style type="text/css">div:nth-child(even){background-color:#f2f2f2;}div{white-space:nowrap;position:relative;}span:nth-child(2){position:absolute;left:245px;}span:nth-child(3){position:absolute;left:310px;}span:nth-child(4){position:absolute;right:0px;}span:nth-child(5){padding-left:310px;}</style>';
 
+$lastDate="";
 while($hit=mysql_fetch_assoc($hits)) {
-	echo "<tr><td>".$hit['time']."</td><td>".$hit['ip']."</td><td>".$hit['id']."</td><td>".$hit['ua']."</td><td>".$hit['referrer']."</td></tr>\n";
+	if(substr($hit['time'],0,10)!=$lastDate) {
+		echo "<hr/>\n";
+		$lastDate=substr($hit['time'],0,10);
+	}
+	echo "<div><span>".$hit['time']." ".$hit['ip']."</span><span>".$hit['id']."</span><span>".$hit['ua']."</span>";
+	if($hit['referrer']!="DNT" && $hit['referrer']!="NONE" && $hit['referrer']!="NULL") {
+		echo "<br/><span>".$hit['referrer']." "."</span></div>\n";
+	} else {
+		echo "<span>".$hit['referrer']." "."</span></div>\n";
+	}
 }
 
 echo '</table>';
