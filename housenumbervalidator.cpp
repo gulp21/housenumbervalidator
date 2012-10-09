@@ -18,7 +18,7 @@
 	
 	TODO
 	TODOs in source
-	support suburb! (854045017, 1461556529)
+	support suburb! (854045017, 1461556529, SA)
 	Rostocker Straße 32 [weg|straße [1-9]*]
 	
 */
@@ -228,6 +228,8 @@ int main(int argc, const char* argv[]) {
 			} else if(line.contains("addr:housename\"") || line.contains("addr:housename'")) {
 				hnr->setHousename(line.split(QRegExp("[\"']"))[3]);
 // 				hnr.isHnr=true;
+			} else if(line.contains("addr:suburb\"") || line.contains("addr:suburb'")) {
+				hnr->setSuburb(line.split(QRegExp("[\"']"))[3]);
 			//interpolation lines should be ignored
 			} else if(line.contains("addr:interpolation")) {
 				hnr->setIgnore(true);

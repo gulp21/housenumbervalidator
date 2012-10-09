@@ -19,8 +19,9 @@ HouseNumber::HouseNumber() {
 	name_="";
 	number_="";
 	postcode_="";
-	street_="";
 	shop_="";
+	street_="";
+	suburb_="";
 	dupe=NULL;
 	left=NULL;
 	right=NULL;
@@ -198,6 +199,10 @@ void HouseNumber::setPostcode(QString postcode) {
 	}
 }
 
+void HouseNumber::setShop(QString shop) {
+	shop_+=shop;
+}
+
 void HouseNumber::setStreet(QString street) {
 	street_=street;
 	completeness_|=STREET;
@@ -207,6 +212,9 @@ void HouseNumber::setStreet(QString street) {
 		broken_|=STREET;
 		if(street_.endsWith("tr."))
 			isEasyFix_=false;
+	} else if (street.contains(QRegExp("(str\\.|traße|weg) [0-9]+[a-z]?"))) {
+		broken_|=STREET;
+		isEasyFix_=true;
 	} else if (street_.length()>0 && !street_[0].isUpper() && !street_.contains(QRegExp("[0-9](\\.|e)")) &&
 	           !street_.startsWith("an") && !street_.startsWith("am") && !street_.startsWith("van") &&
 	           !street_.startsWith("von") && !street_.startsWith("vom")) {
@@ -215,8 +223,8 @@ void HouseNumber::setStreet(QString street) {
 	}
 }
 
-void HouseNumber::setShop(QString shop) {
-	shop_+=shop;
+void HouseNumber::setSuburb(QString suburb) {
+	suburb_+=suburb;
 }
 
 void HouseNumber::setUid(QString uid) {
@@ -273,6 +281,10 @@ QString HouseNumber::getShop() const {
 
 QString HouseNumber::getStreet() const {
 	return street_;
+}
+
+QString HouseNumber::getSuburb() const {
+	return suburb_;
 }
 
 QString HouseNumber::getUid() const {
