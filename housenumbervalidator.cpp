@@ -183,7 +183,7 @@ int main(int argc, const char* argv[]) {
 				hnr->setLon(line.split("lon")[1].split(QRegExp("[\"']"))[1].toDouble());
 			
 			if(line.contains("user"))
-				hnr->setUid(line.split("user")[1].split(QRegExp("[\"']"))[1]);
+				hnr->setUid(line.section("user",1).split(QRegExp("[\"']"))[1]);
 			
 		// if there is the end of the node
 		} else if(line.contains("</node")) {

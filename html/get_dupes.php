@@ -102,17 +102,18 @@
 	} else {
 		
 		$dupes=mysql_query("
-				(SELECT count(*) AS count, GROUP_CONCAT(type,'-',id) id, GROUP_CONCAT(dupe_type,'-',dupe_id) dupe_id, uid 
-				FROM `dupes`
-				WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0
-				GROUP BY uid)
-			UNION
-				(SELECT count(*) AS count, GROUP_CONCAT(dupe_type,'-',dupe_id) id, GROUP_CONCAT(type,'-',id) dupe_id, dupe_uid AS uid
-				FROM `dupes`
-				WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0
-				GROUP BY uid)
+			SELECT count(*) AS count, GROUP_CONCAT(type,'-',id) id, GROUP_CONCAT(dupe_type,'-',dupe_id) dupe_id, uid 
+			FROM 
+			(
+				(SELECT id, type, uid, dupe_id, dupe_type, dupe_uid FROM `dupes`
+				WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0)
+				UNION
+				(SELECT dupe_id, dupe_type, dupe_uid, id, type, uid FROM `dupes`
+				WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0)
+			) AS tmp
+			GROUP BY uid
 			ORDER BY count DESC
-			LIMIT 800
+			LIMIT 100
 			") or die ("MySQL-Error: ".mysql_error());
 		
 		echo '<style type="text/css">tr:nth-child(even){background-color:#f2f2f2;}</style>';

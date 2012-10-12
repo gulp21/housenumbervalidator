@@ -349,7 +349,7 @@ bool HouseNumber::isComplete() {
 }
 
 QString HouseNumber::qsGenerateDupeOutput(bool possibleDupe) const {
-	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\t%16\t%17\n")
+	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\t%16\t%17\t%18\t%19\n")
 	                .arg(lat_,0,'f',8).arg(lon_,0,'f',8).arg(id_)
 	                .arg(isWay_?1:0).arg(name_==""?housename_:name_).arg(shop_)
 	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_).arg(housename_)
