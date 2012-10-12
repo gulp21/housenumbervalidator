@@ -19,7 +19,6 @@
 	TODO
 	TODOs in source
 	support suburb! (854045017, 1461556529, SA)
-	Rostocker Straße 32 [weg|straße [1-9]*]
 	
 */
 
@@ -127,7 +126,7 @@ int main(int argc, const char* argv[]) {
 	}
 	duplicatesStream.setDevice(&duplicatesFile);
 	duplicatesStream.setCodec("UTF-8");
-	duplicatesStream << "lat\tlon\tid\ttype\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\tdupe_id\tdupe_type\tdupe_lat\tdupe_lon\tpossible_dupe\n";
+	duplicatesStream << "lat\tlon\tid\ttype\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\tuid\tdupe_id\tdupe_type\tdupe_lat\tdupe_lon\tdupe_uid\tpossible_dupe\n";
 	
 	QFile incompleteFile("incomplete.txt");
 	incompleteFile.remove();
@@ -149,7 +148,7 @@ int main(int argc, const char* argv[]) {
 	}
 	brokenStream.setDevice(&brokenFile);
 	brokenStream.setCodec("UTF-8");
-	brokenStream << "lat\tlon\tid\ttype\tbroken\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\teasyfix\n";
+	brokenStream << "lat\tlon\tid\ttype\tbroken\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\teasyfix\tuid\n";
 	
 	pHouseNumber hnr;
 	
@@ -353,13 +352,13 @@ void addToTreeHousenumbers(pHouseNumber &element, pHouseNumber &tree) {
 		} else if(element->isGreaterThanAddress(*tree)) {
 			addToTreeHousenumbers(element, tree->right);
 		} else {
-					qDebug() << "Dupe found!";
-					if(lines>0) {
-						qDebug() << 100.0*lineCount/lines*(1-POSSIBLE_DUPE_TIME) << "%";
-					}
-					element->dupe=tree;
-					duplicatesStream << element->qsGenerateDupeOutput();
-					++dupeCount;
+			qDebug() << "Dupe found!";
+			if(lines>0) {
+				qDebug() << 100.0*lineCount/lines*(1-POSSIBLE_DUPE_TIME) << "%";
+			}
+			element->dupe=tree;
+			duplicatesStream << element->qsGenerateDupeOutput();
+			++dupeCount;
 		}
 	}
 }

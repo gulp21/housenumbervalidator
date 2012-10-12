@@ -353,7 +353,9 @@ QString HouseNumber::qsGenerateDupeOutput(bool possibleDupe) const {
 	                .arg(lat_,0,'f',8).arg(lon_,0,'f',8).arg(id_)
 	                .arg(isWay_?1:0).arg(name_==""?housename_:name_).arg(shop_)
 	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_).arg(housename_)
+	                .arg(uid_)
 	                .arg(dupe->getId()).arg(dupe->getIsWay()?1:0).arg(dupe->getLat(),0,'f',8).arg(dupe->getLon(),0,'f',8)
+	                .arg(dupe->getUid())
 	                .arg(possibleDupe?1:0);
 }
 

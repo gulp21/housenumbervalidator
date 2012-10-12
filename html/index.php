@@ -491,7 +491,7 @@
 			} else {
 				document.getElementById('userstatsframe').style.display='block';
 				bbox=map.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).toBBOX();
-				document.getElementById('userstatsframe').src="http://gulp21.bplaced.net/osm/housenumbervalidator/get_problematic.php?areastat=1&bbox="+bbox;
+				document.getElementById('userstatsframe').src="http://gulp21.bplaced.net/osm/housenumbervalidator/get_areastat.php?bbox="+bbox;
 			}
 		}
 		

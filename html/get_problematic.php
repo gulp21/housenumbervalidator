@@ -1,29 +1,10 @@
 <?php
-	// returns a list of problems in the db within @param bbox of @prob_type [-1: all, 0: easy, 1: complicated] (max. 800)
-	// @param areastat=1: create a list of users which created the problems in the bbox
+	//! returns a list of problems in the db within @param bbox of @prob_type [-1: all, 0: easy, 1: complicated] (max. 800)
+	//! @param areastat=1: create a list of users which created the problems in the bbox
 	
-	// @param uid: osm user name
-	function generateUserLink($uid) {
-		return "<a src=\"_blank\" href=\"http://openstreetmap.org/user/$uid/\">$uid</a>";
-	}
+	include_once("functions.php");
 	
-	// @param objects: comma seperated list of objects (ways and nodes), format $type[0,1]$id
-	function generateObjectLinks($objects) {
-		$links="";
-		
-		$objects=explode(",",$objects);
-		
-		foreach ($objects as $object) {
-			$type=(substr($object,0,1)==0?"node":"way");
-			$id=substr($object,1);
-			
-			$links.="<a src=\"_blank\" href=\"http://openstreetmap.org/browse/$type/$id\">$type $id</a>, ";
-		}
-		
-		return substr($links,0,-2);
-	}
-	
-	include("connect.php");
+	include_once("connect.php");
 	
 	mysql_set_charset("utf8");
 	
@@ -113,7 +94,7 @@
 		} // while mysql_fetch_assoc
 		
 	} else {
-		$broks=mysql_query("SELECT count(*) AS count, GROUP_CONCAT(type,id) id, uid FROM `problematic` WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0 GROUP BY uid ORDER BY count DESC LIMIT 800") or die ("MySQL-Error: ".mysql_error());
+		$broks=mysql_query("SELECT count(*) AS count, GROUP_CONCAT(type,'-',id) id, uid FROM `problematic` WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0 GROUP BY uid ORDER BY count DESC LIMIT 800") or die ("MySQL-Error: ".mysql_error());
 		
 		echo '<style type="text/css">tr:nth-child(even){background-color:#f2f2f2;}</style>';
 		echo "Diese Benutzer haben die meisten Probleme im angezeigten Bereich &quot;verursacht&quot;:<br/>";
