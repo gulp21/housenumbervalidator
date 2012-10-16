@@ -1,0 +1,360 @@
+#!/bin/bash
+
+# TODO alle rückgabewerte merken, und wenn alle ungleich -100 sind, meldung anzeigen
+
+LOGFILE="/home/markus/Dokumente/GitHub/housenumbervalidator/runall.log"
+
+LANDS=("baden-wuerttemberg" "bayern" "berlin" "brandenburg" "bremen" "hamburg" "hessen" "nordrhein-westfalen" "mecklenburg-vorpommern" "niedersachsen" "rheinland-pfalz" "saarland" "sachsen" "sachsen-anhalt" "schleswig-holstein" "thueringen" "austria")
+PATHS=("germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "")
+ASSUMECOUNTRY=("DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "AT")
+ASSUMECITY=("" "" "Berlin" "" "Bremen" "Hamburg" "" "" "" "" "" "" "" "" "" "" "")
+# LANDS=("hamburg" "hessen" "nordrhein-westfalen" "austria")
+# PATHS=("germany" "germany" "germany" "")
+# ASSUMECOUNTRY=("DE" "DE" "DE" "AT")
+# ASSUMECITY=("Hamburg" "" "" "")
+MINCPUIDLE=50
+MINFREERAM=1500
+
+if [ ! $# -eq 1 ]; then
+	echo Usage: ./runde option
+	echo ""
+	echo Options:
+	echo " a all: run for Germany and Austria"
+	echo " c:     combine all results"
+	echo " d:     delete all pbf and osm files"
+	echo " dd:    delete all dupes.txt"
+	echo " kill:  kill all process related to this script"
+	echo " u:     upload preperation (i.e. start gnumeric, d, c, cat log, and kompare)"
+	echo " everything else: considered to be a state of Germany"
+	exit -1;
+fi
+
+# @params(text, sign)
+function log {
+	if [ "$2" = "i" ]; then
+		color=2
+	elif [ "$2" = "I" ]; then
+		color=3
+	elif [ "$2" = "E" ]; then
+		rm lock
+		log "removed lock because of critical log entry" "H"
+		color=1
+	else
+		color=7
+	fi
+	
+	echo [$2] `date` $1 >> $LOGFILE
+	
+	if [ ! "$2" = "H" ]; then # no hidden entry
+# 		echo $(tput setaf $color)$2 $1 $(tput sgr0)
+		:
+	fi
+}
+
+function killJobs {
+	log "canceled by SIGINT" "I"
+	killme
+	exit 1
+}
+
+trap killJobs SIGINT
+
+function getCpuIdle {
+	data=`grep "cpu " /proc/stat`
+	busyTicksOld=`echo $data | awk '{printf $2+$3+$4+$6+$7+$8}'`
+	totalTicksOld=`echo $data | awk '{printf $2+$3+$4+$5+$6+$7+$8}'`
+	
+	sleep 1
+	
+	data=`grep "cpu " /proc/stat`
+	busyTicksNow=`echo $data | awk '{printf $2+$3+$4+$6+$7+$8}'`
+	totalTicksNow=`echo $data | awk '{printf $2+$3+$4+$5+$6+$7+$8}'`
+	
+	busyTicksD=$(($busyTicksNow-$busyTicksOld))
+	busyTicksD=$(($busyTicksD*100))
+	totalTicksD=$(($totalTicksNow-$totalTicksOld))
+# 	echo $busyTicksD $totalTicksD $((100-$busyTicksD/$totalTicksD))
+# 	echo `top -b -n 1 | grep -i cpu\(s\) | gawk -F, '{print $4}'`
+	return $((100-$busyTicksD/$totalTicksD))
+}
+
+# @params(land, whatFor[download,filter,housenumbervalidator])
+function waitForResources {
+	getCpuIdle
+	cpuidle=$?
+	freeram=`free -m | grep "\-/+" | awk '{print $4}'`
+	
+	while ( [ $cpuidle -lt $MINCPUIDLE ] || [ $freeram -lt $MINFREERAM ] )
+	do
+		log "$1/$2 is waiting for resources $cpuidle $freeram" "i"
+		sleep 5
+		getCpuIdle
+		cpuidle=$?
+		freeram=`free -m | grep "\-/+" | awk '{print $4}'`
+	done
+}
+
+# @params(land, path, assumeCountry="DE", assumeCity="")
+# @returns
+#    0: success
+#    1: locked
+#    2: already run
+#   -1: download problem
+#   -2: filter problem
+#   -3: housenumbervalidator problem
+function run {
+	land=$1
+	
+	if [ ! $# -gt 1 ]; then
+		path="germany"
+	else
+		path=$2
+	fi
+	
+	assumeCountry="DE"
+	if ( [ $# -gt 2 ] && [ ! "$3" = "" ] ); then
+		assumeCountry=$3
+	fi
+	
+	assumeCity=""
+	if ( [ $# -gt 3 ] && [ ! "$4" = "" ] ); then
+		assumeCity="-ai="$4
+	fi
+	
+	if [ $assumeCountry = "DE" ]; then
+		postCodeLength=5
+	else
+		postCodeLength=4
+	fi
+	
+	log "run for $land" "i"
+	
+	mkdir $1 2> /dev/null
+	cd $1
+	
+	if [ -e lock ]; then
+		lockdate=`stat -c %y lock | awk '{ printf $1 "\n"}'`
+		if [ "$dupedate" = `date +%Y-%m-%d` ]; then
+			log "$land is locked" "-"
+# 			log "$land is locked. exit 0" "-"
+# 			exit 0
+		fi
+		log "unlock $land" "-"
+		rm lock
+	fi
+	
+	touch lock
+	
+	# check if housenumbervalidator has already run today
+	dupedate=`stat -c %y dupes.txt | awk '{ printf $1 "\n"}'`
+	if [ "$dupedate" = `date +%Y-%m-%d` ]; then
+		log "Already run? Aborting $1. exit 2" "I"
+		rm lock
+		exit 2
+	fi
+	
+	# check if today's extract is already downloaded
+	pbfdate=`stat -c %y $land.osm.pbf | awk '{ printf $1 "\n"}'`
+	if [ ! "$pbfdate" = `date +%Y-%m-%d` ]; then
+		# check if geofabrik extract is today's
+		serverdate=`curl -IL http://download.geofabrik.de/openstreetmap/europe/$path/$land.osm.pbf 2> /dev/null | grep "Last-Modified" | sed -r -e "s/.*, (.*20..).*/\1/g"`
+		if [ ! "`date -d \"$serverdate\" +%Y-%m-%d`" = "`date +%Y-%m-%d`" ]; then
+			log "$path/$land.osm.pbf seems to be too old. Aborting $land… exit -1" "E"
+			exit -1
+		fi
+		
+		waitForResources $land download
+		
+		# download pbf file
+		log "download $land" "i"
+		rm $1.*
+		cp ../filter .
+		cp ../housenumbervalidator .
+		wget http://download.geofabrik.de/openstreetmap/europe/$path/$land.osm.pbf 2> /dev/null
+		if [ ! $? -eq 0 ]; then
+			log "http://download.geofabrik.de/openstreetmap/europe/$path/$land.osm.pbf could not be downloaded. Aborting $land… exit -1" "E"
+			exit -1
+		fi
+	fi
+	
+	waitForResources $land filter
+	
+	# check if today's hnr.osm is already there
+	hnrosmdate=`stat -c %y $land.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'`
+	if [ ! "$hnrosmdate" = `date +%Y-%m-%d` ]; then
+		# filter pbf
+		log "filter $land" "i"
+		nice -n 19 ./filter $land.osm.pbf
+		if [ ! $? -eq 0 ]; then
+			log "./filter $land.osm.pbf problem. Aborting $land… exit -2" "E"
+			exit -2
+		fi
+	fi
+	
+	waitForResources $land housenumbervalidator
+	
+	# run housenumbervalidator
+	log "housenumbervalidator $land" "i"
+	nice -n 19 ./housenumbervalidator $land.osm.pbf.hnr.osm -l -l=`wc -l $land.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=$assumeCountry -cpn -css -cpc=$postCodeLength $assumeCity 2> /dev/null
+	if [ ! $? -eq 0 ]; then
+		log "housenumbervalidator problem. Aborting $land… exit -3" "E"
+		exit -3
+	fi
+	
+	if [ "$land" = "austria" ]; then
+		grep -v -P "\tDE\t|\tIT\t|\tLI\t|\tSK\t|\tCH\t|\tSI\t|\tCZ\t|\tHU\t" broken.txt | grep -v --file=../html/reports.txt > brok
+		echo $((`cat broken.txt | wc -l`-`cat brok | wc -l`)) foreign lines removed
+		mv brok broken.txt
+		
+		grep dupes.txt -v --file=../html/reports.txt > dupes
+		mv dupes dupes.txt
+	fi
+	
+	log "Finished $land! exit 0" "i"
+	
+	rm lock
+	
+	cd ..
+	
+	exit 0
+}
+
+function runall {
+	mv $LOGFILE $LOGFILE~
+	touch $LOGFILE
+	for ((i=0; i<${#LANDS[*]}; i+=1));
+# 	for ((i=0; i<1; i+=1));
+	do
+		run "${LANDS[$i]}" "${PATHS[$i]}" "${ASSUMECOUNTRY[$i]}" "${ASSUMECITY[$i]}" &
+		sleep 1
+	done
+	
+	success=0
+	errors=0
+	while [ $(($success+$errors)) -lt ${#LANDS[*]} ]
+	do
+		getCpuIdle
+		cpuidle=$?
+		freeram=`free -m | grep "\-/+" | awk '{print $4}'`
+		clear
+		echo CPU idle: $cpuidle - free RAM $freeram
+		echo Success: $success - Fehler: $errors
+		tail -n 10 runall.log
+		success=`grep -E "exit [0123456]" $LOGFILE | wc -l`
+		errors=`grep -E "exit \-[123456]" $LOGFILE | wc -l`
+	done
+	
+	log "FINISHED" "i"
+	kdialog --title "housenumbervalidator" --passivepopup "$success erforlgreich, $errors Fehler" 60
+}
+
+function getreports {
+	mv html/reports.txt html/reports.txt~
+	wget http://gulp21.bplaced.net/osm/housenumbervalidator/reports.txt
+	mv reports.txt html/reports.txt
+	cp html/reports.txt de/
+	echo `cat html/reports.txt | wc -l` exceptions [$((`cat html/reports.txt | wc -l`-`cat html/reports.txt~ | wc -l`))]
+}
+
+function combine {
+	mkdir de
+	cd de
+	
+	rm dupes.txt
+	rm broken.txt
+	rm log.txt
+	
+	path=`echo ~/Dokumente/GitHub/housenumbervalidator`
+	
+	for land in "baden-wuerttemberg" "bayern" "berlin" "brandenburg" "bremen" "hamburg" "hessen" "nordrhein-westfalen" "mecklenburg-vorpommern" "niedersachsen" "rheinland-pfalz" "saarland" "sachsen" "sachsen-anhalt" "schleswig-holstein" "thueringen" "austria"
+	do
+		echo $land...
+		if [ ! $land = "austria" ]; then
+			tail $path/$land/dupes.txt -n +2 >> dupes.txt
+			tail $path/$land/broken.txt -n +2 >> broken.txt
+		fi
+		echo $land >> log.txt
+		cat $path/$land/log.txt >> log.txt
+		echo "" >> log.txt
+	done
+	
+	grep -v -P "\tBE\t|\tDK\t|\tFR\t|\tLU\t|\tNL\t|\tCH\t|\tAT\t|\tPL\t|\tCZ\t" broken.txt | grep -v --file=$path/html/reports.txt > brok
+	echo $((`cat broken.txt | wc -l`-`cat brok | wc -l`)) foreign lines removed
+	mv brok broken.txt
+	
+	grep dupes.txt -v --file=$path/html/reports.txt > dupes
+	mv dupes dupes.txt
+	
+	echo Dupes:
+	wc -l dupes.txt
+	echo Broken:
+	wc -l broken.txt
+	
+	echo Merging with austria...
+	tail $path/austria/dupes.txt -n +2 >> dupes.txt
+	tail $path/austria/broken.txt -n +2 >> broken.txt
+	
+	cat dupes.txt | sort | uniq > d~
+	mv d~ dupes.txt
+	cat broken.txt | sort | uniq > b~
+	mv b~ broken.txt
+}
+
+function delete {
+	for land in "${LANDS[@]}"
+	do
+		echo rm $land/$land.osm.pbf
+		rm $land/$land.osm.pbf
+		echo rm $land/$land.osm.pbf.hnr.osm
+		rm $land/$land.osm.pbf.hnr.osm
+	done
+}
+
+function deleteDupes {
+	echo Sure? [y]
+	read SURE
+	if [ "$SURE"="y" ]; then
+		for land in "${LANDS[@]}"
+		do
+			echo rm $land/dupes.txt
+			rm $land/dupes.txt
+		done
+	fi
+}
+
+function killme {
+	echo Sure? This will kill ALL processes named housenumbervalidator, filter, osmconvert, osmfilter, wget, or runall [y]
+	read SURE
+	if [ "$SURE"="y" ]; then
+		killall -v housenumbervalidator
+		killall -v filter
+		killall -v osmconvert
+		killall -v osmfilter
+		killall -v wget
+		killall -v runall
+	fi
+}
+
+if [ $1 = "c" ]; then
+	getreports
+	combine
+elif [ $1 = "d" ]; then
+	delete
+elif [ $1 = "dd" ]; then
+	deleteDupes
+elif ( [ $1 = "a" ] || [ $1 = "all" ] ); then
+	runall
+elif [ $1 = "kill" ]; then
+	killme
+elif [ $1 = "u" ]; then
+	gnumeric stat.gnumeric  &
+	./runde d
+	./runde c
+	cd de
+	cat log.txt
+	git diff | kompare -
+	git commit -a
+	cd ..
+else
+	run $1
+fi
