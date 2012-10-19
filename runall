@@ -248,6 +248,12 @@ function runall {
 	done
 	
 	log "FINISHED" "i"
+	
+	if [ ! $errors -eq 0 ]; then
+		echo \-\-\-
+		grep -E "exit \-[123456]" $LOGFILE
+	fi
+	
 	kdialog --title "housenumbervalidator" --passivepopup "$success erforlgreich, $errors Fehler" 60
 }
 

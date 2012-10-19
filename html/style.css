@@ -1,0 +1,429 @@
+html {
+	height: 99%;
+	font-family: 'Times New Roman', serif;
+}
+
+body {
+	height: 99%;
+	overflow: hidden;
+}
+
+[class$="Bar"] {
+	position: absolute;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	font-size: 16px;
+	top: 0px;
+	padding: 2px;
+}
+
+#sidebar {
+	width: 290px;
+	left: 0px;
+	background: -webkit-linear-gradient(left, white 95%, rgba(255,255,255,0));
+	background: -moz-linear-gradient(to right, white 95%, rgba(255,255,255,0));
+	background: -ms-linear-gradient(to right, white 95%, rgba(255,255,255,0));
+	background: -o-linear-gradient(to right, white 95%, rgba(255,255,255,0));
+	background: linear-gradient(to right, white 95%, rgba(255,255,255,0));
+	z-index: 999;
+	margin-right: 10px;
+}
+
+#sidebar, #middleBar {
+	opacity: 1;
+	-webkit-transition: .5s opacity ease 0s, .5s left ease 0s, 0s visibility ease 0s, .5s ease font-size 0s;
+	-moz-transition: .5s opacity ease 0s, .5s left ease 0s, 0s visibility ease 0s, .5s ease font-size 0s;
+	-ms-transition: .5s opacity ease 0s, .5s left ease 0s, 0s visibility ease 0s, .5s ease font-size 0s;
+	-o-transition: .5s opacity ease 0s, .5s left ease 0s, 0s visibility ease 0s, .5s ease font-size 0s;
+	transition: .5s opacity ease 0s, .5s left ease 0s, 0s visibility ease 0s, .5s ease font-size 0s;
+}
+
+#sidebar.hiddenBar {
+/* 	width: 20px; */
+}
+
+#sidebar.hiddenBar /*> #sidebarContent*/, #middleBar.hiddenBar {
+	opacity: 0;
+	left: -280px;
+	visibility: hidden;
+	-webkit-transition: .5s opacity ease 0s, .5s left ease 0s, 0s visibility ease .5s, .5s ease font-size 0s;
+	-moz-transition: .5s opacity ease 0s, .5s left ease 0s, 0s visibility ease .5s, .5s ease font-size 0s;
+	-ms-transition: .5s opacity ease 0s, .5s left ease 0s, 0s visibility ease .5s, .5s ease font-size 0s;
+	-o-transition: .5s opacity ease 0s, .5s left ease 0s, 0s visibility ease .5s, .5s ease font-size 0s;
+	transition: .5s opacity ease 0s, .5s left ease 0s, 0s visibility ease .5s, .5s ease font-size 0s;
+}
+
+#toggleSidebar {
+	position: fixed;
+	left: 2px;
+	bottom: 0px;
+	padding-bottom: 2px;
+	z-index: 1001;
+	-webkit-transition: .5s;
+	-webkit-transform: rotate(0deg);
+	-webkit-transform-origin: 8px center;
+	-moz-transition: .5s;
+	-moz-transform: rotate(0deg);
+	-moz-transform-origin: 8px center;
+	-ms-transition: .5s;
+	-ms-transform: rotate(0deg);
+	-ms-transform-origin: 8px center;
+	-o-transition: .5s;
+	-o-transform: rotate(0deg);
+	-o-transform-origin: 8px center;
+	transition: .5s;
+	transform: rotate(0deg);
+	transform-origin: 8px center;
+}
+
+#sidebar.hiddenBar ~ #toggleSidebar {
+	-webkit-transform: rotate(-90deg);
+	-webkit-transform-origin: 8px center;
+	-moz-transform: rotate(-90deg);
+	-moz-transform-origin: 8px center;
+	-ms-transform: rotate(-90deg);
+	-ms-transform-origin: 8px center;
+	-o-transform: rotate(-90deg);
+	-o-transform-origin: 8px center;
+	transform: rotate(-90deg);
+	transform-origin: 8px center;
+}
+
+#middleBar {
+	width: 60%;
+	left: 280px;
+	z-index: 1000;
+	padding-right: 23px;
+	background: white;
+	background: -webkit-linear-gradient(left, rgba(255,255,255,.9), rgba(255,255,255,.8) 95%, rgba(255,255,255,0));
+	background: -moz-linear-gradient(to right,rgba(255,255,255,.9), rgba(255,255,255,.8) 95%, rgba(255,255,255,0));
+	background: -ms-linear-gradient(to right,rgba(255,255,255,.9), rgba(255,255,255,.8) 95%, rgba(255,255,255,0));
+	background: -o-linear-gradient(to right,rgba(255,255,255,.9), rgba(255,255,255,.8) 95%, rgba(255,255,255,0));
+	background: linear-gradient(to right,rgba(255,255,255,.9), rgba(255,255,255,.8) 95%, rgba(255,255,255,0));
+}
+
+#middleBarContents {
+	height: 100%;
+}
+
+#middleBarContents > div {
+	height: 100%;
+}
+
+#mapdiv {
+	height: 100%;
+	position: absolute;
+	left: 280px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+	transition: .5s;
+}
+
+#sidebar.hiddenBar ~ #mapdiv {
+	left: 20px;
+}
+
+#closeButton {
+	position: absolute;
+	top: 2px;
+	right: 7px;
+}
+
+.hiddenContents {
+	display: none;
+}
+
+.bold {
+	font-weight:bold;
+}
+
+.small {
+	font-size: 14px;
+}
+
+iframe {
+	border: none;
+	width: 100%;
+	min-height: 200px;
+}
+
+#areastatframe, #listframe {
+	height: 95%;
+}
+
+#sidebar.visibleBar ~ #mapdiv [id="OpenLayers.Control.PanZoomBar_3"] {
+	left: 14px !important;
+	-webkit-transition: .5s left;
+	-moz-transition: .5s left;
+	-ms-transition: .5s left;
+	-o-transition: .5s left;
+	transition: .5s left;
+}
+
+@media (max-width: 800px), (max-height: 600px) {
+	#sidebar {
+		font-size: 14px;
+		width: 250px;
+	}
+	#middleBar {
+		left: 240px;
+	}
+	#mapdiv {
+		left: 240px;
+	}
+}
+
+@media (max-width: 650px), (max-height: 540px) {
+	#sidebar {
+		font-size: 12px;
+		width: 210px;
+	}
+	#middleBar {
+		left: 200px;
+	}
+	#mapdiv {
+		left: 200px;
+	}
+}
+
+@media (max-width: 500px), (max-height: 510px) {
+	#sidebar {
+		font-size: 11px;
+		width: 180px;
+	}
+	#middleBar {
+		left: 170px;
+	}
+	#mapdiv {
+		left: 170px;
+	}
+}
+
+[id^="OpenLayers.Control.Attribution"] {
+	bottom: 0px !important;
+	right: 0px !important;
+	max-height: 20px;
+	opacity: .7;
+	background: white;
+	padding: 0px 3px 0px 5px;
+}
+
+[id^="OL_Icon_"], [id^="OpenLayers.Geometry.Point"] {
+	cursor: pointer;
+	opacity: .75 !important;
+}
+
+[id^="OpenLayers.Layer.Markers"] img {
+	-webkit-animation: shrink .7s;
+	-moz-animation: shrink .7s;
+	-ms-animation: shrink .7s;
+	-o-animation: shrink .7s;
+	animation: shrink .7s;
+}
+
+@-webkit-keyframes shrink {
+	from {
+		width: 1000px;
+		height: 1000px;
+		margin-top: -500px;
+		margin-left: -500px;
+		opacity: .5;
+	}
+	to {
+		width: 16px;
+		height: 16px;
+		margin-top: 0px;
+		margin-left: 0px;
+		opacity: .75;
+	}
+}
+@-moz-keyframes shrink {
+	from {
+		width: 1000px;
+		height: 1000px;
+		margin-top: -500px;
+		margin-left: -500px;
+		opacity: .5;
+	}
+	to {
+		width: 16px;
+		height: 16px;
+		margin-top: 0px;
+		margin-left: 0px;
+		opacity: .75;
+	}
+}
+@-o-keyframes shrink {
+	from {
+		width: 1000px;
+		height: 1000px;
+		margin-top: -500px;
+		margin-left: -500px;
+		opacity: .5;
+	}
+	to {
+		width: 16px;
+		height: 16px;
+		margin-top: 0px;
+		margin-left: 0px;
+		opacity: .75;
+	}
+}
+@-ms-keyframes shrink {
+	from {
+		width: 1000px;
+		height: 1000px;
+		margin-top: -500px;
+		margin-left: -500px;
+		opacity: .5;
+	}
+	to {
+		width: 16px;
+		height: 16px;
+		margin-top: 0px;
+		margin-left: 0px;
+		opacity: .75;
+	}
+}
+@keyframes shrink {
+	from {
+		width: 1000px;
+		height: 1000px;
+		margin-top: -500px;
+		margin-left: -500px;
+		opacity: .5;
+	}
+	to {
+		width: 16px;
+		height: 16px;
+		margin-top: 0px;
+		margin-left: 0px;
+		opacity: .75;
+	}
+}
+/*
+#reportdiv, #oneperdaydiv, #userstatsframe {
+	display: none;
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	z-index: 2000;
+	background: white;
+	padding-right: 22px;
+}
+
+#reportframe {
+	position: absolute;
+	top: 175px;
+	z-index: 2000;
+	border: none;
+	background: white;
+}
+
+#userstatsframe {
+	height: 80%;
+	width: 60%;
+	opacity: .9;
+	border: none;
+}*/
+
+.closediv {
+	position: absolute;
+	right: 4px;
+	top: 2px;
+}
+
+[id^="OL_Icon_"], [id^="OpenLayers.Geometry.Point"] {
+	-moz-transition: opacity .2s ease-in .1s;
+	-webkit-transition: opacity .2s ease-in .1s;
+	-ms-transition: opacity .2s ease-in .1s;
+	-o-transition: opacity .2s ease-in .1s;
+	transition: opacity .2s ease-in .1s;
+}
+
+/*[id="OpenLayers.Map_6_OpenLayers_Container"] > div:nth-child(4) > [id^="OL_Icon_"] {
+	opacity: .4;
+}*/
+
+[id^="OL_Icon_"]:hover, [id^="OpenLayers.Geometry.Point"]:hover {
+	opacity: 1 !important;
+}
+
+[id^="OL_Icon_"]:hover, [id^="OpenLayers.Geometry.Point"]:hover, #footer:hover {
+	-webkit-transition: opacity .4s ease-in .1s;
+	-moz-transition: opacity .4s ease-in .1s;
+	-ms-transition: opacity .4s ease-in .1s;
+	-o-transition: opacity .4s ease-in .1s;
+	transition: opacity .4s ease-in .1s;
+}
+
+/*#footer > img {
+	max-height: 10px;
+	max-width: 10px;
+}*/
+
+[id*="popup"], #featurePopup {
+	opacity: .95 !important;
+}
+
+h2 {
+	margin: 0px;
+	font-size: large;
+}
+
+tr:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+
+table {
+	border-spacing: 0px;
+}
+
+.broken {
+	color: red;
+}
+
+.ad {
+	position: absolute;
+	right: 10px;
+	bottom: 45px;
+	z-index: 999;
+	white-space:nowrap;
+	width: 250px;
+	text-decoration: none;
+	color: black;
+	opacity: .7;
+}
+
+/*@media (min-height: 690px) {
+	.ad {
+		left: 2px !important;
+		bottom: 25px;
+	}
+}*/
+
+.ad:hover {
+	opacity: 1;
+}
+
+.ad > img {
+	max-height: 48px;
+	width: auto;
+	float: left;
+	margin: 5px;
+}
+
+a img {
+	border: none;
+}
+
+a[href^="report.php?id="] {
+	text-decoration: none;
+	color: green;
+}
