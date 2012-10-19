@@ -1,0 +1,114 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+from PyQt4.QtCore import QObject,QTimer,QString
+from PyKDE4.kdecore import KJob
+from PyKDE4.kio import KIO
+import os
+
+MAX=17
+LOGFILE="/home/markus/Dokumente/GitHub/housenumbervalidator/runall.log"
+ 
+class MyJob(KJob):
+    def __init__(self,parent=QObject()):
+        KJob.__init__(self,parent)
+        #We want to have a Suspenable and Killable Job
+        self.setCapabilities(KJob.Capabilities(KJob.Killable))
+ 
+    def start(self):
+        #register the Job to the JobTracker
+        KIO.getJobTracker().registerJob(self)
+ 
+        #start the actual work in another thread
+        #this function has to terminate, before the work is done
+        QTimer().singleShot(0, self.doWork)
+ 
+    def doWork(self):             
+        #the actual work                                         
+        try:            
+            #if we are killed or suspended just return                                           
+            if self.error() or self.isSuspended():                    
+                return
+        except RuntimeError:
+            #if this class is killed before a RuntimeError will raise
+            return
+ 
+        errors=open(LOGFILE).read().count('exit -')
+        success=open(LOGFILE).read().count('exit')-errors
+        
+        self.description.emit(self, "housenumbervalidator/runall", ("Success",str(success)), ("Errors",str(errors)))
+        
+        #fortunately we have made a peace of work 
+        #-> show this to everybody
+        KJob.setPercent(self,(errors+success)*100/MAX)
+ 
+        if errors+success==MAX:
+            #jeah we have done the bunch of work
+            #send the result signal for showing, that we ended the work
+            self.emitResult()
+            return 
+        #just go to sleep for 1000ms than go on
+        QTimer().singleShot(1000, self.doWork)
+ 
+    #def doSuspend(self):
+        #the surounding function from KJob makes the isSuspended() become True
+        #returns True for signaling that this class supports to suspend
+        #return True
+ 
+    #def doResume(self):
+        #start with work again
+        #QTimer().singleShot( 0, self.doWork )
+        #return True for signaling that this class supports resuming
+        #return True
+ 
+    def doKill(self):
+        #return True for signaling that we support killing
+        return True
+ 
+ 
+ 
+def handleResult(job):
+    #handleResult Function
+    #it is called when the job is terminating
+    if job.error():
+       print 'error happend'
+    else:
+       print 'job has terminated successfully'
+ 
+    #termination the whole application
+    sys.exit()
+ 
+if __name__ == "__main__":
+    import sys
+ 
+    from PyKDE4.kdecore import KCmdLineArgs, KAboutData, KLocalizedString, ki18n
+    from PyKDE4.kdeui import KApplication    
+ 
+    appName     = "default"
+    catalog     = ""
+    programName = ki18n ("default")  
+    version     = "1.0"
+    description = ki18n ("Default Example")  
+    license     = KAboutData.License_GPL
+    copyright   = ki18n ("(c) 2010 Sandro Knauß") 
+    text        = ki18n ("none") 
+    homePage    = "techbase.kde.org"
+    bugEmail    = "bugs@sandroknauss.de"
+ 
+    aboutData   = KAboutData (appName, catalog, programName, version, description,
+                              license, copyright, text, homePage, bugEmail)
+ 
+ 
+    KCmdLineArgs.init (sys.argv, aboutData)
+ 
+    app = KApplication ()
+ 
+    #create job
+    job=MyJob(app)
+ 
+    job.result.connect(handleResult)
+ 
+    #start job
+    job.start()
+ 
+    #wait till all is done
+    app.exec_()

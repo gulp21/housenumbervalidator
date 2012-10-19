@@ -1,6 +1,7 @@
 <?php
 	//! returns a list of problems in the db within @param bbox of @prob_type [-1: all, 0: easy, 1: complicated] (max. 800)
 	//! @param areastat=1: create a list of users which created the problems in the bbox
+	//! @param simplelist=1: create a simple list which only contains street, house number, postcode, and city
 	
 	include_once("functions.php");
 	
@@ -27,7 +28,25 @@
 		$prob_type=-1;
 	}
 	
-	if($_GET['areastat']!=1) {
+	if($_GET['simplelist']==1) {
+		
+		header("Content-Type: text/plain; charset=UTF-8");
+		
+		$broks=mysql_query("SELECT street,number,postcode,city FROM problematic WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0 LIMIT 800") or die ("MySQL-Error: ".mysql_error());
+		
+		echo "street number, postcode city\n";
+		
+		while($brok=mysql_fetch_assoc($broks)) {
+			$street_number=$brok['street']." ".$dupe['number'];
+			$postcode_city=$brok['postcode']." ".$dupe['city'];
+			if(strlen($postcode_city)>1) {
+				echo $street_number.", ".$postcode_city."\n";
+			} else {
+				echo $street_number."\n";
+			}
+		}
+		
+	} else if($_GET['areastat']!=1) {
 		
 		header("Content-Type: text/csv; charset=UTF-8");
 		
@@ -108,5 +127,5 @@
 		
 		echo "</table>\n";
 		
-	} // if areastat
+	}
 ?>

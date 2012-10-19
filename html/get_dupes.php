@@ -1,6 +1,7 @@
 <?php
 	//! returns a list of dupes in the db within @param bbox of @param dupe_type [-1: all, 0: near, 1: exact, 2: similar] (max. 800)
 	//! @param areastat=1: create a list of users which created the dupes in the bbox
+	//! @param simplelist=1: create a simple list which only contains street, house number, postcode, and city
 	
 	include_once("functions.php");
 	
@@ -27,10 +28,28 @@
 		$dupe_type=-1;
 	}
 	
-	if($_GET['areastat']!=1) {
+	if($_GET['simplelist']==1) {
+		
+		header("Content-Type: text/plain; charset=UTF-8");
+		
+		$dupes=mysql_query("SELECT street,number,postcode,city FROM dupes WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0 LIMIT 800") or die ("MySQL-Error: ".mysql_error());
+		
+		echo "street number, postcode city\n";
+		
+		while($dupe=mysql_fetch_assoc($dupes)) {
+			$street_number=$dupe['street']." ".$dupe['number'];
+			$postcode_city=trim($dupe['postcode']." ".$dupe['city']);
+			if(strlen($postcode_city)>1) {
+				echo $street_number.", ".$postcode_city."\n";
+			} else {
+				echo $street_number."\n";
+			}
+		}
+		
+	} else if($_GET['areastat']!=1) {
 		
 		header("Content-Type: text/csv; charset=UTF-8");
-	
+		
 		$dupes=mysql_query("SELECT *,(lat-dupe_lat) AS d_lat,(lon-dupe_lon) AS d_lon FROM dupes WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0 LIMIT 800") or die ("MySQL-Error: ".mysql_error());
 		
 		echo "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
@@ -128,5 +147,5 @@
 		
 		echo "</table>\n";
 		
-	} // if areastat
+	}
 ?>
