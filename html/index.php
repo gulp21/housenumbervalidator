@@ -118,7 +118,7 @@
 		das freie Geographie-Lernspiel<br/>
 		für Linux &amp; Windows
 	</a>
-	<a href="http://languagetool.org/de" target="_blank" class="ad" id="ad2" style="background-color: rgba(152,184,240,.9);display:none;width:270px;">
+	<a href="http://languagetool.org/de" target="_blank" class="ad" id="ad2" style="background-color: rgba(152,184,240,.9);display:none;width:277px;">
 		<img src="LanguageToolBig.png" alt="LT Icon"/>
 		<b>LanguageTool</b><br/>
 		freie Grammatik- und Stilprüfung<br/>

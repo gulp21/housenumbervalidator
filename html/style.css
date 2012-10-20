@@ -168,8 +168,10 @@ iframe {
 
 @media (max-width: 800px), (max-height: 600px) {
 	#sidebar {
-		font-size: 14px;
 		width: 250px;
+	}
+	#sidebar, #toggleSidebar {
+		font-size: 14px;
 	}
 	#middleBar {
 		left: 240px;
@@ -181,8 +183,10 @@ iframe {
 
 @media (max-width: 650px), (max-height: 540px) {
 	#sidebar {
-		font-size: 12px;
 		width: 210px;
+	}
+	#sidebar, #toggleSidebar {
+		font-size: 12px;
 	}
 	#middleBar {
 		left: 200px;
@@ -194,14 +198,19 @@ iframe {
 
 @media (max-width: 500px), (max-height: 510px) {
 	#sidebar {
-		font-size: 11px;
 		width: 180px;
+	}
+	#sidebar, #toggleSidebar {
+		font-size: 11px;
 	}
 	#middleBar {
 		left: 170px;
 	}
 	#mapdiv {
 		left: 170px;
+	}
+	.ad {
+	   display: none !important;
 	}
 }
 
@@ -401,12 +410,12 @@ table {
 	opacity: .7;
 }
 
-/*@media (min-height: 690px) {
+@media (min-height: 660px) {
 	.ad {
 		left: 2px !important;
 		bottom: 25px;
 	}
-}*/
+}
 
 .ad:hover {
 	opacity: 1;

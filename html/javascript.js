@@ -183,15 +183,21 @@ function showPosition(lat, lon) {
 	markers.setVisibility(true);
 }
 
+function updateMap() {
+	map.updateSize();
+	map.setCenter(map.getCenter(), map.getZoom());
+}
+
 function toggleSidebar() {
 	if(document.getElementById('sidebar').className=="visibleBar") {
 		document.getElementById('sidebar').className="hiddenBar";
-		document.getElementById('toggleSidebar').innerText="einblenden";
+		document.getElementById('toggleSidebar').textContent="einblenden";
 	} else {
 		document.getElementById('sidebar').className="visibleBar";
-		document.getElementById('toggleSidebar').innerText="ausblenden";
+		document.getElementById('toggleSidebar').textContent="ausblenden";
 	}
-	
+	// this is needed because the map jumps when moving after hiding the sidebar (considering animation time)
+// 	setTimeout('updateMap()', 600); // TODO not working well with animation
 }
 
 function hideMiddleBar() {
