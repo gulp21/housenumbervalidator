@@ -22,10 +22,10 @@
 			$columns=explode("\t", $line);
 			for($j=0;$j<15;$j++) $columns[$j]=mysql_real_escape_string($columns[$j]);
 			if(!in_array(" $columns[2] $columns[3]", $corrected_dupes)) {
-				mysql_query("insert into dupes values ($columns[0], $columns[1], $columns[2], $columns[3],
+				mysql_query("INSERT INTO dupes VALUES ($columns[0], $columns[1], $columns[2], $columns[3],
 				'$columns[4]', '$columns[5]', '$columns[6]', '$columns[7]', '$columns[8]', '$columns[9]',
 				'$columns[10]', '$columns[11]', '$columns[12]', '$columns[13]', '$columns[14]', '$columns[15]',
-				'$columns[16]', '".trim($columns[17])."','0')")
+				'$columns[16]', '$columns[17]', '".trim($columns[18])."','0')")
 				or die(mysql_error());
 			} else {
 				++$k;
@@ -58,7 +58,7 @@
 			for($j=0;$j<11;$j++) $columns[$j]=mysql_real_escape_string($columns[$j]);
 			
 			if(!in_array(" $columns[2] $columns[3]", $corrected_probs)) {
-				mysql_query("insert into `problematic` values ($columns[0], $columns[1], $columns[2], $columns[3], $columns[4], '$columns[5]', '$columns[6]', '$columns[7]', '$columns[8]', '$columns[9]', '$columns[10]', '$columns[11]', '$columns[12]', '".trim($columns[13])."', '0')")
+				mysql_query("INSERT INTO `problematic` VALUES ($columns[0], $columns[1], $columns[2], $columns[3], $columns[4], '$columns[5]', '$columns[6]', '$columns[7]', '$columns[8]', '$columns[9]', '$columns[10]', '$columns[11]', '$columns[12]', '$columns[13]', '".trim($columns[14])."', '0')")
 			or die(mysql_error());
 			} else {
 				++$k;

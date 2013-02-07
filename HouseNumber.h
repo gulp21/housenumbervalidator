@@ -7,6 +7,7 @@ See main.cpp for details. */
 #ifndef _HouseNumber_h_
 #define _HouseNumber_h_
 
+#include <QDate>
 #include <QDebug>
 #include <QRegExp>
 #include <QString>
@@ -46,7 +47,7 @@ class HouseNumber {
 		void setCity(QString country);
 		void setCountry(QString country);
 		void setHousename(QString housename);
-		void setId(int id);
+		void setId(qint64 id);
 		void setIgnore(bool ignore);
 		void setIsWay(bool b);
 		void setLat(double lat);
@@ -57,12 +58,13 @@ class HouseNumber {
 		void setShop(QString shop);
 		void setStreet(QString street);
 		void setSuburb(QString suburb);
+		void setTimeStamp(const int y, const int m, const int d);
 		void setUid(QString uid);
 		
 		int getBroken() const;
 		QString getCity() const;
 		QString getCountry() const;
-		int getId() const;
+		qint64 getId() const;
 		bool getIgnore() const;
 		bool getIsWay() const;
 		double getLat() const;
@@ -73,6 +75,7 @@ class HouseNumber {
 		QString getShop() const;
 		QString getStreet() const;
 		QString getSuburb() const;
+		QDate getTimeStamp() const;
 		QString getUid() const;
 		
 		bool hasAddressInformation() const;
@@ -86,9 +89,11 @@ class HouseNumber {
 	
 	private:
 		double lat_, lon_;
-		int id_, completeness_, broken_;
+		qint64 id_;
+		int completeness_, broken_;
 		bool ignore_, isHnr_, isWay_, isEasyFix_;
 		QString city_, country_, housename_, name_, number_, postcode_, shop_, street_, suburb_, uid_;
+		QDate timeStamp_;
 };
 
 inline double myAbs(double x) { return x<0 ? (-x) : x; }
