@@ -130,10 +130,5 @@
 		else
 			document.getElementById("ad2").style.display='block';
 	</script>
-	
-	<?php
-	if(date("d.m.y")=="26.10.12")
-		echo '<!--[if lt IE 9]><div style="position:fixed;top:0;left:0;right:0;bottom:0;background:black;z-index:999999999;text-align:center;"><a href="http://www.browserchoice.eu/BrowserChoice/browserchoice_de.htm"><img src="gonedark.png" alt="Sie benutzen eine alte Version des Internet Explorers. Jetzt kostenlos aktulisieren!"/></a></div><![endif]-->';
-	?>
 </body>
 </html>

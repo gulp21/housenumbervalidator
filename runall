@@ -322,7 +322,7 @@ function delete {
 function deleteDupes {
 	echo Sure? [y]
 	read SURE
-	if [ "$SURE"="y" ]; then
+	if [ "$SURE" = "y" ]; then
 		for land in "${LANDS[@]}"
 		do
 			echo rm $land/dupes.txt
@@ -334,7 +334,7 @@ function deleteDupes {
 function killme {
 	echo Sure? This will kill ALL processes named housenumbervalidator, filter, osmconvert, osmfilter, wget, or runall [y]
 	read SURE
-	if [ "$SURE"="y" ]; then
+	if [ "$SURE" = "y" ]; then
 		killall -v housenumbervalidator
 		killall -v filter
 		killall -v osmconvert
