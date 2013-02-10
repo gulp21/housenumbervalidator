@@ -27,6 +27,7 @@ HouseNumber::HouseNumber() {
 	right=NULL;
 	completeness_=0;
 	broken_=0;
+	timeStamp_=QDate(2000,1,1);
 }
 
 HouseNumber::~HouseNumber() {
@@ -144,7 +145,7 @@ void HouseNumber::setHousename(QString housename) {
 	}
 }
 
-void HouseNumber::setId(int id) {
+void HouseNumber::setId(qint64 id) {
 	id_=id;
 }
 
@@ -227,6 +228,10 @@ void HouseNumber::setSuburb(QString suburb) {
 	suburb_+=suburb;
 }
 
+void HouseNumber::setTimeStamp(const int y, const int m, const int d) {
+	timeStamp_=QDate(y,m,d);
+}
+
 void HouseNumber::setUid(QString uid) {
 	uid_=uid;
 }
@@ -243,7 +248,7 @@ QString HouseNumber::getCountry() const {
 	return country_;
 }
 
-int HouseNumber::getId() const {
+qint64 HouseNumber::getId() const {
 	return id_;
 }
 
@@ -285,6 +290,10 @@ QString HouseNumber::getStreet() const {
 
 QString HouseNumber::getSuburb() const {
 	return suburb_;
+}
+
+QDate HouseNumber::getTimeStamp() const {
+	return timeStamp_;
 }
 
 QString HouseNumber::getUid() const {
@@ -349,14 +358,15 @@ bool HouseNumber::isComplete() {
 }
 
 QString HouseNumber::qsGenerateDupeOutput(bool possibleDupe) const {
-	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\t%16\t%17\t%18\t%19\n")
+	return QString("%1\t%2\t%3\t%4\t%5 %6\t%7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\t%16\t%17\t%18\t%19\t%20\n")
 	                .arg(lat_,0,'f',8).arg(lon_,0,'f',8).arg(id_)
 	                .arg(isWay_?1:0).arg(name_==""?housename_:name_).arg(shop_)
 	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_).arg(housename_)
 	                .arg(uid_)
 	                .arg(dupe->getId()).arg(dupe->getIsWay()?1:0).arg(dupe->getLat(),0,'f',8).arg(dupe->getLon(),0,'f',8)
 	                .arg(dupe->getUid())
-	                .arg(possibleDupe?1:0);
+	                .arg(possibleDupe?1:0)
+	                .arg(timeStamp_.toString("yyyyMMdd"));
 }
 
 // QString qsGeneraateIncompleteOutput(housenumber hnr, int i) {
@@ -371,9 +381,10 @@ QString HouseNumber::qsGenerateDupeOutput(bool possibleDupe) const {
 // }
 
 QString HouseNumber::qsGenerateBrokenOutput() const {
-	return QString("%1\t%2\t%3\t%4\t%5\t%6 %7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\n")
+	return QString("%1\t%2\t%3\t%4\t%5\t%6 %7\t%8\t%9\t%10\t%11\t%12\t%13\t%14\t%15\t%16\n")
 	                .arg(lat_,0,'f',8).arg(lon_,0,'f',8).arg(id_)
 	                .arg(isWay_?1:0).arg(broken_).arg(name_==""?housename_:name_).arg(shop_)
 	                .arg(country_).arg(city_).arg(postcode_).arg(street_).arg(number_).arg(housename_)
-	                .arg(isEasyFix_?1:0).arg(uid_);
+	                .arg(isEasyFix_?1:0).arg(uid_)
+	                .arg(timeStamp_.toString("yyyyMMdd"));
 }

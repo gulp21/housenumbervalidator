@@ -1,5 +1,5 @@
 /*
-	v0.5-120627
+	v0.5-130207
 	
 	Copyright (C) 2012 Markus Brenneis
 	
@@ -127,7 +127,7 @@ int main(int argc, const char* argv[]) {
 	}
 	duplicatesStream.setDevice(&duplicatesFile);
 	duplicatesStream.setCodec("UTF-8");
-	duplicatesStream << "lat\tlon\tid\ttype\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\tuid\tdupe_id\tdupe_type\tdupe_lat\tdupe_lon\tdupe_uid\tpossible_dupe\n";
+	duplicatesStream << "lat\tlon\tid\ttype\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\tuid\tdupe_id\tdupe_type\tdupe_lat\tdupe_lon\tdupe_uid\tpossible_dupe\ttimestamp\n";
 	
 	QFile incompleteFile("incomplete.txt");
 	incompleteFile.remove();
@@ -149,7 +149,7 @@ int main(int argc, const char* argv[]) {
 	}
 	brokenStream.setDevice(&brokenFile);
 	brokenStream.setCodec("UTF-8");
-	brokenStream << "lat\tlon\tid\ttype\tbroken\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\teasyfix\tuid\n";
+	brokenStream << "lat\tlon\tid\ttype\tbroken\tname\tcountry\tcity\tpostcode\tstreet\tnumber\thousename\teasyfix\tuid\ttimestamp\n";
 	
 	pHouseNumber hnr;
 	
@@ -185,6 +185,11 @@ int main(int argc, const char* argv[]) {
 			
 			if(line.contains("user"))
 				hnr->setUid(line.section("user",1).split(QRegExp("[\"']"))[1]);
+			
+			if(line.contains("timestamp")) {
+				QStringList ts=line.section("timestamp",1).split(QRegExp("[\"']"))[1].split(QRegExp("[\\-T]"));
+				hnr->setTimeStamp(ts[0].toInt(), ts[1].toInt(), ts[2].toInt());
+			}
 			
 		// if there is the end of the node
 		} else if(line.contains("</node")) {

@@ -87,7 +87,7 @@ function waitForResources {
 	while ( [ $cpuidle -lt $MINCPUIDLE ] || [ $freeram -lt $MINFREERAM ] )
 	do
 		log "$1/$2 is waiting for resources $cpuidle $freeram" "i"
-		sleep 5
+		sleep 10
 		getCpuIdle
 		cpuidle=$?
 		freeram=`free -m | grep "\-/+" | awk '{print $4}'`
