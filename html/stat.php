@@ -129,6 +129,7 @@
 			else if(t.x==Date.UTC(2012,6,20)) annotation="<br/><b>OSMF Redaction Account<b>";
 			else if(t.x==Date.UTC(2012,7,29)) annotation="<br/><b>xybot<b>";
 			else if(t.x==Date.UTC(2012,9,10)) annotation="<br/><b>Algorithmusänderung<b>";
+			else if(t.x==Date.UTC(2013,2,1)) annotation="<br/><b>Algorithmusänderung<b>";
 			return Highcharts.dateFormat('%e. %b %y', t.x) + ': ' + t.y + annotation;
 		};
 		$(document).ready(function() {

@@ -24,11 +24,13 @@ class HouseNumberTest: public QObject {
 			hnr->setPostcode("41564");
 			QVERIFY(hnr->isComplete()==true);
 			QVERIFY(hnr->getBroken()==33);
+			hnr->setTimeStamp(2012,1,1);
+			hnr->setUid("User42");
 			QCOMPARE(hnr->qsGenerateBrokenOutput(),
-				 QString("51.19704670\t6.60817180\t1337\t0\t33\t1a \tDeutschland\tKaarst\t41564\tRathausplatz\t1a\t1a\t1\n"));
+				 QString("51.19704670\t6.60817180\t1337\t0\t33\t1a \tDeutschland\tKaarst\t41564\tRathausplatz\t1a\t1a\t1\tUser42\t20120101\n"));
 			hnr->setStreet("Rathausstr.");
 			QCOMPARE(hnr->qsGenerateBrokenOutput(),
-				 QString("51.19704670\t6.60817180\t1337\t0\t41\t1a \tDeutschland\tKaarst\t41564\tRathausstr.\t1a\t1a\t0\n"));
+				 QString("51.19704670\t6.60817180\t1337\t0\t41\t1a \tDeutschland\tKaarst\t41564\tRathausstr.\t1a\t1a\t1\tUser42\t20120101\n"));
 		}
 		
 		void isSameAddressTest() {
@@ -81,6 +83,37 @@ class HouseNumberTest: public QObject {
 			hnr2->setPostcode("");
 			hnr2->setStreet("Niederstraße");
 			hnr2->setNumber("21");
+			QVERIFY(!(hnr1->isSameAddress(*hnr2)));
+			hnr1->setLat(51.1970467);
+			hnr1->setLon(6.6081718);
+			hnr1->setId(1337);
+			hnr1->setIsWay(true);
+			hnr1->setCountry("DE");
+			hnr1->setCity("Kaarst");
+			hnr1->setPostcode("41564");
+			hnr1->setStreet("Rathausplatz");
+			hnr1->setNumber("4a");
+			hnr2->setLat(51.1970467);
+			hnr2->setLon(6.6081718);
+			hnr2->setId(1337);
+			hnr2->setIsWay(true);
+			hnr2->setCountry("DE");
+			hnr2->setCity("Kaarst");
+			hnr2->setPostcode("41564");
+			hnr2->setStreet("Rathausplatz");
+			hnr2->setNumber("4a");
+			QVERIFY(hnr1->isSameAddress(*hnr2));
+			hnr2->setSuburb("Test1");
+			QVERIFY(hnr1->isSameAddress(*hnr2));
+			hnr1->setSuburb("Test2");
+			QVERIFY(!(hnr1->isSameAddress(*hnr2)));
+			hnr1->setSuburb("Test1");
+			QVERIFY(hnr1->isSameAddress(*hnr2));
+			hnr2->setLon(16.6081718);
+			QVERIFY(hnr1->isSameAddress(*hnr2));
+			hnr2->setSuburb("Test2");
+			QVERIFY(!(hnr1->isSameAddress(*hnr2)));
+			hnr2->setSuburb("");
 			QVERIFY(!(hnr1->isSameAddress(*hnr2)));
 		}
 		

@@ -29,7 +29,8 @@ enum Completeness {
 	POSTCODE=4,
 	STREET=8,
 	NUMBER=16,
-	HOUSENAME=32
+	HOUSENAME=32,
+	SUBURB=64
 };
 
 class HouseNumber {

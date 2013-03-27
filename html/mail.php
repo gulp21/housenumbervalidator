@@ -17,7 +17,7 @@
 	
 	$probs=mysql_query("SELECT * FROM problematic
 	                    WHERE corrected=0 AND easyfix=1
-	                    AND timestamp < now() - INTERVAL 4 DAY")
+	                    AND timestamp < NOW() - INTERVAL 4 DAY")
 	                    or die ("MySQL-Error: ".mysql_error());
 	
 	echo "Found ".mysql_num_rows($probs)." problems<br/>";

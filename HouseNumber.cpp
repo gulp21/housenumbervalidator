@@ -13,7 +13,7 @@ HouseNumber::HouseNumber() {
 	ignore_=false;
 	isHnr_=false;
 	isWay_=false;
-	isEasyFix_=true;
+	isEasyFix_=false;
 	city_="";
 	country_="";
 	name_="";
@@ -35,7 +35,7 @@ HouseNumber::~HouseNumber() {
 
 /*!
  * compares QString("%1%2%3%4%5%6%7")
- *  .arg(number_).arg(street_).arg(postcode_).arg(city_).arg(country_).arg(name_).arg(shop_).toLower()
+ *  .arg(number_).arg(street_).arg(postcode_).arg(city_).arg(suburb_).arg(country_).arg(name_).arg(shop_).toLower()
  * thus, the house numbers are sorted by address (used for treeHousenumbers)
  * @note the address information must be complete
  */
@@ -48,6 +48,8 @@ bool HouseNumber::isLessThanAddress(HouseNumber const& rhs) const {
 		return getPostcode().toLower()<rhs.getPostcode().toLower();
 	if(getCity().toLower()!=rhs.getCity().toLower())
 		return getCity().toLower()<rhs.getCity().toLower();
+	if(getSuburb().toLower()!=rhs.getSuburb().toLower())
+		return getSuburb().toLower()<rhs.getSuburb().toLower();
 	if(getCountry().toLower()!=rhs.getCountry().toLower())
 		return getCountry().toLower()<rhs.getCountry().toLower();
 	if(getName().toLower()!=rhs.getName().toLower())
@@ -61,7 +63,7 @@ bool HouseNumber::isGreaterThanAddress(HouseNumber const& rhs) const {
 
 /*!
  * Two house numbers are considered to be equal if
- * * country, city, postcode, street, housenumber, name, and shop equal
+ * * country, city, postcode, suburb, street, housenumber, name, and shop equal
  * * or housenumber, street, name, and shop equal, and country, city, and postcode do not differ (ignoring empty values),
  *    and lat/lon difference is less than DISTANCE_THRESHOLD
  */
@@ -76,6 +78,7 @@ bool HouseNumber::isSameAddress(HouseNumber const& rhs) const {
 	
 	if(getPostcode().toLower()==rhs.getPostcode().toLower() && getPostcode()!="" &&
 	   getCity().toLower()==rhs.getCity().toLower() && getCity()!="" &&
+	   getSuburb().toLower()==rhs.getSuburb().toLower() &&
 	   getCountry().toLower()==rhs.getCountry().toLower() && getCountry()!="") {
 		return true;
 	}
@@ -87,6 +90,8 @@ bool HouseNumber::isSameAddress(HouseNumber const& rhs) const {
 	if(getPostcode()!="" && rhs.getPostcode()!="" && getPostcode().toLower()!=rhs.getPostcode().toLower())
 		return false;
 	if(getCity()!="" && rhs.getCity()!="" && getCity().toLower()!=rhs.getCity().toLower())
+		return false;
+	if(getSuburb()!="" && rhs.getSuburb()!="" && getSuburb()!=rhs.getSuburb())
 		return false;
 	if(getCountry()!="" && rhs.getCountry()!="" && getCountry().toLower()!=rhs.getCountry().toLower())
 		return false;
@@ -123,6 +128,7 @@ void HouseNumber::setCity(QString city) {
 	if( !city_[0].isUpper() || city_.contains("traße") || city_.endsWith("str") ||
 	    city_.contains("str.") || city_.endsWith("Str") || city_.contains("Str.") ) {
 		broken_|=CITY;
+		isEasyFix_=true;
 	}
 }
 
@@ -133,6 +139,7 @@ void HouseNumber::setCountry(QString country) {
 	
 	if(country_.length()!=2 || !country_[0].isLetter() || !country_[1].isLetter() /*|| country_.toUpper()!=country_*/) {
 		broken_|=COUNTRY;
+		isEasyFix_=true;
 	}
 }
 
@@ -142,6 +149,7 @@ void HouseNumber::setHousename(QString housename) {
 	
 	if(housename_.contains(QRegExp("^[0-9]+[aA-zZ]?$"))) {
 		broken_|=HOUSENAME;
+		isEasyFix_=true;
 	}
 }
 
@@ -177,11 +185,11 @@ void HouseNumber::setNumber(QString number) {
 	if(number_.contains("traße") || number_.endsWith("str") || number_.contains("str.") ||
 	   number_.endsWith("Str") || number_.contains("Str.") /*|| number_.contains(QRegExp("[0-9]+[Aa-Zz]?,? [0-9]+[Aa-Zz]?"))*/) {
 		broken_|=NUMBER;
+		isEasyFix_=true;
 	} else if(number_.contains("<") || number_.contains("..") || number_.contains("?") ||
 	          number_.contains("fix", Qt::CaseInsensitive) || number_.contains("unkn", Qt::CaseInsensitive) ||
 	          QRegExp("[xX]+").exactMatch(number_)) {
 		broken_|=NUMBER;
-		isEasyFix_=false;
 	}
 }
 
@@ -191,12 +199,13 @@ void HouseNumber::setPostcode(QString postcode) {
 	
 	if(postcode_.contains("fix", Qt::CaseInsensitive) || postcode_.contains("unkn", Qt::CaseInsensitive)) {
 		broken_|=POSTCODE;
-		isEasyFix_=false;
 	} else if( bCheckPostcodeNumber && ( (postcode_!=QString("%1").arg(postcode_.toInt()) &&
 	    postcode_!=QString("0%1").arg(postcode_.toInt())) || postcode_.toInt()<=0 ) ) {
 		broken_|=POSTCODE;
+		isEasyFix_=true;
 	} else if(iCheckPostcodeChars>-1 && postcode_.length()!=iCheckPostcodeChars) {
 		broken_|=POSTCODE;
+		isEasyFix_=true;
 	}
 }
 
@@ -209,23 +218,28 @@ void HouseNumber::setStreet(QString street) {
 	completeness_|=STREET;
 	
 	if(bCheckStreetSuffix && (street_.endsWith("str") || street_.contains("str.") ||
-	                          street_.endsWith("Str") || street_.contains("Str.")) ) {
+	                          street_.endsWith("Str") || street_.contains("Str."))) {
 		broken_|=STREET;
-		if(street_.endsWith("tr."))
-			isEasyFix_=false;
-	} else if (street.contains(QRegExp("(str\\.|traße|weg) [0-9]+[a-z]?"))) {
+		isEasyFix_=true;
+	} else if (street.contains(" -") || (street.contains("- ") && !street.contains("- und"))
+	          || street.contains(QRegExp("(str\\.|traße|weg) [0-9]+[a-z]?")) || street.contains(" str")) {
 		broken_|=STREET;
 		isEasyFix_=true;
 	} else if (street_.length()>0 && !street_[0].isUpper() && !street_.contains(QRegExp("[0-9](\\.|e)")) &&
 	           !street_.startsWith("an") && !street_.startsWith("am") && !street_.startsWith("van") &&
 	           !street_.startsWith("von") && !street_.startsWith("vom")) {
 		broken_|=STREET;
-		isEasyFix_=false;
 	}
 }
 
 void HouseNumber::setSuburb(QString suburb) {
-	suburb_+=suburb;
+	suburb_=suburb;
+	
+	if( !suburb_[0].isUpper() || suburb_.contains("traße") || suburb_.endsWith("str") ||
+	    suburb_.contains("str.") || suburb_.endsWith("Str") || suburb_.contains("Str.") ) {
+		broken_|=SUBURB;
+		isEasyFix_=true;
+	}
 }
 
 void HouseNumber::setTimeStamp(const int y, const int m, const int d) {
