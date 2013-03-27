@@ -32,7 +32,7 @@
 		
 		header("Content-Type: text/plain; charset=UTF-8");
 		
-		$dupes=mysql_query("SELECT street,number,postcode,city FROM dupes WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0 LIMIT 800") or die ("MySQL-Error: ".mysql_error());
+		$dupes=mysql_query("SELECT * FROM (SELECT street,number,postcode,city FROM dupes WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3] AND corrected=0 LIMIT 800) AS tmp ORDER BY city,postcode,street,number") or die ("MySQL-Error: ".mysql_error());
 		
 		echo "street number, postcode city\n";
 		

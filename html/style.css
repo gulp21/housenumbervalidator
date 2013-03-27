@@ -236,6 +236,15 @@ iframe {
 	animation: shrink .7s;
 }
 
+@media only screen and (max-device-width: 800px) {
+	/*[id^="OpenLayers.Layer.Markers"] img {
+		width: 40px;
+	}
+	div {
+		color:red;
+	}*/
+}
+
 @-webkit-keyframes shrink {
 	from {
 		width: 1000px;

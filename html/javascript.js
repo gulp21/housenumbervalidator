@@ -4,7 +4,7 @@ This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it under certain conditions.
 See https://github.com/gulp21/housenumbervalidator/blob/master/COPYING for details. */
 
-if(window.innerWidth<=500 || window.innerHeight<=510) {
+if(window.innerWidth<=500 || window.innerHeight<=510 || screen.width<800) {
 	document.getElementById("sidebar").className="hiddenBar";
 }
 
