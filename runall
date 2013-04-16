@@ -154,12 +154,12 @@ function run {
 	fi
 	
 	# check if today's extract is already downloaded
-	pbfdate=`stat -c %y $land.osm.pbf | awk '{ printf $1 "\n"}'`
+	pbfdate=`stat -c %y $land-latest.osm.pbf | awk '{ printf $1 "\n"}'`
 	if [ ! "$pbfdate" = `date +%Y-%m-%d` ]; then
 		# check if geofabrik extract is today's
-		serverdate=`curl -IL http://download.geofabrik.de/openstreetmap/europe/$path/$land.osm.pbf 2> /dev/null | grep "Last-Modified" | sed -r -e "s/.*, (.*20..).*/\1/g"`
+		serverdate=`curl -IL http://download.geofabrik.de/europe/$path/$land-latest.osm.pbf 2> /dev/null | grep "Last-Modified" | sed -r -e "s/.*, (.*20..).*/\1/g"`
 		if [ ! "`date -d \"$serverdate\" +%Y-%m-%d`" = "`date +%Y-%m-%d`" ]; then
-			log "$path/$land.osm.pbf seems to be too old. Aborting $land… exit -1" "E"
+			log "$path/$land-latest.osm.pbf seems to be too old. Aborting $land… exit -1" "E"
 			exit -1
 		fi
 		
@@ -170,9 +170,9 @@ function run {
 		rm $1.*
 		cp ../filter .
 		cp ../housenumbervalidator .
-		wget http://download.geofabrik.de/openstreetmap/europe/$path/$land.osm.pbf 2> /dev/null
+		wget http://download.geofabrik.de/europe/$path/$land-latest.osm.pbf 2> /dev/null
 		if [ ! $? -eq 0 ]; then
-			log "http://download.geofabrik.de/openstreetmap/europe/$path/$land.osm.pbf could not be downloaded. Aborting $land… exit -1" "E"
+			log "http://download.geofabrik.de/europe/$path/$land-latest.osm.pbf could not be downloaded. Aborting $land… exit -1" "E"
 			exit -1
 		fi
 	fi
@@ -180,13 +180,13 @@ function run {
 	waitForResources $land filter
 	
 	# check if today's hnr.osm is already there
-	hnrosmdate=`stat -c %y $land.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'`
+	hnrosmdate=`stat -c %y $land-latest.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'`
 	if [ ! "$hnrosmdate" = `date +%Y-%m-%d` ]; then
 		# filter pbf
 		log "filter $land" "i"
-		nice -n 19 ./filter $land.osm.pbf
+		nice -n 19 ./filter $land-latest.osm.pbf
 		if [ ! $? -eq 0 ]; then
-			log "./filter $land.osm.pbf problem. Aborting $land… exit -2" "E"
+			log "./filter $land-latest.osm.pbf problem. Aborting $land… exit -2" "E"
 			exit -2
 		fi
 	fi
@@ -195,7 +195,7 @@ function run {
 	
 	# run housenumbervalidator
 	log "housenumbervalidator $land" "i"
-	nice -n 19 ./housenumbervalidator $land.osm.pbf.hnr.osm -l -l=`wc -l $land.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=$assumeCountry -cpn -css -cpc=$postCodeLength $assumeCity 2> /dev/null
+	nice -n 19 ./housenumbervalidator $land-latest.osm.pbf.hnr.osm -l -l=`wc -l $land-latest.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'` -ac=$assumeCountry -cpn -css -cpc=$postCodeLength $assumeCity 2> /dev/null
 	if [ ! $? -eq 0 ]; then
 		log "housenumbervalidator problem. Aborting $land… exit -3" "E"
 		exit -3
@@ -312,10 +312,10 @@ function combine {
 function delete {
 	for land in "${LANDS[@]}"
 	do
-		echo rm $land/$land.osm.pbf
-		rm $land/$land.osm.pbf
-		echo rm $land/$land.osm.pbf.hnr.osm
-		rm $land/$land.osm.pbf.hnr.osm
+		echo rm $land/$land-latest.osm.pbf
+		rm $land/$land-latest.osm.pbf
+		echo rm $land/$land-latest.osm.pbf.hnr.osm
+		rm $land/$land-latest.osm.pbf.hnr.osm
 	done
 }
 
@@ -357,8 +357,8 @@ elif [ $1 = "kill" ]; then
 	killme
 elif [ $1 = "u" ]; then
 	gnumeric stat.gnumeric  &
-	./runde d
-	./runde c
+	./runall d
+	./runall c
 	cd de
 	cat log.txt
 	git diff | kompare -
