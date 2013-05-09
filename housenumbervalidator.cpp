@@ -18,7 +18,6 @@
 	
 	TODO
 	TODOs in source
-	support suburb! (854045017, 1461556529, SA)
 	relations(?), check consistency of relation name + addr:street
 	
 */

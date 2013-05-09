@@ -84,7 +84,7 @@ class HouseNumberTest: public QObject {
 			hnr2->setStreet("Niederstraße");
 			hnr2->setNumber("21");
 			QVERIFY(!(hnr1->isSameAddress(*hnr2)));
-			hnr1->setLat(51.1970467);
+			hnr1->setLat(51.1970467); // real data: nodes 854045017, 1461556529
 			hnr1->setLon(6.6081718);
 			hnr1->setId(1337);
 			hnr1->setIsWay(true);
@@ -95,7 +95,7 @@ class HouseNumberTest: public QObject {
 			hnr1->setNumber("4a");
 			hnr2->setLat(51.1970467);
 			hnr2->setLon(6.6081718);
-			hnr2->setId(1337);
+			hnr2->setId(42);
 			hnr2->setIsWay(true);
 			hnr2->setCountry("DE");
 			hnr2->setCity("Kaarst");
