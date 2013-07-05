@@ -50,7 +50,7 @@
 		
 		header("Content-Type: text/csv; charset=UTF-8");
 		
-		$broks=mysql_query("SELECT * FROM problematic WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3]  AND corrected=0 AND (timestamp < NOW() - INTERVAL 4 DAY) LIMIT 800") or die ("MySQL-Error: ".mysql_error());
+		$broks=mysql_query("SELECT * FROM problematic WHERE lon BETWEEN $bbox[0] AND $bbox[2] AND lat BETWEEN $bbox[1] AND $bbox[3]  AND corrected=0 AND (timestamp < NOW() - INTERVAL 5 DAY) LIMIT 800") or die ("MySQL-Error: ".mysql_error());
 		
 		echo "lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n";
 		

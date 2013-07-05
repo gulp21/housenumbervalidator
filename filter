@@ -3,18 +3,83 @@
 osmconvert="osmconvert"
 osmfilter="osmfilter"
 
+MINCPUIDLE=50
+MINFREERAM=1200
+
+function getCpuIdle {
+	data=`grep "cpu " /proc/stat`
+	busyTicksOld=`echo $data | awk '{printf $2+$3+$4+$6+$7+$8}'`
+	totalTicksOld=`echo $data | awk '{printf $2+$3+$4+$5+$6+$7+$8}'`
+	
+	sleep 1
+	
+	data=`grep "cpu " /proc/stat`
+	busyTicksNow=`echo $data | awk '{printf $2+$3+$4+$6+$7+$8}'`
+	totalTicksNow=`echo $data | awk '{printf $2+$3+$4+$5+$6+$7+$8}'`
+	
+	busyTicksD=$(($busyTicksNow-$busyTicksOld))
+	busyTicksD=$(($busyTicksD*100))
+	totalTicksD=$(($totalTicksNow-$totalTicksOld))
+# 	echo $busyTicksD $totalTicksD $((100-$busyTicksD/$totalTicksD))
+# 	echo `top -b -n 1 | grep -i cpu\(s\) | gawk -F, '{print $4}'`
+	return $((100-$busyTicksD/$totalTicksD))
+}
+
+function howmany {
+	return $#;
+}
+
+function waitForResources {
+	while true
+	do
+		getCpuIdle
+		cpuidle=$?
+		freeram=`free -m | grep "\-/+" | awk '{print $4}'`
+		
+		howmany `pidof wget`
+		wgets=$?
+		howmany `pidof osmconvert`
+		osms=$?
+		howmany `pidof osmfilter`
+		osms=$(($osms + $?))
+		howmany `pidof osmupdate`
+		osms=$(($osms + $?))
+		howmany `pidof housenumbervalidator`
+		hnrvs=$(($osms + $?))
+		rams=$(($osms + $hnrvs))
+		
+		if [[ $wgets -gt 4 && "$2" = "download" ]]; then
+			mustwait="true"
+		elif [[ $osms -gt 2 || $hnrvs -gt 2 || $rams -gt 2 ]]; then
+			mustwait="true"
+		else
+			mustwait="false"
+		fi
+		
+		if [[ $cpuidle -lt $MINCPUIDLE || $freeram -lt $MINFREERAM || "$mustwait" = "true" ]]; then
+			echo "$1/$2 is waiting for resources $cpuidle $freeram W4 $wgets O2 $osms H2 $hnrvs R2 $rams" "i"
+			sleep 10
+		else
+			break
+		fi
+	done
+}
+
 echo ------------------
 start=`date +%H:%M:%S`
 echo `date +%H:%M:%S` creating $1.hnr.osm
 echo ------------------
 
 echo osmconvert…
-$osmconvert $1 --max-objects=40000000 --hash-memory=100 --all-to-nodes --drop-relations --out-o5m > $1.o5m
+nice -n9 $osmconvert $1 --max-objects=40000000 --hash-memory=100 --all-to-nodes --drop-relations --out-o5m > $1.o5m
 if [ ! $? -eq 0 ]; then
 	exit -1
 fi
+
+waitForResources $1 osmfilter
+
 echo osmfilter…
-$osmfilter $1.o5m --hash-memory=100 --keep-nodes="addr:*=" --keep-tags="all addr:*= shop= amenity= tourism= name= operator= power=sub_station street_lamp note= fixme= NOTE= FIXME=" -o=$1.hnr.osm
+nice -n9 $osmfilter $1.o5m --hash-memory=100 --keep-nodes="addr:*=" --keep-tags="all addr:*= shop= amenity= tourism= name= operator= power=sub_station street_lamp note= fixme= NOTE= FIXME=" -o=$1.hnr.osm
 if [ ! $? -eq 0 ]; then
 	exit -2
 fi

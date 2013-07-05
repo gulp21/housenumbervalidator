@@ -4,16 +4,16 @@
 
 LOGFILE="/home/markus/Dokumente/GitHub/housenumbervalidator/runall.log"
 
-LANDS=("baden-wuerttemberg" "bayern" "berlin" "brandenburg" "bremen" "hamburg" "hessen" "nordrhein-westfalen" "mecklenburg-vorpommern" "niedersachsen" "rheinland-pfalz" "saarland" "sachsen" "sachsen-anhalt" "schleswig-holstein" "thueringen" "austria")
+LANDS=("baden-wuerttemberg" "bayern" "berlin" "brandenburg" "nordrhein-westfalen" "bremen" "hessen" "mecklenburg-vorpommern" "niedersachsen" "hamburg" "rheinland-pfalz" "sachsen" "sachsen-anhalt" "saarland" "schleswig-holstein" "thueringen" "austria")
 PATHS=("germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "germany" "")
 ASSUMECOUNTRY=("DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "DE" "AT")
-ASSUMECITY=("" "" "Berlin" "" "Bremen" "Hamburg" "" "" "" "" "" "" "" "" "" "" "")
+ASSUMECITY=("" "" "Berlin" "" "" "Bremen" "" "" "" "Hamburg" "" "" "" "" "" "" "")
 # LANDS=("hamburg" "hessen" "nordrhein-westfalen" "austria")
 # PATHS=("germany" "germany" "germany" "")
 # ASSUMECOUNTRY=("DE" "DE" "DE" "AT")
 # ASSUMECITY=("Hamburg" "" "" "")
 MINCPUIDLE=50
-MINFREERAM=1500
+MINFREERAM=1300
 
 if [ ! $# -eq 1 ]; then
 	echo Usage: ./runde option
@@ -78,19 +78,44 @@ function getCpuIdle {
 	return $((100-$busyTicksD/$totalTicksD))
 }
 
+function howmany {
+	return $#;
+}
+
 # @params(land, whatFor[download,filter,housenumbervalidator])
 function waitForResources {
-	getCpuIdle
-	cpuidle=$?
-	freeram=`free -m | grep "\-/+" | awk '{print $4}'`
-	
-	while ( [ $cpuidle -lt $MINCPUIDLE ] || [ $freeram -lt $MINFREERAM ] )
+	while true
 	do
-		log "$1/$2 is waiting for resources $cpuidle $freeram" "i"
-		sleep 10
 		getCpuIdle
 		cpuidle=$?
 		freeram=`free -m | grep "\-/+" | awk '{print $4}'`
+		
+		howmany `pidof wget`
+		wgets=$?
+		howmany `pidof osmconvert`
+		osms=$?
+		howmany `pidof osmfilter`
+		osms=$(($osms + $?))
+		howmany `pidof osmupdate`
+		osms=$(($osms + $?))
+		howmany `pidof housenumbervalidator`
+		hnrvs=$(($osms + $?))
+		rams=$(($osms + $hnrvs))
+		
+		if [[ $wgets -gt 4 && "$2" = "download" ]]; then
+			mustwait="true"
+		elif [[ $osms -gt 2 || $hnrvs -gt 2 || $rams -gt 2 ]]; then
+			mustwait="true"
+		else
+			mustwait="false"
+		fi
+		
+		if [[ $cpuidle -lt $MINCPUIDLE || $freeram -lt $MINFREERAM || "$mustwait" = "true" ]]; then
+			log "$1/$2 is waiting for resources $cpuidle $freeram W4 $wgets O2 $osms H2 $hnrvs R2 $rams" "i"
+			sleep 10
+		else
+			break
+		fi
 	done
 }
 
@@ -157,8 +182,8 @@ function run {
 	pbfdate=`stat -c %y $land-latest.osm.pbf | awk '{ printf $1 "\n"}'`
 	if [ ! "$pbfdate" = `date +%Y-%m-%d` ]; then
 		# check if geofabrik extract is today's
-		serverdate=`curl -IL http://download.geofabrik.de/europe/$path/$land-latest.osm.pbf 2> /dev/null | grep "Last-Modified" | sed -r -e "s/.*, (.*20..).*/\1/g"`
-		if [ ! "`date -d \"$serverdate\" +%Y-%m-%d`" = "`date +%Y-%m-%d`" ]; then
+		serverdate=`curl -IL http://download.geofabrik.de/europe/$path/$land-latest.osm.pbf 2> /dev/null | grep "Last-Modified" | sed -r -e "s/.*, (.*) GMT.*/\1/g"`
+		if [[ ! "`date -d \"$serverdate\" +%Y-%m-%d`" = "`date +%Y-%m-%d`" && ! "`date -d \"$serverdate\" --date='+1 hour' +%Y-%m-%d`" = "`date +%Y-%m-%d`" ]]; then
 			log "$path/$land-latest.osm.pbf seems to be too old. Aborting $land… exit -1" "E"
 			exit -1
 		fi
@@ -167,9 +192,8 @@ function run {
 		
 		# download pbf file
 		log "download $land" "i"
-		rm $1.*
-		cp ../filter .
-		cp ../housenumbervalidator .
+		rm $land.*
+		rm $land-latest.osm.pbf*
 		wget http://download.geofabrik.de/europe/$path/$land-latest.osm.pbf 2> /dev/null
 		if [ ! $? -eq 0 ]; then
 			log "http://download.geofabrik.de/europe/$path/$land-latest.osm.pbf could not be downloaded. Aborting $land… exit -1" "E"
@@ -178,6 +202,8 @@ function run {
 	fi
 	
 	waitForResources $land filter
+	
+	cp ../filter .
 	
 	# check if today's hnr.osm is already there
 	hnrosmdate=`stat -c %y $land-latest.osm.pbf.hnr.osm | awk '{ printf $1 "\n"}'`
@@ -192,6 +218,8 @@ function run {
 	fi
 	
 	waitForResources $land housenumbervalidator
+	
+	cp ../housenumbervalidator .
 	
 	# run housenumbervalidator
 	log "housenumbervalidator $land" "i"

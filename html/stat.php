@@ -277,7 +277,7 @@
 							color: '#000000'
 						}
 					},
-					max: 20000,
+					max: 22000,
 					min: -20000
 				}, { // Secondary yAxis
 					title: {
