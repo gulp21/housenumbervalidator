@@ -45,12 +45,14 @@ function waitForResources {
 		howmany `pidof osmupdate`
 		osms=$(($osms + $?))
 		howmany `pidof housenumbervalidator`
-		hnrvs=$(($osms + $?))
+		hnrvs=$?
+		howmany `pidof wc`
+		hnrvs=$(($hnrvs + $?))
 		rams=$(($osms + $hnrvs))
 		
 		if [[ $wgets -gt 4 && "$2" = "download" ]]; then
 			mustwait="true"
-		elif [[ $osms -gt 2 || $hnrvs -gt 2 || $rams -gt 2 ]]; then
+		elif [[ $osms -gt 1 || $hnrvs -gt 1 || $rams -gt 1 ]]; then
 			mustwait="true"
 		else
 			mustwait="false"
