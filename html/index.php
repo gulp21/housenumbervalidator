@@ -122,7 +122,7 @@
 		<img src="LanguageToolBig.png" alt="LT Icon"/>
 		<b>LanguageTool</b><br/>
 		freie Grammatik- und Stilprüfung<br/>
-		für LibreOffice und OpenOffice.org
+		für LibreOffice, OpenOffice.org uvm.
 	</a>
 	<script type="text/javascript">
 		if(Math.random()>.5)
