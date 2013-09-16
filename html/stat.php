@@ -62,7 +62,7 @@
 	<a href="http://languagetool.org/de" target="_blank" class="ad" id="ad2" style="background-color: rgba(152,184,240,.9);">
 		<img src="LanguageToolBig.png" alt="LT Icon"/>
 		<b>LanguageTool</b><br/>
-		freie Grammatik- und Stilprüfung für LibreOffice und OpenOffice.org
+		freie Grammatik- und Stilprüfung für LibreOffice, OpenOffice.org, Mozilla Thunderbird, Firefox, vim uvm.
 	</a>
 	<div id="pieChartBrowsersDiv" style="float:left;width:510px;"></div>
 	<div id="pieChartOsDiv" style="float:left;width:570px;"></div>
