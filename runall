@@ -12,7 +12,7 @@ ASSUMECITY=("" "" "Berlin" "" "" "Bremen" "" "" "" "Hamburg" "" "" "" "" "" "" "
 # PATHS=("germany" "germany" "germany" "")
 # ASSUMECOUNTRY=("DE" "DE" "DE" "AT")
 # ASSUMECITY=("Hamburg" "" "" "")
-MINCPUIDLE=50
+MINCPUIDLE=40
 MINFREERAM=1300
 
 if [ ! $# -eq 1 ]; then
@@ -106,7 +106,7 @@ function waitForResources {
 		
 		if [[ $wgets -gt 4 && "$2" = "download" ]]; then
 			mustwait="true"
-		elif [[ $osms -gt 1 || $hnrvs -gt 1 || $rams -gt 1 ]]; then
+		elif [[ $osms -gt 1 || $hnrvs -gt 1 || $rams -gt 2 ]]; then
 			mustwait="true"
 		else
 			mustwait="false"
@@ -217,6 +217,7 @@ function run {
 			log "./filter $land-latest.osm.pbf problem. Aborting $land… exit -2" "E"
 			exit -2
 		fi
+						rm $land-latest.osm.pbf
 	fi
 	
 	waitForResources $land housenumbervalidator
@@ -285,6 +286,7 @@ function runall {
 	fi
 	
 	kdialog --title "housenumbervalidator" --passivepopup "$success erforlgreich, $errors Fehler" 60
+	return $errors
 }
 
 function getreports {
@@ -324,10 +326,8 @@ function combine {
 	grep dupes.txt -v --file=$path/html/reports.txt > dupes
 	mv dupes dupes.txt
 	
-	echo Dupes:
-	wc -l dupes.txt
-	echo Broken:
-	wc -l broken.txt
+	echo Dupes: `wc -l < dupes.txt`
+	echo Broken: `wc -l < broken.txt`
 	
 	echo Merging with austria...
 	tail $path/austria/dupes.txt -n +2 >> dupes.txt
@@ -337,6 +337,57 @@ function combine {
 	mv d~ dupes.txt
 	cat broken.txt | sort | uniq > b~
 	mv b~ broken.txt
+	
+	git diff dupes.txt | awk -F "\t" '{if(last==$12) {i++;} {last=$12} if(!($1 ~ /^\+/)) {i=0}  if(i==2) {i=0; print;} }' | sed -e "s/^\+//g" > dupeClusters.txt
+	git diff broken.txt | awk -F "\t" '{if(last==$14) {i++;} {last=$14} if(!($1 ~ /^\+/)) {i=0}  if(i==2) {i=0; print;} }' | sed -e "s/^\+//g" > brokenClusters.txt
+}
+
+# @param what [data|stats]
+# @note call data first!
+function upload {
+	destdir=""
+	hostname=""
+	username=""
+	password=""
+	source ./lgn
+	cd de
+	
+	exists=`ftp -n $hostname <<EOF
+quote USER $username
+quote PASS $password
+ls $destdir
+quit
+EOF`
+	if [ `echo $exists | grep "stats.txt" | wc -l` -eq 0 ]; then
+		echo "Uploading files [$1] …"
+		if [ $1 == "stats" ]; then
+			ftp -n $hostname <<EOF
+quote USER $username
+quote PASS $password
+binary
+put stats.txt $destdir/stats.txt
+quit
+EOF
+			xdg-open http://gulp21.bplaced.net/$destdir/update.php 2> /dev/null
+		else
+			ftp -n $hostname <<EOF
+quote USER $username
+quote PASS $password
+binary
+put dupes.txt $destdir/dupes.txt
+put dupeClusters.txt $destdir/dupeClusters.txt
+put broken.txt $destdir/broken.txt
+put brokenClusters.txt $destdir/brokenClusters.txt
+quit
+EOF
+		fi
+		return 0
+	else
+		echo "[E] Files already exist, no upload"
+		echo $exists
+		notify-send housenumbervalidator "Upload cancelled" -i dialog-error -a housenumbervalidator
+		return -1
+	fi
 }
 
 function delete {
@@ -350,7 +401,7 @@ function delete {
 }
 
 function deleteDupes {
-	echo Sure? [y]
+	echo Do you really want to delete all dupes.txt? [y]
 	read SURE
 	if [ "$SURE" = "y" ]; then
 		for land in "${LANDS[@]}"
@@ -362,7 +413,7 @@ function deleteDupes {
 }
 
 function killme {
-	echo Sure? This will kill ALL processes named housenumbervalidator, filter, osmconvert, osmfilter, wget, or runall [y]
+	echo This will kill ALL processes named housenumbervalidator, filter, osmconvert, osmfilter, wget, or runall. Continue? [y]
 	read SURE
 	if [ "$SURE" = "y" ]; then
 		killall -v housenumbervalidator
@@ -381,19 +432,28 @@ elif [ $1 = "d" ]; then
 	delete
 elif [ $1 = "dd" ]; then
 	deleteDupes
+elif [ $1 = "upload" ]; then
+	upload data && upload stats
 elif ( [ $1 = "a" ] || [ $1 = "all" ] ); then
 	runall
+	exit $?
 elif [ $1 = "kill" ]; then
 	killme
 elif [ $1 = "u" ]; then
 	gnumeric stat.gnumeric  &
 	./runall d
 	./runall c
+	upload data &
 	cd de
 	cat log.txt
 	git diff | kompare -
 	git commit -a
 	cd ..
+	echo Ready with stats.txt? [y]
+	read READY
+	if [ "$READY" = "y" ]; then
+		upload stats
+	fi
 else
 	run $1
 fi

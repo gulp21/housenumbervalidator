@@ -21,10 +21,6 @@ body {
 #sidebar {
 	width: 290px;
 	left: 0px;
-	background: -webkit-linear-gradient(left, white 95%, rgba(255,255,255,0));
-	background: -moz-linear-gradient(to right, white 95%, rgba(255,255,255,0));
-	background: -ms-linear-gradient(to right, white 95%, rgba(255,255,255,0));
-	background: -o-linear-gradient(to right, white 95%, rgba(255,255,255,0));
 	background: linear-gradient(to right, white 95%, rgba(255,255,255,0));
 	z-index: 999;
 	margin-right: 10px;
@@ -96,10 +92,6 @@ body {
 	z-index: 1000;
 	padding-right: 23px;
 	background: white;
-	background: -webkit-linear-gradient(left, rgba(255,255,255,.9), rgba(255,255,255,.8) 95%, rgba(255,255,255,0));
-	background: -moz-linear-gradient(to right,rgba(255,255,255,.9), rgba(255,255,255,.8) 95%, rgba(255,255,255,0));
-	background: -ms-linear-gradient(to right,rgba(255,255,255,.9), rgba(255,255,255,.8) 95%, rgba(255,255,255,0));
-	background: -o-linear-gradient(to right,rgba(255,255,255,.9), rgba(255,255,255,.8) 95%, rgba(255,255,255,0));
 	background: linear-gradient(to right,rgba(255,255,255,.9), rgba(255,255,255,.8) 95%, rgba(255,255,255,0));
 }
 
@@ -145,6 +137,30 @@ body {
 
 .small {
 	font-size: 14px;
+}
+
+#exportGpx {
+	position: relative;
+}
+
+#exportGpx > span {
+	position: absolute;
+	left: -10000px;
+	opacity: 0;
+	top: 24px;
+	white-space: nowrap;
+	border: 1px black solid;
+	background-color: #eee;
+	padding: 5px;
+	border-radius: 5px;
+	overflow: hidden;
+	transition: opacity .4s ease-out .1s, left 0s ease .4s;
+}
+
+#exportGpx:hover > span {
+	left: 0;
+	opacity: 1;
+	transition: opacity .4s ease-in .2s;
 }
 
 iframe {
@@ -409,26 +425,49 @@ table {
 
 .ad {
 	position: absolute;
-	right: 10px;
 	bottom: 45px;
 	z-index: 999;
-	white-space:nowrap;
-	width: 250px;
+	white-space: nowrap;
 	text-decoration: none;
 	color: black;
 	opacity: .7;
+	transition: .5s ease-out;
 }
 
-@media (min-height: 660px) {
+.ad:hover, #adDart:hover, #adLt:hover, #adLtFx:hover {
+	opacity: 1;
+	right: 0px;
+	transition: .5s ease-in;
+}
+
+#adDart {
+	background-color: rgba(256,168,88,.9);
+	width: 250px;
+	right: -194px;
+}
+
+#adLt {
+	background-color: rgba(152,184,240,.9);
+	width: 264px;
+	right: -208px;
+}
+
+#adLtFx {
+	background-color: rgba(72,216,0,.9);
+	width: 261px;
+	right: -205px;
+}
+
+/*@media (min-height: 660px) {
 	.ad {
 		left: 2px !important;
 		bottom: 25px;
 	}
-}
-
-.ad:hover {
-	opacity: 1;
-}
+	
+	.ad:hover {
+		left: 10px;
+	}
+}*/
 
 .ad > img {
 	max-height: 48px;
@@ -444,4 +483,13 @@ a img {
 a[href^="report.php?id="] {
 	text-decoration: none;
 	color: green;
+}
+
+a[href$="editor=id"] {
+	text-decoration: none;
+	color: black;
+	font-family: "DejaVu Sans", sans;
+	font-weight: bold;
+	position: relative;
+	top: -1px;
 }

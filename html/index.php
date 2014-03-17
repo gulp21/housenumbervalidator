@@ -36,8 +36,17 @@
 		<?php echo $hnr_current ?>&nbsp;Hausnummern, <?php echo $dupes_current ?>&nbsp;Duplikate, <?php echo $prob_current ?>&nbsp;problematisch<br/>
 		<a href="stat.php" target="_blank">mehr Statistiken</a><br/>
 		<br/>
-		<span style="font-weight:bold">Maximal 1600 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span><br/>
+		<span class="bold">Maximal 1600 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span><br/>
 		<br/>
+		<span id="exportGpx" title="Bestimmten Fehlertyp als .gpx-Datei exportieren">Als .gpx exportieren ▾
+			<span>
+			<a href="#" onclick="exportAsGpx(10);">Duplikate (sehr nah)</a><br/>
+			<a href="#" onclick="exportAsGpx(11);">Duplikate (exakt)</a><br/>
+			<a href="#" onclick="exportAsGpx(12);">Duplikate (ähnlich)</a><br/>
+			<a href="#" onclick="exportAsGpx(20);">Problematisch (einfach)</a><br/>
+			<a href="#" onclick="exportAsGpx(21);">Problematisch (komplizierter)</a><br/>
+			</span>
+		</span><br/>
 		<a href="#" onclick="showAsList();" title="Duplikate als einfache Liste anzeigen">Als Liste exportieren</a><br/>
 		<a href="#" onclick="showAreaStat();" title="die letzten Bearbeiter der im aktuellen Bereich liegenden problematischen und doppelten Hausnummern anzeigen">Bereichsstatistik</a><br/>
 		<a href="#" onclick="openOsmi()" title="aktuellen Bereich in der Adress-Ansicht des OSM Inspectors anzeigen">Bereich im OSMI anzeigen</a><br/>
@@ -112,23 +121,32 @@
 	<script src="OpenLayers.js"></script>
 	<script src="OpenStreetMap.js"></script>
 	<script src="javascript.js"></script>
-	<a href="http://gulp21.github.com/qeodart_de.html" target="_blank" class="ad" id="ad1" style="background-color: rgba(256,168,88,.9);display:none">
+	<a href="http://gulp21.github.com/qeodart_de.html" target="_blank" class="ad" id="adDart" style="display:none">
 		<img src="qeodart.png" alt="QeoDart Icon"/>
 		<b>QeoDart</b><br/>
 		das freie Geographie-Lernspiel<br/>
 		für Linux &amp; Windows
 	</a>
-	<a href="http://languagetool.org/de" target="_blank" class="ad" id="ad2" style="background-color: rgba(152,184,240,.9);display:none;width:277px;">
+	<a href="http://languagetool.org/de" target="_blank" class="ad" id="adLt" style="display:none;">
 		<img src="LanguageToolBig.png" alt="LT Icon"/>
 		<b>LanguageTool</b><br/>
 		freie Grammatik- und Stilprüfung<br/>
-		für LibreOffice, OpenOffice.org uvm.
+		für LibreOffice, OpenOffice uvm.
+	</a>
+	<a href="https://addons.mozilla.org/firefox/addon/languagetoolfx/" target="_blank" class="ad" id="adLtFx" style="display:none;">
+		<img src="lt-ext.png" alt="LT Icon"/>
+		<b>LanguageToolFx</b><br/>
+		freie Grammatik- und Stilprüfung<br/>
+		für Firefox
 	</a>
 	<script type="text/javascript">
-		if(Math.random()>.5)
-			document.getElementById("ad1").style.display='block';
+		var rnd=Math.random();
+		if(Math.random()>.6)
+			document.getElementById("adDart").style.display='block';
+		else if(Math.random()<.2 && navigator.userAgent.indexOf("Firefox")>-1)
+			document.getElementById("adLtFx").style.display='block';
 		else
-			document.getElementById("ad2").style.display='block';
+			document.getElementById("adLt").style.display='block';
 	</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 	
 	header("Content-Type: text/html; charset=UTF-8");
 	
-	$_GET['areastat']=1;
+	$_GET['format']="areastat";
 	
 	include("get_problematic.php");
 	include("get_dupes.php");

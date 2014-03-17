@@ -261,7 +261,16 @@ function showAsList() {
 	document.getElementById('areastatdiv').className='hiddenContents';
 	document.getElementById('listdiv').className='visibleContents';
 	bbox=map.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).toBBOX();
-	document.getElementById('listframe').src="http://gulp21.bplaced.net/osm/housenumbervalidator/get_dupes.php?simplelist=1&bbox="+bbox;
+	document.getElementById('listframe').src="http://gulp21.bplaced.net/osm/housenumbervalidator/get_dupes.php?format=simplelist&bbox="+bbox;
+}
+
+function exportAsGpx(type) {
+	bbox=map.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).toBBOX();
+	if(Math.floor(type/10)==1) {
+		window.open("http://gulp21.bplaced.net/osm/housenumbervalidator/get_dupes.php?format=gpx&dupe_type="+type%10+"&bbox="+bbox);
+	} else {
+		window.open("http://gulp21.bplaced.net/osm/housenumbervalidator/get_problematic.php?format=gpx&prob_type="+type%10+"&bbox="+bbox);
+	}
 }
 
 function openOsmi() {
