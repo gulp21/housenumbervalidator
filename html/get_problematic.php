@@ -156,13 +156,6 @@
 			
 			$table.="</table>";
 			
-			// NOTE that most of them are not shown on the map, because we do not display problematic data younger than 5 days (Wall·E)
-			if($brok['cluster']) {
-				$pin=str_replace(".", "_cluster.", $pin);
-				$iconSize="20";
-				$clustertext="<small>(neuer Häufungspunkt)</small>";
-			}
-			
 			if($brok['type']==1) {
 				$type="way";
 			} else {
@@ -177,6 +170,13 @@
 				$layer="prob_complicated";
 			} else {
 				$pin="NULL";
+			}
+			
+			// NOTE that most of them are not shown on the map, because we do not display problematic data younger than 5 days (Wall·E)
+			if($brok['cluster']) {
+				$pin=str_replace(".", "_cluster.", $pin);
+				$iconSize="20";
+				$clustertext="<small>(neuer Häufungspunkt)</small>";
 			}
 			
 			$link=generateObjectLinkForBubble($brok['id'], $type, $brok['lat'], $brok['lon']);
