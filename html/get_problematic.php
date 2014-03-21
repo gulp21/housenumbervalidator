@@ -180,6 +180,7 @@
 			}
 			
 			$link=generateObjectLinkForBubble($brok['id'], $type, $brok['lat'], $brok['lon']);
+			$corrected_link='<a target="josmframe" href="report.php?id='.$brok['id'].'&type='.$brok['type'].'&table=problematic" title="diesen Fehler als behoben markieren" onclick="javascript:markAsCorrectedClicked(\''.$brok['id'].'\', '.$brok['type'].', \''.$layer.'\');">&#10004;</a>';
 			
 			if($pin!="NULL") { // i.e. dupe is of requested dupe_type
 				echo
