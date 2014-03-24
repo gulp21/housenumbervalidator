@@ -73,7 +73,7 @@ echo `date +%H:%M:%S` creating $1.hnr.osm
 echo ------------------
 
 echo osmconvert…
-nice -n9 $osmconvert $1 --max-objects=40000000 --hash-memory=100 --all-to-nodes --drop-relations --out-o5m > $1.o5m
+nice -n9 $osmconvert $1 --max-objects=50000000 --hash-memory=100 --all-to-nodes --drop-relations --out-o5m > $1.o5m
 if [ ! $? -eq 0 ]; then
 	exit -1
 fi

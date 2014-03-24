@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO alle rückgabewerte merken, und wenn alle ungleich -100 sind, meldung anzeigen
-
 LOGFILE="/home/markus/Dokumente/GitHub/housenumbervalidator/runall.log"
 
 LANDS=("baden-wuerttemberg" "bayern" "berlin" "brandenburg" "nordrhein-westfalen" "bremen" "hessen" "mecklenburg-vorpommern" "niedersachsen" "hamburg" "rheinland-pfalz" "sachsen" "sachsen-anhalt" "saarland" "schleswig-holstein" "thueringen" "austria")
@@ -25,6 +23,7 @@ if [ ! $# -eq 1 ]; then
 	echo " dd:    delete all dupes.txt"
 	echo " kill:  kill all process related to this script"
 	echo " u:     upload preperation (i.e. start gnumeric, d, c, cat log, and kompare)"
+	echo " upload:upload files"
 	echo " everything else: considered to be a state of Germany"
 	exit -1;
 fi
@@ -49,6 +48,11 @@ function log {
 # 		echo $(tput setaf $color)$2 $1 $(tput sgr0)
 		:
 	fi
+}
+
+function logStdErr {
+	read err
+	log "stdErr: $err" "E"
 }
 
 function killJobs {
@@ -212,12 +216,11 @@ function run {
 	if [ ! "$hnrosmdate" = `date +%Y-%m-%d` ]; then
 		# filter pbf
 		log "filter $land" "i"
-		nice -n 19 ./filter $land-latest.osm.pbf
-		if [ ! $? -eq 0 ]; then
+		nice -n 19 ./filter $land-latest.osm.pbf 2>&1 >/dev/null | logStdErr
+		if [ ! ${PIPESTATUS[0]} -eq 0 ]; then
 			log "./filter $land-latest.osm.pbf problem. Aborting $land… exit -2" "E"
 			exit -2
 		fi
-						rm $land-latest.osm.pbf
 	fi
 	
 	waitForResources $land housenumbervalidator
@@ -282,7 +285,7 @@ function runall {
 	
 	if [ ! $errors -eq 0 ]; then
 		echo \-\-\-
-		grep -E "exit \-[123456]" $LOGFILE
+		grep -E "(exit \-[123456]|\[E\])" $LOGFILE
 	fi
 	
 	kdialog --title "housenumbervalidator" --passivepopup "$success erforlgreich, $errors Fehler" 60
