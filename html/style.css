@@ -8,6 +8,31 @@ body {
 	overflow: hidden;
 }
 
+#zoominfo {
+	position: absolute;
+	top: 8px;
+	left: 345px;
+	border-radius: 4px;
+	padding: 4px 5px;
+	font-size: 18px;
+	font-weight: bold;
+	white-space: nowrap;
+	color: #fff;
+	background: #aaa;
+	opacity: .7;
+	z-index: 99999;
+	transition: 1s;
+}
+
+#zoominfo:hover {
+	opacity: .85;
+}
+
+#zoominfo.hidden {
+	top: -60px;
+	opacity: 0;
+}
+
 [class$="Bar"] {
 	position: absolute;
 	height: 100%;
@@ -159,7 +184,7 @@ body {
 
 #exportGpx:hover > span {
 	left: 0;
-	opacity: 1;
+	opacity: .95;
 	transition: opacity .4s ease-in .2s;
 }
 
@@ -182,13 +207,17 @@ iframe {
 	transition: .5s left;
 }
 
-@media (max-width: 800px), (max-height: 600px) {
+@media (max-width: 800px), (max-height: 540px) {
 	#sidebar {
 		width: 250px;
 	}
 	#sidebar, #toggleSidebar {
 		font-size: 14px;
 	}
+	#zoominfo {
+		left: 305px;
+		font-size: 16px;
+	}
 	#middleBar {
 		left: 240px;
 	}
@@ -197,13 +226,17 @@ iframe {
 	}
 }
 
-@media (max-width: 650px), (max-height: 540px) {
+@media (max-width: 650px), (max-height: 490px) {
 	#sidebar {
 		width: 210px;
 	}
 	#sidebar, #toggleSidebar {
 		font-size: 12px;
 	}
+	#zoominfo {
+		left: 265px;
+		font-size: 14px;
+	}
 	#middleBar {
 		left: 200px;
 	}
@@ -212,12 +245,15 @@ iframe {
 	}
 }
 
-@media (max-width: 500px), (max-height: 510px) {
+@media (max-width: 590px), (max-height: 430px) {
 	#sidebar {
 		width: 180px;
 	}
 	#sidebar, #toggleSidebar {
 		font-size: 11px;
+	}
+	#zoominfo {
+		display: none;
 	}
 	#middleBar {
 		left: 170px;

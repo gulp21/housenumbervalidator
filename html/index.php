@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>housenumbervalidator</title>
-<!-- 	<link rel="icon" href="favicon.ico" type="image/x-icon"> TODO what about a logo? -->
+	<link rel="icon" href="logo.png" type="image/png">
 	<link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
@@ -35,8 +35,6 @@
 		<span class="bold">Statistik</span> (nur Deutschland)<br/>
 		<?php echo $hnr_current ?>&nbsp;Hausnummern, <?php echo $dupes_current ?>&nbsp;Duplikate, <?php echo $prob_current ?>&nbsp;problematisch<br/>
 		<a href="stat.php" target="_blank">mehr Statistiken</a><br/>
-		<br/>
-		<span class="bold">Maximal 1600 angezeigt! Heranzoomen, um alle Probleme im angezeigten Ausschnitt zu sehen.</span><br/>
 		<br/>
 		<span id="exportGpx" title="Bestimmten Fehlertyp als .gpx-Datei exportieren">Als .gpx exportieren ▾
 			<span>
@@ -113,10 +111,32 @@
 	</div>
 	</div>
 	
+	<div id="zoominfo" class="hidden">Evtl. werden nicht alle Probleme angezeigt. Heranzoomen,<br/> um alle Probleme im dargestellten Ausschnitt zu sehen.</div>
+	
 	<div id="mapdiv"></div>
 	<iframe style="display:none;" id="josmframe" src="about:blank" name="josmframe"></iframe>
 	<script type="text/javascript">
 		document.write("<iframe style=\"display:none;\" id=\"counterframe\" src=\"../counter.php?id=hnrv&ref="  + document.referrer.replace(/\&/g,"%26") + "\"></iframe>");
+		<?php
+		echo "var lon=9.1;\n";
+		echo "var lat=51.32;\n";
+		echo "var zoom=6;\n";
+		$type=0;
+		if($_GET['type']==1) {
+			$type=1;
+		}
+		if(is_numeric($_GET['id'])) {
+			include_once("connect.php");
+			mysql_set_charset("utf8");
+			$obj=mysql_query("SELECT lat,lon FROM problematic WHERE id=".$_GET['id']." AND type=".$type." UNION SELECT lat,lon FROM dupes WHERE id=".$_GET['id']." AND type=".$type) or die ("MySQL-Error: ".mysql_error());
+			if($obj=mysql_fetch_assoc($obj)) {
+				echo "lon=".$obj['lon'].";\n";
+				echo "lat=".$obj['lat'].";\n";
+				echo "zoom=18;\n";
+				// TODO also open the popup
+			}
+		}
+		?>
 	</script>
 	<script src="OpenLayers.js"></script>
 	<script src="OpenStreetMap.js"></script>

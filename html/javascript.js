@@ -40,7 +40,7 @@ map.addLayer(mapquestMap);
 
 var dupes_near = new OpenLayers.Layer.Vector("Duplikate (Sehr Nah)", {
 	projection: map.displayProjection,
-	strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 0.9})],
+	strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 	protocol: new OpenLayers.Protocol.HTTP({
 		url: "./get_dupes.php?dupe_type=0",
 		format: new OpenLayers.Format.Text()
@@ -50,7 +50,7 @@ map.addLayer(dupes_near);
 
 var dupes_exact = new OpenLayers.Layer.Vector("Duplikate (Exakt)", {
 	projection: map.displayProjection,
-	strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 0.9})],
+	strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 	protocol: new OpenLayers.Protocol.HTTP({
 		url: "./get_dupes.php?dupe_type=1",
 		format: new OpenLayers.Format.Text()
@@ -60,7 +60,7 @@ map.addLayer(dupes_exact);
 
 var dupes_similar = new OpenLayers.Layer.Vector("Duplikate (Ähnlich)", {
 	projection: map.displayProjection,
-	strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 0.9})],
+	strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 	protocol: new OpenLayers.Protocol.HTTP({
 		url: "./get_dupes.php?dupe_type=2",
 		format: new OpenLayers.Format.Text()
@@ -70,7 +70,7 @@ map.addLayer(dupes_similar);
 
 var prob_easy = new OpenLayers.Layer.Vector("Problematisch (Einfach zu beheben)", {
 	projection: map.displayProjection,
-	strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 0.9})],
+	strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 	protocol: new OpenLayers.Protocol.HTTP({
 		url: "./get_problematic.php?prob_type=0",
 		format: new OpenLayers.Format.Text()
@@ -80,7 +80,7 @@ map.addLayer(prob_easy);
 
 var prob_complicated = new OpenLayers.Layer.Vector("Problematisch (Kompliziert/Botaufgabe)", {
 	projection: map.displayProjection,
-	strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 0.9})],
+	strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1, ratio: 1})],
 	protocol: new OpenLayers.Protocol.HTTP({
 		url: "./get_problematic.php?prob_type=1",
 		format: new OpenLayers.Format.Text()
@@ -94,15 +94,18 @@ map.addControl(selectControl);
 selectControl.activate();
 dupes_near.events.on({
 	'featureselected': onFeatureSelect,
-	'featureunselected': onFeatureUnselect
+	'featureunselected': onFeatureUnselect,
+	'featuresadded': onFeaturesAdded
 });
 dupes_exact.events.on({
 	'featureselected': onFeatureSelect,
-	'featureunselected': onFeatureUnselect
+	'featureunselected': onFeatureUnselect,
+	'featuresadded': onFeaturesAdded
 });
 dupes_similar.events.on({
 	'featureselected': onFeatureSelect,
-	'featureunselected': onFeatureUnselect
+	'featureunselected': onFeatureUnselect,
+	'featuresadded': onFeaturesAdded
 });
 prob_easy.events.on({
 	'featureselected': onFeatureSelect,
@@ -117,25 +120,50 @@ var markers = new OpenLayers.Layer.Markers( "Markers", {projection: map.displayP
 map.addLayer(markers);
 
 //Set start centrepoint and zoom    
-var lonLat = new OpenLayers.LonLat(9.1,51.32)
+var lonLat = new OpenLayers.LonLat(lon,lat)
 	.transform(
 		new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
 		map.getProjectionObject() // to Spherical Mercator Projection
 	);
-var zoom=6;
-if (!map.getCenter())
+if (!map.getCenter()) {
 	map.setCenter (lonLat, zoom);
+}
 
+function featureCountTimeout() {
+	var layerMarkers = document.querySelectorAll('[id^="OpenLayers.Layer.Vector_"][id$="_vroot"]');
+	var numberOfMarkers = 0;
+	for(var i = 0; i < layerMarkers.length; i++) {
+		numberOfMarkers += layerMarkers[i].children.length;
+	}
+	console.log("featureCountTimeout: "+numberOfMarkers);
+	if(numberOfMarkers >= 800) {
+		document.getElementById("zoominfo").className="visible";
+	} else {
+		document.getElementById("zoominfo").className="hidden";
+	}
+}
+
+var featureCountTimer = window.setTimeout(featureCountTimeout, 1000);
+
+function onFeaturesAdded(event) {
+	console.log("onFeaturesAdded")
+	if(event.object == dupes_exact || event.object == dupes_similar || event.object == dupes_near) {
+		console.log("onFeaturesAdded: if");
+		window.clearTimeout(featureCountTimer);
+		console.log("onFeaturesAdded: "+event.features.length);
+		featureCountTimer = window.setTimeout(featureCountTimeout, (event.features.length >= 800 ? 0 : 1000) );
+	}
+}
 
 // Needed only for interaction, not for the display.
 function onPopupClose(evt) {
 	// 'this' is the popup.
 	var feature = this.feature;
 	if (feature.layer) { // The feature is not destroyed
-	selectControl.unselect(feature);
+		selectControl.unselect(feature);
 	} else { // After "moveend" or "refresh" events on POIs layer all 
-		//     features have been destroyed by the Strategy.BBOX
-	this.destroy();
+		 // features have been destroyed by the Strategy.BBOX
+		this.destroy();
 	}
 }
 
