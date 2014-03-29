@@ -3,13 +3,14 @@
 <?
 if($_GET["table"]=="dupes" || $_GET["table"]=="problematic") { // reports for corrected addresses
 	include("connect.php");
+	$table=mysql_real_escape_string($_GET["table"]);
 	$id=mysql_real_escape_string($_GET["id"]);
 	$type=mysql_real_escape_string($_GET["type"]);
-	$query="UPDATE $_GET[table] SET corrected=1 WHERE id=$id AND type=$type";
+	$query="UPDATE $table SET corrected=1 WHERE id=$id AND type=$type";
 	mysql_query($query) or print("<script language=\"javascript\">alert(\"MySQL-Error: ".mysql_error()." - $query\")</script>");
 	$affected_rows=mysql_affected_rows();
 	if($affected_rows==0) { // the error might have already been reported, so check if it was successful
-		$query="SELECT id FROM $_GET[table] WHERE corrected=1 AND id=$id AND type=$type";
+		$query="SELECT id FROM $table WHERE corrected=1 AND id=$id AND type=$type";
 		$result=mysql_query($query) or print("<script language=\"javascript\">alert(\"MySQL-Error: ".mysql_error()." - $query\")</script>");
 		$affected_rows=mysql_num_rows($result);
 	}
