@@ -20,7 +20,7 @@ if($_GET["table"]=="dupes" || $_GET["table"]=="problematic") { // reports for co
 		print("<script language=\"javascript\">alert(\"Irgendwas ist schief gelaufen. ($affected_rows - $query)\")</script>");
 	}
 } else { // reports for false alarms
-	$str="\n\t".trim($_GET["id"])."\t".$_GET["way"];
+	$str="\n\t".trim($_GET["id"])."\t".$_GET["type"];
 	$file = file_get_contents("reports.txt");
 	if(strpos($file, $str)) {
 		print("Vielen Dank! Nach der n&auml;chsten Aktualisierung wird dieser Fehler nicht mehr angezeigt. (Der Fehlalarm wurde bereits gemeldet.)");

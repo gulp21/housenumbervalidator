@@ -84,7 +84,7 @@
 			<form action="report.php" method="get" target="reportframe">
 			<input type="text" size="17" name="id" readonly/>
 			<input type="checkbox" name="way_u" value="true" disabled/>Das ist ein Weg
-			<input type="hidden" name="way" value="1"/>
+			<input type="hidden" name="type" value="1"/>
 			<input type="submit" value="Absenden"/>
 			</form>
 			<span class="small">Bitte diese Funktion <span class="bold">nicht</span> verwenden, wenn der Fehler <span class="bold">zwischenzeitlich korrigiert</span> wurde (also nur bei false positives verwenden)!</span>
