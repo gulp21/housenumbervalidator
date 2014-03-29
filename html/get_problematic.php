@@ -134,7 +134,7 @@
 			
 			$table='<table>';
 			
-			if(trim($brok['name'])!="") $table.="<tr><td>Name</td><td>".$brok['name']."</td></tr>";
+			if(trim($brok['name'])!="") $table.="<tr><td>Name</td><td>".trim($brok['name'])."</td></tr>";
 			
 			if($brok['broken'] & 1) $style=' class="broken" '; else $style='';
 			if($brok['country']!="") $table.="<tr$style><td>addr:country</td><td>".$brok['country']."</td></tr>";
@@ -155,6 +155,10 @@
 			if($brok['housename']!="") $table.="<tr$style><td>addr:housename</td><td>".trim($brok['housename'])."</td></tr>";
 			
 			$table.="</table>";
+			
+			$table=str_replace("<td> ","<td>␣",$table);
+			$table=str_replace(" </td>","␣</td>",$table);
+			$table=str_replace("  ","␣␣",$table);
 			
 			if($brok['type']==1) {
 				$type="way";
@@ -182,7 +186,7 @@
 			$link=generateObjectLinkForBubble($brok['id'], $type, $brok['lat'], $brok['lon']);
 			$corrected_link='<a target="josmframe" href="report.php?id='.$brok['id'].'&type='.$brok['type'].'&table=problematic" title="diesen Fehler als behoben markieren" onclick="javascript:markAsCorrectedClicked(\''.$brok['id'].'\', '.$brok['type'].', \''.$layer.'\');">&#10004;</a>';
 			
-			if($pin!="NULL") { // i.e. dupe is of requested dupe_type
+			if($pin!="NULL") { // i.e. problem is of requested prob_type
 				echo
 					"$brok[lat]\t"
 					."$brok[lon]\t"
