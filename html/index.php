@@ -83,7 +83,7 @@
 			dadurch werden die untenstehenden Felder ausgefüllt. Klicken Sie anschließend auf &quot;Absenden&quot;.
 			<form action="report.php" method="get" target="reportframe">
 			<input type="text" size="17" name="id" readonly/>
-			<input type="checkbox" name="way_u" value="true" disabled/>Das ist ein Weg
+			<input type="checkbox" name="type_u" value="true" disabled/>Das ist ein Weg
 			<input type="hidden" name="type" value="1"/>
 			<input type="submit" value="Absenden"/>
 			</form>

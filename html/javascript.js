@@ -323,8 +323,8 @@ function refreshLayerAfterCorrectedClicked(id, type, layer) {
 
 function markAsCorrectedClicked(id, type, layer) {
 	document.getElementsByName('id')[0].value=id;
-	document.getElementsByName('way_u')[0].checked=type;
-	document.getElementsByName('way')[0].value=type;
+	document.getElementsByName('type_u')[0].checked=type;
+	document.getElementsByName('type')[0].value=type;
 	map.removePopup(map.popups[0]);
 	
 	window.setTimeout("refreshLayerAfterCorrectedClicked('"+id+"', '"+type+"', '"+layer+"')", 500);
