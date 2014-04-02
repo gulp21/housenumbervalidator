@@ -75,7 +75,7 @@
 			$type="node";
 		}
 		
-		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$prob['id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($prob['lon']-0.001)."&right=".($prob['lon']+0.001)."&top=".($prob['lat']+0.001)."&bottom=".($prob['lat']-0.001)."&select=".$type.$prob['id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$prob['id']."&editor=potlatch2";
+		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$prob['id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($prob['lon']-0.001)."&right=".($prob['lon']+0.001)."&top=".($prob['lat']+0.001)."&bottom=".($prob['lat']-0.001)."&select=".$type.$prob['id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$prob['id']."&editor=potlatch2\niD: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$prob['id']."&editor=iD";
 		
 		$mailContents[$i]=
 			"Problematisch\n"
@@ -138,9 +138,9 @@
 			$type_dupe="node";
 		}
 		
-		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$dupe['id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($dupe['lon']-0.001)."&right=".($dupe['lon']+0.001)."&top=".($dupe['lat']+0.001)."&bottom=".($dupe['lat']-0.001)."&select=".$type.$dupe['id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$dupe['id']."&editor=potlatch2";
+		$link="OSM: http://www.openstreetmap.org/browse/".$type."/".$dupe['id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($dupe['lon']-0.001)."&right=".($dupe['lon']+0.001)."&top=".($dupe['lat']+0.001)."&bottom=".($dupe['lat']-0.001)."&select=".$type.$dupe['id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$dupe['id']."&editor=potlatch2\niD: http://www.openstreetmap.org/edit?zoom=18&".$type."=".$dupe['id']."&editor=id";
 		
-		$link.="\nOSM: http://www.openstreetmap.org/browse/".$type_dupe."/".$dupe['dupe_id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($dupe['dupe_lon']-0.001)."&right=".($dupe['dupe_lon']+0.001)."&top=".($dupe['dupe_lat']+0.001)."&bottom=".($dupe['dupe_lat']-0.001)."&select=".$type_dupe.$dupe['dupe_id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type_dupe."=".$dupe['dupe_id']."&editor=potlatch2";
+		$link.="\nOSM: http://www.openstreetmap.org/browse/".$type_dupe."/".$dupe['dupe_id']."\nJOSM: http://localhost:8111/load_and_zoom?left=".($dupe['dupe_lon']-0.001)."&right=".($dupe['dupe_lon']+0.001)."&top=".($dupe['dupe_lat']+0.001)."&bottom=".($dupe['dupe_lat']-0.001)."&select=".$type_dupe.$dupe['dupe_id']."\nPotlatch 2: http://www.openstreetmap.org/edit?zoom=18&".$type_dupe."=".$dupe['dupe_id']."&editor=potlatch2\niD: http://www.openstreetmap.org/edit?zoom=18&".$type_dupe."=".$dupe['dupe_id']."&editor=id";
 		
 		echo "i ".$i." skipped ".$skipped." skip ".$skip." subsc+skip-subsc+i "+($subscribers*$skip-$subscribers+$i)." subs*skip-subsk+i+skip ".($subscribers*$skip-$subscribers+$i+$skip)."\n";
 		
