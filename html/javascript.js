@@ -26,6 +26,7 @@ map = new OpenLayers.Map("mapdiv",
 var mapnikMap = new OpenLayers.Layer.OSM.Mapnik("Mapnik",
 {
 	transitionEffect: 'resize',
+	numZoomLevels: 20,
 	attribution: '&copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> contributors, <a href="http://www.openstreetmap.org/copyright" target="_blank">Data ODbl / Map CC-by-sa</a>'
 });
 map.addLayer(mapnikMap);
@@ -37,6 +38,14 @@ var mapquestMap = new OpenLayers.Layer.OSM("MapQuest", "http://otile1.mqcdn.com/
 	attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">, Data &copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> contributors, <a href="http://www.openstreetmap.org/copyright" target="_blank">ODbl</a>'
 });
 map.addLayer(mapquestMap);
+
+var stamenTonerMap = new OpenLayers.Layer.OSM("Stamen Toner", "http://a.tile.stamen.com/toner/${z}/${x}/${y}.png", 
+{
+	transitionEffect: 'resize',
+	numZoomLevels: 19,
+	attribution: 'Map tiles by <a href="http://stamen.com" target="_blank">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0" target="_blank">CC BY 3.0</a>, Data &copy;&nbsp;<a href="http://osm.org" target="_blank">OpenStreetMap</a> contributors, <a href="http://www.openstreetmap.org/copyright" target="_blank">ODbl</a>'
+});
+map.addLayer(stamenTonerMap);
 
 var dupes_near = new OpenLayers.Layer.Vector("Duplikate (Sehr Nah)", {
 	projection: map.displayProjection,
