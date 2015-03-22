@@ -2,7 +2,7 @@
 	//! @returns a link to a osm user page
 	//! @param uid: osm user name
 	function generateUserLink($uid) {
-		return "<a src=\"_blank\" href=\"http://openstreetmap.org/user/$uid/\">$uid</a>";
+		return "<a target=\"_blank\" href=\"http://openstreetmap.org/user/$uid/\">$uid</a>";
 	}
 	
 	//! @returns a comma seperated list of links to osm objects
@@ -21,7 +21,7 @@
 			$type=($object[0]==0?"node":"way");
 			$id=$object[1];
 			
-			$links.="<a src=\"_blank\" href=\"http://openstreetmap.org/browse/$type/$id\">$type $id</a>, ";
+			$links.="<a target=\"_blank\" href=\"http://openstreetmap.org/browse/$type/$id\">$type $id</a>, ";
 		}
 		
 		return substr($links,0,-2).$append;
